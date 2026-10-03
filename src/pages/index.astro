@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Logo from '../components/Logo.astro';
+import HeroBonsai from '../components/HeroBonsai.astro';
 import IndicatorCard from '../components/IndicatorCard.astro';
 import SectionLabel from '../components/SectionLabel.astro';
 import ExternalLink from '../components/ExternalLink.astro';
@@ -23,13 +23,13 @@ import { indicators, TV_PROFILE } from '../data/indicators';
         <ExternalLink href={TV_PROFILE} class="rounded border border-usu/80 px-5 py-3 hover:border-sumi">Follow on TradingView</ExternalLink>
       </div>
     </div>
-    <div class="relative h-40 sm:h-72" aria-hidden="true">
-      <div class="absolute inset-x-[8%] bottom-0 space-y-2">
+    <div class="relative h-52 sm:h-[310px]">
+      <div class="absolute inset-x-[8%] bottom-0 space-y-2" aria-hidden="true">
         <div class="h-px bg-ishi/50"></div>
         <div class="h-px bg-line ml-[10%]"></div>
         <div class="h-px bg-line ml-[22%]"></div>
       </div>
-      <Logo class="absolute left-1/2 -translate-x-1/2 -bottom-4 sm:-bottom-6 size-40 sm:size-64" />
+      <HeroBonsai class="absolute left-1/2 -translate-x-1/2 -bottom-5 sm:-bottom-8 size-56 sm:size-[340px]" />
     </div>
   </section>
 
