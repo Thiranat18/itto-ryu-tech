@@ -72,12 +72,12 @@ const nav = [
     <header class="border-b border-line">
       <div class="mx-auto max-w-5xl px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
         <a href="/" aria-label="Itto-Ryu Tech home" class="no-underline"><Lockup /></a>
-        <nav class="flex items-center text-sm">
+        <nav class="flex items-center gap-2 text-sm">
           {nav.map((item) => (
             <a
               href={item.href}
               aria-current={path.startsWith(item.href) ? 'page' : undefined}
-              class="px-3 py-2 rounded text-usu hover:text-sumi aria-[current=page]:text-sumi aria-[current=page]:underline decoration-koke underline-offset-[6px]"
+              class="px-3.5 py-1.5 rounded-full border border-line text-usu hover:border-ishi hover:text-sumi aria-[current=page]:bg-kinu aria-[current=page]:text-sumi"
             >
               {item.label}
             </a>
