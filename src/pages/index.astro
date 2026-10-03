@@ -1,76 +1,133 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import LessonCard from '../components/LessonCard.astro';
+import SectionLabel from '../components/SectionLabel.astro';
 import { lessons } from '../data/lessons';
 
 const principles = [
   {
+    num: '壱',
     kanji: '型',
     name: 'ระบบ',
     text: 'ทุกการตัดสินใจมีกติกาที่เขียนลงไปได้ ถ้าอธิบายเป็นกติกาไม่ได้ ก็ทดสอบไม่ได้',
   },
   {
+    num: '弐',
     kanji: '律',
     name: 'วินัย',
     text: 'วางแผนก่อนเข้า รู้จุดตัดขาดทุนก่อนกดส่งคำสั่ง และทำตามแผนแม้ไม่อยากทำ',
   },
   {
+    num: '参',
     kanji: '証',
     name: 'หลักฐาน',
     text: 'เชื่อสัญญาณเมื่อข้อมูลยืนยัน และเปิดผลที่ไม่ผ่านให้ดูด้วยเสมอ',
   },
 ];
+
+const steps = [
+  { ja: '理', text: 'แนวคิดสั้น ๆ อ่านจบในราว 3 นาที' },
+  { ja: '図', text: 'กราฟ interactive แสดงสัญญาณ' },
+  { ja: '試', text: 'Quiz "เข้าหรือไม่เข้า?" จากกราฟที่ซ่อนชื่อและวันที่' },
+  { ja: '剣', text: 'ลิงก์ไป indicator ตัวจริงบน TradingView' },
+];
 ---
 
 <Layout>
-  <section class="mx-auto max-w-5xl px-4 sm:px-6 pt-16 sm:pt-24 pb-16">
-    <p class="text-shu text-sm font-medium tracking-widest">一刀流 · ITTO-RYU</p>
-    <h1 class="mt-4 font-serif text-4xl sm:text-6xl font-bold leading-tight">
-      ฝึกเทรด<br class="sm:hidden" />อย่างนักดาบ
-    </h1>
-    <p class="mt-6 max-w-2xl text-lg text-muted leading-relaxed">
-      สำนักฝึกเทรดแบบ open-source เรียนผ่าน indicator ของ Itto-ryu บน TradingView
-      ดูกราฟจริง ตอบคำถาม "เข้าหรือไม่เข้า?" และเห็นทั้งผลทดสอบที่ผ่านและที่ไม่ผ่าน
-    </p>
-    <div class="mt-8 flex flex-wrap gap-3">
-      <a href="/lessons" class="rounded-md bg-shu px-5 py-3 font-medium text-ink hover:brightness-110">ดูหลักสูตร</a>
-      <a href="/about" class="rounded-md border border-line px-5 py-3 hover:bg-ink-2">ทำไมต้องสำนักนี้</a>
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-line">
+    <div aria-hidden="true" class="absolute inset-0 bg-[radial-gradient(ellipse_at_75%_45%,rgba(214,69,47,0.16),transparent_55%)]"></div>
+
+    <!-- brush ensō -->
+    <svg aria-hidden="true" viewBox="0 0 200 200" class="absolute -right-48 top-1/2 -translate-y-1/2 w-[30rem] opacity-40 sm:w-[38rem] sm:opacity-70 sm:-right-24 lg:-right-4">
+      <defs>
+        <filter id="brush" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7" />
+          <feDisplacementMap in="SourceGraphic" scale="7" />
+        </filter>
+      </defs>
+      <path
+        class="anim-draw"
+        pathLength="1"
+        d="M 112 22 A 78 78 0 1 1 70 28"
+        fill="none"
+        stroke="#d6452f"
+        stroke-width="9"
+        stroke-linecap="round"
+        filter="url(#brush)"
+      />
+    </svg>
+
+    <!-- vertical school name -->
+    <div aria-hidden="true" class="vertical absolute right-4 sm:right-16 top-10 font-brush text-7xl sm:text-9xl text-paper/[0.07] select-none">一刀流</div>
+
+    <!-- katana slash -->
+    <div aria-hidden="true" class="anim-slash absolute left-[-10%] top-[62%] h-[2px] w-[130%] bg-gradient-to-r from-transparent via-paper/80 to-shu/0 shadow-[0_0_18px_rgba(236,230,218,0.5)]"></div>
+
+    <div class="relative mx-auto max-w-5xl px-4 sm:px-6 py-24 sm:py-36">
+      <p class="anim-rise text-shu text-sm font-medium tracking-[0.35em]" style="animation-delay:.1s">一刀流 · ITTO-RYU TECH DOJO</p>
+      <h1 class="anim-rise mt-5 font-serif text-5xl sm:text-7xl font-bold leading-[1.15]" style="animation-delay:.25s">
+        ฝึกเทรด<br />อย่างนักดาบ
+      </h1>
+      <p class="anim-rise mt-7 max-w-xl text-lg text-paper/75 leading-relaxed" style="animation-delay:.4s">
+        สำนักฝึกเทรดแบบ open-source เรียนผ่าน indicator ของ Itto-ryu บน TradingView
+        ดูกราฟจริง ตอบคำถาม "เข้าหรือไม่เข้า?" และเห็นทั้งผลทดสอบที่ผ่านและที่ไม่ผ่าน
+      </p>
+      <div class="anim-rise mt-10 flex flex-wrap gap-3" style="animation-delay:.55s">
+        <a href="/lessons" class="rounded-sm bg-shu px-6 py-3 font-medium text-ink shadow-[0_8px_30px_-8px_rgba(214,69,47,0.7)] hover:brightness-110">เข้าสำนัก · ดูหลักสูตร</a>
+        <a href="/about" class="rounded-sm border border-paper/20 px-6 py-3 hover:border-paper/50">ทำไมต้องสำนักนี้</a>
+      </div>
     </div>
   </section>
 
-  <section class="mx-auto max-w-5xl px-4 sm:px-6 py-12 border-t border-line">
-    <h2 class="font-serif text-2xl font-semibold">หลักสามข้อของสำนัก</h2>
-    <div class="mt-8 grid gap-6 sm:grid-cols-3">
+  <!-- Principles -->
+  <section class="mx-auto max-w-5xl px-4 sm:px-6 py-20">
+    <SectionLabel ja="道場訓" title="หลักสามข้อของสำนัก" />
+    <div class="mt-12 grid gap-px bg-line sm:grid-cols-3 border border-line">
       {principles.map((p) => (
-        <div>
-          <div class="font-serif text-4xl text-shu">{p.kanji}</div>
-          <h3 class="mt-2 text-lg font-semibold">{p.name}</h3>
-          <p class="mt-1 text-sm text-muted leading-relaxed">{p.text}</p>
+        <div class="relative bg-ink p-7">
+          <span class="absolute right-5 top-5 text-xs text-muted font-brush tracking-widest">{p.num}</span>
+          <div class="font-brush text-6xl text-shu leading-none">{p.kanji}</div>
+          <h3 class="mt-5 text-xl font-semibold">{p.name}</h3>
+          <p class="mt-2 text-sm text-muted leading-relaxed">{p.text}</p>
         </div>
       ))}
     </div>
   </section>
 
-  <section class="mx-auto max-w-5xl px-4 sm:px-6 py-12 border-t border-line">
-    <div class="flex items-end justify-between gap-4">
-      <div>
-        <h2 class="font-serif text-2xl font-semibold">เส้นทาง Kyu → Dan</h2>
-        <p class="mt-1 text-sm text-muted">ผ่านครบสี่บทเพื่อรับสายดำขั้นแรก (Shodan)</p>
+  <!-- Curriculum -->
+  <section class="relative border-y border-line bg-ink-2/40">
+    <div aria-hidden="true" class="vertical absolute left-2 sm:left-6 top-16 font-brush text-5xl text-paper/[0.05] select-none hidden md:block">修行之道</div>
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 py-20">
+      <div class="flex items-end justify-between gap-4">
+        <div class="flex-1">
+          <SectionLabel ja="修行" title="เส้นทาง Kyu → Dan" subtitle="ผ่านครบสี่บทเพื่อรับสายดำขั้นแรก 初段 (Shodan)" />
+        </div>
+        <a href="/lessons" class="text-sm text-muted underline hover:text-paper shrink-0 pb-1">ทั้งหมด</a>
       </div>
-      <a href="/lessons" class="text-sm text-muted underline hover:text-paper shrink-0">ทั้งหมด</a>
-    </div>
-    <div class="mt-8 grid gap-4 sm:grid-cols-2">
-      {lessons.map((lesson, i) => <LessonCard lesson={lesson} index={i} />)}
+      <div class="mt-12 grid gap-4 sm:grid-cols-2">
+        {lessons.map((lesson, i) => <LessonCard lesson={lesson} index={i} />)}
+      </div>
+      <div class="mt-6 flex items-center gap-4 rounded-sm border border-gold/30 bg-ink px-6 py-4">
+        <span class="font-brush text-3xl text-gold">初段</span>
+        <span class="text-sm text-muted">Shodan: ผ่านครบสี่บท แล้วนำระบบไปเทรดจริงด้วยแผนของตัวเอง</span>
+      </div>
     </div>
   </section>
 
-  <section class="mx-auto max-w-5xl px-4 sm:px-6 py-12 border-t border-line">
-    <h2 class="font-serif text-2xl font-semibold">ทุกบทเรียนมีอะไร</h2>
-    <ol class="mt-6 grid gap-4 sm:grid-cols-4 text-sm">
-      <li class="rounded-lg border border-line p-4"><span class="text-shu font-semibold">1.</span> แนวคิดสั้น ๆ อ่านจบในราว 3 นาที</li>
-      <li class="rounded-lg border border-line p-4"><span class="text-shu font-semibold">2.</span> กราฟ interactive แสดงสัญญาณ</li>
-      <li class="rounded-lg border border-line p-4"><span class="text-shu font-semibold">3.</span> Quiz "เข้าหรือไม่เข้า?" จากกราฟที่ซ่อนชื่อและวันที่</li>
-      <li class="rounded-lg border border-line p-4"><span class="text-shu font-semibold">4.</span> ลิงก์ไป indicator ตัวจริงบน TradingView</li>
+  <!-- Lesson anatomy -->
+  <section class="mx-auto max-w-5xl px-4 sm:px-6 py-20">
+    <SectionLabel ja="稽古" title="ทุกบทเรียนมีอะไร" />
+    <ol class="mt-12 grid gap-8 sm:grid-cols-4">
+      {steps.map((s, i) => (
+        <li class="border-t border-shu/60 pt-5">
+          <div class="flex items-baseline gap-3">
+            <span class="font-brush text-4xl text-paper/90">{s.ja}</span>
+            <span class="text-xs text-muted">0{i + 1}</span>
+          </div>
+          <p class="mt-3 text-sm text-muted leading-relaxed">{s.text}</p>
+        </li>
+      ))}
     </ol>
   </section>
 </Layout>

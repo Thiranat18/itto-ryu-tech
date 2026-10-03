@@ -1,6 +1,7 @@
 export type Lesson = {
   slug: string;
   rank: string;
+  rankJa: string;
   title: string;
   titleEn: string;
   indicator: string;
@@ -13,6 +14,7 @@ export const lessons: Lesson[] = [
   {
     slug: 'trend-phase',
     rank: '4 Kyu',
+    rankJa: '四級',
     title: 'อ่านเฟสของเทรนด์',
     titleEn: 'Trend Phase',
     indicator: 'MACD Trend Phase MTF',
@@ -28,6 +30,7 @@ export const lessons: Lesson[] = [
   {
     slug: 'trade-plan',
     rank: '3 Kyu',
+    rankJa: '三級',
     title: 'วางแผนก่อนชักดาบ',
     titleEn: 'Trade Plan',
     indicator: 'Auto Swing Trade Set Up',
@@ -43,6 +46,7 @@ export const lessons: Lesson[] = [
   {
     slug: 'pullback-system',
     rank: '2 Kyu',
+    rankJa: '二級',
     title: 'ระบบรอย่อ',
     titleEn: 'Pullback System',
     indicator: 'EMA + Ichimoku (S50)',
@@ -58,6 +62,7 @@ export const lessons: Lesson[] = [
   {
     slug: 'backtest-edge',
     rank: '1 Kyu',
+    rankJa: '一級',
     title: 'Backtest และ Edge',
     titleEn: 'Backtest & Edge',
     indicator: 'กรณีศึกษา v3.1.1',
