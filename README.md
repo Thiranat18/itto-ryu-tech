@@ -1,6 +1,6 @@
 # Itto-ryu Tech
 
-Open-source, rule-based TradingView indicators by Itto-ryu, showcased at **[ittoryutech.com](https://ittoryutech.com)**.
+Free, rule-based TradingView indicators by Itto-ryu, showcased at **[ittoryutech.com](https://ittoryutech.com)**.
 
 > For education only. Nothing here is investment advice.
 

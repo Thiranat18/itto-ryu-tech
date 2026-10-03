@@ -6,24 +6,35 @@ interface Props {
 }
 
 const { indicator } = Astro.props;
-const Tag = indicator.url ? 'a' : 'div';
 ---
 
-<Tag
-  href={indicator.url ?? undefined}
-  target={indicator.url ? '_blank' : undefined}
-  rel={indicator.url ? 'noopener' : undefined}
-  class="group relative flex flex-col overflow-hidden rounded-sm border border-line bg-gradient-to-br from-ink-2 to-ink p-6 transition-colors hover:border-shu/70"
+<a
+  href={indicator.url}
+  target="_blank"
+  rel="noopener"
+  class="group relative flex flex-col overflow-hidden rounded-sm border border-line bg-gradient-to-br from-ink-2 to-ink transition-colors hover:border-shu/70"
 >
-  <span aria-hidden="true" class="absolute -right-3 -bottom-8 font-brush text-9xl text-paper/[0.04] transition-colors group-hover:text-shu/10">{indicator.kanji}</span>
-  <span aria-hidden="true" class="absolute left-0 top-0 h-full w-[3px] bg-shu/60 transition-all group-hover:w-[5px] group-hover:bg-shu"></span>
-  <p class="relative text-xs tracking-[0.2em] uppercase text-gold/90">{indicator.category}</p>
-  <h3 class="relative mt-3 font-serif text-2xl font-semibold transition-colors group-hover:text-shu">{indicator.name}</h3>
-  <p class="relative mt-3 text-sm leading-relaxed text-paper/80 flex-1">{indicator.summary}</p>
-  <div class="relative mt-5 flex flex-wrap items-center gap-2">
-    {indicator.tags.map((t) => <span class="rounded-full border border-line px-2.5 py-0.5 text-xs text-muted">{t}</span>)}
-    <span class="ml-auto text-sm text-muted group-hover:text-paper">
-      {indicator.url ? 'Open on TradingView →' : 'Link coming'}
-    </span>
+  <div class="relative aspect-[16/9] overflow-hidden border-b border-line bg-ink">
+    <img
+      src={indicator.image}
+      alt={`${indicator.name} on a TradingView chart`}
+      loading="lazy"
+      class="h-full w-full object-cover opacity-80 grayscale-[35%] transition duration-500 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-[1.02]"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/10 to-transparent"></div>
+    <span class="absolute left-4 bottom-3 font-brush text-5xl text-shu drop-shadow">{indicator.kanji}</span>
   </div>
-</Tag>
+  <span aria-hidden="true" class="absolute left-0 top-0 h-full w-[3px] bg-shu/60 transition-all group-hover:w-[5px] group-hover:bg-shu"></span>
+  <div class="relative flex flex-1 flex-col p-6">
+    <div class="flex items-center justify-between gap-3 text-xs">
+      <span class="tracking-[0.2em] uppercase text-gold/90">{indicator.category}</span>
+      <span class="rounded-full border border-line px-2 py-0.5 text-muted">{indicator.access}</span>
+    </div>
+    <h3 class="mt-3 font-serif text-2xl font-semibold transition-colors group-hover:text-shu">{indicator.name}</h3>
+    <p class="mt-3 flex-1 text-sm leading-relaxed text-paper/80">{indicator.summary}</p>
+    <div class="mt-5 flex flex-wrap items-center gap-2">
+      {indicator.tags.map((t) => <span class="rounded-full border border-line px-2.5 py-0.5 text-xs text-muted">{t}</span>)}
+      <span class="ml-auto text-sm text-muted group-hover:text-paper">Open on TradingView →</span>
+    </div>
+  </div>
+</a>

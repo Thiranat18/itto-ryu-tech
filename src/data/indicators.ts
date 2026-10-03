@@ -1,80 +1,60 @@
+export const TV_PROFILE = 'https://www.tradingview.com/u/Thiranat/';
+
 export type Indicator = {
   name: string;
   kanji: string;
   category: string;
   summary: string;
   tags: string[];
-  /** Public TradingView script URL; null until confirmed published. */
-  url: string | null;
+  access: 'Open-source' | 'Protected';
+  url: string;
+  image: string;
 };
 
-// DRAFT: candidates from the saved-script list. Confirm which are public and add their URLs.
+// Only scripts that are published publicly on TradingView.
 export const indicators: Indicator[] = [
-  {
-    name: 'Trade Navigator',
-    kanji: '導',
-    category: 'Trade planning',
-    summary:
-      'Chop filter, multi-timeframe bias and a full trade plan (zones, stop, targets) in one dashboard, with a MACD timing row.',
-    tags: ['Multi-timeframe', 'Dashboard', 'Trade plan'],
-    url: null,
-  },
   {
     name: 'MACD Trend Phase MTF',
     kanji: '相',
     category: 'Trend',
     summary:
-      'Reads the trend phase on Daily / 4H / 1H with a PPO state machine, so you know which phase the market is in before you look for entries.',
-    tags: ['Multi-timeframe', 'MACD / PPO'],
-    url: null,
+      'Answers "where are we in the trend lifecycle?" A PPO-normalised MACD across three timeframes gives a phase name, a multi-timeframe dashboard and a weighted consensus verdict.',
+    tags: ['Multi-timeframe', 'PPO', 'Any market'],
+    access: 'Open-source',
+    url: 'https://www.tradingview.com/script/osxqVQak-MACD-Trend-Phase-MTF-by-Itto-Ryu/',
+    image: '/indicators/osxqVQak.jpg',
+  },
+  {
+    name: 'EMA Trend Dash Board',
+    kanji: '流',
+    category: 'Trend',
+    summary:
+      'Classifies the trend into four stages (Accel, Mature, Decel, Reversal) from a 10/20/50/100/200 EMA stack, with a 0–100 bull/bear score and a one-line verdict.',
+    tags: ['EMA', 'Dashboard', 'Trend stage'],
+    access: 'Open-source',
+    url: 'https://www.tradingview.com/script/FvCmBVYO-EMA-Trend-Dash-Board-by-Itto-Ryu/',
+    image: '/indicators/FvCmBVYO.jpg',
   },
   {
     name: 'Auto Swing Trade Set Up',
     kanji: '構',
     category: 'Trade planning',
     summary:
-      'Draws entry, ATR-based stop loss, risk:reward and TP1 / TP2 levels automatically for swing setups.',
-    tags: ['ATR', 'Risk management'],
-    url: null,
-  },
-  {
-    name: 'Swing Reversal Matrix',
-    kanji: '転',
-    category: 'Reversal',
-    summary: 'Multi-timeframe stochastic matrix that flags swing-reversal conditions across timeframes at a glance.',
-    tags: ['Multi-timeframe', 'Stochastic'],
-    url: null,
-  },
-  {
-    name: 'Chop Zone Detector',
-    kanji: '静',
-    category: 'Regime',
-    summary: 'Marks sideways, choppy conditions so trend signals can be skipped when the market has no direction.',
-    tags: ['Regime filter'],
-    url: null,
-  },
-  {
-    name: 'Ichimoku Trend Dashboard',
-    kanji: '雲',
-    category: 'Trend',
-    summary: 'Summarises Ichimoku trend conditions in a compact table instead of reading every line on the chart.',
-    tags: ['Ichimoku', 'Dashboard'],
-    url: null,
-  },
-  {
-    name: 'EMA Trend Dashboard',
-    kanji: '流',
-    category: 'Trend',
-    summary: 'EMA stack and slope status across timeframes in one table.',
-    tags: ['EMA', 'Dashboard'],
-    url: null,
+      'For swing traders who already have a directional bias: draws entry zones, an ATR-based stop loss, TP1 / TP2, thesis-flip levels and the R:R ratio on the chart.',
+    tags: ['ATR', 'Risk management', 'Swing'],
+    access: 'Protected',
+    url: 'https://www.tradingview.com/script/VJLIg6Ir-Auto-Swing-Trade-Set-Up-v1-0-by-Itto-Ryu/',
+    image: '/indicators/VJLIg6Ir.jpg',
   },
   {
     name: 'ESG-TH SET50',
     kanji: '徳',
-    category: 'Fundamentals',
-    summary: 'Shows SET ESG ratings and related sustainability data for SET50 stocks directly on the chart.',
-    tags: ['SET50', 'ESG'],
-    url: null,
+    category: 'Research',
+    summary:
+      "Puts a SET50 stock's published sustainability profile (SET ESG Ratings, Thai IOD, S&P Global, SBTi) in the corner of the chart, for academic and educational use.",
+    tags: ['SET50', 'ESG', 'Thailand'],
+    access: 'Open-source',
+    url: 'https://www.tradingview.com/script/KLsQZB5i-ESG-TH-SET50-Itto-Ryu/',
+    image: '/indicators/KLsQZB5i.jpg',
   },
 ];

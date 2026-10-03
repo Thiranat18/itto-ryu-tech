@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import IndicatorCard from '../components/IndicatorCard.astro';
 import SectionLabel from '../components/SectionLabel.astro';
-import { indicators } from '../data/indicators';
+import { indicators, TV_PROFILE } from '../data/indicators';
 
 const principles = [
   {
@@ -63,12 +63,12 @@ const principles = [
         One sword.<br />Tested rules.
       </h1>
       <p class="anim-rise mt-7 max-w-xl text-lg text-paper/75 leading-relaxed" style="animation-delay:.4s">
-        Open-source TradingView indicators built on written rules, checked against data,
+        Free TradingView indicators built on written rules, checked against data,
         and published with honest results.
       </p>
       <div class="anim-rise mt-10 flex flex-wrap gap-3" style="animation-delay:.55s">
         <a href="#indicators" class="rounded-sm bg-shu px-6 py-3 font-medium text-ink shadow-[0_8px_30px_-8px_rgba(214,69,47,0.7)] hover:brightness-110">Browse indicators</a>
-        <a href="/about" class="rounded-sm border border-paper/20 px-6 py-3 hover:border-paper/50">About Itto-ryu</a>
+        <a href={TV_PROFILE} target="_blank" rel="noopener" class="rounded-sm border border-paper/20 px-6 py-3 hover:border-paper/50">TradingView profile ↗</a>
       </div>
     </div>
   </section>
@@ -77,10 +77,14 @@ const principles = [
   <section id="indicators" class="relative scroll-mt-16">
     <div aria-hidden="true" class="vertical absolute left-2 sm:left-6 top-16 font-brush text-5xl text-paper/[0.05] select-none hidden md:block">武器庫</div>
     <div class="mx-auto max-w-5xl px-4 sm:px-6 py-20">
-      <SectionLabel ja="武器" title="Indicators" subtitle="Free and open-source on TradingView. Add them to your chart and read the code." />
+      <SectionLabel ja="武器" title="Indicators" subtitle="Free on TradingView. Open-source ones let you read every line of the Pine Script." />
       <div class="mt-12 grid gap-4 sm:grid-cols-2">
         {indicators.map((indicator) => <IndicatorCard indicator={indicator} />)}
       </div>
+      <p class="mt-8 text-sm text-muted">
+        More are in testing. New releases appear first on the
+        <a href={TV_PROFILE} target="_blank" rel="noopener" class="underline hover:text-paper">TradingView profile</a>.
+      </p>
     </div>
   </section>
 
