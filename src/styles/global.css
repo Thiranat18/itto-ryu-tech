@@ -11,9 +11,8 @@
   --color-ishi: #b8ae9c;
   --color-line: #e4ded2;
   --color-shu: #c2452d;
-  --font-sans: "IBM Plex Sans", "IBM Plex Sans Thai Looped", system-ui, sans-serif;
-  --font-serif: "Shippori Mincho", "IBM Plex Sans Thai Looped", Georgia, serif;
-  --font-thai: "IBM Plex Sans Thai Looped", "IBM Plex Sans", sans-serif;
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-serif: "Shippori Mincho", Georgia, serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 }
 
@@ -31,11 +30,6 @@
 
   [lang="ja"] {
     font-family: "Shippori Mincho", serif;
-  }
-
-  [lang="th"] {
-    font-family: var(--font-thai);
-    line-height: 1.75;
   }
 
   a {
