@@ -1,0 +1,39 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { lessons } from '../../data/lessons';
+
+export function getStaticPaths() {
+  return lessons.map((lesson, index) => ({ params: { slug: lesson.slug }, props: { lesson, index } }));
+}
+
+const { lesson, index } = Astro.props;
+const prev = lessons[index - 1];
+const next = lessons[index + 1];
+---
+
+<Layout title={lesson.title} description={lesson.summary}>
+  <article class="mx-auto max-w-3xl px-4 sm:px-6 pt-14">
+    <a href="/lessons" class="text-sm text-muted underline hover:text-paper">← หลักสูตร</a>
+    <p class="mt-6 text-sm text-shu font-medium">บทที่ {index + 1} · {lesson.rank}</p>
+    <h1 class="mt-2 font-serif text-4xl font-bold">{lesson.title}</h1>
+    <p class="mt-1 text-muted">{lesson.titleEn} · {lesson.indicator}</p>
+    <p class="mt-6 text-lg leading-relaxed">{lesson.summary}</p>
+
+    <h2 class="mt-10 font-serif text-xl font-semibold">บทนี้จะได้เรียน</h2>
+    <ul class="mt-4 space-y-2">
+      {lesson.learn.map((item) => (
+        <li class="flex gap-3"><span class="text-shu">—</span><span>{item}</span></li>
+      ))}
+    </ul>
+
+    <div class="mt-10 rounded-lg border border-dashed border-line p-6 text-center text-muted">
+      <p class="font-medium text-paper">บทเรียนนี้กำลังเขียน</p>
+      <p class="mt-1 text-sm">กราฟ interactive และ quiz จะตามมา ติดตามความคืบหน้าได้ที่ GitHub</p>
+    </div>
+
+    <nav class="mt-12 flex justify-between gap-4 text-sm">
+      {prev ? <a href={`/lessons/${prev.slug}`} class="text-muted underline hover:text-paper">← {prev.title}</a> : <span />}
+      {next && <a href={`/lessons/${next.slug}`} class="text-muted underline hover:text-paper text-right">{next.title} →</a>}
+    </nav>
+  </article>
+</Layout>

@@ -1,0 +1,23 @@
+---
+import type { Lesson } from '../data/lessons';
+
+interface Props {
+  lesson: Lesson;
+  index: number;
+}
+
+const { lesson, index } = Astro.props;
+---
+
+<a
+  href={`/lessons/${lesson.slug}`}
+  class="group block rounded-lg border border-line bg-ink-2 p-5 hover:border-shu/60 transition-colors"
+>
+  <div class="flex items-center justify-between text-xs text-muted">
+    <span>บทที่ {index + 1} · {lesson.rank}</span>
+    {lesson.status === 'draft' && <span class="rounded-full border border-line px-2 py-0.5">กำลังเขียน</span>}
+  </div>
+  <h3 class="mt-3 font-serif text-xl font-semibold group-hover:text-shu transition-colors">{lesson.title}</h3>
+  <p class="text-sm text-muted">{lesson.titleEn} · {lesson.indicator}</p>
+  <p class="mt-3 text-sm leading-relaxed">{lesson.summary}</p>
+</a>

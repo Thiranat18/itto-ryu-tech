@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #121110;
+  --color-ink-2: #1c1a18;
+  --color-line: #2e2a26;
+  --color-paper: #ece6da;
+  --color-muted: #a39b8d;
+  --color-shu: #d6452f;
+  --font-sans: "IBM Plex Sans Thai", system-ui, sans-serif;
+  --font-serif: "Noto Serif Thai", Georgia, serif;
+}
+
+html {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-underline-offset: 3px;
+}

@@ -1,0 +1,17 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import LessonCard from '../../components/LessonCard.astro';
+import { lessons } from '../../data/lessons';
+---
+
+<Layout title="หลักสูตร" description="หลักสูตร Itto-ryu Tech Dojo สี่บท จาก Trend Phase ถึง Backtest & Edge">
+  <section class="mx-auto max-w-5xl px-4 sm:px-6 pt-14 pb-8">
+    <h1 class="font-serif text-4xl font-bold">หลักสูตร</h1>
+    <p class="mt-3 max-w-2xl text-muted leading-relaxed">
+      เรียนตามลำดับ แต่ละบทใช้ indicator หนึ่งตัวเป็นสื่อการสอน ตอนนี้ทุกบทยังเป็นฉบับร่าง
+    </p>
+  </section>
+  <section class="mx-auto max-w-5xl px-4 sm:px-6 grid gap-4 sm:grid-cols-2">
+    {lessons.map((lesson, i) => <LessonCard lesson={lesson} index={i} />)}
+  </section>
+</Layout>
