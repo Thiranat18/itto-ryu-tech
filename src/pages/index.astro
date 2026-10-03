@@ -3,33 +3,34 @@ import Layout from '../layouts/Layout.astro';
 import Logo from '../components/Logo.astro';
 import IndicatorCard from '../components/IndicatorCard.astro';
 import SectionLabel from '../components/SectionLabel.astro';
+import ExternalLink from '../components/ExternalLink.astro';
 import { indicators, TV_PROFILE } from '../data/indicators';
 ---
 
 <Layout>
   <!-- Hero -->
-  <section class="mx-auto max-w-5xl px-4 sm:px-6 pt-16 pb-20 sm:pt-24 sm:pb-28 grid gap-12 md:grid-cols-[1.6fr_1fr] md:items-end">
+  <section class="mx-auto max-w-5xl px-4 sm:px-6 pt-16 pb-20 sm:pt-24 sm:pb-28 grid gap-10 lg:grid-cols-[1.6fr_1fr] lg:items-end">
     <div>
-      <p class="text-[11px] tracking-[0.25em] uppercase text-koke font-medium">Open-source indicators for TradingView</p>
-      <h1 class="mt-5 font-serif text-[42px] sm:text-[56px] font-medium leading-[1.12]">
+      <p class="text-[11px] tracking-[0.25em] uppercase text-koke font-medium text-balance">Free indicators for TradingView</p>
+      <h1 class="mt-5 font-serif text-[34px] sm:text-[56px] font-medium leading-[1.12]">
         Grow with patience.<br />Cut with discipline.
       </h1>
       <p lang="th" class="mt-3 text-xl text-koke">เลี้ยงให้โต ตัดให้เป็น</p>
       <p class="mt-6 max-w-md text-lg text-usu leading-relaxed">
-        Pine Script indicators built on written rules. Free to use, open to read.
+        Pine Script indicators built on written rules. Free to use, and most are open to read.
       </p>
       <div class="mt-9 flex flex-wrap gap-3">
         <a href="/tools" class="rounded bg-koke px-5 py-3 text-white hover:bg-matsuba">Browse tools</a>
-        <a href={TV_PROFILE} target="_blank" rel="noopener" class="rounded border border-ishi px-5 py-3 hover:border-sumi">Follow on TradingView</a>
+        <ExternalLink href={TV_PROFILE} class="rounded border border-usu/80 px-5 py-3 hover:border-sumi">Follow on TradingView</ExternalLink>
       </div>
     </div>
-    <div class="relative h-56 sm:h-72" aria-hidden="true">
+    <div class="relative h-40 sm:h-72" aria-hidden="true">
       <div class="absolute inset-x-[8%] bottom-0 space-y-2">
-        <div class="h-px bg-line"></div>
+        <div class="h-px bg-ishi/50"></div>
         <div class="h-px bg-line ml-[10%]"></div>
         <div class="h-px bg-line ml-[22%]"></div>
       </div>
-      <Logo class="absolute left-1/2 -translate-x-1/2 bottom-5 size-52 sm:size-64" />
+      <Logo class="absolute left-1/2 -translate-x-1/2 -bottom-1 size-40 sm:size-64" />
     </div>
   </section>
 
@@ -48,19 +49,25 @@ import { indicators, TV_PROFILE } from '../data/indicators';
 
   <!-- Manifesto -->
   <section class="border-t border-line">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 py-24 grid gap-12 md:grid-cols-[1.1fr_1fr]">
-      <div class="font-serif text-2xl sm:text-[28px] leading-[1.5] space-y-4">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 pt-24">
+      <SectionLabel label="Philosophy · ปรัชญา" />
+    </div>
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 pt-8 grid gap-12 md:grid-cols-[1.1fr_1fr]">
+      <div class="font-serif text-2xl sm:text-[28px] leading-[1.5] space-y-4 text-pretty">
         <p>A bonsai is not made in a day.</p>
         <p>It is grown with patience and shaped by careful cuts.</p>
-        <p>Trading is the same: let what works grow, cut what doesn't, and give it time.</p>
+        <p>Trading is the same: let what works grow, cut what doesn’t, and give it time.</p>
         <p class="text-koke">Wealth is grown, not grabbed.</p>
       </div>
-      <div lang="th" class="text-lg text-usu space-y-3 md:pt-2">
-        <p>บอนไซไม่ได้เกิดในวันเดียว</p>
-        <p>ต้องเลี้ยงด้วยความอดทน และตัดแต่งด้วยความตั้งใจ</p>
-        <p>การเทรดก็เช่นกัน เลี้ยงสิ่งที่ได้ผล ตัดสิ่งที่ไม่ได้ผล แล้วปล่อยให้เวลาทำงาน</p>
+      <div lang="th" class="text-lg text-usu space-y-3 md:pt-2 text-pretty">
+        <p>บอนไซไม่ได้เกิดขึ้นในวันเดียว</p>
+        <p>ต้องเลี้ยงด้วยความอดทน และตัดแต่งอย่างพิถีพิถัน</p>
+        <p>การเทรดก็เช่นกัน เลี้ยงสิ่งที่ได้ผล ตัดสิ่งที่ไม่ได้ผล <span class="whitespace-nowrap">แล้วปล่อยให้เวลาทำงาน</span></p>
         <p class="text-koke">ความมั่งคั่งต้องค่อย ๆ เลี้ยง ไม่ใช่รีบคว้า</p>
       </div>
     </div>
+    <p class="mx-auto max-w-5xl px-4 sm:px-6 pt-10 text-sm text-usu">
+      A way of thinking, not a promise of returns. <span lang="th">เป็นแนวคิด ไม่ใช่คำสัญญาเรื่องผลตอบแทน</span>
+    </p>
   </section>
 </Layout>

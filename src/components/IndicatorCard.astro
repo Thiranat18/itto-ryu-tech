@@ -6,14 +6,16 @@ interface Props {
 }
 
 const { indicator } = Astro.props;
+const titleId = `tool-${indicator.slug}`;
 ---
 
 <a
   href={`/tools/${indicator.slug}`}
-  class="group flex flex-col rounded-md bg-kinu p-6 transition-colors hover:bg-byakuroku/60"
+  aria-labelledby={titleId}
+  class="group flex flex-col rounded-md bg-kinu p-6 transition-colors hover:bg-byakuroku"
 >
   <p class="text-[11px] tracking-[0.2em] uppercase text-usu">{indicator.category}</p>
-  <h3 class="mt-2 font-serif text-xl font-medium">{indicator.name}</h3>
+  <h3 id={titleId} class="mt-2 font-serif text-xl font-medium">{indicator.name}</h3>
   <p class="mt-2 text-sm leading-relaxed text-usu flex-1">{indicator.summary}</p>
-  <span class="mt-5 text-sm text-koke group-hover:text-matsuba">View tool →</span>
+  <span class="mt-5 text-sm text-koke group-hover:text-matsuba group-hover:underline underline-offset-4">View tool <span aria-hidden="true">→</span></span>
 </a>

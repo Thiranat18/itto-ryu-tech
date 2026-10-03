@@ -18,5 +18,6 @@ Stack: [Astro](https://astro.build), Tailwind CSS.
 
 ## License
 
-- Code: [MIT](LICENSE)
-- Site content (text, images): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- Website code: [MIT](LICENSE)
+- Open-source indicators: Mozilla Public License 2.0 (as published on TradingView)
+- Site text: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The logo and chart screenshots are not covered.

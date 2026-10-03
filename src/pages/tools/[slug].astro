@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import ExternalLink from '../../components/ExternalLink.astro';
 import { indicators } from '../../data/indicators';
 
 export function getStaticPaths() {
@@ -9,19 +10,30 @@ export function getStaticPaths() {
 const { indicator } = Astro.props;
 ---
 
-<Layout title={indicator.name} description={indicator.summary}>
+<Layout title={indicator.name} description={indicator.summary} image={indicator.image}>
   <article class="mx-auto max-w-3xl px-4 sm:px-6 pt-14">
-    <a href="/tools" class="text-sm text-usu hover:text-sumi">← All tools</a>
+    <a href="/tools" class="text-sm text-usu hover:text-sumi"><span aria-hidden="true">←</span> All tools</a>
     <p class="mt-8 text-[11px] tracking-[0.2em] uppercase text-usu">{indicator.category} · {indicator.access}</p>
-    <h1 class="mt-2 font-serif text-4xl sm:text-5xl font-medium leading-tight">{indicator.name}</h1>
+    <h1 class="mt-3 font-serif text-4xl sm:text-5xl font-medium leading-tight">{indicator.name}</h1>
     <p class="mt-4 text-lg text-usu leading-relaxed">{indicator.summary}</p>
+    <p class="mt-2 text-sm text-usu">Listed on TradingView as “{indicator.tvTitle}”.</p>
 
-    <img
-      src={indicator.image}
-      alt={`${indicator.name} on a TradingView chart`}
-      class="mt-10 w-full rounded-md border border-line"
-      loading="lazy"
-    />
+    <figure class="mt-10">
+      <img
+        src={indicator.image}
+        width={indicator.imageWidth}
+        height={indicator.imageHeight}
+        alt={`${indicator.name} readings on an example TradingView chart (illustrative only)`}
+        class="w-full h-auto rounded-md border border-line"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <figcaption class="mt-2 text-xs text-usu leading-relaxed">
+        Illustrative chart. It shows how the tool displays its readings, not a trade idea or recommendation.
+        <span lang="th">ภาพตัวอย่างเพื่ออธิบายการแสดงผลเท่านั้น ไม่ใช่คำแนะนำการซื้อขาย</span>
+      </figcaption>
+    </figure>
 
     <div class="mt-10 grid gap-8 sm:grid-cols-2">
       <section>
@@ -35,7 +47,7 @@ const { indicator } = Astro.props;
     </div>
 
     <div class="mt-10 flex flex-wrap items-center gap-4">
-      <a href={indicator.url} target="_blank" rel="noopener" class="rounded bg-koke px-5 py-3 text-white hover:bg-matsuba">Open on TradingView</a>
+      <ExternalLink href={indicator.url} class="rounded bg-koke px-5 py-3 text-white hover:bg-matsuba">Open on TradingView</ExternalLink>
       <p class="text-sm text-usu">
         {indicator.access === 'Open-source'
           ? 'Free to use. The source code is on the script page.'

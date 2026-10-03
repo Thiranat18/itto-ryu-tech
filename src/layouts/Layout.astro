@@ -5,10 +5,17 @@ import Lockup from '../components/Lockup.astro';
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
 }
 
 const site = 'Itto-Ryu Tech';
-const { title, description = 'Open-source Pine Script indicators for TradingView. Grow with patience. Cut with discipline.' } = Astro.props;
+const {
+  title,
+  description = 'Free Pine Script indicators for TradingView, most of them open-source. Grow with patience. Cut with discipline.',
+  image = '/og.png',
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
 const pageTitle = title ? `${title} · ${site}` : site;
 const path = Astro.url.pathname;
 
@@ -26,13 +33,20 @@ const nav = [
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Itto-Ryu Tech" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#FAF8F3" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Sans+Thai+Looped:wght@400;500&family=Shippori+Mincho:wght@500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Sans+Thai+Looped:wght@400&family=Shippori+Mincho:wght@500;600&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -44,10 +58,8 @@ const nav = [
           {nav.map((item) => (
             <a
               href={item.href}
-              class:list={[
-                'px-3 py-2 rounded hover:text-sumi',
-                path.startsWith(item.href) ? 'text-sumi' : 'text-usu',
-              ]}
+              aria-current={path.startsWith(item.href) ? 'page' : undefined}
+              class="px-3 py-2 rounded text-usu hover:text-sumi aria-[current=page]:text-sumi aria-[current=page]:underline decoration-koke underline-offset-[6px]"
             >
               {item.label}
             </a>
@@ -71,8 +83,8 @@ const nav = [
             For education only. Not investment advice.{' '}
             <a href="/disclaimer" class="underline hover:text-sumi">Disclaimer</a>
           </p>
-          <p>Not affiliated with or endorsed by TradingView, or with any Ittō-ryū school of swordsmanship.</p>
-          <p>Code MIT · Content CC BY 4.0</p>
+          <p>Not affiliated with or endorsed by TradingView. Not affiliated with any Ittō-ryū school of swordsmanship.</p>
+          <p>Website code MIT · Open-source indicators MPL 2.0 · Text CC BY 4.0 (logo and chart images excluded)</p>
         </div>
       </div>
     </footer>
