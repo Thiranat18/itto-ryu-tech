@@ -1,6 +1,6 @@
 # Itto-Ryu Tech
 
-Open-source Pine Script indicators by Itto-Ryu Tech, shown at **[ittoryutech.com](https://ittoryutech.com)**.
+Open-source Pine Script indicators by Itto-Ryu Tech, shown at **[ittoryutech.com](https://www.ittoryutech.com)**.
 
 > For education only. Nothing here is investment advice.
 
