@@ -8,9 +8,9 @@
   --color-muted: #9d9486;
   --color-shu: #d6452f;
   --color-gold: #b89b5e;
-  --font-sans: "IBM Plex Sans Thai", system-ui, sans-serif;
-  --font-serif: "Noto Serif Thai", Georgia, serif;
-  --font-brush: "Yuji Syuku", "Noto Serif Thai", serif;
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-serif: "Shippori Mincho", Georgia, serif;
+  --font-brush: "Yuji Syuku", "Shippori Mincho", serif;
 }
 
 html {
