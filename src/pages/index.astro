@@ -5,6 +5,12 @@ import IndicatorCard from '../components/IndicatorCard.astro';
 import SectionLabel from '../components/SectionLabel.astro';
 import ExternalLink from '../components/ExternalLink.astro';
 import { indicators, TV_PROFILE } from '../data/indicators';
+
+const words = [
+  { kanji: '育', romaji: 'sodateru', line: 'Nothing grows by being pulled.' },
+  { kanji: '切', romaji: 'kiru', line: 'The cut that keeps the tree.' },
+  { kanji: '待', romaji: 'matsu', line: 'Stillness is part of the work.' },
+];
 ---
 
 <Layout>
@@ -32,6 +38,17 @@ import { indicators, TV_PROFILE } from '../data/indicators';
       <HeroBonsai class="absolute left-1/2 -translate-x-1/2 -bottom-5 sm:-bottom-8 size-56 sm:size-[340px]" />
     </div>
   </section>
+
+  <!-- Three words -->
+  <dl class="mx-auto w-fit sm:w-auto max-w-5xl px-4 sm:px-6 pb-20 sm:pb-24 grid gap-5 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-line">
+    {words.map((w) => (
+      <div class="grid grid-cols-[auto_1fr] items-center gap-x-4 sm:block sm:px-6 sm:text-center">
+        <dt class="row-span-2 grid size-11 sm:size-12 sm:mx-auto place-items-center rounded-full bg-koke font-serif text-xl sm:text-2xl font-semibold text-washi" lang="ja">{w.kanji}</dt>
+        <dd class="sm:mt-4 text-[11px] font-medium uppercase tracking-[0.22em] text-koke">{w.romaji}</dd>
+        <dd class="sm:mt-2 font-serif text-[17px] sm:text-lg leading-snug sm:text-balance">{w.line}</dd>
+      </div>
+    ))}
+  </dl>
 
   <!-- Tools -->
   <section class="border-t border-line">
