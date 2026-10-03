@@ -1,0 +1,33 @@
+---
+// Niwa mark: a bonsai in three layers. `small` is the two-pad version for 32px and below.
+interface Props {
+  small?: boolean;
+  class?: string;
+  pad?: string;
+  ink?: string;
+}
+
+const { small = false, class: className = '', pad = '#5F6B4E', ink = '#2B2A26' } = Astro.props;
+
+const dome = (cx: number, yb: number, w: number, h: number) =>
+  `M${cx - w / 2} ${yb} A ${w / 2} ${h} 0 0 1 ${cx + w / 2} ${yb} Z`;
+---
+
+<svg viewBox="0 0 100 100" class={className} aria-hidden="true">
+  {small ? (
+    <>
+      <path d="M40 84 C 45 74, 38 64, 47 54 C 53 47, 57 42, 57 33 L 66 35 C 66 45, 62 52, 56 58 C 50 65, 56 74, 60 84 Z" fill={ink} />
+      <path d={dome(37, 64, 58, 18)} fill={pad} />
+      <path d={dome(61, 40, 44, 16)} fill={pad} />
+      <path d="M27 84 H73 L69 94 H31 Z" fill={ink} />
+    </>
+  ) : (
+    <>
+      <path d="M43 84 C 46 81, 47 77, 46 72 C 45 66, 41 61, 44 55 C 47 49, 54 47, 55 41 C 56 37, 54 33, 52 30 L 57 29 C 60 33, 61 38, 60 43 C 58 50, 52 53, 51 58 C 50 63, 54 68, 55 74 C 56 79, 57 82, 59 84 Z" fill={ink} />
+      <path d={dome(36, 66, 46, 12)} fill={pad} />
+      <path d={dome(64, 50, 34, 11)} fill={pad} />
+      <path d={dome(53, 33, 24, 10)} fill={pad} />
+      <path d="M33 84 H67 L64 91 H36 Z" fill={ink} />
+    </>
+  )}
+</svg>

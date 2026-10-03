@@ -1,6 +1,6 @@
-# Itto-ryu Tech
+# Itto-Ryu Tech
 
-Free, rule-based TradingView indicators by Itto-ryu, showcased at **[ittoryutech.com](https://ittoryutech.com)**.
+Open-source Pine Script indicators by Itto-Ryu Tech, shown at **[ittoryutech.com](https://ittoryutech.com)**.
 
 > For education only. Nothing here is investment advice.
 

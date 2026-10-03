@@ -1,106 +1,65 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Logo from '../components/Logo.astro';
 import IndicatorCard from '../components/IndicatorCard.astro';
 import SectionLabel from '../components/SectionLabel.astro';
 import { indicators, TV_PROFILE } from '../data/indicators';
-
-const principles = [
-  {
-    num: '壱',
-    kanji: '型',
-    name: 'Rules',
-    text: 'Every decision is a rule you can write down. If it cannot be written as a rule, it cannot be tested.',
-  },
-  {
-    num: '弐',
-    kanji: '律',
-    name: 'Discipline',
-    text: 'Plan before you enter. Know your stop before you send the order, and follow the plan even when you would rather not.',
-  },
-  {
-    num: '参',
-    kanji: '証',
-    name: 'Evidence',
-    text: 'Trust a signal only when the data supports it, and always publish the results that failed too.',
-  },
-];
 ---
 
 <Layout>
   <!-- Hero -->
-  <section class="relative overflow-hidden border-b border-line">
-    <div aria-hidden="true" class="absolute inset-0 bg-[radial-gradient(ellipse_at_75%_45%,rgba(214,69,47,0.16),transparent_55%)]"></div>
-
-    <!-- brush ensō -->
-    <svg aria-hidden="true" viewBox="0 0 200 200" class="absolute -right-48 top-1/2 -translate-y-1/2 w-[30rem] opacity-40 sm:w-[38rem] sm:opacity-70 sm:-right-24 lg:-right-4">
-      <defs>
-        <filter id="brush" x="-20%" y="-20%" width="140%" height="140%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7" />
-          <feDisplacementMap in="SourceGraphic" scale="7" />
-        </filter>
-      </defs>
-      <path
-        class="anim-draw"
-        pathLength="1"
-        d="M 112 22 A 78 78 0 1 1 70 28"
-        fill="none"
-        stroke="#d6452f"
-        stroke-width="9"
-        stroke-linecap="round"
-        filter="url(#brush)"
-      />
-    </svg>
-
-    <!-- vertical school name -->
-    <div aria-hidden="true" class="vertical absolute right-4 sm:right-16 top-10 font-brush text-7xl sm:text-9xl text-paper/[0.07] select-none">一刀流</div>
-
-    <!-- katana slash -->
-    <div aria-hidden="true" class="anim-slash absolute left-[-10%] top-[62%] h-[2px] w-[130%] bg-gradient-to-r from-transparent via-paper/80 to-shu/0 shadow-[0_0_18px_rgba(236,230,218,0.5)]"></div>
-
-    <div class="relative mx-auto max-w-5xl px-4 sm:px-6 py-24 sm:py-36">
-      <p class="anim-rise text-shu text-sm font-medium tracking-[0.35em]" style="animation-delay:.1s">一刀流 · ITTO-RYU TECH</p>
-      <h1 class="anim-rise mt-5 font-serif text-5xl sm:text-7xl font-bold leading-[1.1]" style="animation-delay:.25s">
-        One sword.<br />Tested rules.
+  <section class="mx-auto max-w-5xl px-4 sm:px-6 pt-16 pb-20 sm:pt-24 sm:pb-28 grid gap-12 md:grid-cols-[1.6fr_1fr] md:items-end">
+    <div>
+      <p class="text-[11px] tracking-[0.25em] uppercase text-koke font-medium">Open-source indicators for TradingView</p>
+      <h1 class="mt-5 font-serif text-[42px] sm:text-[56px] font-medium leading-[1.12]">
+        Grow with patience.<br />Cut with discipline.
       </h1>
-      <p class="anim-rise mt-7 max-w-xl text-lg text-paper/75 leading-relaxed" style="animation-delay:.4s">
-        Free TradingView indicators built on written rules, checked against data,
-        and published with honest results.
+      <p lang="th" class="mt-3 text-xl text-koke">เลี้ยงให้โต ตัดให้เป็น</p>
+      <p class="mt-6 max-w-md text-lg text-usu leading-relaxed">
+        Pine Script indicators built on written rules. Free to use, open to read.
       </p>
-      <div class="anim-rise mt-10 flex flex-wrap gap-3" style="animation-delay:.55s">
-        <a href="#indicators" class="rounded-sm bg-shu px-6 py-3 font-medium text-ink shadow-[0_8px_30px_-8px_rgba(214,69,47,0.7)] hover:brightness-110">Browse indicators</a>
-        <a href={TV_PROFILE} target="_blank" rel="noopener" class="rounded-sm border border-paper/20 px-6 py-3 hover:border-paper/50">TradingView profile ↗</a>
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a href="/tools" class="rounded bg-koke px-5 py-3 text-white hover:bg-matsuba">Browse tools</a>
+        <a href={TV_PROFILE} target="_blank" rel="noopener" class="rounded border border-ishi px-5 py-3 hover:border-sumi">Follow on TradingView</a>
       </div>
+    </div>
+    <div class="relative h-56 sm:h-72" aria-hidden="true">
+      <div class="absolute inset-x-[8%] bottom-0 space-y-2">
+        <div class="h-px bg-line"></div>
+        <div class="h-px bg-line ml-[10%]"></div>
+        <div class="h-px bg-line ml-[22%]"></div>
+      </div>
+      <Logo class="absolute left-1/2 -translate-x-1/2 bottom-5 size-52 sm:size-64" />
     </div>
   </section>
 
-  <!-- Indicators -->
-  <section id="indicators" class="relative scroll-mt-16">
-    <div aria-hidden="true" class="vertical absolute left-2 sm:left-6 top-16 font-brush text-5xl text-paper/[0.05] select-none hidden md:block">武器庫</div>
+  <!-- Tools -->
+  <section class="border-t border-line">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 py-20">
-      <SectionLabel ja="武器" title="Indicators" subtitle="Free on TradingView. Open-source ones let you read every line of the Pine Script." />
-      <div class="mt-12 grid gap-4 sm:grid-cols-2">
+      <div class="flex items-end justify-between gap-4">
+        <SectionLabel label="Tools" title="Indicators" />
+        <p class="text-sm text-usu pb-1">{indicators.length} public tools</p>
+      </div>
+      <div class="mt-10 grid gap-4 sm:grid-cols-2">
         {indicators.map((indicator) => <IndicatorCard indicator={indicator} />)}
       </div>
-      <p class="mt-8 text-sm text-muted">
-        More are in testing. New releases appear first on the
-        <a href={TV_PROFILE} target="_blank" rel="noopener" class="underline hover:text-paper">TradingView profile</a>.
-      </p>
     </div>
   </section>
 
-  <!-- Principles -->
-  <section class="border-t border-line bg-ink-2/40">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 py-20">
-      <SectionLabel ja="道場訓" title="Three principles" />
-      <div class="mt-12 grid gap-px bg-line sm:grid-cols-3 border border-line">
-        {principles.map((p) => (
-          <div class="relative bg-ink p-7">
-            <span class="absolute right-5 top-5 text-xs text-muted font-brush tracking-widest">{p.num}</span>
-            <div class="font-brush text-6xl text-shu leading-none">{p.kanji}</div>
-            <h3 class="mt-5 text-xl font-semibold">{p.name}</h3>
-            <p class="mt-2 text-sm text-muted leading-relaxed">{p.text}</p>
-          </div>
-        ))}
+  <!-- Manifesto -->
+  <section class="border-t border-line">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 py-24 grid gap-12 md:grid-cols-[1.1fr_1fr]">
+      <div class="font-serif text-2xl sm:text-[28px] leading-[1.5] space-y-4">
+        <p>A bonsai is not made in a day.</p>
+        <p>It is grown with patience and shaped by careful cuts.</p>
+        <p>Trading is the same: let what works grow, cut what doesn't, and give it time.</p>
+        <p class="text-koke">Wealth is grown, not grabbed.</p>
+      </div>
+      <div lang="th" class="text-lg text-usu space-y-3 md:pt-2">
+        <p>บอนไซไม่ได้เกิดในวันเดียว</p>
+        <p>ต้องเลี้ยงด้วยความอดทน และตัดแต่งด้วยความตั้งใจ</p>
+        <p>การเทรดก็เช่นกัน เลี้ยงสิ่งที่ได้ผล ตัดสิ่งที่ไม่ได้ผล แล้วปล่อยให้เวลาทำงาน</p>
+        <p class="text-koke">ความมั่งคั่งต้องค่อย ๆ เลี้ยง ไม่ใช่รีบคว้า</p>
       </div>
     </div>
   </section>

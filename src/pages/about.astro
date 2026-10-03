@@ -1,29 +1,35 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { TV_PROFILE } from '../data/indicators';
 ---
 
-<Layout title="About" description="Itto-ryu Tech is an open-source collection of rule-based TradingView indicators.">
-  <article class="mx-auto max-w-3xl px-4 sm:px-6 pt-14 space-y-6 leading-relaxed">
-    <h1 class="font-serif text-4xl font-bold">About</h1>
-    <p>
-      <strong>Itto-ryu (一刀流)</strong> means "the school of one sword". The name is a reminder that good trading
-      starts from a simple system you can test and practise until it becomes habit, not from stacking as many
-      indicators as possible.
-    </p>
-    <h2 class="font-serif text-2xl font-semibold pt-4">What is different here</h2>
-    <ul class="space-y-3">
-      <li class="flex gap-3"><span class="text-shu">—</span><span><strong>Failed results are published.</strong> If a signal shows no edge in testing, we say so.</span></li>
-      <li class="flex gap-3"><span class="text-shu">—</span><span><strong>Free and mostly open-source.</strong> The indicators are free to use, most publish their Pine Script, and this website's code is public.</span></li>
-      <li class="flex gap-3"><span class="text-shu">—</span><span><strong>Built for practice.</strong> This project is where the author trains their own skills in public.</span></li>
-    </ul>
-    <h2 class="font-serif text-2xl font-semibold pt-4">Author</h2>
-    <p>
-      A TFEX / SET50 trader who builds the [Itto-Ryu] indicator family on
-      <a href="https://www.tradingview.com/u/Thiranat/" target="_blank" rel="noopener" class="underline hover:text-shu">TradingView</a>.
-    </p>
-    <p class="text-muted">
-      Feedback and ideas:
-      <a href="https://github.com/Thiranat18/itto-ryu-dojo/issues" class="underline hover:text-paper">GitHub Issues</a>
-    </p>
+<Layout title="About" description="Itto-Ryu Tech: open-source Pine Script indicators, grown with patience.">
+  <article class="relative mx-auto max-w-3xl px-4 sm:px-6 pt-16">
+    <span lang="ja" class="vertical absolute right-4 sm:right-6 top-16 text-lg tracking-[0.15em] text-usu" aria-hidden="true">明鏡止水</span>
+    <p class="text-[11px] tracking-[0.25em] uppercase text-koke font-medium">About</p>
+    <div class="mt-6 font-serif text-2xl sm:text-3xl leading-[1.5] space-y-3 pr-10">
+      <p>A bonsai is not made in a day.</p>
+      <p>It is grown with patience and shaped by careful cuts. Trading is the same.</p>
+    </div>
+    <div class="mt-10 space-y-5 leading-relaxed max-w-2xl">
+      <p>
+        Itto-Ryu Tech is a one-person practice: a TFEX and SET50 trader who writes open-source Pine Script
+        indicators and publishes them free on{' '}
+        <a href={TV_PROFILE} target="_blank" rel="noopener" class="underline text-koke hover:text-matsuba">TradingView</a>.
+      </p>
+      <p>
+        The name comes from the idea of one deliberate cut, the kind a gardener makes when shaping a tree.
+        The guiding phrase <span lang="ja">明鏡止水</span> (meikyō shisui, "a clear mirror, still water")
+        is a reminder that a still mind reads the chart more clearly.
+      </p>
+      <p class="text-usu">
+        Itto-Ryu Tech is not affiliated with any Ittō-ryū school of swordsmanship, and is not affiliated with
+        or endorsed by TradingView.
+      </p>
+    </div>
+    <div class="mt-10 rounded-md bg-kinu p-5 max-w-2xl text-sm leading-relaxed">
+      <p class="text-[11px] tracking-[0.2em] uppercase text-koke font-medium">Disclaimer</p>
+      <p class="mt-2">For education only. Not investment advice. Indicators describe market conditions; they do not predict prices.</p>
+    </div>
   </article>
 </Layout>

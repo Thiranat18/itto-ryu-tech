@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { indicators } from '../../data/indicators';
+
+export function getStaticPaths() {
+  return indicators.map((indicator) => ({ params: { slug: indicator.slug }, props: { indicator } }));
+}
+
+const { indicator } = Astro.props;
+---
+
+<Layout title={indicator.name} description={indicator.summary}>
+  <article class="mx-auto max-w-3xl px-4 sm:px-6 pt-14">
+    <a href="/tools" class="text-sm text-usu hover:text-sumi">← All tools</a>
+    <p class="mt-8 text-[11px] tracking-[0.2em] uppercase text-usu">{indicator.category} · {indicator.access}</p>
+    <h1 class="mt-2 font-serif text-4xl sm:text-5xl font-medium leading-tight">{indicator.name}</h1>
+    <p class="mt-4 text-lg text-usu leading-relaxed">{indicator.summary}</p>
+
+    <img
+      src={indicator.image}
+      alt={`${indicator.name} on a TradingView chart`}
+      class="mt-10 w-full rounded-md border border-line"
+      loading="lazy"
+    />
+
+    <div class="mt-10 grid gap-8 sm:grid-cols-2">
+      <section>
+        <h2 class="text-[11px] tracking-[0.2em] uppercase text-koke font-medium">How it works</h2>
+        <p class="mt-3 leading-relaxed">{indicator.howItWorks}</p>
+      </section>
+      <section>
+        <h2 class="text-[11px] tracking-[0.2em] uppercase text-koke font-medium">How to use</h2>
+        <p class="mt-3 leading-relaxed">{indicator.howToUse}</p>
+      </section>
+    </div>
+
+    <div class="mt-10 flex flex-wrap items-center gap-4">
+      <a href={indicator.url} target="_blank" rel="noopener" class="rounded bg-koke px-5 py-3 text-white hover:bg-matsuba">Open on TradingView</a>
+      <p class="text-sm text-usu">
+        {indicator.access === 'Open-source'
+          ? 'Free to use. The source code is on the script page.'
+          : 'Free to use. The source code is protected.'}
+      </p>
+    </div>
+  </article>
+</Layout>

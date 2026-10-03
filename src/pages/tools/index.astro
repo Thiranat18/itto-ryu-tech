@@ -1,0 +1,19 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import IndicatorCard from '../../components/IndicatorCard.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import { indicators } from '../../data/indicators';
+---
+
+<Layout title="Tools" description="Open-source Pine Script indicators by Itto-Ryu Tech, free on TradingView.">
+  <section class="mx-auto max-w-5xl px-4 sm:px-6 pt-16">
+    <SectionLabel
+      label="Tools"
+      title="Indicators"
+      subtitle="Free on TradingView. The open-source ones let you read every line of the Pine Script."
+    />
+    <div class="mt-10 grid gap-4 sm:grid-cols-2">
+      {indicators.map((indicator) => <IndicatorCard indicator={indicator} />)}
+    </div>
+  </section>
+</Layout>
