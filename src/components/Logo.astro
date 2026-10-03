@@ -1,33 +1,14 @@
 ---
-// Niwa mark: a bonsai in three layers. `small` is the two-pad version for 32px and below.
+// Niwa mark (option B, "Full Canopy"): a cloud-pruned bonsai. `small` is the simplified mark for 32px and below.
 interface Props {
   small?: boolean;
   class?: string;
-  pad?: string;
-  ink?: string;
 }
 
-const { small = false, class: className = '', pad = '#5F6B4E', ink = '#2B2A26' } = Astro.props;
+const { small = false, class: className = '' } = Astro.props;
 
-const dome = (cx: number, yb: number, w: number, h: number) =>
-  `M${cx - w / 2} ${yb} A ${w / 2} ${h} 0 0 1 ${cx + w / 2} ${yb} Z`;
+const FULL = '<g fill="#2B2A26"><path d="M40 78.5C44.5 77 46.5 73 44.5 68C42 63 36.5 58 40 51.5C43 45.5 48.5 40 47.5 30L50 24L54 25.5C55 35 54.5 42 51.5 48C48.5 53 47.5 58 50.5 63C53.5 68 54.5 74 60.5 78.5Z"/><path d="M51 47C55.5 44 61 42 70 41L69.5 37.5C60.5 38.5 55 40.5 50 43.5Z"/><path d="M52.5 34C56 32 60 30.5 65 30L65 27C59.5 27.5 55.5 29 52 31Z"/><rect x="26" y="80" width="48" height="3" rx="1"/><path d="M29 83H71L68 88H32Z"/><rect x="33" y="88" width="5" height="2"/><rect x="62" y="88" width="5" height="2"/></g><g fill="#4E5A3F"><circle cx="67" cy="29" r="5.5"/></g><g fill="#4E5A3F"><circle cx="37.5" cy="27.5" r="5.5"/><circle cx="45" cy="23" r="8.5"/><circle cx="55" cy="21.5" r="9.5"/><circle cx="64.5" cy="26" r="6.5"/><path d="M37.5 26.5H64.5V32Q51 35 37.5 32Z"/></g><g fill="#5F6B4E"><circle cx="37.5" cy="25" r="5.5"/><circle cx="45" cy="20.5" r="8.5"/><circle cx="55" cy="19" r="9.5"/><circle cx="64.5" cy="23.5" r="6.5"/></g><g fill="#4E5A3F"><circle cx="13.5" cy="55" r="4.5"/><circle cx="21" cy="50.5" r="8"/><circle cx="30.5" cy="50" r="8"/><circle cx="38" cy="54.5" r="4.5"/><path d="M13.5 52.5H38V59Q25.8 62 13.5 59Z"/></g><g fill="#5F6B4E"><circle cx="13.5" cy="52.5" r="4.5"/><circle cx="21" cy="48" r="8"/><circle cx="30.5" cy="47.5" r="8"/><circle cx="38" cy="52" r="4.5"/></g><g fill="#4E5A3F"><circle cx="63" cy="44" r="4.5"/><circle cx="70.5" cy="40" r="8"/><circle cx="79.5" cy="40.5" r="7.5"/><circle cx="86.5" cy="44.5" r="4"/><path d="M63 42.5H86.5V48Q74.8 51 63 48Z"/></g><g fill="#5F6B4E"><circle cx="63" cy="41.5" r="4.5"/><circle cx="70.5" cy="37.5" r="8"/><circle cx="79.5" cy="38" r="7.5"/><circle cx="86.5" cy="42" r="4"/></g>';
+const SMALL = '<g fill="#2B2A26"><path d="M36 77C42 74 44 70 42 64C40 58 35 54 39 47C43 40 48 36 46 28L54 28C57 37 54 44 50 50C47 55 48 60 52 65C55 70 58 74 64 77Z"/><path d="M49 46C55 42 62 40 72 39L71.5 33C62 34 55 37 48 40Z"/><rect x="20" y="77" width="60" height="5" rx="1.5"/><path d="M24 82H76L72 90H28Z"/></g><g fill="#5F6B4E"><circle cx="39.5" cy="24.5" r="8"/><circle cx="51" cy="19" r="10.5"/><circle cx="62.5" cy="24.5" r="8"/><path d="M39.5 24H62.5V32.5Q51 34 39.5 32.5Z"/><circle cx="70.5" cy="40" r="7"/><circle cx="81" cy="39" r="8"/><path d="M70.5 39H81V47Q75.8 48 70.5 47Z"/><circle cx="19" cy="50" r="7"/><circle cx="29" cy="48" r="9"/><path d="M19 48H29V57Q24 58 19 57Z"/></g>';
 ---
 
-<svg viewBox="0 0 100 100" class={className} aria-hidden="true">
-  {small ? (
-    <>
-      <path d="M40 84 C 45 74, 38 64, 47 54 C 53 47, 57 42, 57 33 L 66 35 C 66 45, 62 52, 56 58 C 50 65, 56 74, 60 84 Z" fill={ink} />
-      <path d={dome(37, 64, 58, 18)} fill={pad} />
-      <path d={dome(61, 40, 44, 16)} fill={pad} />
-      <path d="M27 84 H73 L69 94 H31 Z" fill={ink} />
-    </>
-  ) : (
-    <>
-      <path d="M43 84 C 46 81, 47 77, 46 72 C 45 66, 41 61, 44 55 C 47 49, 54 47, 55 41 C 56 37, 54 33, 52 30 L 57 29 C 60 33, 61 38, 60 43 C 58 50, 52 53, 51 58 C 50 63, 54 68, 55 74 C 56 79, 57 82, 59 84 Z" fill={ink} />
-      <path d={dome(36, 66, 46, 12)} fill={pad} />
-      <path d={dome(64, 50, 34, 11)} fill={pad} />
-      <path d={dome(53, 33, 24, 10)} fill={pad} />
-      <path d="M33 84 H67 L64 91 H36 Z" fill={ink} />
-    </>
-  )}
-</svg>
+<svg viewBox="0 0 100 100" class={className} aria-hidden="true" set:html={small ? SMALL : FULL} />
