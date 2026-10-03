@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
 import Lockup from '../components/Lockup.astro';
+import { OWNER, OWNER_DISPLAY } from '../data/owner';
+import { TV_PROFILE } from '../data/indicators';
 
 interface Props {
   title?: string;
@@ -16,6 +18,20 @@ const {
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site,
+  url: new URL('/', Astro.site).href,
+  author: {
+    '@type': 'Person',
+    honorificPrefix: OWNER.honorific,
+    name: OWNER.name,
+    jobTitle: OWNER.role,
+    url: new URL('/about/', Astro.site).href,
+    sameAs: [TV_PROFILE, OWNER.github],
+  },
+};
 const pageTitle = title ? `${title} · ${site}` : site;
 const path = Astro.url.pathname;
 
@@ -33,6 +49,7 @@ const nav = [
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <meta name="author" content={OWNER_DISPLAY} />
     <link rel="canonical" href={canonical} />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
@@ -42,6 +59,7 @@ const nav = [
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <meta name="theme-color" content="#FAF8F3" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -83,6 +101,7 @@ const nav = [
             <a href="/disclaimer" class="underline hover:text-sumi">Disclaimer</a>
           </p>
           <p>Not affiliated with or endorsed by TradingView. Not affiliated with any Ittō-ryū school of swordsmanship.</p>
+          <p>© 2026 Itto-Ryu Tech, owned and developed by {OWNER_DISPLAY}, {OWNER.role}.</p>
           <p>Website code MIT · Open-source indicators MPL 2.0 · Text CC BY 4.0 (logo and chart images excluded)</p>
         </div>
       </div>

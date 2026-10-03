@@ -2,6 +2,8 @@
 
 Open-source Pine Script indicators by Itto-Ryu Tech, shown at **[ittoryutech.com](https://www.ittoryutech.com)**.
 
+Owned and developed by Mr. Thiranat Ngamchitcharoen, Trader and Pine Script Developer.
+
 > For education only. Nothing here is investment advice.
 
 Indicator entries live in `src/data/indicators.ts`.
