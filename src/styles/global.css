@@ -233,9 +233,10 @@ p{text-wrap:pretty}
 .about-tate{position:absolute;right:max(var(--pad), calc((100% - 1240px)/2 + 96px));top:96px;writing-mode:vertical-rl;font-family:var(--serif);font-size:84px;line-height:1.1;letter-spacing:.18em;color:var(--sumi)}
 .about-tate small{display:block;font:400 14px var(--sans);letter-spacing:.08em;color:var(--usuzumi);margin-right:18px}
 .name{background:var(--kinari);padding:104px 0}
-.name-grid{display:grid;grid-template-columns:6fr 5fr;gap:80px;align-items:center}
+.name-grid{display:grid;grid-template-columns:5fr 6fr;gap:80px}
 .name h2{font-family:var(--serif);font-weight:500;font-size:44px;line-height:1.2}
-.name p{margin-top:18px;font-size:18px;max-width:540px}
+.name p{margin-top:18px;font-size:18px;max-width:560px}
+.name p:first-child{margin-top:0}
 .name .quiet{color:var(--usuzumi);font-size:16px}
 .owner{padding:104px 0 120px}
 .owner-grid{display:grid;grid-template-columns:5fr 6fr;gap:80px}

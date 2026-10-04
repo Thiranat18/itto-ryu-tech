@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ExternalLink from '../components/ExternalLink.astro';
-import singleCut from '../assets/single-cut.svg?raw';
 import { TV_PROFILE } from '../data/indicators';
 import { OWNER, OWNER_DISPLAY } from '../data/owner';
 ---
@@ -18,8 +17,8 @@ import { OWNER, OWNER_DISPLAY } from '../data/owner';
 
   <section class="name" aria-labelledby="name-title">
     <div class="wrap name-grid">
+      <div><h2 id="name-title"><span lang="ja">一刀</span>, a single cut</h2></div>
       <div>
-        <h2 id="name-title"><span lang="ja">一刀</span>, a single cut</h2>
         <p>
           The name borrows <span lang="ja">一刀</span> (ittō), Japanese for “a single cut”. Here it means the one
           deliberate cut a gardener makes when shaping a tree.
@@ -33,7 +32,6 @@ import { OWNER, OWNER_DISPLAY } from '../data/owner';
           endorsed by TradingView.
         </p>
       </div>
-      <div><Fragment set:html={singleCut} /></div>
     </div>
   </section>
 
