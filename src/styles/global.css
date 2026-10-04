@@ -239,12 +239,7 @@ p{text-wrap:pretty}
 .aside-card h2+p{margin-top:6px}
 .aside-card .go{margin-top:10px}
 .aside-card .text-link{white-space:normal}
-/* Copy link needs the script; without JS only the LINE link shows. */
-.copy-wrap{display:none}
-.js .copy-wrap{display:inline}
-.aside-card .quiet,.aside-card .share{font-size:14px;color:var(--usuzumi);margin-top:10px}
-.share a,.share button{color:var(--sumi);font-weight:500;background:none;border:0;padding:0 0 1px;box-shadow:inset 0 -1px 0 var(--line)}
-.share a:hover,.share button:hover{box-shadow:inset 0 -1px 0 var(--sumi)}
+.aside-card .quiet{font-size:14px;color:var(--usuzumi);margin-top:10px}
 .legend{list-style:none;margin-top:14px;display:grid;gap:10px;font-size:15px}
 .legend li{display:grid;grid-template-columns:28px 1fr;align-items:start}
 .legend li>span{margin-top:12px}

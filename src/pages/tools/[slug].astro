@@ -17,8 +17,6 @@ const tended = new Date(indicator.tended).toLocaleDateString('en-GB', {
   year: 'numeric',
   timeZone: 'UTC',
 });
-const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
-const lineShare = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(pageUrl)}`;
 ---
 
 <Layout title={indicator.name} description={indicator.summary} image={indicator.image} bodyClass="p-tools">
@@ -152,11 +150,6 @@ const lineShare = `https://social-plugins.line.me/lineit/share?url=${encodeURICo
               >Follow Thiranat</ExternalLink
             >
           </p>
-          <p class="share">
-            Share: <ExternalLink href={lineShare}>LINE</ExternalLink><span class="copy-wrap"
-              >{' · '}<button type="button" data-copy={pageUrl}>Copy link</button><span class="sr-only" role="status"></span></span
-            >
-          </p>
         </div>
       </aside>
     </div>
@@ -187,39 +180,6 @@ const lineShare = `https://social-plugins.line.me/lineit/share?url=${encodeURICo
         (window as { va?: (type: string, payload: object) => void }).va?.('event', { name: event, data });
       });
     }
-
-    const copy = document.querySelector<HTMLButtonElement>('[data-copy]');
-    const status = copy?.nextElementSibling;
-    // In-app browsers (LINE among them) can block the Clipboard API, so fall back to a hidden textarea.
-    const fallbackCopy = (text: string) => {
-      const area = document.createElement('textarea');
-      area.value = text;
-      area.setAttribute('readonly', '');
-      area.style.cssText = 'position:fixed;top:0;opacity:0';
-      document.body.append(area);
-      area.select();
-      let ok = false;
-      try {
-        ok = document.execCommand('copy');
-      } catch {}
-      area.remove();
-      return ok;
-    };
-    copy?.addEventListener('click', async () => {
-      const url = copy.dataset.copy ?? location.href;
-      let done = true;
-      try {
-        await navigator.clipboard.writeText(url);
-      } catch {
-        done = fallbackCopy(url);
-      }
-      copy.textContent = done ? 'Link copied' : 'Copy failed';
-      if (status) status.textContent = copy.textContent;
-      setTimeout(() => {
-        copy.textContent = 'Copy link';
-        if (status) status.textContent = '';
-      }, 2000);
-    });
   </script>
 </Layout>
 
