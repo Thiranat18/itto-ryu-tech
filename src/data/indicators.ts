@@ -145,7 +145,7 @@ export const indicators: Indicator[] = [
       'From your chosen direction and inputs, it draws a primary and a secondary entry zone, an ATR-based stop, R-multiple reference levels and the lines where the idea would no longer hold. The levels are arithmetic, not predictions.',
     howToUse:
       'Decide your bias first, from your own analysis. The tool then draws the same levels the same way every time, so the plan is on the chart before the trade.',
-    access: 'Protected',
+    access: 'Open-source',
     url: 'https://www.tradingview.com/script/VJLIg6Ir-Auto-Swing-Trade-Set-Up-v1-0-by-Itto-Ryu/',
     image: '/indicators/VJLIg6Ir.jpg',
     imageWidth: 960,
