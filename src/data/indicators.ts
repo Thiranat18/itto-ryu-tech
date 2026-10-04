@@ -1,3 +1,6 @@
+import type { Lang } from '../i18n';
+import thText from './indicators.th.json';
+
 export const TV_PROFILE = 'https://www.tradingview.com/u/Thiranat/';
 
 export type Indicator = {
@@ -230,3 +233,36 @@ export const indicators: Indicator[] = [
     ],
   },
 ];
+
+type Text = Pick<Indicator, 'summary' | 'howItWorks' | 'howToUse' | 'notDo' | 'questions'> & {
+  /** The effect of each setting, in order; names and values stay as in TradingView. */
+  settings: string[];
+  legend: string[];
+};
+const translations: Record<string, Text> = thText;
+
+/** The indicators with their guide text in the given language. Names, titles, settings and values stay as published. */
+export function indicatorsIn(lang: Lang): Indicator[] {
+  if (lang === 'en') return indicators;
+  return indicators.map((t) => {
+    const x = translations[t.slug];
+    if (
+      !x ||
+      x.settings.length !== t.settings.length ||
+      x.notDo.length !== t.notDo.length ||
+      x.questions.length !== t.questions.length ||
+      x.legend.length !== (t.legend?.length ?? 0)
+    )
+      throw new Error(`Thai text for ${t.slug} is missing or out of step with indicators.ts`);
+    return {
+      ...t,
+      summary: x.summary,
+      howItWorks: x.howItWorks,
+      howToUse: x.howToUse,
+      settings: t.settings.map((s, i) => ({ ...s, effect: x.settings[i] })),
+      notDo: x.notDo,
+      questions: x.questions,
+      legend: t.legend?.map((item, i) => ({ ...item, label: x.legend[i] })),
+    };
+  });
+}

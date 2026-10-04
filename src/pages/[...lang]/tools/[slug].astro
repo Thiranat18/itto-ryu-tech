@@ -1,25 +1,29 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import ExternalLink from '../../components/ExternalLink.astro';
-import StatePicker from '../../components/StatePicker.astro';
-import { indicators, TV_PROFILE } from '../../data/indicators';
-import { getReference } from '../../data/reference';
+import Layout from '../../../layouts/Layout.astro';
+import ExternalLink from '../../../components/ExternalLink.astro';
+import StatePicker from '../../../components/StatePicker.astro';
+import { indicatorsIn, TV_PROFILE } from '../../../data/indicators';
+import { getReference } from '../../../data/reference';
+import { LANGS, fill, formatDate, label, langParam, localize, t, type Lang } from '../../../i18n';
 
 export function getStaticPaths() {
-  return indicators.map((indicator) => ({ params: { slug: indicator.slug }, props: { indicator } }));
+  return LANGS.flatMap((lang) =>
+    indicatorsIn(lang).map((indicator) => ({
+      params: { lang: langParam(lang), slug: indicator.slug },
+      props: { indicator, lang },
+    })),
+  );
 }
 
-const { indicator } = Astro.props;
-const others = indicators.filter((t) => t.slug !== indicator.slug).slice(0, 3);
+const { indicator, lang } = Astro.props as { indicator: ReturnType<typeof indicatorsIn>[number]; lang: Lang };
+const copy = t(lang).tool;
+const others = indicatorsIn(lang)
+  .filter((t) => t.slug !== indicator.slug)
+  .slice(0, 3);
 // Keep a trailing "[Itto-Ryu]" tag on one line.
 const [, tvName, tvTag = ''] = indicator.tvTitle.match(/^(.*?)(\[[^\]]+\])?$/) ?? [, indicator.tvTitle];
-const tended = new Date(indicator.tended).toLocaleDateString('en-GB', {
-  day: 'numeric',
-  month: 'short',
-  year: 'numeric',
-  timeZone: 'UTC',
-});
-const ref = getReference(indicator.slug);
+const tended = formatDate(lang, indicator.tended);
+const ref = getReference(indicator.slug, lang);
 // Settings in the order and groups of the TradingView settings dialog.
 const groups = ref.settings.reduce<{ name: string; rows: typeof ref.settings }[]>((acc, row) => {
   if (acc.at(-1)?.name !== row.group) acc.push({ name: row.group, rows: [] });
@@ -32,16 +36,16 @@ const groups = ref.settings.reduce<{ name: string; rows: typeof ref.settings }[]
   <div class="wrap">
     <div class="detail">
       <article>
-        <a class="back" href="/tools">All tools</a>
+        <a class="back" href={localize(lang, '/tools')}>{copy.back}</a>
         <div class="meta">
-          <span class="cat">{indicator.category}</span>
-          <span class="lic">{indicator.access}</span>
+          <span class="cat">{label(lang, 'categories', indicator.category)}</span>
+          <span class="lic">{label(lang, 'access', indicator.access)}</span>
         </div>
         <h1>{indicator.name}</h1>
         <p class="lede">{indicator.summary}</p>
-        <p class="byline">By Thiranat · Last tended <time datetime={indicator.tended}>{tended}</time></p>
+        <p class="byline">{copy.by} · {copy.tended} <time datetime={indicator.tended}>{tended}</time></p>
         <ExternalLink class="btn btn-primary m-only" href={indicator.url} data-event="tv_click" data-tool={indicator.slug}
-          >Open on TradingView</ExternalLink
+          >{copy.openOnTv}</ExternalLink
         >
 
         <figure class="figure">
@@ -49,17 +53,17 @@ const groups = ref.settings.reduce<{ name: string; rows: typeof ref.settings }[]
             src={indicator.image}
             width={indicator.imageWidth}
             height={indicator.imageHeight}
-            alt={`${indicator.name} readings on an example TradingView chart (illustrative only)`}
+            alt={fill(copy.imgAlt, { name: indicator.name })}
             loading="eager"
             fetchpriority="high"
             decoding="async"
           />
-          <figcaption>Illustrative only, on past data, not a trade idea. Chart by TradingView.</figcaption>
+          <figcaption>{copy.caption}</figcaption>
         </figure>
         {
           indicator.legend && (
             <div class="draws">
-              <h2>What it draws</h2>
+              <h2>{copy.draws}</h2>
               <ul class="legend">
                 {indicator.legend.map((item) => (
                   <li>
@@ -74,36 +78,33 @@ const groups = ref.settings.reduce<{ name: string; rows: typeof ref.settings }[]
 
         <div class="cols">
           <section>
-            <h2>How it works</h2>
+            <h2>{copy.howItWorks}</h2>
             <p>{indicator.howItWorks}</p>
           </section>
           <section>
-            <h2>How to use</h2>
+            <h2>{copy.howToUse}</h2>
             <p>{indicator.howToUse}</p>
           </section>
         </div>
 
         <section class="not-do" aria-labelledby="not-do">
-          <h2 id="not-do">What it does not do</h2>
+          <h2 id="not-do">{copy.notDo}</h2>
           <ul class="dash">{indicator.notDo.map((line) => <li>{line}</li>)}</ul>
         </section>
 
         <section class="guide" aria-labelledby="readings">
-          <h2 id="readings">Reading the states</h2>
+          <h2 id="readings">{copy.readings}</h2>
           <p class="guide-lede">
-            <span class="js-only"
-              >Pick a part of the chart, then a word or mark the tool shows there, to see what it measures in technical
-              terms.</span
-            ><span class="no-js">Each word or mark the tool shows, grouped by the part of the chart where it appears.</span>
+            <span class="js-only">{copy.readingsJs}</span><span class="no-js">{copy.readingsNoJs}</span>
           </p>
           <StatePicker states={ref.states} />
         </section>
 
         <section class="guide" aria-labelledby="settings">
-          <h2 id="settings">Settings</h2>
+          <h2 id="settings">{copy.settings}</h2>
           <table class="settings" aria-labelledby="settings">
             <thead>
-              <tr><th scope="col">Setting</th><th scope="col">Default</th><th scope="col">What it changes</th></tr>
+              <tr><th scope="col">{copy.colSetting}</th><th scope="col">{copy.colDefault}</th><th scope="col">{copy.colEffect}</th></tr>
             </thead>
             <tbody>
               {
@@ -118,13 +119,13 @@ const groups = ref.settings.reduce<{ name: string; rows: typeof ref.settings }[]
             </tbody>
           </table>
           <details class="all-settings">
-            <summary>All {ref.settings.length} settings, with ranges</summary>
-            <table class="settings" aria-label={`All ${indicator.name} settings`}>
+            <summary>{fill(copy.allSettings, { n: ref.settings.length })}</summary>
+            <table class="settings" aria-label={fill(copy.allSettingsLabel, { name: indicator.name })}>
               <thead>
                 <tr>
-                  <th scope="col">Setting</th><th scope="col">Default</th><th scope="col">Range</th><th scope="col"
-                    >What it changes</th
-                  >
+                  <th scope="col">{copy.colSetting}</th><th scope="col">{copy.colDefault}</th><th scope="col"
+                    >{copy.colRange}</th
+                  ><th scope="col">{copy.colEffect}</th>
                 </tr>
               </thead>
               {
@@ -142,7 +143,7 @@ const groups = ref.settings.reduce<{ name: string; rows: typeof ref.settings }[]
                           {r.value.startsWith('#') && <span class="swatch" style={`background:${r.value}`} aria-hidden="true" />}
                           {r.value}
                         </td>
-                        <td class="range">{r.range}</td>
+                        <td class="range" data-label={copy.colRange}>{r.range}</td>
                         <td>{r.effect}</td>
                       </tr>
                     ))}
@@ -150,12 +151,12 @@ const groups = ref.settings.reduce<{ name: string; rows: typeof ref.settings }[]
                 ))
               }
             </table>
-            <p class="guide-note">Defaults and ranges as published on TradingView, version {ref.version}.</p>
+            <p class="guide-note">{fill(copy.settingsNote, { v: ref.version })}</p>
           </details>
         </section>
 
         <section class="guide" aria-labelledby="questions">
-          <h2 id="questions">Questions worth asking</h2>
+          <h2 id="questions">{copy.questions}</h2>
           <dl class="qa">
             {
               indicator.questions.map((item) => (
@@ -169,40 +170,37 @@ const groups = ref.settings.reduce<{ name: string; rows: typeof ref.settings }[]
         </section>
 
         <p class="care">
-          Last tended <time datetime={indicator.tended}>{tended}</time> · Something unclear?{' '}
+          {copy.tended} <time datetime={indicator.tended}>{tended}</time> · {copy.unclear}{' '}
           <ExternalLink class="text-link" href={indicator.url} data-event="tv_click" data-tool={indicator.slug}
-            >Ask in the comments on TradingView</ExternalLink
-          > · For education only. Not investment advice.
+            >{copy.askComments}</ExternalLink
+          > · {copy.edu}
         </p>
       </article>
 
-      <aside class="aside" aria-label="On TradingView">
+      <aside class="aside" aria-label={copy.asideLabel}>
         <div class="aside-card">
           <ExternalLink class="btn btn-primary" href={indicator.url} data-event="tv_click" data-tool={indicator.slug}
-            >Open on TradingView</ExternalLink
+            >{copy.openOnTv}</ExternalLink
           >
           <p class="listed">
-            Listed on TradingView as “{tvName}<span class="nowrap">{tvTag}</span>”. {
-              indicator.access === 'Open-source'
-                ? 'Free to use. The source code is on the script page.'
-                : 'Free to use. The source code is protected.'
-            }
+            {copy.listedBefore}{tvName}<span class="nowrap">{tvTag}</span>{copy.listedAfter}{' '}
+            {indicator.access === 'Open-source' ? copy.freeOpen : copy.freeProtected}
           </p>
           <hr />
-          <h2>Talk about it on TradingView</h2>
-          <p>Questions, or something you noticed while using it?</p>
+          <h2>{copy.talkTitle}</h2>
+          <p>{copy.talkText}</p>
           <p class="go">
             <ExternalLink class="text-link" href={indicator.url} data-event="tv_click" data-tool={indicator.slug}
-              >Comments are below the description on TradingView</ExternalLink
+              >{copy.commentsLink}</ExternalLink
             >
           </p>
-          <p class="quiet">I read the comments and reply when I can.</p>
-          <p class="quiet">Share what you noticed, not what to buy. No calls, levels, P&amp;L or contact links.</p>
+          <p class="quiet">{copy.reply}</p>
+          <p class="quiet">{copy.shareRule}</p>
           <hr />
-          <p>Follow on TradingView to be notified when a new tool or tutorial is published.</p>
+          <p>{copy.followText}</p>
           <p class="go">
             <ExternalLink class="text-link" href={TV_PROFILE} data-event="follow_click" data-page={Astro.url.pathname}
-              >Follow Thiranat</ExternalLink
+              >{copy.followLink}</ExternalLink
             >
           </p>
         </div>
@@ -212,12 +210,12 @@ const groups = ref.settings.reduce<{ name: string; rows: typeof ref.settings }[]
 
   <section class="more-tools" aria-labelledby="other-tools">
     <div class="wrap">
-      <h2 id="other-tools">Other tools</h2>
+      <h2 id="other-tools">{copy.otherTools}</h2>
       <div class="mini-grid">
         {
           others.map((t) => (
-            <a class="mini" href={`/tools/${t.slug}`}>
-              <span class="cat">{t.category}</span>
+            <a class="mini" href={localize(lang, `/tools/${t.slug}`)}>
+              <span class="cat">{label(lang, 'categories', t.category)}</span>
               <h3>{t.name}</h3>
               <p>{t.summary}</p>
             </a>

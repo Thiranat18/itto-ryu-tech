@@ -16,7 +16,9 @@ npm run dev      # http://localhost:4321
 npm run build    # static output in dist/
 ```
 
-Stack: [Astro](https://astro.build), plain CSS (`src/styles/global.css`), self-hosted Shippori Mincho and Zen Kaku Gothic New font subsets.
+Stack: [Astro](https://astro.build), plain CSS (`src/styles/global.css`), self-hosted Shippori Mincho, Zen Kaku Gothic New, Noto Serif Thai and Noto Sans Thai font subsets.
+
+Languages: English at the root (default) and Thai under `/th/`, built from the same pages in `src/pages/[...lang]/`. Interface copy is in `src/i18n/en.json` and `th.json`; Thai tool text is in `src/data/indicators.th.json` and `src/data/reference/th/`.
 
 ## License
 

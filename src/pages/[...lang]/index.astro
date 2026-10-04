@@ -1,0 +1,107 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ExternalLink from '../../components/ExternalLink.astro';
+import ToolDiagram from '../../components/ToolDiagram.astro';
+import HeroBonsai from '../../components/HeroBonsai.astro';
+import Phrases from '../../components/Phrases.astro';
+import bonsai from '../../assets/bonsai.svg?raw';
+import { indicatorsIn, TV_PROFILE } from '../../data/indicators';
+import { LANGS, fill, label, langOf, langParam, localize, t } from '../../i18n';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang: langParam(lang) } }));
+}
+
+const lang = langOf(Astro.url.pathname);
+const ui = t(lang);
+const copy = ui.home;
+const indicators = indicatorsIn(lang);
+const ways = [
+  { cls: 'grow', kanji: '育', romaji: 'sodateru' },
+  { cls: 'cut', kanji: '切', romaji: 'kiru' },
+  { cls: 'wait', kanji: '待', romaji: 'matsu' },
+].map((w, i) => ({ ...w, ...copy.ways[i] }));
+---
+
+<Layout bodyClass="p-home">
+  <section class="hero">
+    <div class="wrap">
+      <p class="intro">{copy.intro}</p>
+      <h1>
+        <span class="l l1">{copy.heroLine1} </span><span class="cutline" aria-hidden="true"
+          ><span class="hero-tree"><HeroBonsai /></span></span
+        ><span class="l l2">{copy.heroLine2}</span>
+      </h1>
+      <p class="lede">{copy.lede}</p>
+      <div class="actions">
+        <a class="btn btn-primary" href={localize(lang, '/tools')}>{copy.browse}</a>
+        <ExternalLink class="btn btn-ghost" href={TV_PROFILE}>{copy.follow}</ExternalLink>
+      </div>
+    </div>
+  </section>
+
+  <section class="ways" aria-labelledby="ways-title">
+    <div class="wrap">
+      <h2 id="ways-title"><Phrases text={copy.waysTitle} /></h2>
+      <div class="ways-grid">
+        {
+          ways.map((w) => (
+            <div class={`way ${w.cls}`}>
+              <span class="kanji" lang="ja">{w.kanji}</span>
+              <p class="word">{w.word}<i>{w.romaji}</i></p>
+              <p class="saying"><Phrases text={w.saying} /></p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="tools" aria-labelledby="tools-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="tools-title"><small>{fill(copy.toolsCount, { n: indicators.length })}</small>{copy.toolsTitle}</h2>
+        <p>{copy.toolsText}</p>
+        <a class="text-link" href={localize(lang, '/tools')}>{copy.seeAll}</a>
+      </div>
+      <div class="tile-grid">
+        {
+          indicators.map((t) => (
+            <a class="tile" href={localize(lang, `/tools/${t.slug}`)} aria-labelledby={`tile-${t.slug}`} aria-describedby={`tile-${t.slug}-d`}>
+              <div class="tile-fig">
+                <ToolDiagram slug={t.slug} />
+              </div>
+              <div class="tile-meta">
+                <span class="cat">{label(lang, 'categories', t.category)}</span>
+                <span class="lic">{label(lang, 'access', t.access)}</span>
+              </div>
+              <h3 id={`tile-${t.slug}`}>{t.name}</h3>
+              <p id={`tile-${t.slug}-d`}>{t.summary}</p>
+              <span class="more">{copy.viewTool}</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="philo" aria-labelledby="philo-title">
+    <div class="wrap philo-grid">
+      <div class="philo-art"><Fragment set:html={bonsai} /></div>
+      <div>
+        <h2 id="philo-title"><Phrases text={copy.philoTitle} /></h2>
+        <p class="body">{copy.philoBody}</p>
+        <ul class="practice">
+          {copy.practice.map((p) => <li><span><b>{p.b}</b> {p.text}</span></li>)}
+        </ul>
+      </div>
+    </div>
+    <div class="wrap">
+      <blockquote>
+        <img src="/kiko-scene.svg" width="222" height="220" loading="lazy" alt="" />
+        <p><Phrases text={copy.quote} /></p>
+        <small>{copy.quoteNote}</small>
+      </blockquote>
+    </div>
+  </section>
+</Layout>

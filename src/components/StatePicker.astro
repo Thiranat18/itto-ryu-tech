@@ -1,32 +1,16 @@
 ---
 // "Reading the states": pick a part of the screen, then one of the labels the tool shows there, and read one panel.
 // Without JavaScript every panel is listed.
-import type { Reference } from '../data/reference';
+import type { getReference } from '../data/reference';
+import { langOf, t } from '../i18n';
 
 interface Props {
-  states: Reference['states'];
+  states: ReturnType<typeof getReference>['states'];
 }
 
 const { states } = Astro.props;
-const kindOf = (reading: string) =>
-  /^uptrend or downtrend/i.test(reading)
-    ? 'other'
-    : /^(uptrend|leaning up|momentum turned up)/i.test(reading)
-    ? 'up'
-    : /^(downtrend|leaning down|momentum turned down)/i.test(reading)
-      ? 'down'
-      : /^(sideways|mixed)/i.test(reading)
-        ? 'side'
-        : 'other';
-const repeats = (s: Props['states'][number]) =>
-  states.filter((t) => t.section === s.section && t.label === s.label).length > 1 || !/[A-Za-z0-9]/.test(s.label);
-// When a label repeats in its section, or is only a symbol such as "—", the chip also names its dashboard row.
-const items = states.map((s, i) => ({
-  ...s,
-  i,
-  kind: kindOf(s.reading),
-  row: repeats(s) ? s.where.split(', ').at(-1)!.replace(/ rows?$/, '') : '',
-}));
+const ui = t(langOf(Astro.url.pathname)).tool;
+const items = states.map((s, i) => ({ ...s, i }));
 const sections = [...new Set(items.map((s) => s.section))].map((name) => ({
   name,
   items: items.filter((s) => s.section === name),
@@ -39,9 +23,9 @@ const sketch = {
 };
 ---
 
-<div class="picker" data-picker>
+<div class="picker" data-picker data-showing={ui.showing}>
   <div class="picker-nav">
-    <p class="picker-step">Where on the chart</p>
+    <p class="picker-step">{ui.pickWhere}</p>
     <div class="sec-row">
       {
         sections.map((sec, k) => (
@@ -51,7 +35,7 @@ const sketch = {
         ))
       }
     </div>
-    <p class="picker-step">What it shows</p>
+    <p class="picker-step">{ui.pickWhat}</p>
     {
       sections.map((sec, k) => (
         <div class="chip-row" data-chips={k}>
@@ -94,21 +78,21 @@ const sketch = {
             )}
             <dl>
               <div>
-                <dt>What it measures</dt>
+                <dt>{ui.measures}</dt>
                 <dd>{s.measures}</dd>
               </div>
               {s.setup && (
                 <div>
-                  <dt>Technical setup</dt>
+                  <dt>{ui.setup}</dt>
                   <dd>{s.setup}</dd>
                 </div>
               )}
               <div>
-                <dt>What it does not mean</dt>
+                <dt>{ui.notMean}</dt>
                 <dd>{s.notMean}</dd>
               </div>
               <div>
-                <dt>Check yourself</dt>
+                <dt>{ui.check}</dt>
                 <dd>{s.check}</dd>
               </div>
             </dl>
@@ -142,7 +126,8 @@ const sketch = {
     for (const c of chips) {
       c.addEventListener('click', () => {
         showState(c.dataset.state!);
-        if (status) status.textContent = `Showing ${c.getAttribute('aria-label') ?? c.textContent!.trim()}`;
+        const label = c.getAttribute('aria-label') ?? c.textContent!.trim();
+        if (status) status.textContent = picker.dataset.showing!.replace('{label}', label);
         // On phones a long chip list can leave the panel below the screen.
         const panel = panels.find((p) => p.dataset.panel === c.dataset.state);
         if (panel && panel.getBoundingClientRect().top > innerHeight - 120) {

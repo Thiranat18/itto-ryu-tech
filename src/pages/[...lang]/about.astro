@@ -1,0 +1,79 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ExternalLink from '../../components/ExternalLink.astro';
+import Phrases from '../../components/Phrases.astro';
+import { TV_PROFILE } from '../../data/indicators';
+import { OWNER_DISPLAY } from '../../data/owner';
+import { LANGS, fill, langOf, langParam, localize, t } from '../../i18n';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang: langParam(lang) } }));
+}
+
+const lang = langOf(Astro.url.pathname);
+const ui = t(lang);
+const copy = ui.about;
+---
+
+<Layout title={copy.title} description={copy.description} bodyClass="p-about">
+  <section class="about-hero">
+    <div class="wrap">
+      <div class="about-tate" aria-hidden="true"><span lang="ja">明鏡止水</span><small>{copy.tateGloss}</small></div>
+      <p class="crumb">{copy.crumb}</p>
+      <h1 set:html={copy.h1Html} />
+      <p class="sub"><Phrases text={copy.sub} /></p>
+    </div>
+  </section>
+
+  <section class="name" aria-labelledby="name-title">
+    <div class="wrap name-grid">
+      <div><h2 id="name-title" set:html={copy.nameTitleHtml} /></div>
+      <div>
+        <p set:html={copy.name1Html} />
+        <p set:html={copy.name2Html} />
+        <p class="quiet">{copy.name3}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kiko" aria-labelledby="kiko-title">
+    <div class="wrap kiko-grid">
+      <div class="kiko-panel">
+        <img
+          src="/kiko-scene.svg"
+          width="343"
+          height="340"
+          loading="lazy"
+          alt={copy.kikoAlt}
+        />
+      </div>
+      <div class="kiko-copy">
+        <p class="eyebrow" set:html={copy.kikoEyebrowHtml} />
+        <h2 id="kiko-title"><Phrases text={copy.kikoTitle} /></h2>
+        <p class="body">{copy.kikoBody}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="owner" aria-labelledby="author">
+    <div class="wrap owner-grid">
+      <div><h2 id="author">{copy.ownerTitle}</h2></div>
+      <div>
+        <p class="who">{OWNER_DISPLAY}</p>
+        <p class="role">{ui.site.ownerRole}</p>
+        <p>
+          {fill(copy.owner1Before, { owner: OWNER_DISPLAY })}<ExternalLink class="text-link" href={TV_PROFILE}
+            >TradingView</ExternalLink
+          >{copy.owner1After}
+        </p>
+        <p>
+          {copy.owner2Before}<ExternalLink class="text-link" href={TV_PROFILE}>Thiranat</ExternalLink>{copy.owner2After}
+        </p>
+        <div class="disc">
+          <b>{copy.discBold}</b>{' '}
+          {copy.discText} <a class="text-link" href={localize(lang, '/disclaimer')}>{copy.discLink}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

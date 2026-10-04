@@ -4,21 +4,22 @@ import Logo from '../components/Logo.astro';
 import ExternalLink from '../components/ExternalLink.astro';
 import { OWNER, OWNER_DISPLAY } from '../data/owner';
 import { TV_PROFILE } from '../data/indicators';
+import { LANGS, fill, langOf, localize, pageIn, t } from '../i18n';
 
 interface Props {
   title?: string;
   description?: string;
   image?: string;
   bodyClass?: string;
+  /** False on pages that exist in one language only, such as the 404 page. */
+  translated?: boolean;
 }
 
 const site = 'Itto-Ryu Tech';
-const {
-  title,
-  description = 'Free Pine Script indicators for TradingView, most of them open-source. Grow with patience. Cut with discipline.',
-  image = '/og.png',
-  bodyClass,
-} = Astro.props;
+const path = Astro.url.pathname;
+const lang = langOf(path);
+const ui = t(lang);
+const { title, description = ui.site.description, image = '/og.png', bodyClass, translated = true } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
 const jsonLd = {
@@ -36,18 +37,26 @@ const jsonLd = {
   },
 };
 const pageTitle = title ? `${title} · ${site}` : site;
-const path = Astro.url.pathname;
+const home = localize(lang, '/');
 
 const nav = [
-  { href: '/tools', label: 'Tools' },
-  { href: '/about', label: 'About' },
+  { href: localize(lang, '/tools'), label: ui.site.tools },
+  { href: localize(lang, '/about'), label: ui.site.about },
 ];
+// Each language is named in its own words: "EN" and "ไทย".
+const langLinks = LANGS.map((code) => ({
+  code,
+  href: pageIn(code, path),
+  name: t(code).site.langName,
+  readIn: t(code).site.readIn,
+}));
+const alternates = translated ? langLinks.map((l) => ({ code: l.code, href: new URL(l.href, Astro.site) })) : [];
 // 'page' on the section's own page, 'true' on pages inside it (e.g. a tool's detail page).
 const current = (href: string) =>
   path === href || path === `${href}/` ? 'page' : path.startsWith(`${href}/`) ? 'true' : undefined;
 ---
 
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -57,8 +66,11 @@ const current = (href: string) =>
     <meta name="description" content={description} />
     <meta name="author" content={OWNER_DISPLAY} />
     <link rel="canonical" href={canonical} />
+    {alternates.map((a) => <link rel="alternate" hreflang={a.code} href={a.href} />)}
+    {alternates[0] && <link rel="alternate" hreflang="x-default" href={alternates[0].href} />}
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content={lang === 'th' ? 'th_TH' : 'en_GB'} />
     <meta property="og:site_name" content="Itto-Ryu Tech" />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={pageTitle} />
@@ -73,14 +85,34 @@ const current = (href: string) =>
   <body class={bodyClass}>
     <header class="nav">
       <div class="wrap nav-in">
-        <a class="brand" href="/" aria-label="Itto-Ryu Tech home"><Logo /><span>ITTO-RYU</span><span class="tech">TECH</span></a>
-        <nav class="nav-links" aria-label="Main">
+        <a class="brand" href={home} aria-label={ui.site.homeLabel}><Logo /><span>ITTO-RYU</span><span class="tech">TECH</span></a>
+        <nav class="nav-links" aria-label={ui.site.mainNav}>
           {nav.map((item) => <a href={item.href} aria-current={current(item.href)}>{item.label}</a>)}
           <ExternalLink class="btn btn-ghost btn-sm" href={TV_PROFILE}>TradingView</ExternalLink>
         </nav>
-        <button class="menu" type="button" aria-expanded="false" aria-controls="menu-panel">Menu</button>
+        {
+          translated && (
+            <ul class="lang-switch" role="list" aria-label={ui.site.language}>
+              {langLinks.map((l) => (
+                <li class={l.code === lang ? 'here' : undefined}>
+                  <a
+                    href={l.href}
+                    hreflang={l.code}
+                    lang={l.code}
+                    aria-current={l.code === lang ? 'true' : undefined}
+                    aria-label={l.code === lang ? undefined : l.readIn}
+                    data-lang-switch
+                  >
+                    {l.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+        <button class="menu" type="button" aria-expanded="false" aria-controls="menu-panel">{ui.site.menu}</button>
       </div>
-      <nav id="menu-panel" class="menu-panel" aria-label="Main" hidden>
+      <nav id="menu-panel" class="menu-panel" aria-label={ui.site.mainNav} hidden>
         <ul class="wrap">
           {nav.map((item) => <li><a href={item.href} aria-current={current(item.href)}>{item.label}</a></li>)}
           <li><ExternalLink href={TV_PROFILE}>TradingView</ExternalLink></li>
@@ -95,22 +127,22 @@ const current = (href: string) =>
     <footer class="foot">
       <div class="wrap foot-in">
         <div class="foot-id">
-          <a class="brand" href="/" aria-label="Itto-Ryu Tech home"><Logo light /><span>ITTO-RYU</span><span class="tech">TECH</span></a>
+          <a class="brand" href={home} aria-label={ui.site.homeLabel}><Logo light /><span>ITTO-RYU</span><span class="tech">TECH</span></a>
           <div class="foot-sign">
-            <p class="motto">Still mind.<br />Clear rules.</p>
+            <p class="motto" set:html={ui.site.mottoHtml} />
             <img class="foot-kiko" src="/kiko-light.svg" width="74" height="124" loading="lazy" alt="" aria-hidden="true" />
           </div>
         </div>
         <div class="legal">
-          <p class="first">For education only. Not investment advice. Indicators describe market conditions; they do not predict prices.</p>
-          <p>Not affiliated with or endorsed by TradingView. Not affiliated with any <span class="nowrap">Ittō-ryū</span> school of swordsmanship.</p>
-          <p>© 2026 Itto-Ryu Tech, owned and developed by {OWNER_DISPLAY}, {OWNER.role}.</p>
+          <p class="first">{ui.site.footEdu}</p>
+          <p set:html={ui.site.footAffiliationHtml} />
+          <p>{fill(ui.site.footOwned, { owner: OWNER_DISPLAY, role: ui.site.ownerRole })}</p>
         </div>
       </div>
       <div class="tate" lang="ja" aria-hidden="true">明鏡止水</div>
       <div class="wrap">
         <div class="foot-bottom">
-          <span>Website code MIT · Open-source indicators MPL 2.0 · Text CC BY 4.0 (logo and chart images excluded)</span>
+          <span>{ui.site.footLicences}</span>
           <span>ittoryutech.com</span>
         </div>
       </div>
@@ -134,6 +166,12 @@ const current = (href: string) =>
         });
         matchMedia('(min-width: 761px)').addEventListener('change', (e) => e.matches && set(false));
       })();
+      // Switching language keeps the place on the page and any /tools filter.
+      for (const a of document.querySelectorAll('[data-lang-switch]')) {
+        a.addEventListener('click', () => {
+          a.href = a.pathname + location.search + location.hash;
+        });
+      }
     </script>
   </body>
 </html>

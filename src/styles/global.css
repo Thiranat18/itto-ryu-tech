@@ -5,6 +5,12 @@
 @font-face { font-family: 'Zen Kaku Gothic New'; src: url('/fonts/zen-kaku-gothic-new-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Zen Kaku Gothic New'; src: url('/fonts/zen-kaku-gothic-new-500.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Zen Kaku Gothic New'; src: url('/fonts/zen-kaku-gothic-new-700.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+/* Thai glyphs only: Latin text keeps the Japanese faces above, and pages without Thai never download these. */
+@font-face { font-family: 'Noto Serif Thai'; src: url('/fonts/noto-serif-thai-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; unicode-range: U+0E01-0E5B, U+200B-200D, U+25CC; }
+@font-face { font-family: 'Noto Serif Thai'; src: url('/fonts/noto-serif-thai-500.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; unicode-range: U+0E01-0E5B, U+200B-200D, U+25CC; }
+@font-face { font-family: 'Noto Sans Thai'; src: url('/fonts/noto-sans-thai-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; unicode-range: U+0E01-0E5B, U+200B-200D, U+25CC; }
+@font-face { font-family: 'Noto Sans Thai'; src: url('/fonts/noto-sans-thai-500.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; unicode-range: U+0E01-0E5B, U+200B-200D, U+25CC; }
+@font-face { font-family: 'Noto Sans Thai'; src: url('/fonts/noto-sans-thai-700.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; unicode-range: U+0E01-0E5B, U+200B-200D, U+25CC; }
 
 :root{
   /* colour: every colour has a job */
@@ -18,8 +24,8 @@
   --matsu-soft:#DCE3D6; /* entry zones in charts */
   --shu:#B8452E;        /* 切, the cut line, stop levels, bearish. Use sparingly */
 
-  --serif:'Shippori Mincho','Noto Serif CJK JP',serif;
-  --sans:'Zen Kaku Gothic New','Noto Sans CJK JP',sans-serif;
+  --serif:'Shippori Mincho','Noto Serif Thai','Noto Serif CJK JP',serif;
+  --sans:'Zen Kaku Gothic New','Noto Sans Thai','Noto Sans CJK JP',sans-serif;
   --pad:56px;           /* page gutter; 22px on mobile */
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -43,7 +49,14 @@ p{text-wrap:pretty}
 .nav-in{display:flex;align-items:center;justify-content:space-between;height:80px}
 .brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.16em;font-size:14px}
 .brand .tech{color:var(--usuzumi);font-weight:500;margin-left:-6px}
-.nav-links{display:flex;align-items:center;gap:34px;font-size:15px}
+.nav-links{display:flex;align-items:center;gap:34px;font-size:15px;margin-left:auto}
+/* Language: EN | ไทย, after the main links; each language is named in its own words. */
+.lang-switch{display:flex;align-items:center;list-style:none;margin-left:26px;font-size:14px;line-height:1}
+.lang-switch li{display:flex;align-items:center}
+.lang-switch li+li::before{content:"";width:1px;height:13px;background:var(--line);margin:0 6px}
+.lang-switch a{display:block;min-width:28px;padding:8px 4px;text-align:center;color:var(--usuzumi)}
+.lang-switch a:hover{color:var(--sumi)}
+.lang-switch a[aria-current]{color:var(--sumi);font-weight:500}
 .nav-links a[aria-current]{box-shadow:inset 0 -1.5px 0 var(--shu);padding-bottom:3px}
 .menu{display:none;background:none;border:1px solid var(--line);border-radius:3px;font:500 14px var(--sans);color:var(--sumi);height:38px;padding:0 14px}
 .menu-panel{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--washi)}
@@ -372,7 +385,8 @@ p{text-wrap:pretty}
   .name-grid,.owner-grid,.kiko-grid{gap:48px}
   .kiko h2{font-size:44px}
 }
-@media (max-width:1240px) and (min-width:761px){
+/* Up to 1271px the tate sits closer to the legal column than its 21px clearance at wider widths. */
+@media (max-width:1271px) and (min-width:761px){
   .legal{padding-right:96px}
 }
 @media (max-width:900px) and (min-width:761px){
@@ -401,6 +415,11 @@ p{text-wrap:pretty}
   .nav-links .btn{display:none}
   .js .nav-links{display:none}
   .js .menu{display:inline-flex;align-items:center}
+  .js .lang-switch{margin-left:auto;margin-right:10px}
+  /* Without JavaScript the links stay in the bar, so let it wrap rather than squeeze the brand. */
+  html:not(.js) .nav-in{flex-wrap:wrap;height:auto;min-height:64px;padding-top:14px;padding-bottom:10px;gap:4px 20px}
+  html:not(.js) .nav-links{margin-left:0}
+  html:not(.js) .lang-switch{margin-left:auto}
   .brand{font-size:12.5px;gap:10px}
   .hero{padding:44px 0 64px}
   .hero .intro{font-size:14px;margin-bottom:22px}
@@ -479,7 +498,7 @@ p{text-wrap:pretty}
   .settings tr.grp{display:block;padding:0;border:0}
   .settings .grp th{display:block;padding-top:22px}
   .settings .range{grid-column:1/-1;font-size:13px;white-space:normal}
-  .settings .range:not(:empty)::before{content:"Range "}
+  .settings .range:not(:empty)::before{content:attr(data-label) " "}
   .draws .legend{display:grid}
   .aside-card{margin-top:36px;position:static}
   .more-tools{padding:40px 0 72px}
@@ -513,8 +532,24 @@ p{text-wrap:pretty}
   .hero h1 .l1,.hero h1 .l2{padding-right:130px}
   .hero-tree{width:clamp(124px, 22vw, 168px)}
 }
+/* Small phones: only the other language, so the header keeps the brand on one line. */
+@media (max-width:400px){
+  .js .lang-switch .here{display:none}
+  .js .lang-switch li::before{display:none}
+}
 @media (max-width:360px){
   .foot-kiko{height:96px}
   .hero h1{font-size:40px}
   .hero-tree{width:90px;right:8px}
 }
+
+/* Thai: stacked vowels and tone marks need taller lines than the Latin display settings, and no tracking. */
+:lang(th) :is(h1,h2,h3){line-height:1.45;letter-spacing:0}
+:lang(th) :is(.motto,.saying,.philo blockquote p,.about-hero .sub,.rows-empty .empty-title,.qa dt){line-height:1.45;letter-spacing:0}
+/* Tool names stay English, so they keep the Latin line height. */
+:lang(th) .detail h1{line-height:1.1}
+:lang(th) .tile h3{line-height:1.25}
+:lang(th) .row h2{line-height:1.2}
+:lang(th) .hero h1{line-height:1.25}
+.ph{display:inline-block}
+:lang(th) :is(.settings thead th,.picker-step,.panel dt,.about-tate small){letter-spacing:0}

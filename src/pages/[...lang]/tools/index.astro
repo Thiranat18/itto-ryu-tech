@@ -1,39 +1,45 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import ExternalLink from '../../components/ExternalLink.astro';
-import ToolDiagram from '../../components/ToolDiagram.astro';
-import { indicators } from '../../data/indicators';
+import Layout from '../../../layouts/Layout.astro';
+import ExternalLink from '../../../components/ExternalLink.astro';
+import ToolDiagram from '../../../components/ToolDiagram.astro';
+import Phrases from '../../../components/Phrases.astro';
+import { indicatorsIn } from '../../../data/indicators';
+import { LANGS, label, langOf, langParam, localize, t } from '../../../i18n';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang: langParam(lang) } }));
+}
+
+const lang = langOf(Astro.url.pathname);
+const copy = t(lang).tools;
+const indicators = indicatorsIn(lang);
 
 const categories = [...new Set(indicators.map((t) => t.category))];
 const count = (category: string) => indicators.filter((t) => t.category === category).length;
 const key = (value: string) => value.toLowerCase();
 ---
 
-<Layout
-  title="Tools"
-  description="Free Pine Script indicators by Itto-Ryu Tech on TradingView, most of them open-source."
-  bodyClass="p-tools"
->
+<Layout title={copy.title} description={copy.description} bodyClass="p-tools">
   <div class="wrap">
     <header class="page-head">
-      <p class="crumb">Tools</p>
-      <h1>Indicators</h1>
-      <p>Free on TradingView. The open-source ones let you read every line of the Pine Script.</p>
+      <p class="crumb">{copy.crumb}</p>
+      <h1>{copy.h1}</h1>
+      <p>{copy.lede}</p>
     </header>
 
-    <div class="filters" role="group" aria-label="Filter tools">
-      <button class="chip" type="button" data-cat="all" aria-pressed="true">All <span class="n">{indicators.length}</span></button>
+    <div class="filters" role="group" aria-label={copy.filterLabel}>
+      <button class="chip" type="button" data-cat="all" aria-pressed="true">{copy.all} <span class="n">{indicators.length}</span></button>
       {
         categories.map((c) => (
           <button class="chip" type="button" data-cat={key(c)} aria-pressed="false">
-            {c} <span class="n">{count(c)}</span>
+            {label(lang, 'categories', c)} <span class="n">{count(c)}</span>
           </button>
         ))
       }
       <span class="spacer"></span>
-      <button class="toggle" type="button" role="switch" aria-checked="false"><span class="sw" aria-hidden="true"></span>Open-source only</button>
+      <button class="toggle" type="button" role="switch" aria-checked="false"><span class="sw" aria-hidden="true"></span>{copy.openOnly}</button>
     </div>
-    <p class="sr-only" aria-live="polite" id="filter-status"></p>
+    <p class="sr-only" aria-live="polite" id="filter-status" data-showing={copy.showing}></p>
 
     <ul class="rows">
       {
@@ -44,15 +50,15 @@ const key = (value: string) => value.toLowerCase();
             </div>
             <div>
               <div class="meta">
-                <span class="cat">{t.category}</span>
-                <span class="lic">{t.access}</span>
+                <span class="cat">{label(lang, 'categories', t.category)}</span>
+                <span class="lic">{label(lang, 'access', t.access)}</span>
               </div>
-              <h2><a href={`/tools/${t.slug}`}>{t.name}</a></h2>
+              <h2><a href={localize(lang, `/tools/${t.slug}`)}>{t.name}</a></h2>
               <p>{t.summary}</p>
             </div>
             <div class="row-act">
-              <a class="btn btn-ghost btn-sm" href={`/tools/${t.slug}`}>View tool<span class="sr-only">: {t.name}</span></a>
-              <ExternalLink class="tv" href={t.url}>Open on TradingView<span class="sr-only">: {t.name}</span></ExternalLink>
+              <a class="btn btn-ghost btn-sm" href={localize(lang, `/tools/${t.slug}`)}>{copy.viewTool}<span class="sr-only">: {t.name}</span></a>
+              <ExternalLink class="tv" href={t.url}>{copy.openOnTv}<span class="sr-only">: {t.name}</span></ExternalLink>
             </div>
           </li>
         ))
@@ -60,19 +66,19 @@ const key = (value: string) => value.toLowerCase();
     </ul>
     <div class="rows-empty" hidden>
       <img src="/kiko.svg" width="95" height="160" loading="lazy" alt="" />
-      <p class="empty-title">No tools match these filters yet.</p>
-      <p>Try another category, or turn off <span class="nowrap">Open-source only</span>.</p>
-      <button class="btn btn-ghost" type="button" data-clear>Clear filters</button>
+      <p class="empty-title"><Phrases text={copy.emptyTitle} /></p>
+      <p set:html={copy.emptyHtml} />
+      <button class="btn btn-ghost" type="button" data-clear>{copy.clear}</button>
     </div>
 
     <div class="note-band">
       <div>
-        <h2>Open-source</h2>
-        <p>The full Pine Script is on the script page, under MPL 2.0. Read every line.</p>
+        <h2>{copy.openTitle}</h2>
+        <p>{copy.openText}</p>
       </div>
       <div>
-        <h2>Protected</h2>
-        <p>Free to use on TradingView. The source code is protected.</p>
+        <h2>{copy.protectedTitle}</h2>
+        <p>{copy.protectedText}</p>
       </div>
     </div>
   </div>
@@ -101,7 +107,7 @@ const key = (value: string) => value.toLowerCase();
         });
         empty.hidden = shown > 0;
         if (!update) return;
-        status.textContent = `Showing ${shown} of ${rows.length} tools`;
+        status.textContent = status.dataset.showing.replace('{shown}', shown).replace('{total}', rows.length);
         const q = new URLSearchParams();
         if (cat !== 'all') q.set('cat', cat);
         if (open) q.set('open', '1');
