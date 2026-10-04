@@ -16,10 +16,11 @@ npm run dev      # http://localhost:4321
 npm run build    # static output in dist/
 ```
 
-Stack: [Astro](https://astro.build), Tailwind CSS.
+Stack: [Astro](https://astro.build), plain CSS (`src/styles/global.css`), self-hosted Shippori Mincho and Zen Kaku Gothic New font subsets.
 
 ## License
 
 - Website code: [MIT](LICENSE)
 - Open-source indicators: Mozilla Public License 2.0 (as published on TradingView)
 - Site text: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The logo and chart screenshots are not covered.
+- Fonts in `public/fonts`: SIL Open Font License 1.1 (see the `OFL-*.txt` files)

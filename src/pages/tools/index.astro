@@ -1,20 +1,112 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import IndicatorCard from '../../components/IndicatorCard.astro';
-import SectionLabel from '../../components/SectionLabel.astro';
+import ExternalLink from '../../components/ExternalLink.astro';
+import ToolDiagram from '../../components/ToolDiagram.astro';
 import { indicators } from '../../data/indicators';
+
+const categories = [...new Set(indicators.map((t) => t.category))];
+const count = (category: string) => indicators.filter((t) => t.category === category).length;
+const key = (value: string) => value.toLowerCase();
 ---
 
-<Layout title="Tools" description="Free Pine Script indicators by Itto-Ryu Tech on TradingView, most of them open-source.">
-  <section class="mx-auto max-w-5xl px-4 sm:px-6 pt-16">
-    <SectionLabel
-      level={1}
-      label="Tools"
-      title="Indicators"
-      subtitle="Free on TradingView. The open-source ones let you read every line of the Pine Script."
-    />
-    <div class="mt-10 grid gap-4 sm:grid-cols-2">
-      {indicators.map((indicator) => <IndicatorCard indicator={indicator} />)}
+<Layout
+  title="Tools"
+  description="Free Pine Script indicators by Itto-Ryu Tech on TradingView, most of them open-source."
+  bodyClass="p-tools"
+>
+  <div class="wrap">
+    <header class="page-head">
+      <p class="crumb">Tools</p>
+      <h1>Indicators</h1>
+      <p>Free on TradingView. The open-source ones let you read every line of the Pine Script.</p>
+    </header>
+
+    <div class="filters" role="group" aria-label="Filter tools">
+      <button class="chip" type="button" data-cat="all" aria-pressed="true">All <span class="n">{indicators.length}</span></button>
+      {
+        categories.map((c) => (
+          <button class="chip" type="button" data-cat={key(c)} aria-pressed="false">
+            {c} <span class="n">{count(c)}</span>
+          </button>
+        ))
+      }
+      <span class="spacer"></span>
+      <button class="toggle" type="button" role="switch" aria-checked="false"><span class="sw" aria-hidden="true"></span>Open-source only</button>
     </div>
-  </section>
+    <p class="sr-only" aria-live="polite" id="filter-status"></p>
+
+    <ul class="rows">
+      {
+        indicators.map((t) => (
+          <li class="row" data-cat={key(t.category)} data-lic={key(t.access)}>
+            <div class="row-fig">
+              <ToolDiagram slug={t.slug} />
+            </div>
+            <div>
+              <div class="meta">
+                <span class="cat">{t.category}</span>
+                <span class="lic">{t.access}</span>
+              </div>
+              <h2><a href={`/tools/${t.slug}`}>{t.name}</a></h2>
+              <p>{t.summary}</p>
+            </div>
+            <div class="row-act">
+              <a class="btn btn-ghost btn-sm" href={`/tools/${t.slug}`}>View tool<span class="sr-only">: {t.name}</span></a>
+              <ExternalLink class="tv" href={t.url}>Open on TradingView<span class="sr-only">: {t.name}</span></ExternalLink>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="rows-empty" hidden>No tools match this filter.</p>
+
+    <div class="note-band">
+      <div>
+        <h2>Open-source</h2>
+        <p>The full Pine Script is on the script page, under MPL 2.0. Read every line.</p>
+      </div>
+      <div>
+        <h2>Protected</h2>
+        <p>Free to use on TradingView. The source code is protected.</p>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const rows = [...document.querySelectorAll('.row[data-cat]')];
+      const chips = [...document.querySelectorAll('.chip[data-cat]')];
+      const toggle = document.querySelector('.toggle');
+      const empty = document.querySelector('.rows-empty');
+      const status = document.getElementById('filter-status');
+      if (!toggle || !empty || !status) return;
+      const params = new URLSearchParams(location.search);
+      let cat = params.get('cat') || 'all';
+      let open = params.get('open') === '1';
+      if (!chips.some((c) => c.dataset.cat === cat)) cat = 'all';
+
+      const apply = (update) => {
+        chips.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.cat === cat)));
+        toggle.setAttribute('aria-checked', String(open));
+        let shown = 0;
+        rows.forEach((r) => {
+          const show = (cat === 'all' || r.dataset.cat === cat) && (!open || r.dataset.lic === 'open-source');
+          r.hidden = !show;
+          if (show) shown++;
+        });
+        empty.hidden = shown > 0;
+        if (!update) return;
+        status.textContent = `Showing ${shown} of ${rows.length} tools`;
+        const q = new URLSearchParams();
+        if (cat !== 'all') q.set('cat', cat);
+        if (open) q.set('open', '1');
+        const qs = q.toString();
+        history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
+      };
+
+      chips.forEach((c) => c.addEventListener('click', () => { cat = c.dataset.cat; apply(true); }));
+      toggle.addEventListener('click', () => { open = !open; apply(true); });
+      apply(false);
+    })();
+  </script>
 </Layout>

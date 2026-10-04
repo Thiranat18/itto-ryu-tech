@@ -1,30 +1,22 @@
 ---
 import { FULL_MARK } from './marks';
+import { PAD_GLYPHS } from './padGlyphs';
 
-interface Props {
-  class?: string;
-}
-
-const { class: className = '' } = Astro.props;
-
-// One word per foliage pad: kanji with its romaji reading (romaji hidden on small screens).
-const pads = [
-  { kanji: '育', romaji: 'sodateru', meaning: 'grow', x: 51, y: 23.6 },
-  { kanji: '切', romaji: 'kiru', meaning: 'cut', x: 25.8, y: 52.4 },
-  { kanji: '待', romaji: 'matsu', meaning: 'wait', x: 75, y: 42.2 },
-];
+// One word per foliage pad, 育 sodateru · 切 kiru · 待 matsu (romaji hidden on phones).
+// Decorative: the same words are spelled out in the "Ways" section below the hero.
 ---
 
-<svg viewBox="0 0 100 100" class={className} aria-hidden="true">
+<svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
   <g set:html={FULL_MARK} />
-  <g fill="#FAF8F3" text-anchor="middle">
-    {pads.map((p) => (
-      <>
-        <text x={p.x} y={p.y + 2} lang="ja" font-size="7.6" font-weight="600" class="sm:hidden" style="font-family: 'Shippori Mincho', serif">{p.kanji}</text>
-        <text x={p.x} y={p.y} lang="ja" font-size="7.2" font-weight="600" class="hidden sm:inline" style="font-family: 'Shippori Mincho', serif">{p.kanji}</text>
-        <text x={p.x} y={p.y + 4.8} font-size="2.7" font-weight="500" letter-spacing="0.25" class="hidden sm:inline" style="font-family: 'IBM Plex Sans', sans-serif">{p.romaji}</text>
-      </>
-    ))}
+  <g fill="#FAF8F3">
+    {
+      PAD_GLYPHS.map((p) => (
+        <>
+          <path class="pad-m" d={p.mobile} />
+          <path class="pad-d" d={p.desktop} />
+          <path class="pad-d" d={p.reading} />
+        </>
+      ))
+    }
   </g>
 </svg>
-<p class="sr-only">{pads.map((p) => `${p.kanji} ${p.romaji}, ${p.meaning}`).join(' · ')}</p>

@@ -1,12 +1,16 @@
 ---
-import { FULL_MARK, SMALL_MARK } from './marks';
-
+// The one-cut mark: a circle (r = 0.36 × size) bisected by a full-width line, all in one ink.
 interface Props {
-  small?: boolean;
-  class?: string;
+  size?: number;
+  light?: boolean;
 }
 
-const { small = false, class: className = '' } = Astro.props;
+const { size = 28, light = false } = Astro.props;
+const c = size / 2;
+const ink = `stroke:${light ? 'var(--washi)' : 'var(--sumi)'}`;
 ---
 
-<svg viewBox="0 0 100 100" class={className} aria-hidden="true" set:html={small ? SMALL_MARK : FULL_MARK} />
+<svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
+  <circle cx={c} cy={c} r={size * 0.36} fill="none" style={ink} stroke-width="1.6" />
+  <line x1="0" y1={c} x2={size} y2={c} style={ink} stroke-width="1.6" />
+</svg>

@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
-import Lockup from '../components/Lockup.astro';
+import Logo from '../components/Logo.astro';
+import ExternalLink from '../components/ExternalLink.astro';
 import { OWNER, OWNER_DISPLAY } from '../data/owner';
 import { TV_PROFILE } from '../data/indicators';
 
@@ -8,6 +9,7 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  bodyClass?: string;
 }
 
 const site = 'Itto-Ryu Tech';
@@ -15,6 +17,7 @@ const {
   title,
   description = 'Free Pine Script indicators for TradingView, most of them open-source. Grow with patience. Cut with discipline.',
   image = '/og.png',
+  bodyClass,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
@@ -39,6 +42,9 @@ const nav = [
   { href: '/tools', label: 'Tools' },
   { href: '/about', label: 'About' },
 ];
+// 'page' on the section's own page, 'true' on pages inside it (e.g. a tool's detail page).
+const current = (href: string) =>
+  path === href || path === `${href}/` ? 'page' : path.startsWith(`${href}/`) ? 'true' : undefined;
 ---
 
 <html lang="en">
@@ -61,50 +67,76 @@ const nav = [
     <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <meta name="theme-color" content="#FAF8F3" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&family=Shippori+Mincho:wght@500;600&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" href="/fonts/shippori-mincho-500.woff2" as="font" type="font/woff2" crossorigin />
+    <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
-  <body class="min-h-screen flex flex-col">
-    <header class="sticky top-0 z-40 border-b border-line bg-washi/90 backdrop-blur-sm">
-      <div class="mx-auto max-w-5xl px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-        <a href="/" aria-label="Itto-Ryu Tech home" class="no-underline"><Lockup /></a>
-        <nav class="flex items-center gap-2 text-sm">
-          {nav.map((item) => (
-            <a
-              href={item.href}
-              aria-current={path.startsWith(item.href) ? 'page' : undefined}
-              class="px-3.5 py-1.5 rounded-full border border-line text-usu hover:border-ishi hover:text-sumi aria-[current=page]:bg-kinu aria-[current=page]:text-sumi"
-            >
-              {item.label}
-            </a>
-          ))}
+  <body class={bodyClass}>
+    <header class="nav">
+      <div class="wrap nav-in">
+        <a class="brand" href="/" aria-label="Itto-Ryu Tech home"><Logo /><span>ITTO-RYU</span><span class="tech">TECH</span></a>
+        <nav class="nav-links" aria-label="Main">
+          {nav.map((item) => <a href={item.href} aria-current={current(item.href)}>{item.label}</a>)}
+          <ExternalLink class="btn btn-ghost btn-sm" href={TV_PROFILE}>TradingView</ExternalLink>
         </nav>
+        <button class="menu" type="button" aria-expanded="false" aria-controls="menu-panel">Menu</button>
       </div>
+      <nav id="menu-panel" class="menu-panel" aria-label="Main" hidden>
+        <ul class="wrap">
+          {nav.map((item) => <li><a href={item.href} aria-current={current(item.href)}>{item.label}</a></li>)}
+          <li><ExternalLink href={TV_PROFILE}>TradingView</ExternalLink></li>
+        </ul>
+      </nav>
     </header>
 
-    <main class="flex-1">
+    <main>
       <slot />
     </main>
 
-    <footer class="border-t border-line mt-24">
-      <div class="mx-auto max-w-5xl px-4 sm:px-6 py-12 grid gap-8 sm:grid-cols-[1fr_1.4fr]">
+    <footer class="foot">
+      <div class="wrap foot-in">
         <div>
-          <p class="font-serif text-xl">Still mind. Clear rules.</p>
+          <a class="brand" href="/" aria-label="Itto-Ryu Tech home"><Logo light /><span>ITTO-RYU</span><span class="tech">TECH</span></a>
+          <p class="motto">Still mind.<br />Clear rules.</p>
+          <nav class="foot-nav" aria-label="Footer">
+            <a href="/tools">Tools</a>
+            <a href="/about">About</a>
+            <a href="/disclaimer">Disclaimer</a>
+            <ExternalLink href={TV_PROFILE}>TradingView</ExternalLink>
+          </nav>
         </div>
-        <div class="text-sm text-usu space-y-2 leading-relaxed">
-          <p>
-            For education only. Not investment advice.{' '}
-            <a href="/disclaimer" class="underline hover:text-sumi">Disclaimer</a>
-          </p>
-          <p>Not affiliated with or endorsed by TradingView. Not affiliated with any Ittō-ryū school of swordsmanship.</p>
+        <div class="legal">
+          <p class="first">For education only. Not investment advice. Indicators describe market conditions; they do not predict prices.</p>
+          <p>Not affiliated with or endorsed by TradingView. Not affiliated with any <span class="nowrap">Ittō-ryū</span> school of swordsmanship.</p>
           <p>© 2026 Itto-Ryu Tech, owned and developed by {OWNER_DISPLAY}, {OWNER.role}.</p>
-          <p>Website code MIT · Open-source indicators MPL 2.0 · Text CC BY 4.0 (logo and chart images excluded)</p>
+        </div>
+      </div>
+      <div class="tate" lang="ja" aria-hidden="true">明鏡止水</div>
+      <div class="wrap">
+        <div class="foot-bottom">
+          <span>Website code MIT · Open-source indicators MPL 2.0 · Text CC BY 4.0 (logo and chart images excluded)</span>
+          <span>ittoryutech.com</span>
         </div>
       </div>
     </footer>
+
+    <script is:inline>
+      (() => {
+        const button = document.querySelector('.menu');
+        const panel = document.getElementById('menu-panel');
+        if (!button || !panel) return;
+        const set = (open) => {
+          button.setAttribute('aria-expanded', String(open));
+          panel.hidden = !open;
+        };
+        button.addEventListener('click', () => set(button.getAttribute('aria-expanded') !== 'true'));
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && !panel.hidden) {
+            set(false);
+            button.focus();
+          }
+        });
+        matchMedia('(min-width: 761px)').addEventListener('change', (e) => e.matches && set(false));
+      })();
+    </script>
   </body>
 </html>
