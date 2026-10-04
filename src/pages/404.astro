@@ -4,11 +4,13 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Page not found">
   <div class="wrap lost">
-    <header class="page-head">
-      <p class="crumb">404</p>
-      <h1>Page not found</h1>
-      <p>This branch has been pruned, or it has not grown yet.</p>
-    </header>
-    <a class="btn btn-primary" href="/tools">Browse tools</a>
+    <img class="lost-kiko" src="/kiko.svg" width="155" height="260" alt="" />
+    <p class="crumb">Error 404</p>
+    <h1>This page was pruned.</h1>
+    <p class="sub">It may have moved, or it no longer exists.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/tools">Browse tools</a>
+      <a class="btn btn-ghost" href="/">Go home</a>
+    </div>
   </div>
 </Layout>

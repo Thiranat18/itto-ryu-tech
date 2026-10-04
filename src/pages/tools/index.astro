@@ -58,7 +58,12 @@ const key = (value: string) => value.toLowerCase();
         ))
       }
     </ul>
-    <p class="rows-empty" hidden>No tools match this filter.</p>
+    <div class="rows-empty" hidden>
+      <img src="/kiko.svg" width="95" height="160" loading="lazy" alt="" />
+      <p class="empty-title">No tools match these filters yet.</p>
+      <p>Try another category, or turn off <span class="nowrap">Open-source only</span>.</p>
+      <button class="btn btn-ghost" type="button" data-clear>Clear filters</button>
+    </div>
 
     <div class="note-band">
       <div>
@@ -106,6 +111,12 @@ const key = (value: string) => value.toLowerCase();
 
       chips.forEach((c) => c.addEventListener('click', () => { cat = c.dataset.cat; apply(true); }));
       toggle.addEventListener('click', () => { open = !open; apply(true); });
+      empty.querySelector('[data-clear]').addEventListener('click', () => {
+        cat = 'all';
+        open = false;
+        apply(true);
+        chips[0].focus();
+      });
       apply(false);
     })();
   </script>
