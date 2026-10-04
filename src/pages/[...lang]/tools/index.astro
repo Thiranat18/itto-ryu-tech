@@ -17,70 +17,73 @@ const indicators = indicatorsIn(lang);
 const categories = [...new Set(indicators.map((t) => t.category))];
 const count = (category: string) => indicators.filter((t) => t.category === category).length;
 const key = (value: string) => value.toLowerCase();
+const showing = copy.showing.replace('{shown}', String(indicators.length)).replace('{total}', String(indicators.length));
+const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
 <Layout title={copy.title} description={copy.description} bodyClass="p-tools">
-  <div class="wrap">
-    <header class="page-head">
-      <p class="crumb">{copy.crumb}</p>
-      <h1>{copy.h1}</h1>
-      <p>{copy.lede}</p>
-    </header>
+  <header class="tile tile-fill tile-big span-3 page-title">
+    <p class="crumb">{copy.crumb}</p>
+    <h1>{copy.h1}</h1>
+    <span class="cut" aria-hidden="true"></span>
+    <p class="lede">{copy.lede}</p>
+  </header>
+  <div class="tile tile-ink count">
+    <span class="count-n" aria-hidden="true" data-count>{pad(indicators.length)}</span>
+    <p data-count-text>{showing}</p>
+  </div>
 
-    <div class="filters" role="group" aria-label={copy.filterLabel}>
-      <button class="chip" type="button" data-cat="all" aria-pressed="true">{copy.all} <span class="n">{indicators.length}</span></button>
-      {
-        categories.map((c) => (
-          <button class="chip" type="button" data-cat={key(c)} aria-pressed="false">
-            {label(lang, 'categories', c)} <span class="n">{count(c)}</span>
-          </button>
-        ))
-      }
-      <span class="spacer"></span>
-      <button class="toggle" type="button" role="switch" aria-checked="false"><span class="sw" aria-hidden="true"></span>{copy.openOnly}</button>
-    </div>
-    <p class="sr-only" aria-live="polite" id="filter-status" data-showing={copy.showing}></p>
+  <div class="filters" role="group" aria-label={copy.filterLabel}>
+    <button class="chip" type="button" data-cat="all" aria-pressed="true">{copy.all} <span class="n">{indicators.length}</span></button>
+    {
+      categories.map((c) => (
+        <button class="chip" type="button" data-cat={key(c)} aria-pressed="false">
+          {label(lang, 'categories', c)} <span class="n">{count(c)}</span>
+        </button>
+      ))
+    }
+    <span class="spacer"></span>
+    <button class="toggle" type="button" role="switch" aria-checked="false"><span class="sw" aria-hidden="true"></span>{copy.openOnly}</button>
+  </div>
+  <p class="sr-only" aria-live="polite" id="filter-status" data-showing={copy.showing}></p>
 
-    <ul class="rows">
-      {
-        indicators.map((t) => (
-          <li class="row" data-cat={key(t.category)} data-lic={key(t.access)}>
-            <div class="row-fig">
-              <ToolDiagram slug={t.slug} />
+  <ul class="rows">
+    {
+      indicators.map((t) => (
+        <li class="tile tile-fill row" data-cat={key(t.category)} data-lic={key(t.access)}>
+          <div class="row-fig" lang="en">
+            <ToolDiagram slug={t.slug} />
+          </div>
+          <div>
+            <div class="meta">
+              <span class="cat">{label(lang, 'categories', t.category)}</span>
+              <span class="lic">{label(lang, 'access', t.access)}</span>
             </div>
-            <div>
-              <div class="meta">
-                <span class="cat">{label(lang, 'categories', t.category)}</span>
-                <span class="lic">{label(lang, 'access', t.access)}</span>
-              </div>
-              <h2><a href={localize(lang, `/tools/${t.slug}`)}>{t.name}</a></h2>
-              <p>{t.summary}</p>
-            </div>
-            <div class="row-act">
-              <a class="btn btn-ghost btn-sm" href={localize(lang, `/tools/${t.slug}`)}>{copy.viewTool}<span class="sr-only">: {t.name}</span></a>
-              <ExternalLink class="tv" href={t.url}>{copy.openOnTv}<span class="sr-only">: {t.name}</span></ExternalLink>
-            </div>
-          </li>
-        ))
-      }
-    </ul>
-    <div class="rows-empty" hidden>
-      <img src="/kiko.svg" width="95" height="160" loading="lazy" alt="" />
-      <p class="empty-title"><Phrases text={copy.emptyTitle} /></p>
-      <p set:html={copy.emptyHtml} />
-      <button class="btn btn-ghost" type="button" data-clear>{copy.clear}</button>
-    </div>
+            <h2><a href={localize(lang, `/tools/${t.slug}`)}>{t.name}</a></h2>
+            <p>{t.summary}</p>
+          </div>
+          <div class="row-act">
+            <a class="text-link" href={localize(lang, `/tools/${t.slug}`)}>{copy.viewTool}<span class="sr-only">: {t.name}</span></a>
+            <ExternalLink class="tv" href={t.url}>{copy.openOnTv}<span class="sr-only">: {t.name}</span></ExternalLink>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+  <div class="tile tile-line span-4 rows-empty" hidden>
+    <img src="/kiko.svg" width="95" height="160" loading="lazy" alt="" />
+    <p class="empty-title"><Phrases text={copy.emptyTitle} /></p>
+    <p set:html={copy.emptyHtml} />
+    <button class="btn btn-ghost" type="button" data-clear>{copy.clear}</button>
+  </div>
 
-    <div class="note-band">
-      <div>
-        <h2>{copy.openTitle}</h2>
-        <p>{copy.openText}</p>
-      </div>
-      <div>
-        <h2>{copy.protectedTitle}</h2>
-        <p>{copy.protectedText}</p>
-      </div>
-    </div>
+  <div class="tile tile-line span-2 note">
+    <h2>{copy.openTitle}</h2>
+    <p>{copy.openText}</p>
+  </div>
+  <div class="tile tile-line span-2 note">
+    <h2>{copy.protectedTitle}</h2>
+    <p>{copy.protectedText}</p>
   </div>
 
   <script is:inline>
@@ -90,6 +93,8 @@ const key = (value: string) => value.toLowerCase();
       const toggle = document.querySelector('.toggle');
       const empty = document.querySelector('.rows-empty');
       const status = document.getElementById('filter-status');
+      const countN = document.querySelector('[data-count]');
+      const countText = document.querySelector('[data-count-text]');
       if (!toggle || !empty || !status) return;
       const params = new URLSearchParams(location.search);
       let cat = params.get('cat') || 'all';
@@ -106,8 +111,11 @@ const key = (value: string) => value.toLowerCase();
           if (show) shown++;
         });
         empty.hidden = shown > 0;
+        const text = status.dataset.showing.replace('{shown}', shown).replace('{total}', rows.length);
+        countN.textContent = String(shown).padStart(2, '0');
+        countText.textContent = text;
         if (!update) return;
-        status.textContent = status.dataset.showing.replace('{shown}', shown).replace('{total}', rows.length);
+        status.textContent = text;
         const q = new URLSearchParams();
         if (cat !== 'all') q.set('cat', cat);
         if (open) q.set('open', '1');

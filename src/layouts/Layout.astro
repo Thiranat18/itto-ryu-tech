@@ -15,7 +15,7 @@ interface Props {
   translated?: boolean;
 }
 
-const site = 'Itto-Ryu Tech';
+const site = 'ITTO RYU TECH';
 const path = Astro.url.pathname;
 const lang = langOf(path);
 const ui = t(lang);
@@ -71,7 +71,7 @@ const current = (href: string) =>
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={lang === 'th' ? 'th_TH' : 'en_GB'} />
-    <meta property="og:site_name" content="Itto-Ryu Tech" />
+    <meta property="og:site_name" content={site} />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
@@ -83,70 +83,69 @@ const current = (href: string) =>
     <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body class={bodyClass}>
-    <header class="nav">
-      <div class="wrap nav-in">
-        <a class="brand" href={home} aria-label={ui.site.homeLabel}><Logo /><span>ITTO-RYU</span><span class="tech">TECH</span></a>
-        <nav class="nav-links" aria-label={ui.site.mainNav}>
-          {nav.map((item) => <a href={item.href} aria-current={current(item.href)}>{item.label}</a>)}
-          <ExternalLink class="btn btn-ghost btn-sm" href={TV_PROFILE}>TradingView</ExternalLink>
+    <div class="frame">
+      <!-- The scroll rail: a vertical bar on wide screens, a top bar under 901px. -->
+      <header class="rail">
+        <a class="rail-home" href={home} aria-label={ui.site.homeLabel}>
+          <Logo size={40} stroke={2} />
+          <span class="rail-kanji" lang="ja">一刀流</span>
+          <span class="rail-word">{site}</span>
+        </a>
+        <div class="rail-end">
+          <nav class="rail-nav" aria-label={ui.site.mainNav}>
+            {nav.map((item) => <a href={item.href} aria-current={current(item.href)}>{item.label}</a>)}
+            <ExternalLink href={TV_PROFILE}>TradingView</ExternalLink>
+          </nav>
+          {
+            translated && (
+              <ul class="lang-switch" role="list" aria-label={ui.site.language}>
+                {langLinks.map((l) => (
+                  <li class={l.code === lang ? 'here' : undefined}>
+                    <a
+                      href={l.href}
+                      hreflang={l.code}
+                      lang={l.code}
+                      aria-current={l.code === lang ? 'true' : undefined}
+                      data-lang-switch
+                    >
+                      {l.name}{l.code !== lang && <span class="sr-only"> {l.readIn}</span>}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )
+          }
+          <button class="menu" type="button" aria-expanded="false" aria-controls="menu-panel">{ui.site.menu}</button>
+          <div class="hanko" aria-hidden="true"><span lang="ja">一刀</span></div>
+        </div>
+        <nav id="menu-panel" class="menu-panel" aria-label={ui.site.mainNav} hidden>
+          <ul>
+            {nav.map((item) => <li><a href={item.href} aria-current={current(item.href)}>{item.label}</a></li>)}
+            <li><ExternalLink href={TV_PROFILE}>TradingView</ExternalLink></li>
+          </ul>
         </nav>
-        {
-          translated && (
-            <ul class="lang-switch" role="list" aria-label={ui.site.language}>
-              {langLinks.map((l) => (
-                <li class={l.code === lang ? 'here' : undefined}>
-                  <a
-                    href={l.href}
-                    hreflang={l.code}
-                    lang={l.code}
-                    aria-current={l.code === lang ? 'true' : undefined}
-                    aria-label={l.code === lang ? undefined : l.readIn}
-                    data-lang-switch
-                  >
-                    {l.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )
-        }
-        <button class="menu" type="button" aria-expanded="false" aria-controls="menu-panel">{ui.site.menu}</button>
-      </div>
-      <nav id="menu-panel" class="menu-panel" aria-label={ui.site.mainNav} hidden>
-        <ul class="wrap">
-          {nav.map((item) => <li><a href={item.href} aria-current={current(item.href)}>{item.label}</a></li>)}
-          <li><ExternalLink href={TV_PROFILE}>TradingView</ExternalLink></li>
-        </ul>
-      </nav>
-    </header>
+      </header>
 
-    <main>
-      <slot />
-    </main>
-
-    <footer class="foot">
-      <div class="wrap foot-in">
-        <div class="foot-id">
-          <a class="brand" href={home} aria-label={ui.site.homeLabel}><Logo light /><span>ITTO-RYU</span><span class="tech">TECH</span></a>
+      <!-- The tatami grid: pages put their tiles straight into it; main uses display:contents so the footer tile
+           shares the grid while staying a contentinfo landmark outside main. -->
+      <div class="grid">
+        <main class="grid-main">
+          <slot />
+        </main>
+        <footer class="tile tile-ink foot">
           <div class="foot-sign">
             <p class="motto" set:html={ui.site.mottoHtml} />
             <img class="foot-kiko" src="/kiko-light.svg" width="74" height="124" loading="lazy" alt="" aria-hidden="true" />
           </div>
-        </div>
-        <div class="legal">
-          <p class="first">{ui.site.footEdu}</p>
-          <p set:html={ui.site.footAffiliationHtml} />
-          <p>{fill(ui.site.footOwned, { owner: OWNER_DISPLAY, role: ui.site.ownerRole })}</p>
-        </div>
+          <div class="legal">
+            <p class="first">{ui.site.footEdu}</p>
+            <p set:html={ui.site.footAffiliationHtml} />
+            <p>{fill(ui.site.footOwned, { owner: OWNER_DISPLAY, role: ui.site.ownerRole })}</p>
+            <p class="foot-faint">{ui.site.footLicences}</p>
+          </div>
+        </footer>
       </div>
-      <div class="tate" lang="ja" aria-hidden="true">明鏡止水</div>
-      <div class="wrap">
-        <div class="foot-bottom">
-          <span>{ui.site.footLicences}</span>
-          <span>ittoryutech.com</span>
-        </div>
-      </div>
-    </footer>
+    </div>
 
     <script is:inline>
       (() => {
@@ -164,7 +163,7 @@ const current = (href: string) =>
             button.focus();
           }
         });
-        matchMedia('(min-width: 761px)').addEventListener('change', (e) => e.matches && set(false));
+        matchMedia('(min-width: 901px)').addEventListener('change', (e) => e.matches && set(false));
       })();
       // Switching language keeps the place on the page and any /tools filter.
       for (const a of document.querySelectorAll('[data-lang-switch]')) {

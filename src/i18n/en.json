@@ -1,7 +1,7 @@
 {
   "site": {
     "description": "Free Pine Script indicators for TradingView, most of them open-source. Grow with patience. Cut with discipline.",
-    "homeLabel": "Itto-Ryu Tech home",
+    "homeLabel": "ITTO RYU TECH home",
     "mainNav": "Main",
     "tools": "Tools",
     "about": "About",
@@ -14,7 +14,7 @@
     "mottoHtml": "Still mind.<br />Clear rules.",
     "footEdu": "For education only. Not investment advice. Indicators describe market conditions; they do not predict prices.",
     "footAffiliationHtml": "Not affiliated with or endorsed by TradingView. Not affiliated with any <span class=\"nowrap\">Ittō-ryū</span> school of swordsmanship.",
-    "footOwned": "© 2026 Itto-Ryu Tech, owned and developed by {owner}, {role}.",
+    "footOwned": "© 2026 ITTO RYU TECH, owned and developed by {owner}, {role}.",
     "footLicences": "Website code MIT · Open-source indicators MPL 2.0 · Text CC BY 4.0 (logo and chart images excluded)"
   },
   "labels": {
@@ -36,6 +36,7 @@
     ],
     "toolsCount": "{n} public tools",
     "toolsTitle": "Indicators",
+    "inkTitleHtml": "Indicators,<br />open to read.",
     "toolsText": "Free on TradingView. The open-source ones let you read every line of the Pine Script.",
     "seeAll": "See all tools",
     "viewTool": "View tool",

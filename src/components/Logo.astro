@@ -3,14 +3,15 @@
 interface Props {
   size?: number;
   light?: boolean;
+  stroke?: number;
 }
 
-const { size = 28, light = false } = Astro.props;
+const { size = 28, light = false, stroke = 1.6 } = Astro.props;
 const c = size / 2;
 const ink = `stroke:${light ? 'var(--washi)' : 'var(--sumi)'}`;
 ---
 
 <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
-  <circle cx={c} cy={c} r={size * 0.36} fill="none" style={ink} stroke-width="1.6" />
-  <line x1="0" y1={c} x2={size} y2={c} style={ink} stroke-width="1.6" />
+  <circle cx={c} cy={c} r={size * 0.36} fill="none" style={ink} stroke-width={stroke} />
+  <line x1="0" y1={c} x2={size} y2={c} style={ink} stroke-width={stroke} />
 </svg>

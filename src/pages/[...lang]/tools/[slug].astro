@@ -33,195 +33,198 @@ const groups = ref.settings.reduce<{ name: string; rows: typeof ref.settings }[]
 ---
 
 <Layout title={indicator.name} description={indicator.summary} image={indicator.image} bodyClass="p-tools">
-  <div class="wrap">
-    <div class="detail">
-      <article>
-        <a class="back" href={localize(lang, '/tools')}>{copy.back}</a>
-        <div class="meta">
-          <span class="cat">{label(lang, 'categories', indicator.category)}</span>
-          <span class="lic">{label(lang, 'access', indicator.access)}</span>
-        </div>
-        <h1>{indicator.name}</h1>
-        <p class="lede">{indicator.summary}</p>
-        <p class="byline">{copy.by} · {copy.tended} <time datetime={indicator.tended}>{tended}</time></p>
-        <ExternalLink class="btn btn-primary m-only" href={indicator.url} data-event="tv_click" data-tool={indicator.slug}
-          >{copy.openOnTv}</ExternalLink
-        >
-
-        <figure class="figure">
-          <img
-            src={indicator.image}
-            width={indicator.imageWidth}
-            height={indicator.imageHeight}
-            alt={fill(copy.imgAlt, { name: indicator.name })}
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-          />
-          <figcaption>{copy.caption}</figcaption>
-        </figure>
-        {
-          indicator.legend && (
-            <div class="draws">
-              <h2>{copy.draws}</h2>
-              <ul class="legend">
-                {indicator.legend.map((item) => (
-                  <li>
-                    <span class={`sw-${item.swatch}`} aria-hidden="true" />
-                    {item.label}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )
-        }
-
-        <div class="cols">
-          <section>
-            <h2>{copy.howItWorks}</h2>
-            <p>{indicator.howItWorks}</p>
-          </section>
-          <section>
-            <h2>{copy.howToUse}</h2>
-            <p>{indicator.howToUse}</p>
-          </section>
-        </div>
-
-        <section class="not-do" aria-labelledby="not-do">
-          <h2 id="not-do">{copy.notDo}</h2>
-          <ul class="dash">{indicator.notDo.map((line) => <li>{line}</li>)}</ul>
-        </section>
-
-        <section class="guide" aria-labelledby="readings">
-          <h2 id="readings">{copy.readings}</h2>
-          <p class="guide-lede">
-            <span class="js-only">{copy.readingsJs}</span><span class="no-js">{copy.readingsNoJs}</span>
-          </p>
-          <StatePicker states={ref.states} />
-        </section>
-
-        <section class="guide" aria-labelledby="settings">
-          <h2 id="settings">{copy.settings}</h2>
-          <table class="settings" aria-labelledby="settings">
-            <thead>
-              <tr><th scope="col">{copy.colSetting}</th><th scope="col">{copy.colDefault}</th><th scope="col">{copy.colEffect}</th></tr>
-            </thead>
-            <tbody>
-              {
-                indicator.settings.map((s) => (
-                  <tr>
-                    <th scope="row">{s.name}</th>
-                    <td>{s.value}</td>
-                    <td>{s.effect}</td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-          <details class="all-settings">
-            <summary>{fill(copy.allSettings, { n: ref.settings.length })}</summary>
-            <table class="settings" aria-label={fill(copy.allSettingsLabel, { name: indicator.name })}>
-              <thead>
-                <tr>
-                  <th scope="col">{copy.colSetting}</th><th scope="col">{copy.colDefault}</th><th scope="col"
-                    >{copy.colRange}</th
-                  ><th scope="col">{copy.colEffect}</th>
-                </tr>
-              </thead>
-              {
-                groups.map((g) => (
-                  <tbody>
-                    <tr class="grp">
-                      <th scope="rowgroup" colspan="4">
-                        {g.name}
-                      </th>
-                    </tr>
-                    {g.rows.map((r) => (
-                      <tr>
-                        <th scope="row">{r.name}</th>
-                        <td>
-                          {r.value.startsWith('#') && <span class="swatch" style={`background:${r.value}`} aria-hidden="true" />}
-                          {r.value}
-                        </td>
-                        <td class="range" data-label={copy.colRange}>{r.range}</td>
-                        <td>{r.effect}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                ))
-              }
-            </table>
-            <p class="guide-note">{fill(copy.settingsNote, { v: ref.version })}</p>
-          </details>
-        </section>
-
-        <section class="guide" aria-labelledby="questions">
-          <h2 id="questions">{copy.questions}</h2>
-          <dl class="qa">
-            {
-              indicator.questions.map((item) => (
-                <div>
-                  <dt>{item.q}</dt>
-                  <dd>{item.a}</dd>
-                </div>
-              ))
-            }
-          </dl>
-        </section>
-
-        <p class="care">
-          {copy.tended} <time datetime={indicator.tended}>{tended}</time> · {copy.unclear}{' '}
-          <ExternalLink class="text-link" href={indicator.url} data-event="tv_click" data-tool={indicator.slug}
-            >{copy.askComments}</ExternalLink
-          > · {copy.edu}
-        </p>
-      </article>
-
-      <aside class="aside" aria-label={copy.asideLabel}>
-        <div class="aside-card">
-          <ExternalLink class="btn btn-primary" href={indicator.url} data-event="tv_click" data-tool={indicator.slug}
-            >{copy.openOnTv}</ExternalLink
-          >
-          <p class="listed">
-            {copy.listedBefore}{tvName}<span class="nowrap">{tvTag}</span>{copy.listedAfter}{' '}
-            {indicator.access === 'Open-source' ? copy.freeOpen : copy.freeProtected}
-          </p>
-          <hr />
-          <h2>{copy.talkTitle}</h2>
-          <p>{copy.talkText}</p>
-          <p class="go">
-            <ExternalLink class="text-link" href={indicator.url} data-event="tv_click" data-tool={indicator.slug}
-              >{copy.commentsLink}</ExternalLink
-            >
-          </p>
-          <p class="quiet">{copy.reply}</p>
-          <p class="quiet">{copy.shareRule}</p>
-          <hr />
-          <p>{copy.followText}</p>
-          <p class="go">
-            <ExternalLink class="text-link" href={TV_PROFILE} data-event="follow_click" data-page={Astro.url.pathname}
-              >{copy.followLink}</ExternalLink
-            >
-          </p>
-        </div>
-      </aside>
+  <header class="tile tile-fill tile-big span-3 tool-head">
+    <a class="back" href={localize(lang, '/tools')}><span aria-hidden="true">← </span>{copy.back}</a>
+    <div class="meta">
+      <span class="cat">{label(lang, 'categories', indicator.category)}</span>
+      <span class="lic">{label(lang, 'access', indicator.access)}</span>
     </div>
+    <h1>{indicator.name}</h1>
+    <span class="cut" aria-hidden="true"></span>
+    <p class="lede">{indicator.summary}</p>
+    <p class="byline">{copy.by} · {copy.tended} <time datetime={indicator.tended}>{tended}</time></p>
+  </header>
+
+  <aside class="tile tile-ink rows-2 aside" aria-label={copy.asideLabel}>
+    <p class="ink-label">{copy.asideLabel}</p>
+    <ExternalLink class="btn btn-light" href={indicator.url} data-event="tv_click" data-tool={indicator.slug}
+      >{copy.openOnTv}</ExternalLink
+    >
+    <p class="listed">
+      {copy.listedBefore}{tvName}<span class="nowrap">{tvTag}</span>{copy.listedAfter}{' '}
+      {indicator.access === 'Open-source' ? copy.freeOpen : copy.freeProtected}
+    </p>
+    <hr />
+    <div class="stack-s">
+      <h2>{copy.talkTitle}</h2>
+      <p>{copy.talkText}</p>
+      <p>
+        <ExternalLink class="text-link" href={indicator.url} data-event="tv_click" data-tool={indicator.slug}
+          >{copy.commentsLink}</ExternalLink
+        >
+      </p>
+      <p class="quiet">{copy.reply}</p>
+    </div>
+    <p class="quiet">{copy.shareRule}</p>
+    <div class="stack-s">
+      <p class="quiet">{copy.followText}</p>
+      <p>
+        <ExternalLink class="text-link" href={TV_PROFILE} data-event="follow_click" data-page={Astro.url.pathname}
+          >{copy.followLink}</ExternalLink
+        >
+      </p>
+    </div>
+    <img class="aside-kiko" src="/kiko-light.svg" width="66" height="110" loading="lazy" alt="" />
+    <p class="edu">{copy.edu}</p>
+  </aside>
+
+  <div class="tile tile-fill span-3 fig-tile">
+    <figure>
+      <img
+        src={indicator.image}
+        width={indicator.imageWidth}
+        height={indicator.imageHeight}
+        alt={fill(copy.imgAlt, { name: indicator.name })}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <figcaption>{copy.caption}</figcaption>
+    </figure>
+    {
+      indicator.legend && (
+        <div class="draws">
+          <h2>{copy.draws}</h2>
+          <ul class="legend">
+            {indicator.legend.map((item) => (
+              <li>
+                <span class={`sw-${item.swatch}`} aria-hidden="true" />
+                {item.label}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
   </div>
 
-  <section class="more-tools" aria-labelledby="other-tools">
-    <div class="wrap">
-      <h2 id="other-tools">{copy.otherTools}</h2>
-      <div class="mini-grid">
-        {
-          others.map((t) => (
-            <a class="mini" href={localize(lang, `/tools/${t.slug}`)}>
-              <span class="cat">{label(lang, 'categories', t.category)}</span>
-              <h3>{t.name}</h3>
-              <p>{t.summary}</p>
-            </a>
-          ))
-        }
+  <section class="tile tile-line span-2 guide" aria-labelledby="how-works">
+    <span class="kanji-mark k-grow" lang="ja" aria-hidden="true">育</span>
+    <h2 id="how-works">{copy.howItWorks}</h2>
+    <p>{indicator.howItWorks}</p>
+  </section>
+  <div class="span-2 stack">
+    <section class="tile tile-line guide" aria-labelledby="how-use">
+      <span class="kanji-mark k-wait" lang="ja" aria-hidden="true">待</span>
+      <h2 id="how-use">{copy.howToUse}</h2>
+      <p>{indicator.howToUse}</p>
+    </section>
+    <section class="tile tile-fill guide" aria-labelledby="not-do">
+      <span class="kanji-mark k-cut" lang="ja" aria-hidden="true">切</span>
+      <h2 id="not-do">{copy.notDo}</h2>
+      <ul class="dash">{indicator.notDo.map((line) => <li>{line}</li>)}</ul>
+    </section>
+  </div>
+
+  <section class="tile tile-line span-4 guide" aria-labelledby="readings">
+    <h2 id="readings">{copy.readings}</h2>
+    <p class="guide-lede">
+      <span class="js-only">{copy.readingsJs}</span><span class="no-js">{copy.readingsNoJs}</span>
+    </p>
+    <StatePicker states={ref.states} />
+  </section>
+
+  <section class="tile tile-line span-4 guide">
+    <h2 id="settings">{copy.settings}</h2>
+    <div class="table-scroll" tabindex="0" role="region" aria-labelledby="settings">
+      <table class="settings" aria-labelledby="settings">
+        <thead>
+          <tr><th scope="col">{copy.colSetting}</th><th scope="col">{copy.colDefault}</th><th scope="col">{copy.colEffect}</th></tr>
+        </thead>
+        <tbody>
+          {
+            indicator.settings.map((s) => (
+              <tr>
+                <th scope="row">{s.name}</th>
+                <td>{s.value}</td>
+                <td>{s.effect}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <details class="all-settings">
+      <summary>{fill(copy.allSettings, { n: ref.settings.length })}</summary>
+      <div class="table-scroll" tabindex="0" role="region" aria-label={fill(copy.allSettingsLabel, { name: indicator.name })}>
+        <table class="settings" aria-label={fill(copy.allSettingsLabel, { name: indicator.name })}>
+          <thead>
+            <tr>
+              <th scope="col">{copy.colSetting}</th><th scope="col">{copy.colDefault}</th><th scope="col"
+                >{copy.colRange}</th
+              ><th scope="col">{copy.colEffect}</th>
+            </tr>
+          </thead>
+          {
+            groups.map((g) => (
+              <tbody>
+                <tr class="grp">
+                  <th scope="rowgroup" colspan="4">
+                    {g.name}
+                  </th>
+                </tr>
+                {g.rows.map((r) => (
+                  <tr>
+                    <th scope="row">{r.name}</th>
+                    <td>
+                      {r.value.startsWith('#') && <span class="swatch" style={`background:${r.value}`} aria-hidden="true" />}
+                      {r.value}
+                    </td>
+                    <td class="range">{r.range}</td>
+                    <td>{r.effect}</td>
+                  </tr>
+                ))}
+              </tbody>
+            ))
+          }
+        </table>
       </div>
+      <p class="guide-note">{fill(copy.settingsNote, { v: ref.version })}</p>
+    </details>
+  </section>
+
+  <section class="span-4 qa-sec" aria-labelledby="questions">
+    <h2 id="questions">{copy.questions}</h2>
+    <dl class="qa">
+      {
+        indicator.questions.map((item) => (
+          <div>
+            <dt>{item.q}</dt>
+            <dd>{item.a}</dd>
+          </div>
+        ))
+      }
+    </dl>
+    <p class="care">
+      {copy.tended} <time datetime={indicator.tended}>{tended}</time> · {copy.unclear}{' '}
+      <ExternalLink class="text-link" href={indicator.url} data-event="tv_click" data-tool={indicator.slug}
+        >{copy.askComments}</ExternalLink
+      > · {copy.edu}
+    </p>
+  </section>
+
+  <section class="span-4 more" aria-labelledby="other-tools">
+    <h2 id="other-tools">{copy.otherTools}</h2>
+    <div class="minis">
+      {
+        others.map((t) => (
+          <a class="tile tile-fill mini" href={localize(lang, `/tools/${t.slug}`)}>
+            <span class="cat">{label(lang, 'categories', t.category)}</span>
+            <h3>{t.name}</h3>
+            <p>{t.summary}</p>
+          </a>
+        ))
+      }
     </div>
   </section>
   <script>

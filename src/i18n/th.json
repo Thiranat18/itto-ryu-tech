@@ -1,7 +1,7 @@
 {
   "site": {
     "description": "Pine Script indicator ฟรีสำหรับ TradingView ส่วนใหญ่เป็น open-source เลี้ยงให้โต ตัดให้เป็น",
-    "homeLabel": "หน้าแรก Itto-Ryu Tech",
+    "homeLabel": "หน้าแรก ITTO RYU TECH",
     "mainNav": "เมนูหลัก",
     "tools": "เครื่องมือ",
     "about": "เกี่ยวกับ",
@@ -14,7 +14,7 @@
     "mottoHtml": "ใจนิ่ง<br />กฎชัด",
     "footEdu": "เพื่อการศึกษาเท่านั้น ไม่ใช่คำแนะนำการลงทุน Indicator ใช้อธิบายสภาวะตลาด ไม่ได้ทำนายราคา",
     "footAffiliationHtml": "ไม่มีส่วนเกี่ยวข้องกับ TradingView และไม่ได้รับการรับรองจาก TradingView ไม่มีส่วนเกี่ยวข้องกับสำนักดาบ <span class=\"nowrap\">Ittō-ryū</span> ใด ๆ",
-    "footOwned": "© 2026 Itto-Ryu Tech เจ้าของและผู้พัฒนาคือ {owner} {role}",
+    "footOwned": "© 2026 ITTO RYU TECH เจ้าของและผู้พัฒนาคือ {owner} {role}",
     "footLicences": "โค้ดเว็บไซต์ MIT · Indicator แบบ open-source MPL 2.0 · ข้อความ CC BY 4.0 (ไม่รวมโลโก้และภาพชาร์ต)"
   },
   "labels": {
@@ -52,6 +52,7 @@
     ],
     "toolsCount": "เครื่องมือที่เผยแพร่ {n} ตัว",
     "toolsTitle": "Indicator",
+    "inkTitleHtml": "Indicator<br />เปิดโค้ดให้อ่าน",
     "toolsText": "ใช้ฟรีบน TradingView ตัวที่เป็น open-source เปิดให้คุณอ่าน Pine Script ได้ทุกบรรทัด",
     "seeAll": "ดูเครื่องมือทั้งหมด",
     "viewTool": "ดูเครื่องมือนี้",

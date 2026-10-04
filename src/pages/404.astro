@@ -3,10 +3,11 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Page not found" translated={false}>
-  <div class="wrap lost">
-    <img class="lost-kiko" src="/kiko-scene.svg" width="262" height="260" alt="" />
+  <div class="tile tile-fill span-4 lost">
+    <img class="lost-kiko" src="/kiko-scene.svg" width="242" height="240" alt="" />
     <p class="crumb">Error 404</p>
-    <h1>This page was pruned.</h1>
+    <h1 class="title-h1">This page was pruned.</h1>
+    <span class="cut" aria-hidden="true"></span>
     <p class="sub">It may have moved, or it no longer exists.</p>
     <div class="actions">
       <a class="btn btn-primary" href="/tools">Browse tools</a>

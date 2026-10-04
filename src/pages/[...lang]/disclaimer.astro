@@ -6,19 +6,22 @@ export function getStaticPaths() {
   return LANGS.map((lang) => ({ params: { lang: langParam(lang) } }));
 }
 
-const copy = t(langOf(Astro.url.pathname)).disclaimer;
+const ui = t(langOf(Astro.url.pathname));
+const copy = ui.disclaimer;
 ---
 
 <Layout title={copy.title} description={copy.description}>
-  <div class="wrap">
-    <header class="page-head">
-      <p class="crumb">{copy.crumb}</p>
-      <h1>{copy.h1}</h1>
-    </header>
+  <header class="tile tile-fill tile-big span-3 page-title">
+    <p class="crumb">{copy.crumb}</p>
+    <h1>{copy.h1}</h1>
+    <span class="cut" aria-hidden="true"></span>
+  </header>
+  <div class="tile tile-ink edu-tile">
+    <p>{ui.about.discBold}</p>
+  </div>
 
-    <div class="prose">
-      {copy.paras.map((text) => <p>{text}</p>)}
-      <p class="quiet">{copy.affiliation}</p>
-    </div>
+  <div class="tile tile-line span-3 prose">
+    {copy.paras.map((text) => <p>{text}</p>)}
+    <p class="quiet">{copy.affiliation}</p>
   </div>
 </Layout>
