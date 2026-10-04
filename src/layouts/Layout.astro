@@ -42,7 +42,9 @@ const nav = [
   { href: '/tools', label: 'Tools' },
   { href: '/about', label: 'About' },
 ];
-const current = (href: string) => (path.startsWith(href) ? 'page' : undefined);
+// 'page' on the section's own page, 'true' on pages inside it (e.g. a tool's detail page).
+const current = (href: string) =>
+  path === href || path === `${href}/` ? 'page' : path.startsWith(`${href}/`) ? 'true' : undefined;
 ---
 
 <html lang="en">
@@ -104,7 +106,7 @@ const current = (href: string) => (path.startsWith(href) ? 'page' : undefined);
         </div>
         <div class="legal">
           <p class="first">For education only. Not investment advice. Indicators describe market conditions; they do not predict prices.</p>
-          <p>Not affiliated with or endorsed by TradingView. Not affiliated with any Ittō-ryū school of swordsmanship.</p>
+          <p>Not affiliated with or endorsed by TradingView. Not affiliated with any <span class="nowrap">Ittō-ryū</span> school of swordsmanship.</p>
           <p>© 2026 Itto-Ryu Tech, owned and developed by {OWNER_DISPLAY}, {OWNER.role}.</p>
         </div>
       </div>
