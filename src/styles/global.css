@@ -70,8 +70,9 @@ p{text-wrap:pretty}
 /* The cut line sits between the two h1 lines; its containing block is .hero, so it runs full-bleed. */
 .cutline{position:absolute;left:0;right:0;display:block;height:0}
 .cutline::before{content:"";position:absolute;left:0;right:0;top:0;border-top:1.5px solid var(--shu);transform-origin:left}
-/* The bonsai stands on the cut line: its pot feet (y = 90 of 100) rest on the line. */
-.hero-tree{position:absolute;right:max(var(--pad), calc((100% - 1240px)/2 + 40px));top:0;width:290px;height:290px;transform:translateY(-90%)}
+/* The bonsai straddles the cut line at y = 66 of 100 (lower trunk): canopy above, pot beside line two.
+   Keep translateY between about -61% (bottom of the 切 pad) and -80% (pot rim) so the line never crosses foliage or the pot. */
+.hero-tree{position:absolute;right:max(var(--pad), calc((100% - 1240px)/2 + 40px));top:0;width:clamp(270px, 30vw, 400px);aspect-ratio:1;transform:translateY(-66%)}
 .hero-tree svg{width:100%;height:100%}
 .hero-tree .pad-m{display:none}
 .hero .lede{max-width:500px;font-size:19px;line-height:1.75;margin-top:36px}
@@ -274,7 +275,6 @@ p{text-wrap:pretty}
 /* tablet: 761–1180px (not in the PDF) */
 @media (max-width:1260px) and (min-width:761px){
   .hero h1{font-size:58px}
-  .hero-tree{width:250px;height:250px}
   .ways h2{font-size:34px}
   .way{padding:0 28px}
   .way .kanji{font-size:104px}
@@ -297,16 +297,19 @@ p{text-wrap:pretty}
   .legal{padding-right:96px}
 }
 @media (max-width:900px) and (min-width:761px){
-  .hero h1{font-size:52px}
+  .hero h1{font-size:46px}
 }
 @media (max-width:960px) and (min-width:761px){
-  .hero-tree{width:200px;height:200px;right:24px}
+  .hero-tree{width:240px;right:24px}
   .detail{grid-template-columns:1fr;gap:0}
   .aside-card{position:static;margin-top:40px}
   .mini-grid{grid-template-columns:1fr 1fr}
   .foot-in{grid-template-columns:1fr;gap:40px}
   .philo-grid{grid-template-columns:1fr;gap:48px}
   .philo-art svg{width:100%;height:380px}
+}
+@media (max-width:900px) and (min-width:761px){
+  .hero-tree{width:230px}
 }
 
 /* mobile */
@@ -323,7 +326,7 @@ p{text-wrap:pretty}
   .hero .intro{font-size:14px;margin-bottom:22px}
   .hero h1{font-size:44px}
   .hero h1 .l1{padding-bottom:18px} .hero h1 .l2{padding-top:16px}
-  .hero-tree{width:124px;height:124px;right:12px}
+  .hero-tree{width:124px;right:12px}
   .hero-tree .pad-m{display:inline}
   .hero-tree .pad-d{display:none}
   .m-only{display:inline-flex;margin-top:24px;width:100%;justify-content:center}
@@ -408,10 +411,11 @@ p{text-wrap:pretty}
   .lost .actions .btn{justify-content:center}
 }
 @media (max-width:760px) and (min-width:431px){
-  .hero h1 .l1{padding-right:130px}
+  .hero h1 .l1,.hero h1 .l2{padding-right:130px}
+  .hero-tree{width:clamp(124px, 22vw, 168px)}
 }
 @media (max-width:360px){
   .foot-kiko{height:96px}
   .hero h1{font-size:40px}
-  .hero-tree{width:90px;height:90px;right:8px}
+  .hero-tree{width:90px;right:8px}
 }
