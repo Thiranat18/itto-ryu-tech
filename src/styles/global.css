@@ -150,6 +150,7 @@ p{text-wrap:pretty}
 .legal a{box-shadow:inset 0 -1px 0 #8F897E}
 .foot-mark{position:absolute;right:max(24px, calc((100% - 1240px)/2 - 24px));top:72px;display:flex;align-items:flex-end;gap:24px}
 .foot-kiko{height:124px;width:auto}
+.foot-kiko-m{display:none}
 .tate{writing-mode:vertical-rl;font-family:var(--serif);font-size:30px;letter-spacing:.5em;color:#6F6A61}
 .foot-bottom{border-top:1px solid #3A3731;padding:22px 0 28px;font-size:13px;color:#8F897E;display:flex;justify-content:space-between;gap:16px}
 
@@ -355,11 +356,16 @@ p{text-wrap:pretty}
   .philo blockquote{flex-direction:column;align-items:flex-start;gap:20px}
   .philo blockquote img{height:110px}
   .philo blockquote p{font-size:26px}
-  .foot-in{grid-template-columns:1fr;gap:40px;padding-top:64px;padding-bottom:48px}
+  .foot-in{grid-template-columns:1fr auto;gap:40px 16px;padding-top:64px;padding-bottom:48px}
+  .foot-id{display:contents}
+  .foot .brand{grid-row:1;grid-column:1/-1;justify-self:start}
+  .legal{grid-row:2;grid-column:1/-1;padding-right:52px} /* clears the vertical 明鏡止水 */
+  .motto{grid-row:3;margin-top:0;align-self:end}
+  .foot-kiko-m{display:block;grid-row:3;grid-column:2;height:110px;width:auto;align-self:end}
   .motto{font-size:34px}
-  .foot-mark{position:static;justify-content:flex-end;padding:0 var(--pad) 32px}
-  .foot-kiko{height:110px}
-  .tate{position:absolute;right:18px;top:56px;font-size:22px;color:#8F897E}
+  .foot-mark{right:18px;top:56px}
+  .foot-kiko{display:none}
+  .tate{font-size:22px;color:#8F897E}
   .foot-bottom{flex-direction:column;gap:6px}
   .page-head{padding:44px 0 24px}
   .page-head h1{font-size:46px}
@@ -411,6 +417,7 @@ p{text-wrap:pretty}
   .hero h1 .l1{padding-right:130px}
 }
 @media (max-width:360px){
+  .foot-kiko-m{height:96px}
   .hero h1{font-size:40px}
   .hero-tree{width:90px;height:90px;right:8px}
 }
