@@ -108,7 +108,7 @@ p{text-wrap:pretty}
 .sec-head p{color:var(--sumi);max-width:460px}
 .sec-head .text-link{justify-self:start}
 .m-only{display:none}
-.p-about .tate{visibility:hidden}
+.p-about .tate{display:none}
 .text-link{font-weight:500;box-shadow:inset 0 -1.5px 0 var(--matsu);padding-bottom:2px;white-space:nowrap}
 .text-link:hover{color:var(--matsu)}
 .tile-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
@@ -142,16 +142,15 @@ p{text-wrap:pretty}
 .foot{background:var(--sumi);color:var(--washi);position:relative;overflow:hidden}
 .foot-in{display:grid;grid-template-columns:5fr 6fr;gap:72px;padding-top:96px;padding-bottom:72px;position:relative}
 .foot .brand{color:var(--washi)} .foot .brand .tech{color:#A8A196}
-.motto{font-family:var(--serif);font-size:44px;line-height:1.2;margin-top:40px}
+.foot-sign{display:flex;align-items:flex-end;gap:24px;margin-top:40px}
+.motto{font-family:var(--serif);font-size:44px;line-height:1.2;white-space:nowrap}
 .foot :focus-visible{outline-color:var(--washi)}
-.legal{font-size:14px;line-height:1.75;color:#B5AFA3;align-self:end;max-width:440px}
+.legal{font-size:14px;line-height:1.75;color:#B5AFA3;align-self:end;max-width:520px}
 .legal p+p{margin-top:12px}
 .legal .first{color:var(--washi);font-size:16px}
 .legal a{box-shadow:inset 0 -1px 0 #8F897E}
-.foot-mark{position:absolute;right:max(24px, calc((100% - 1240px)/2 - 24px));top:72px;display:flex;align-items:flex-end;gap:24px}
-.foot-kiko{height:124px;width:auto}
-.foot-kiko-m{display:none}
-.tate{writing-mode:vertical-rl;font-family:var(--serif);font-size:30px;letter-spacing:.5em;color:#6F6A61}
+.foot-kiko{height:124px;width:auto;flex:none}
+.tate{position:absolute;right:max(var(--pad), calc((100% - 1240px)/2 + 40px));top:72px;writing-mode:vertical-rl;font-family:var(--serif);font-size:30px;letter-spacing:.5em;color:#6F6A61}
 .foot-bottom{border-top:1px solid #3A3731;padding:22px 0 28px;font-size:13px;color:#8F897E;display:flex;justify-content:space-between;gap:16px}
 
 /* page head (tools index, disclaimer, 404) */
@@ -298,8 +297,8 @@ p{text-wrap:pretty}
   .name-grid,.owner-grid,.kiko-grid{gap:48px}
   .kiko h2{font-size:44px}
 }
-@media (max-width:1260px) and (min-width:961px){
-  .legal{max-width:min(440px, calc(100% - 150px))}
+@media (max-width:1240px) and (min-width:761px){
+  .legal{padding-right:96px}
 }
 @media (max-width:900px) and (min-width:761px){
   .hero h1{font-size:52px}
@@ -356,16 +355,14 @@ p{text-wrap:pretty}
   .philo blockquote{flex-direction:column;align-items:flex-start;gap:20px}
   .philo blockquote img{height:110px}
   .philo blockquote p{font-size:26px}
-  .foot-in{grid-template-columns:1fr auto;gap:40px 16px;padding-top:64px;padding-bottom:48px}
+  .foot-in{grid-template-columns:1fr;gap:40px;padding-top:64px;padding-bottom:48px}
   .foot-id{display:contents}
-  .foot .brand{grid-row:1;grid-column:1/-1;justify-self:start}
-  .legal{grid-row:2;grid-column:1/-1;padding-right:52px} /* clears the vertical 明鏡止水 */
-  .motto{grid-row:3;margin-top:0;align-self:end}
-  .foot-kiko-m{display:block;grid-row:3;grid-column:2;height:110px;width:auto;align-self:end}
+  .foot .brand{grid-row:1;justify-self:start}
+  .legal{grid-row:2;padding-right:52px} /* clears the vertical 明鏡止水 */
+  .foot-sign{grid-row:3;margin-top:0;gap:20px}
+  .foot-kiko{height:110px}
   .motto{font-size:34px}
-  .foot-mark{right:18px;top:56px}
-  .foot-kiko{display:none}
-  .tate{font-size:22px;color:#8F897E}
+  .tate{right:18px;top:56px;font-size:22px;color:#8F897E}
   .foot-bottom{flex-direction:column;gap:6px}
   .page-head{padding:44px 0 24px}
   .page-head h1{font-size:46px}
@@ -417,7 +414,7 @@ p{text-wrap:pretty}
   .hero h1 .l1{padding-right:130px}
 }
 @media (max-width:360px){
-  .foot-kiko-m{height:96px}
+  .foot-kiko{height:96px}
   .hero h1{font-size:40px}
   .hero-tree{width:90px;height:90px;right:8px}
 }
