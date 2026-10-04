@@ -14,6 +14,8 @@ export type Indicator = {
   image: string;
   imageWidth: number;
   imageHeight: number;
+  /** "What it draws" legend on the detail page, taken from the tool's own description. */
+  legend?: { swatch: 'zone' | 'zone2' | 'stop' | 'r'; label: string }[];
 };
 
 // Only scripts published publicly on TradingView. No test status or performance figures (owner's decision).
@@ -65,6 +67,12 @@ export const indicators: Indicator[] = [
     image: '/indicators/VJLIg6Ir.jpg',
     imageWidth: 960,
     imageHeight: 799,
+    legend: [
+      { swatch: 'zone', label: 'Primary entry zone' },
+      { swatch: 'zone2', label: 'Secondary entry zone' },
+      { swatch: 'stop', label: 'ATR stop' },
+      { swatch: 'r', label: '1R, 2R and 3R reference levels' },
+    ],
   },
   {
     slug: 'esg-th-set50',

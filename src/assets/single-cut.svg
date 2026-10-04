@@ -1,0 +1,5 @@
+<svg viewBox="0 0 520 260" width="100%" role="img" aria-label="A circle cut once along a horizontal line">
+<path d="M150 130 A110 110 0 0 1 370 130 Z" stroke-width="1.6" style="fill:var(--washi);stroke:var(--sumi)"/>
+<path d="M164 132 A110 110 0 0 0 384 132" fill="none" stroke-width="1.6" style="stroke:var(--sumi)"/>
+<line x1="0" y1="131" x2="520" y2="131" stroke-width="1.6" style="stroke:var(--shu)"/>
+</svg>

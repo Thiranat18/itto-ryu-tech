@@ -8,50 +8,97 @@ export function getStaticPaths() {
 }
 
 const { indicator } = Astro.props;
+const others = indicators.filter((t) => t.slug !== indicator.slug).slice(0, 3);
 ---
 
-<Layout title={indicator.name} description={indicator.summary} image={indicator.image}>
-  <article class="mx-auto max-w-3xl px-4 sm:px-6 pt-14">
-    <a href="/tools" class="text-sm text-usu hover:text-sumi"><span aria-hidden="true">←</span> All tools</a>
-    <p class="mt-8 text-[11px] tracking-[0.2em] uppercase text-usu">{indicator.category} · {indicator.access}</p>
-    <h1 class="mt-3 font-serif text-4xl sm:text-5xl font-medium leading-tight">{indicator.name}</h1>
-    <p class="mt-4 text-lg text-usu leading-relaxed">{indicator.summary}</p>
-    <p class="mt-2 text-sm text-usu">Listed on TradingView as “{indicator.tvTitle}”.</p>
+<Layout title={indicator.name} description={indicator.summary} image={indicator.image} bodyClass="p-tools">
+  <div class="wrap">
+    <div class="detail">
+      <article>
+        <a class="back" href="/tools">All tools</a>
+        <div class="meta">
+          <span class="cat">{indicator.category}</span>
+          <span class="lic">{indicator.access}</span>
+        </div>
+        <h1>{indicator.name}</h1>
+        <p class="lede">{indicator.summary}</p>
+        <ExternalLink class="btn btn-primary m-only" href={indicator.url}>Open on TradingView</ExternalLink>
 
-    <figure class="mt-10">
-      <img
-        src={indicator.image}
-        width={indicator.imageWidth}
-        height={indicator.imageHeight}
-        alt={`${indicator.name} readings on an example TradingView chart (illustrative only)`}
-        class="w-full h-auto rounded-md border border-line"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-      />
-      <figcaption class="mt-2 text-xs text-usu leading-relaxed">
-        Illustrative chart. It shows how the tool displays its readings, not a trade idea or recommendation.
-      </figcaption>
-    </figure>
+        <figure class="figure">
+          <img
+            src={indicator.image}
+            width={indicator.imageWidth}
+            height={indicator.imageHeight}
+            alt={`${indicator.name} readings on an example TradingView chart (illustrative only)`}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+          <figcaption>
+            Illustrative chart. It shows how the tool displays its readings, not a trade idea or recommendation.
+          </figcaption>
+        </figure>
 
-    <div class="mt-10 grid gap-8 sm:grid-cols-2">
-      <section>
-        <h2 class="text-[11px] tracking-[0.2em] uppercase text-koke font-medium">How it works</h2>
-        <p class="mt-3 leading-relaxed">{indicator.howItWorks}</p>
-      </section>
-      <section>
-        <h2 class="text-[11px] tracking-[0.2em] uppercase text-koke font-medium">How to use</h2>
-        <p class="mt-3 leading-relaxed">{indicator.howToUse}</p>
-      </section>
+        <div class="cols">
+          <section>
+            <h2>How it works</h2>
+            <p>{indicator.howItWorks}</p>
+          </section>
+          <section>
+            <h2>How to use</h2>
+            <p>{indicator.howToUse}</p>
+          </section>
+        </div>
+      </article>
+
+      <aside class="aside" aria-label="On TradingView">
+        <div class="aside-card">
+          <ExternalLink class="btn btn-primary" href={indicator.url}>Open on TradingView</ExternalLink>
+          <p class="listed">Listed on TradingView as “{indicator.tvTitle}”.</p>
+          {
+            indicator.legend && (
+              <>
+                <hr />
+                <h2>What it draws</h2>
+                <ul class="legend">
+                  {indicator.legend.map((item) => (
+                    <li>
+                      <span class={`sw-${item.swatch}`} aria-hidden="true" />
+                      {item.label}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )
+          }
+          <hr />
+          <h2>Licence</h2>
+          <p class="free">
+            {
+              indicator.access === 'Open-source'
+                ? 'Free to use. The source code is on the script page.'
+                : 'Free to use. The source code is protected.'
+            }
+          </p>
+        </div>
+      </aside>
     </div>
+  </div>
 
-    <div class="mt-10 flex flex-wrap items-center gap-4">
-      <ExternalLink href={indicator.url} class="rounded bg-koke px-5 py-3 text-white hover:bg-matsuba">Open on TradingView</ExternalLink>
-      <p class="text-sm text-usu">
-        {indicator.access === 'Open-source'
-          ? 'Free to use. The source code is on the script page.'
-          : 'Free to use. The source code is protected.'}
-      </p>
+  <section class="more-tools" aria-labelledby="other-tools">
+    <div class="wrap">
+      <h2 id="other-tools">Other tools</h2>
+      <div class="mini-grid">
+        {
+          others.map((t) => (
+            <a class="mini" href={`/tools/${t.slug}`}>
+              <span class="cat">{t.category}</span>
+              <h3>{t.name}</h3>
+              <p>{t.summary}</p>
+            </a>
+          ))
+        }
+      </div>
     </div>
-  </article>
+  </section>
 </Layout>

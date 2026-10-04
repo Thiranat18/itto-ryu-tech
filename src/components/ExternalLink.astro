@@ -7,4 +7,4 @@ interface Props {
 const { href, class: className } = Astro.props;
 ---
 
-<a href={href} target="_blank" rel="noopener" class={className}><slot /><span class="sr-only"> (opens in a new tab)</span><span aria-hidden="true"> ↗</span></a>
+<a href={href} target="_blank" rel="noopener" class={className}><slot /><span class="sr-only"> (opens in a new tab)</span> <span class="ext" aria-hidden="true">↗</span></a>

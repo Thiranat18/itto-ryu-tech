@@ -1,0 +1,11 @@
+---
+// Illustrative inline SVG per tool (never real market data). Files live in src/assets/diagrams/<slug>.svg.
+interface Props {
+  slug: string;
+}
+
+const diagrams = import.meta.glob<string>('../assets/diagrams/*.svg', { query: '?raw', import: 'default', eager: true });
+const svg = diagrams[`../assets/diagrams/${Astro.props.slug}.svg`] ?? '';
+---
+
+<Fragment set:html={svg} />
