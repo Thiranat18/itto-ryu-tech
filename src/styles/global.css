@@ -198,28 +198,63 @@ p{text-wrap:pretty}
 .detail .meta{display:flex;gap:14px;align-items:center;font-size:14px;margin-top:34px}
 .detail h1{font-family:var(--serif);font-weight:500;font-size:64px;line-height:1.1;margin-top:12px}
 .detail .lede{font-size:20px;margin-top:16px;max-width:640px}
+.byline{font-size:14px;color:var(--usuzumi);margin-top:12px}
 .detail .listed-m{font-size:15px;color:var(--usuzumi);margin-top:8px}
 .figure{margin-top:44px;background:var(--kinari);border-radius:6px;padding:28px 24px 18px}
 .figure img{width:100%;height:auto;border-radius:3px}
 .figure figcaption{font-size:14px;color:var(--usuzumi);margin-top:12px;padding:0 6px}
+.draws{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 32px;margin-top:24px}
+.draws h2{font-size:15px;font-weight:500}
+.draws .legend{display:flex;flex-wrap:wrap;gap:6px 28px;margin-top:0}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:56px}
 .cols h2{font-family:var(--serif);font-weight:500;font-size:28px}
 .cols p{margin-top:12px}
+/* field guide: what it does not do, settings, questions */
+.not-do{margin-top:56px;background:var(--kinari);border-radius:6px;padding:32px 36px 34px}
+.not-do h2,.guide h2{font-family:var(--serif);font-weight:500;font-size:28px}
+.dash{list-style:none;margin-top:14px;display:grid;gap:8px}
+.dash li{position:relative;padding-left:30px}
+.dash li::before{content:"";position:absolute;left:0;top:.85em;width:16px;border-top:1.5px solid var(--shu)}
+.guide{margin-top:56px}
+.settings{width:100%;border-collapse:collapse;margin-top:16px;font-size:15px}
+.settings th,.settings td{text-align:left;vertical-align:top;padding:12px 20px 12px 0;border-bottom:1px solid var(--line)}
+.settings thead th{font-size:12.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--usuzumi);padding-top:0}
+.settings tbody th{font-weight:500}
+.settings td:last-child{padding-right:0}
+.qa{margin-top:4px}
+.qa>div{padding:20px 0;border-bottom:1px solid var(--line)}
+.qa dt{font-family:var(--serif);font-size:21px;line-height:1.4}
+.qa dd{margin-top:6px}
+.care{margin-top:40px;font-size:14px;color:var(--usuzumi)}
+.care .text-link{color:var(--sumi);white-space:normal}
 .aside{position:relative}
-.aside-card{position:sticky;top:110px;border:1px solid var(--line);border-radius:6px;padding:30px 28px;background:var(--washi);margin-top:108px}
+.aside-card{top:110px;border:1px solid var(--line);border-radius:6px;padding:30px 28px;background:var(--washi);margin-top:108px}
 .aside-card .btn{width:100%;justify-content:center}
+/* Sticky only when the whole card fits below the nav; on shorter screens it would be cut off. */
+@media (min-width:961px) and (min-height:880px){.aside-card{position:sticky}}
 .aside-card .listed{font-size:14px;color:var(--usuzumi);margin-top:16px;line-height:1.6}
 .aside-card hr{border:0;border-top:1px solid var(--line);margin:24px 0}
 .aside-card h2{font-size:15px;font-weight:500}
+.aside-card p{font-size:15px;line-height:1.6}
+.aside-card h2+p{margin-top:6px}
+.aside-card .go{margin-top:10px}
+.aside-card .text-link{white-space:normal}
+/* Copy link needs the script; without JS only the LINE link shows. */
+.copy-wrap{display:none}
+.js .copy-wrap{display:inline}
+.aside-card .quiet,.aside-card .share{font-size:14px;color:var(--usuzumi);margin-top:10px}
+.share a,.share button{color:var(--sumi);font-weight:500;background:none;border:0;padding:0 0 1px;box-shadow:inset 0 -1px 0 var(--line)}
+.share a:hover,.share button:hover{box-shadow:inset 0 -1px 0 var(--sumi)}
 .legend{list-style:none;margin-top:14px;display:grid;gap:10px;font-size:15px}
 .legend li{display:grid;grid-template-columns:28px 1fr;align-items:start}
 .legend li>span{margin-top:12px}
 .legend .sw-zone,.legend .sw-zone2{margin-top:7px}
-.sw-zone{width:18px;height:12px;background:var(--matsu-soft);border-radius:1px}
-.sw-zone2{width:18px;height:12px;background:var(--matsu-soft);opacity:.55;border-radius:1px}
-.sw-stop{width:18px;border-top:1.5px solid var(--shu)}
-.sw-r{width:18px;border-top:1.5px dotted var(--usuzumi)}
-.free{font-size:14px;margin-top:4px}
+/* Swatches use the tool's own chart colours so they match the chart image above them. */
+.sw-zone{width:18px;height:12px;background:#FDF2E0;border:1px solid #E9B876;border-radius:1px}
+.sw-zone2{width:18px;height:12px;background:#FAE2BE;border:1px dashed #E9B876;border-radius:1px}
+.sw-stop{width:18px;border-top:2px solid #F23645}
+.sw-r{width:18px;border-top:2px dotted #089981}
+.sw-flip{width:18px;border-top:2px dashed #E91E63}
 .more-tools{border-top:1px solid var(--line);padding:48px 0 120px}
 .more-tools h2{font-family:var(--serif);font-weight:500;font-size:28px}
 .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:26px}
@@ -302,6 +337,7 @@ p{text-wrap:pretty}
 @media (max-width:960px) and (min-width:761px){
   .hero-tree{width:240px;right:24px}
   .detail{grid-template-columns:1fr;gap:0}
+  .m-only{display:inline-flex;margin-top:24px}
   .aside-card{position:static;margin-top:40px}
   .mini-grid{grid-template-columns:1fr 1fr}
   .foot-in{grid-template-columns:1fr;gap:40px}
@@ -382,6 +418,16 @@ p{text-wrap:pretty}
   .detail .lede{font-size:17px}
   .figure{margin-top:28px;padding:14px 8px 12px;margin-left:calc(var(--pad)*-1);margin-right:calc(var(--pad)*-1);border-radius:0}
   .cols{grid-template-columns:1fr;gap:28px;margin-top:36px}
+  .not-do{margin-top:40px;padding:24px 22px 26px}
+  .not-do h2,.guide h2{font-size:24px}
+  .guide{margin-top:40px}
+  .settings,.settings tbody{display:block}
+  .settings thead{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+  .settings tr{display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .settings th,.settings td{padding:0;border:0}
+  .settings td:last-child{grid-column:1/-1;color:var(--usuzumi)}
+  .qa dt{font-size:19px}
+  .draws .legend{display:grid}
   .aside-card{margin-top:36px;position:static}
   .more-tools{padding:40px 0 72px}
   .mini-grid{grid-template-columns:1fr}
