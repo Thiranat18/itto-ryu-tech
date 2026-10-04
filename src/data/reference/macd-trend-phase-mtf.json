@@ -1,0 +1,607 @@
+{
+ "version": "1.0",
+ "settings": [
+  {
+   "group": "Timeframes",
+   "name": "Regime TF (slow)",
+   "value": "1 day",
+   "range": "",
+   "effect": "Timeframe whose closed-bar PPO side of zero splits EMRG from EST"
+  },
+  {
+   "group": "Timeframes",
+   "name": "Phase TF (mid)",
+   "value": "4 hours",
+   "range": "",
+   "effect": "Timeframe behind the pane background, Timing row, triangles, phase alerts, warning row"
+  },
+  {
+   "group": "MACD engine (PPO-normalized)",
+   "name": "Fast length",
+   "value": "12",
+   "range": "1 or more",
+   "effect": "Fast EMA length of the PPO on every timeframe, chart included"
+  },
+  {
+   "group": "MACD engine (PPO-normalized)",
+   "name": "Slow length",
+   "value": "26",
+   "range": "1 or more",
+   "effect": "Slow EMA length of the PPO on every timeframe, chart included"
+  },
+  {
+   "group": "MACD engine (PPO-normalized)",
+   "name": "Signal length",
+   "value": "9",
+   "range": "1 or more",
+   "effect": "EMA length of the signal line on all timeframes but the Regime TF"
+  },
+  {
+   "group": "Phase logic",
+   "name": "Chop threshold (|PPO| %)",
+   "value": "0.1",
+   "range": "0 or more, step 0.05",
+   "effect": "Absolute PPO below this reads CHOP on table rows and background"
+  },
+  {
+   "group": "Phase logic",
+   "name": "Phase confirm bars",
+   "value": "2",
+   "range": "1 or more",
+   "effect": "Chart bars a new Phase TF reading must hold before it commits"
+  },
+  {
+   "group": "MTF grid (table)",
+   "name": "Grid TF 1",
+   "value": "30 minutes",
+   "range": "",
+   "effect": "Timeframe of table row 1, also counted in MAJOR"
+  },
+  {
+   "group": "MTF grid (table)",
+   "name": "Grid TF 2",
+   "value": "1 hour",
+   "range": "",
+   "effect": "Timeframe of table row 2, also counted in MAJOR"
+  },
+  {
+   "group": "MTF grid (table)",
+   "name": "Grid TF 3",
+   "value": "4 hours",
+   "range": "",
+   "effect": "Timeframe of table row 3, also counted in MAJOR"
+  },
+  {
+   "group": "MTF grid (table)",
+   "name": "Grid TF 4",
+   "value": "1 day",
+   "range": "",
+   "effect": "Timeframe of table row 4, also counted in MAJOR"
+  },
+  {
+   "group": "MTF grid (table)",
+   "name": "Weight TF 1",
+   "value": "1",
+   "range": "0 or more, step 0.5",
+   "effect": "How much row 1 counts in the MAJOR percentage"
+  },
+  {
+   "group": "MTF grid (table)",
+   "name": "Weight TF 2",
+   "value": "1.5",
+   "range": "0 or more, step 0.5",
+   "effect": "How much row 2 counts in the MAJOR percentage"
+  },
+  {
+   "group": "MTF grid (table)",
+   "name": "Weight TF 3",
+   "value": "2",
+   "range": "0 or more, step 0.5",
+   "effect": "How much row 3 counts in the MAJOR percentage"
+  },
+  {
+   "group": "MTF grid (table)",
+   "name": "Weight TF 4",
+   "value": "3",
+   "range": "0 or more, step 0.5",
+   "effect": "How much row 4 counts in the MAJOR percentage"
+  },
+  {
+   "group": "MTF grid (table)",
+   "name": "Major bias threshold (%)",
+   "value": "20",
+   "range": "0 to 100",
+   "effect": "MAJOR percentage, plus or minus, needed to leave MIXED"
+  },
+  {
+   "group": "MTF grid (table)",
+   "name": "Strong bias threshold (%)",
+   "value": "50",
+   "range": "0 to 100",
+   "effect": "MAJOR percentage, plus or minus, needed to drop the LEAN prefix"
+  },
+  {
+   "group": "Display",
+   "name": "Show MTF table",
+   "value": "On",
+   "range": "",
+   "effect": "Shows or hides the dashboard table in the indicator pane"
+  },
+  {
+   "group": "Display",
+   "name": "Dashboard size",
+   "value": "Middle",
+   "range": "Tiny, Middle, Large",
+   "effect": "Table text size: Tiny, Middle (small) or Large (normal)"
+  },
+  {
+   "group": "Display",
+   "name": "Show timing signals on price chart",
+   "value": "On",
+   "range": "",
+   "effect": "Shows or hides price-chart triangles; Timing row and alerts unaffected"
+  }
+ ],
+ "states": [
+  {
+   "section": "Phase",
+   "label": "TF column (30m, 1H, 4H, D)",
+   "where": "MTF table, TF column (grid rows)",
+   "reading": "Not a trend reading",
+   "measures": "The timeframe set in Grid TF 1 to 4. Minute values that divide by 60 print as hours (240 prints 4H), other minute values get an m (30 prints 30m), and values such as D print as entered.",
+   "setup": "",
+   "notMean": "Not the Phase TF setting; the table never says which timeframe drives the background.",
+   "check": "Is one of these rows the same timeframe as the Phase TF?"
+  },
+  {
+   "section": "Phase",
+   "label": "EST BULL",
+   "where": "MTF table, PHASE column (any grid row)",
+   "reading": "Uptrend",
+   "measures": "On that row's last closed bar: PPO is +0.10% or more and above its signal line, and the last closed Regime TF (daily) PPO is above zero.",
+   "setup": "Trend continuation, with this row and the daily regime on the same side. Technicians often wait for the slower rows to agree and then watch for pullbacks within the trend, framing risk beyond the last swing low or as an ATR multiple.",
+   "notMean": "Not a forecast that the move continues, and not confirmed by the other rows.",
+   "check": "Do the slower rows read the same way?"
+  },
+  {
+   "section": "Phase",
+   "label": "EMRG BULL",
+   "where": "MTF table, PHASE column (any grid row)",
+   "reading": "Uptrend, emerging",
+   "measures": "On that row's last closed bar: PPO is +0.10% or more and above its signal line, while the last closed Regime TF (daily) PPO is zero or below.",
+   "setup": "A possible early regime change, or a counter-trend move: this row reads up while the daily PPO is still at or below zero. Technicians often wait for the daily to cross zero or a first pullback to hold, framing risk beyond the swing low.",
+   "notMean": "Not agreement with the daily timeframe; the daily PPO is still at or below zero.",
+   "check": "Is the daily row still reading down?"
+  },
+  {
+   "section": "Phase",
+   "label": "BULL PB",
+   "where": "MTF table, PHASE column (any grid row)",
+   "reading": "Uptrend, pulling back",
+   "measures": "On that row's last closed bar: PPO is +0.10% or more but at or below its signal line, and the latest spell above the signal peaked no lower than the spell before.",
+   "setup": "Trend continuation after a pullback: momentum has dipped below its signal while staying above zero. Technicians often wait for the histogram to turn back up on a closed bar, and frame risk beyond the pullback low or as an ATR multiple.",
+   "notMean": "Not a sign the pullback has ended; PPO is simply still above zero.",
+   "check": "Has the chart histogram turned up yet, and has that bar closed?"
+  },
+  {
+   "section": "Phase",
+   "label": "WEAK BULL",
+   "where": "MTF table, PHASE column (any grid row)",
+   "reading": "Uptrend, slowing",
+   "measures": "On that row's last closed bar: PPO is +0.10% or more but at or below its signal line, and the latest spell above the signal peaked lower than the spell before.",
+   "setup": "Momentum fading in an uptrend: a lower PPO peak than the one before. Technicians often read this as a warning rather than a plain pullback, wait for a cross above the signal or a drop below zero, and frame risk closer to the recent swing.",
+   "notMean": "Not a downtrend; PPO is still above zero on this row.",
+   "check": "Do the faster rows already read down or chop?"
+  },
+  {
+   "section": "Phase",
+   "label": "EST BEAR",
+   "where": "MTF table, PHASE column (any grid row)",
+   "reading": "Downtrend",
+   "measures": "On that row's last closed bar: PPO is -0.10% or less and at or below its signal line, and the last closed Regime TF (daily) PPO is zero or below.",
+   "setup": "Trend continuation, with this row and the daily regime on the same side. Technicians often wait for the slower rows to agree and then watch for bounces within the trend, framing risk beyond the last swing high or as an ATR multiple.",
+   "notMean": "Not a forecast that the decline continues, and not confirmed by the other rows.",
+   "check": "Do the slower rows read the same way?"
+  },
+  {
+   "section": "Phase",
+   "label": "EMRG BEAR",
+   "where": "MTF table, PHASE column (any grid row)",
+   "reading": "Downtrend, emerging",
+   "measures": "On that row's last closed bar: PPO is -0.10% or less and at or below its signal line, while the last closed Regime TF (daily) PPO is above zero.",
+   "setup": "A possible early regime change, or a counter-trend move: this row reads down while the daily PPO is still above zero. Technicians often wait for the daily to cross zero or a first bounce to fail, framing risk beyond the swing high.",
+   "notMean": "Not agreement with the daily timeframe; the daily PPO is still above zero.",
+   "check": "Is the daily row still reading up?"
+  },
+  {
+   "section": "Phase",
+   "label": "BEAR RALLY",
+   "where": "MTF table, PHASE column (any grid row)",
+   "reading": "Downtrend, bouncing",
+   "measures": "On that row's last closed bar: PPO is -0.10% or less but above its signal line, and the latest spell at or below the signal bottomed no higher than the spell before.",
+   "setup": "Trend continuation after a bounce: momentum has lifted above its signal while staying below zero. Technicians often wait for the histogram to turn back down on a closed bar, and frame risk beyond the bounce high or as an ATR multiple.",
+   "notMean": "Not a turn to an uptrend; PPO is still below zero on this row.",
+   "check": "Has the chart histogram turned down yet, and has that bar closed?"
+  },
+  {
+   "section": "Phase",
+   "label": "WEAK BEAR",
+   "where": "MTF table, PHASE column (any grid row)",
+   "reading": "Downtrend, slowing",
+   "measures": "On that row's last closed bar: PPO is -0.10% or less but above its signal line, and the latest spell at or below the signal bottomed higher than the spell before.",
+   "setup": "Momentum fading in a downtrend: a higher PPO trough than the one before. Technicians often read this as a warning rather than a plain bounce, wait for a cross below the signal or a rise above zero, and frame risk closer to the recent swing.",
+   "notMean": "Not an uptrend; PPO is still below zero on this row.",
+   "check": "Do the faster rows already read up or chop?"
+  },
+  {
+   "section": "Phase",
+   "label": "CHOP",
+   "where": "MTF table, PHASE column (any grid row)",
+   "reading": "Sideways or chop",
+   "measures": "On that row's last closed bar the absolute PPO is below 0.10%. Also shown while that row's PPO, its signal line or the daily regime PPO has no data yet.",
+   "setup": "A range or a transition: momentum sits too close to zero for a trend reading. Technicians often wait for the PPO to leave the band with a slower timeframe agreeing, and usually frame risk in a range beyond its edges.",
+   "notMean": "Not proof of a range; it can also mean data is still loading.",
+   "check": "Is there enough history loaded for this timeframe?"
+  },
+  {
+   "section": "Dot columns",
+   "label": "● in the L column",
+   "where": "MTF table, L column (grid rows and MAJOR row)",
+   "reading": "Leaning up",
+   "measures": "Grid row: phase is EST BULL, EMRG BULL or BULL PB. MAJOR row: the weighted grid score is +20% or higher.",
+   "setup": "Top-down alignment: on a grid row the dot groups established, emerging and pullback phases on the up side; on MAJOR it marks a weighted lean up. Technicians often look for slower rows to share that side, framing risk beyond a swing those rows should hold.",
+   "notMean": "Not a strength measure; a pullback row gets the same dot as an established one.",
+   "check": "Is this dot from an established phase or from a pullback?"
+  },
+  {
+   "section": "Dot columns",
+   "label": "● in the S column",
+   "where": "MTF table, S column (grid rows and MAJOR row)",
+   "reading": "Leaning down",
+   "measures": "Grid row: phase is EST BEAR, EMRG BEAR or BEAR RALLY. MAJOR row: the weighted grid score is -20% or lower.",
+   "setup": "Top-down alignment: on a grid row the dot groups established, emerging and bounce phases on the down side; on MAJOR it marks a weighted lean down. Technicians often look for slower rows to share that side, framing risk beyond a swing those rows should hold.",
+   "notMean": "Not a strength measure; a bounce row gets the same dot as an established one.",
+   "check": "Is this dot from an established phase or from a bounce?"
+  },
+  {
+   "section": "Dot columns",
+   "label": "● in the H column",
+   "where": "MTF table, H column (grid rows and MAJOR row)",
+   "reading": "Mixed",
+   "measures": "Grid row: phase is CHOP, WEAK BULL or WEAK BEAR. MAJOR row: the weighted grid score is above -20% and below +20%.",
+   "setup": "No clear side: a grid row in chop or with fading momentum, or a MAJOR score inside the middle band. Technicians often treat this as a range or a transition and wait for a slower row to commit, framing risk beyond the range edges.",
+   "notMean": "Not always a flat market; slowing uptrends and downtrends also land here.",
+   "check": "Does the PHASE text say CHOP, or a WEAK reading?"
+  },
+  {
+   "section": "MAJOR",
+   "label": "BULL n%",
+   "where": "MTF table, MAJOR row, teal cell",
+   "reading": "Uptrend, broad agreement",
+   "measures": "Weighted average of the grid row scores is +50% or more. Scores: EST 1, PB or RALLY 0.75, EMRG 0.5, WEAK 0.25, CHOP 0, negative on the down side. Default weights 1, 1.5, 2, 3.",
+   "setup": "Broad multi-timeframe alignment, the usual backdrop for trend continuation. Technicians often still wait for a pullback on a faster timeframe to end, and frame risk beyond that pullback's low or in R multiples.",
+   "notMean": "Not unanimous; one row can read the other way and the score still reach 50%.",
+   "check": "Which row, if any, reads against the others?"
+  },
+  {
+   "section": "MAJOR",
+   "label": "LEAN BULL n%",
+   "where": "MTF table, MAJOR row, teal cell",
+   "reading": "Leaning up",
+   "measures": "Weighted average of the four grid row scores is +20% or more but below +50%. Default weights: daily 3, 4H 2, 1H 1.5, 30m 1.",
+   "setup": "Partial alignment: the weighted rows lean up without broad agreement. Technicians often wait for the slower rows, the daily above all, to agree before reading it as trend continuation, and frame risk more cautiously while rows disagree.",
+   "notMean": "Not broad agreement; some rows may read chop, slowing or down.",
+   "check": "Is the daily row on the same side?"
+  },
+  {
+   "section": "MAJOR",
+   "label": "MIXED n%",
+   "where": "MTF table, MAJOR row, grey cell",
+   "reading": "Mixed",
+   "measures": "Weighted average of the four grid row scores is above -20% and below +20%, because rows disagree or mostly read CHOP or WEAK.",
+   "setup": "No multi-timeframe alignment, often a range or a transition between trends. Technicians often set trend methods aside here and wait for the weighted reading to leave the middle band; in a range, risk is usually framed beyond its edges.",
+   "notMean": "Not necessarily a quiet market; strong rows on both sides can cancel out.",
+   "check": "Are the rows split, or mostly CHOP?"
+  },
+  {
+   "section": "MAJOR",
+   "label": "LEAN BEAR n%",
+   "where": "MTF table, MAJOR row, red cell",
+   "reading": "Leaning down",
+   "measures": "Weighted average of the four grid row scores is -20% or less but above -50%. Default weights: daily 3, 4H 2, 1H 1.5, 30m 1.",
+   "setup": "Partial alignment: the weighted rows lean down without broad agreement. Technicians often wait for the slower rows, the daily above all, to agree before reading it as trend continuation, and frame risk more cautiously while rows disagree.",
+   "notMean": "Not broad agreement; some rows may read chop, slowing or up.",
+   "check": "Is the daily row on the same side?"
+  },
+  {
+   "section": "MAJOR",
+   "label": "BEAR n%",
+   "where": "MTF table, MAJOR row, red cell",
+   "reading": "Downtrend, broad agreement",
+   "measures": "Weighted average of the grid row scores is -50% or less. Scores: EST 1, PB or RALLY 0.75, EMRG 0.5, WEAK 0.25, CHOP 0, negative on the down side. Default weights 1, 1.5, 2, 3.",
+   "setup": "Broad multi-timeframe alignment, the usual backdrop for trend continuation. Technicians often still wait for a bounce on a faster timeframe to end, and frame risk beyond that bounce's high or in R multiples.",
+   "notMean": "Not unanimous; one row can read the other way and the score still reach -50%.",
+   "check": "Which row, if any, reads against the others?"
+  },
+  {
+   "section": "Timing",
+   "label": "▲ LONG TIMING NOW",
+   "where": "MTF table, Timing row",
+   "reading": "Momentum turned up",
+   "measures": "Committed Phase TF (4H) phase is BULL PB, and on the live chart bar the histogram is above the previous bar, which was below the bar before it.",
+   "setup": "The turn that can end a pullback in an uptrend: the chart histogram has started rising again. Technicians usually wait for the chart bar to close with the turn intact, and frame risk beyond the pullback low or as an ATR multiple.",
+   "notMean": "Not a closed-bar reading; it can disappear before the chart bar closes.",
+   "check": "Has the chart bar closed with the turn still in place?"
+  },
+  {
+   "section": "Timing",
+   "label": "wait chart hist turn ▲",
+   "where": "MTF table, Timing row",
+   "reading": "Uptrend, pulling back",
+   "measures": "Committed Phase TF (4H) phase is BULL PB, but the chart-timeframe histogram has not made a one-bar up-turn on the current bar.",
+   "setup": "A pullback inside an uptrend on the Phase TF, with no histogram turn on this chart bar. Technicians often wait for faster-timeframe momentum to turn back up on a closed bar, and frame risk beyond the pullback low once that low is in place.",
+   "notMean": "Not an instruction, and not proof the histogram is still falling; a turn on an earlier bar no longer shows.",
+   "check": "How many chart bars has this pullback lasted so far?"
+  },
+  {
+   "section": "Timing",
+   "label": "▼ SHORT TIMING NOW",
+   "where": "MTF table, Timing row",
+   "reading": "Momentum turned down",
+   "measures": "Committed Phase TF (4H) phase is BEAR RALLY, and on the live chart bar the histogram is below the previous bar, which was above the bar before it.",
+   "setup": "The turn that can end a bounce in a downtrend: the chart histogram has started falling again. Technicians usually wait for the chart bar to close with the turn intact, and frame risk beyond the bounce high or as an ATR multiple.",
+   "notMean": "Not a closed-bar reading; it can disappear before the chart bar closes.",
+   "check": "Has the chart bar closed with the turn still in place?"
+  },
+  {
+   "section": "Timing",
+   "label": "wait chart hist turn ▼",
+   "where": "MTF table, Timing row",
+   "reading": "Downtrend, bouncing",
+   "measures": "Committed Phase TF (4H) phase is BEAR RALLY, but the chart-timeframe histogram has not made a one-bar down-turn on the current bar.",
+   "setup": "A bounce inside a downtrend on the Phase TF, with no histogram turn on this chart bar. Technicians often wait for faster-timeframe momentum to turn back down on a closed bar, and frame risk beyond the bounce high once that high is in place.",
+   "notMean": "Not an instruction, and not proof the histogram is still rising; a turn on an earlier bar no longer shows.",
+   "check": "How many chart bars has this bounce lasted so far?"
+  },
+  {
+   "section": "Timing",
+   "label": "—",
+   "where": "MTF table, Timing row",
+   "reading": "No reading",
+   "measures": "Committed Phase TF (4H) phase is neither BULL PB nor BEAR RALLY, so the chart histogram turn is not checked.",
+   "setup": "",
+   "notMean": "Not a sideways reading; the 4H phase may be a clear trend.",
+   "check": "What does the pane background colour show?"
+  },
+  {
+   "section": "Warning row",
+   "label": "⚠ chart TF ≥ phase TF — view lower TF",
+   "where": "MTF table, bottom row",
+   "reading": "Not a trend reading",
+   "measures": "The chart timeframe is the same as or above the Phase TF (default 4H). Every reading still calculates.",
+   "setup": "",
+   "notMean": "Not an error; values still draw, but the histogram turn uses a slow chart.",
+   "check": "Is the chart on a timeframe below the Phase TF?"
+  },
+  {
+   "section": "Background",
+   "label": "Teal background",
+   "where": "MACD Phase pane background",
+   "reading": "Uptrend",
+   "measures": "Committed Phase TF (4H) phase is EST BULL: 4H PPO +0.10% or more and above its signal line, daily PPO above zero, on closed bars, held 2 chart bars.",
+   "setup": "Trend continuation on the Phase TF, with the daily regime on the same side. Technicians often wait for a pullback within the trend to end, and frame risk beyond the last swing low or as an ATR multiple.",
+   "notMean": "Not the 4H table row; that row has no confirm delay and can differ briefly.",
+   "check": "Does the 4H table row show the same phase?"
+  },
+  {
+   "section": "Background",
+   "label": "Cyan background",
+   "where": "MACD Phase pane background",
+   "reading": "Uptrend, emerging",
+   "measures": "Committed Phase TF (4H) phase is EMRG BULL: 4H PPO +0.10% or more and above its signal line, daily PPO zero or below, on closed bars, held 2 chart bars.",
+   "setup": "A possible early regime change, or a counter-trend move: the Phase TF reads up while the daily PPO is still at or below zero. Technicians often wait for the daily to cross zero or a first pullback to hold, framing risk beyond the swing low.",
+   "notMean": "Not agreement with the daily timeframe; the daily PPO is zero or below.",
+   "check": "Is the daily row still reading down?"
+  },
+  {
+   "section": "Background",
+   "label": "Light green background",
+   "where": "MACD Phase pane background",
+   "reading": "Uptrend, pulling back",
+   "measures": "Committed Phase TF (4H) phase is BULL PB: 4H PPO +0.10% or more but at or below its signal line, latest PPO peak not lower than the one before. Closed bars, held 2 chart bars.",
+   "setup": "Trend continuation after a pullback on the Phase TF. Technicians often wait for the chart histogram to turn up on a closed bar, the turn this tool marks with a triangle, and frame risk beyond the pullback low or as an ATR multiple.",
+   "notMean": "Not a new downtrend; the 4H PPO is still above zero.",
+   "check": "Has a ▲ triangle printed, and has its bar closed?"
+  },
+  {
+   "section": "Background",
+   "label": "Orange background",
+   "where": "MACD Phase pane background",
+   "reading": "Uptrend, slowing",
+   "measures": "Committed Phase TF (4H) phase is WEAK BULL: 4H PPO +0.10% or more but at or below its signal line, latest PPO peak lower than the one before. Closed bars, held 2 chart bars.",
+   "setup": "Momentum fading in an uptrend on the Phase TF: a lower PPO peak. Technicians often read this as a warning rather than a plain pullback, wait for a cross above the signal or a drop below zero, and frame risk closer to the recent swing.",
+   "notMean": "Not a downtrend; easy to confuse with the coral WEAK BEAR tint.",
+   "check": "Is the 4H PPO above or below zero?"
+  },
+  {
+   "section": "Background",
+   "label": "Red background",
+   "where": "MACD Phase pane background",
+   "reading": "Downtrend",
+   "measures": "Committed Phase TF (4H) phase is EST BEAR: 4H PPO -0.10% or less and at or below its signal line, daily PPO zero or below, on closed bars, held 2 chart bars.",
+   "setup": "Trend continuation on the Phase TF, with the daily regime on the same side. Technicians often wait for a bounce within the trend to end, and frame risk beyond the last swing high or as an ATR multiple.",
+   "notMean": "Not a forecast; it describes closed 4H bars after a brief confirm delay.",
+   "check": "Does the 4H table row show the same phase?"
+  },
+  {
+   "section": "Background",
+   "label": "Lavender background",
+   "where": "MACD Phase pane background",
+   "reading": "Downtrend, emerging",
+   "measures": "Committed Phase TF (4H) phase is EMRG BEAR: 4H PPO -0.10% or less and at or below its signal line, daily PPO above zero, on closed bars, held 2 chart bars.",
+   "setup": "A possible early regime change, or a counter-trend move: the Phase TF reads down while the daily PPO is still above zero. Technicians often wait for the daily to cross zero or a first bounce to fail, framing risk beyond the swing high.",
+   "notMean": "Not agreement with the daily timeframe; the daily PPO is still above zero.",
+   "check": "Is the daily row still reading up?"
+  },
+  {
+   "section": "Background",
+   "label": "Pink background",
+   "where": "MACD Phase pane background",
+   "reading": "Downtrend, bouncing",
+   "measures": "Committed Phase TF (4H) phase is BEAR RALLY: 4H PPO -0.10% or less but above its signal line, latest PPO trough not higher than the one before. Closed bars, held 2 chart bars.",
+   "setup": "Trend continuation after a bounce on the Phase TF. Technicians often wait for the chart histogram to turn down on a closed bar, the turn this tool marks with a triangle, and frame risk beyond the bounce high or as an ATR multiple.",
+   "notMean": "Not a new uptrend; the 4H PPO is still below zero.",
+   "check": "Has a ▼ triangle printed, and has its bar closed?"
+  },
+  {
+   "section": "Background",
+   "label": "Coral background",
+   "where": "MACD Phase pane background",
+   "reading": "Downtrend, slowing",
+   "measures": "Committed Phase TF (4H) phase is WEAK BEAR: 4H PPO -0.10% or less but above its signal line, latest PPO trough higher than the one before. Closed bars, held 2 chart bars.",
+   "setup": "Momentum fading in a downtrend on the Phase TF: a higher PPO trough. Technicians often read this as a warning rather than a plain bounce, wait for a cross below the signal or a rise above zero, and frame risk closer to the recent swing.",
+   "notMean": "Not an uptrend; easy to confuse with the orange WEAK BULL tint.",
+   "check": "Is the 4H PPO above or below zero?"
+  },
+  {
+   "section": "Background",
+   "label": "Grey background",
+   "where": "MACD Phase pane background",
+   "reading": "Sideways or chop",
+   "measures": "Committed Phase TF (4H) phase is CHOP: absolute 4H PPO below 0.10%, or data not yet loaded. Closed bars, held 2 chart bars.",
+   "setup": "A range or a transition on the Phase TF: momentum sits too close to zero for a trend reading. Technicians often wait for the PPO to leave the band with the daily agreeing, and usually frame risk in a range beyond its edges.",
+   "notMean": "Not proof of a range; the pane also starts grey until a first phase commits.",
+   "check": "Is the 4H PPO near zero, or is history still loading?"
+  },
+  {
+   "section": "MACD pane",
+   "label": "Solid teal histogram column",
+   "where": "MACD Phase pane, histogram",
+   "reading": "Leaning up, strengthening",
+   "measures": "Chart-timeframe histogram (blue PPO minus orange signal line) is zero or above and higher than the previous bar. Live bar, updates with every tick.",
+   "setup": "Rising momentum on the chart timeframe. Technicians read it against the slower trend: in step with that trend it supports continuation, while a rise inside a downtrend is often only a bounce. Most wait for the bar to close first.",
+   "notMean": "Not the 4H phase; this is the chart timeframe only.",
+   "check": "Has the chart bar closed with the same colour?"
+  },
+  {
+   "section": "MACD pane",
+   "label": "Faded teal histogram column",
+   "where": "MACD Phase pane, histogram",
+   "reading": "Leaning up, slowing",
+   "measures": "Chart-timeframe histogram is zero or above but not higher than the previous bar. Live bar, updates with every tick.",
+   "setup": "Momentum above its signal but fading: often the start of a pullback in an uptrend, or the end of a bounce in a downtrend. Technicians usually wait for a closed-bar cross below the signal line before reading it as a turn.",
+   "notMean": "Not a cross below the signal line yet; PPO is still at or above it.",
+   "check": "Is the histogram still above zero?"
+  },
+  {
+   "section": "MACD pane",
+   "label": "Solid red histogram column",
+   "where": "MACD Phase pane, histogram",
+   "reading": "Leaning down, strengthening",
+   "measures": "Chart-timeframe histogram (blue PPO minus orange signal line) is below zero and lower than the previous bar. Live bar, updates with every tick.",
+   "setup": "Falling momentum on the chart timeframe. Technicians read it against the slower trend: in step with that trend it supports continuation, while a drop inside an uptrend is often only a pullback. Most wait for the bar to close first.",
+   "notMean": "Not the 4H phase; this is the chart timeframe only.",
+   "check": "Has the chart bar closed with the same colour?"
+  },
+  {
+   "section": "MACD pane",
+   "label": "Faded red histogram column",
+   "where": "MACD Phase pane, histogram",
+   "reading": "Leaning down, slowing",
+   "measures": "Chart-timeframe histogram is below zero but not lower than the previous bar. Live bar, updates with every tick.",
+   "setup": "Momentum below its signal but easing: often the late stage of a pullback in an uptrend, or the start of a bounce in a downtrend. Technicians usually wait for a closed-bar cross back above the signal line before reading it as a turn.",
+   "notMean": "Not a cross above the signal line yet; PPO is still below it.",
+   "check": "Is the histogram still below zero?"
+  },
+  {
+   "section": "MACD pane",
+   "label": "Blue line above the grey zero line",
+   "where": "MACD Phase pane",
+   "reading": "Leaning up",
+   "measures": "Chart-timeframe PPO, (EMA 12 minus EMA 26) divided by EMA 26 times 100 on close, is above zero. Live bar. It does not feed the phase.",
+   "setup": "Fast average above slow average on the chart timeframe, the basic uptrend condition in MACD terms. Technicians usually check that the slower timeframes agree before reading it as a trend rather than a bounce within a downtrend.",
+   "notMean": "Not the 4H phase; the background and table use other timeframes.",
+   "check": "Does the pane background agree with the line?"
+  },
+  {
+   "section": "MACD pane",
+   "label": "Blue line below the grey zero line",
+   "where": "MACD Phase pane",
+   "reading": "Leaning down",
+   "measures": "Chart-timeframe PPO, (EMA 12 minus EMA 26) divided by EMA 26 times 100 on close, is below zero. Live bar. It does not feed the phase.",
+   "setup": "Fast average below slow average on the chart timeframe, the basic downtrend condition in MACD terms. Technicians usually check that the slower timeframes agree before reading it as a trend rather than a pullback within an uptrend.",
+   "notMean": "Not the 4H phase; the background and table use other timeframes.",
+   "check": "Does the pane background agree with the line?"
+  },
+  {
+   "section": "MACD pane",
+   "label": "Orange line",
+   "where": "MACD Phase pane",
+   "reading": "Not a trend reading",
+   "measures": "Chart-timeframe signal line: a 9-bar EMA of the blue PPO line. Live bar. The histogram is the gap between the blue and orange lines.",
+   "setup": "",
+   "notMean": "Not the 4H signal line used by the background and the table.",
+   "check": "Is the blue line above or below it on the closed bar?"
+  },
+  {
+   "section": "Price chart",
+   "label": "▲ teal triangle below the bar",
+   "where": "price chart",
+   "reading": "Momentum turned up",
+   "measures": "Committed Phase TF (4H) phase is BULL PB, and the chart histogram's previous bar is lower than both the bar before it and the current bar, on either side of zero. Drawn on the live bar.",
+   "setup": "The pullback-in-an-uptrend pattern: the Phase TF reads a pullback and the chart histogram has turned up. Technicians usually wait for the bar to close with the mark still there, and frame risk beyond the pullback low or as an ATR multiple.",
+   "notMean": "Not a closed-bar mark; it can appear and vanish before the bar closes.",
+   "check": "Is the triangle still there after the chart bar closed?"
+  },
+  {
+   "section": "Price chart",
+   "label": "▼ red triangle above the bar",
+   "where": "price chart",
+   "reading": "Momentum turned down",
+   "measures": "Committed Phase TF (4H) phase is BEAR RALLY, and the chart histogram's previous bar is higher than both the bar before it and the current bar, on either side of zero. Drawn on the live bar.",
+   "setup": "The bounce-in-a-downtrend pattern: the Phase TF reads a bounce and the chart histogram has turned down. Technicians usually wait for the bar to close with the mark still there, and frame risk beyond the bounce high or as an ATR multiple.",
+   "notMean": "Not a closed-bar mark; it can appear and vanish before the bar closes.",
+   "check": "Is the triangle still there after the chart bar closed?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Phase changed",
+   "where": "alert (message: MACD Trend Phase changed)",
+   "reading": "Not a trend reading",
+   "measures": "Fires on the chart bar where the committed Phase TF (4H) phase becomes a different value, after the 2 chart-bar confirm. Any of the nine values counts.",
+   "setup": "",
+   "notMean": "Not directional; the message does not say which phase it changed to.",
+   "check": "What does the pane background show now?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Major bias changed",
+   "where": "alert",
+   "reading": "Not a trend reading",
+   "measures": "Fires when MAJOR moves between three bands: +20% or more, between -20% and +20%, or -20% or less. A change between LEAN and full strength does not fire.",
+   "setup": "",
+   "notMean": "Not a direction call; the message does not name the new reading.",
+   "check": "Which MAJOR text does the table show now?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Long timing",
+   "where": "alert (message: Bull Pullback phase + chart histogram turned up)",
+   "reading": "Momentum turned up",
+   "measures": "Same condition as the ▲ triangle: committed 4H phase BULL PB and a one-bar histogram up-turn on the chart timeframe. Evaluated on the live bar, even with triangles hidden.",
+   "setup": "The same pullback-in-an-uptrend pattern as the up triangle. Alerts like this are often set to Once Per Bar Close so the turn is confirmed on a closed bar, with risk framed beyond the pullback low or as an ATR multiple.",
+   "notMean": "Not a closed-bar event unless the alert is set to Once Per Bar Close.",
+   "check": "Is the alert set to Once Per Bar Close?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Short timing",
+   "where": "alert (message: Bear Rally phase + chart histogram turned down)",
+   "reading": "Momentum turned down",
+   "measures": "Same condition as the ▼ triangle: committed 4H phase BEAR RALLY and a one-bar histogram down-turn on the chart timeframe. Evaluated on the live bar, even with triangles hidden.",
+   "setup": "The same bounce-in-a-downtrend pattern as the down triangle. Alerts like this are often set to Once Per Bar Close so the turn is confirmed on a closed bar, with risk framed beyond the bounce high or as an ATR multiple.",
+   "notMean": "Not a closed-bar event unless the alert is set to Once Per Bar Close.",
+   "check": "Is the alert set to Once Per Bar Close?"
+  }
+ ]
+}

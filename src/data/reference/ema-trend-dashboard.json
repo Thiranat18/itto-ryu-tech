@@ -1,0 +1,1549 @@
+{
+ "version": "3.0",
+ "settings": [
+  {
+   "group": "EMA Lengths",
+   "name": "EMA 1 (Fast)",
+   "value": "10",
+   "range": "1 or more",
+   "effect": "Length of the fastest EMA, used for the gap and reclaim checks"
+  },
+  {
+   "group": "EMA Lengths",
+   "name": "EMA 2",
+   "value": "20",
+   "range": "1 or more",
+   "effect": "Length of EMA 2, the pullback touch line and fast cross partner"
+  },
+  {
+   "group": "EMA Lengths",
+   "name": "EMA 3 (Trend)",
+   "value": "50",
+   "range": "1 or more",
+   "effect": "Length of the trend EMA behind slope, gap, extension and stages"
+  },
+  {
+   "group": "EMA Lengths",
+   "name": "EMA 4",
+   "value": "100",
+   "range": "1 or more",
+   "effect": "Length of EMA 4, used in the stack order and scores"
+  },
+  {
+   "group": "EMA Lengths",
+   "name": "EMA 5 (Long)",
+   "value": "200",
+   "range": "1 or more",
+   "effect": "Length of the slowest EMA, used for its slope row and GC/DC"
+  },
+  {
+   "group": "Trend Dynamics",
+   "name": "Slope/Gap Lookback (bars)",
+   "value": "5",
+   "range": "1 or more",
+   "effect": "Bars compared for slope, gap, acceleration and score change, all timeframes"
+  },
+  {
+   "group": "Trend Dynamics",
+   "name": "Slope Flat Threshold (%)",
+   "value": "0.1",
+   "range": "0.01 or more, step 0.01",
+   "effect": "EMA 3 change below this % counts as flat, on every timeframe"
+  },
+  {
+   "group": "Trend Dynamics",
+   "name": "Long EMA Slope Flat Threshold (%)",
+   "value": "0.05",
+   "range": "0.01 or more, step 0.01",
+   "effect": "EMA 5 change below this % reads Flat on its slope row only"
+  },
+  {
+   "group": "Trend Dynamics",
+   "name": "Slope Accel Threshold (%)",
+   "value": "0.05",
+   "range": "0.01 or more, step 0.01",
+   "effect": "Slope change needed for Strengthening or Weakening rather than Steady"
+  },
+  {
+   "group": "Trend Dynamics",
+   "name": "Gap Momentum Threshold (%)",
+   "value": "0.05",
+   "range": "0.01 or more, step 0.01",
+   "effect": "Gap size change needed for Expanding or Compressing, which sets stages"
+  },
+  {
+   "group": "Multi-Timeframe",
+   "name": "Use closed HTF bars only",
+   "value": "On",
+   "range": "",
+   "effect": "On reads the last closed higher-timeframe bar, off reads the forming one"
+  },
+  {
+   "group": "Multi-Timeframe",
+   "name": "HTF 1",
+   "value": "1 hour",
+   "range": "",
+   "effect": "Timeframe of the first MTF row, its checkbox turns it off"
+  },
+  {
+   "group": "Multi-Timeframe",
+   "name": "HTF 2",
+   "value": "4 hours",
+   "range": "",
+   "effect": "Timeframe of the second MTF row, its checkbox turns it off"
+  },
+  {
+   "group": "Multi-Timeframe",
+   "name": "HTF 3",
+   "value": "1 day",
+   "range": "",
+   "effect": "Timeframe of the third MTF row, its checkbox turns it off"
+  },
+  {
+   "group": "Entry Timing",
+   "name": "Pullback: max bars from EMA2 touch to trigger",
+   "value": "5",
+   "range": "1 or more",
+   "effect": "Bars after an EMA 2 touch in which a reclaim still counts"
+  },
+  {
+   "group": "Entry Timing",
+   "name": "ATR Length",
+   "value": "14",
+   "range": "1 or more",
+   "effect": "ATR period for the Extension and Ribbon Width rows"
+  },
+  {
+   "group": "Entry Timing",
+   "name": "Extension Warning (ATR from Trend EMA)",
+   "value": "2",
+   "range": "0.1 or more, step 0.1",
+   "effect": "Distance from EMA 3, in ATRs, at which EXTENDED shows"
+  },
+  {
+   "group": "Structure",
+   "name": "Ribbon Width Percentile Lookback",
+   "value": "100",
+   "range": "10 or more",
+   "effect": "Bars the ribbon width is ranked against for SQUEEZE and Wide"
+  },
+  {
+   "group": "Visuals",
+   "name": "Show EMA Lines",
+   "value": "On",
+   "range": "",
+   "effect": "Shows or hides the five EMA lines, and the fill with them"
+  },
+  {
+   "group": "Visuals",
+   "name": "EMA 1 Color",
+   "value": "#f7c948",
+   "range": "",
+   "effect": "Colours the EMA 1 line and its right-edge label"
+  },
+  {
+   "group": "Visuals",
+   "name": "EMA 2 Color",
+   "value": "#fb923c",
+   "range": "",
+   "effect": "Colours the EMA 2 line and its right-edge label"
+  },
+  {
+   "group": "Visuals",
+   "name": "EMA 3 Color (Trend)",
+   "value": "#f43f5e",
+   "range": "",
+   "effect": "Colours the EMA 3 line and its right-edge label"
+  },
+  {
+   "group": "Visuals",
+   "name": "EMA 4 Color",
+   "value": "#3b82f6",
+   "range": "",
+   "effect": "Colours the EMA 4 line and its right-edge label"
+  },
+  {
+   "group": "Visuals",
+   "name": "EMA 5 Color",
+   "value": "#94a3b8",
+   "range": "",
+   "effect": "Colours the EMA 5 line and its right-edge label"
+  },
+  {
+   "group": "Visuals",
+   "name": "Fill between Fast and Trend EMA",
+   "value": "On",
+   "range": "",
+   "effect": "Shows the teal or red shading between EMA 1 and EMA 3"
+  },
+  {
+   "group": "Visuals",
+   "name": "Show EMA labels at right edge",
+   "value": "On",
+   "range": "",
+   "effect": "Shows each EMA's length label just right of the latest bar"
+  },
+  {
+   "group": "Visuals",
+   "name": "Signal markers (strong long/short, stack break)",
+   "value": "On",
+   "range": "",
+   "effect": "Shows the green and red triangles and the grey cross"
+  },
+  {
+   "group": "Visuals",
+   "name": "Pullback markers",
+   "value": "On",
+   "range": "",
+   "effect": "Shows the teal and red diamonds for pullback reclaims"
+  },
+  {
+   "group": "Visuals",
+   "name": "Golden/Death cross markers (EMA3 × EMA5)",
+   "value": "On",
+   "range": "",
+   "effect": "Shows GC and DC labels when EMA 3 crosses EMA 5"
+  },
+  {
+   "group": "Visuals",
+   "name": "Color bars by stage",
+   "value": "Off",
+   "range": "",
+   "effect": "Colours price bars by stage and leading score, off by default"
+  },
+  {
+   "group": "Dashboard",
+   "name": "Show Dashboard",
+   "value": "On",
+   "range": "",
+   "effect": "Shows or hides the whole dashboard table"
+  },
+  {
+   "group": "Dashboard",
+   "name": "Position",
+   "value": "top_right",
+   "range": "top_right, top_left, middle_right, middle_left, bottom_right, bottom_left",
+   "effect": "Where on the chart the dashboard sits"
+  },
+  {
+   "group": "Dashboard",
+   "name": "Size",
+   "value": "normal",
+   "range": "tiny, small, normal, large",
+   "effect": "Text size of the dashboard"
+  },
+  {
+   "group": "Dashboard",
+   "name": "Show MTF section",
+   "value": "On",
+   "range": "",
+   "effect": "Shows or hides the three higher-timeframe rows and MTF Align"
+  },
+  {
+   "group": "Dashboard",
+   "name": "Show EMA Stack section",
+   "value": "On",
+   "range": "",
+   "effect": "Shows or hides the five above/below rows and the Stack row"
+  },
+  {
+   "group": "Dashboard",
+   "name": "Show Entry Timing section",
+   "value": "On",
+   "range": "",
+   "effect": "Shows or hides the Pullback, Cross and X-Price rows"
+  }
+ ],
+ "states": [
+  {
+   "section": "TREND",
+   "label": "EMA TDB v2, symbol, timeframe",
+   "where": "Dashboard, header row",
+   "reading": "Not a trend reading",
+   "measures": "The script's abbreviated name, then the chart symbol and the chart timeframe code, for example 60 for one hour or D for daily. The v2 text is fixed in the code.",
+   "setup": "",
+   "notMean": "It does not show the published version, which is v3.0.",
+   "check": "Is the dashboard on the symbol and timeframe you meant to read?"
+  },
+  {
+   "section": "TREND",
+   "label": "BULL",
+   "where": "Dashboard, TREND section, Trend row",
+   "reading": "Uptrend",
+   "measures": "Live bar: at least 3 of 4 neighbouring EMA pairs in up order (faster above slower), close above 4 or more of 5 EMAs, and EMA 3 up 0.1% or more over 5 bars.",
+   "setup": "Uptrend continuation: up-ordered stack, rising 50, price above most EMAs. Technicians often wait for a pullback towards the faster EMAs and a close back above them, with a higher timeframe agreeing, and frame risk beyond the pullback swing or as an ATR multiple.",
+   "notMean": "It does not say the move will continue or how far it may go.",
+   "check": "Do the MTF rows show the same reading on higher timeframes?"
+  },
+  {
+   "section": "TREND",
+   "label": "BEAR",
+   "where": "Dashboard, TREND section, Trend row",
+   "reading": "Downtrend",
+   "measures": "Live bar: at least 3 of 4 neighbouring EMA pairs in down order (faster below slower), close at or below 4 or more of 5 EMAs, and EMA 3 down 0.1% or more over 5 bars.",
+   "setup": "Downtrend continuation: down-ordered stack, falling 50, price below most EMAs. Technicians often wait for a bounce towards the faster EMAs and a close back below them, with a higher timeframe agreeing, and frame risk beyond the bounce swing or as an ATR multiple.",
+   "notMean": "It does not say the decline will continue or how far it may go.",
+   "check": "Do the MTF rows show the same reading on higher timeframes?"
+  },
+  {
+   "section": "TREND",
+   "label": "NEUTRAL",
+   "where": "Dashboard, TREND section, Trend row",
+   "reading": "Mixed",
+   "measures": "Neither the full BULL set nor the full BEAR set of three conditions is met on the live bar.",
+   "setup": "A transition or range reading: stack, price position and slope do not all agree. Technicians often wait for all three to line up on a closed bar before treating the move as a trend.",
+   "notMean": "It does not always mean sideways. A fresh move shows this until stack and slope catch up.",
+   "check": "Which condition is missing: the stack, the price position or the slope?"
+  },
+  {
+   "section": "TREND",
+   "label": "N / 5 above (e.g. 4 / 5 above)",
+   "where": "Dashboard, TREND section, Trend row, column 3",
+   "reading": "Not a trend reading, price position",
+   "measures": "How many of the five EMAs the live close is above. A close exactly on an EMA, or an EMA with no value yet, counts as not above.",
+   "setup": "",
+   "notMean": "It does not show how far price sits from any EMA.",
+   "check": "Which EMAs is price on the other side of?"
+  },
+  {
+   "section": "MTF",
+   "label": "BULL",
+   "where": "Dashboard, MTF section, TF rows (TF 60, TF 240, TF D by default)",
+   "reading": "Uptrend",
+   "measures": "The same three BULL conditions as the Trend row, worked out on that higher timeframe. With Use closed HTF bars only on, it reads a closed bar there, the last one during a live session.",
+   "setup": "Higher-timeframe trend filter. Technicians often give more weight to faster-chart pullback setups that run with an uptrend on the slower chart, and wait for that slower bar to close before relying on it.",
+   "notMean": "It does not mean the chart timeframe agrees, or that the bar now forming there agrees.",
+   "check": "Is the higher-timeframe bar now forming still moving the same way?"
+  },
+  {
+   "section": "MTF",
+   "label": "BEAR",
+   "where": "Dashboard, MTF section, TF rows",
+   "reading": "Downtrend",
+   "measures": "The same three BEAR conditions as the Trend row, worked out on that higher timeframe. With Use closed HTF bars only on, it reads a closed bar there, the last one during a live session.",
+   "setup": "Higher-timeframe trend filter. Technicians often give more weight to faster-chart bounce setups that run with a downtrend on the slower chart, and wait for that slower bar to close before relying on it.",
+   "notMean": "It does not mean the chart timeframe agrees, or that the bar now forming there agrees.",
+   "check": "Is the higher-timeframe bar now forming still moving the same way?"
+  },
+  {
+   "section": "MTF",
+   "label": "NEUT",
+   "where": "Dashboard, MTF section, TF rows",
+   "reading": "Mixed",
+   "measures": "Neither full set of conditions is met on that higher timeframe. It also shows when that timeframe has no data yet.",
+   "setup": "On that slower chart the reading fits a range, a transition or a trend still forming. Technicians often treat faster-chart trends with more caution until the slower chart settles into one direction on a closed bar.",
+   "notMean": "It does not always mean sideways on that timeframe.",
+   "check": "Do the S number and net score in column 3 lean one way?"
+  },
+  {
+   "section": "MTF",
+   "label": "off",
+   "where": "Dashboard, MTF section, TF rows",
+   "reading": "No reading",
+   "measures": "The checkbox beside that HTF input is unticked, so the row is skipped and left out of MTF Align.",
+   "setup": "",
+   "notMean": "It says nothing about that timeframe.",
+   "check": "Did you mean to leave this timeframe out?"
+  },
+  {
+   "section": "MTF",
+   "label": "n/a",
+   "where": "Dashboard, MTF section, TF rows",
+   "reading": "No reading",
+   "measures": "The chosen timeframe is the same as or lower than the chart timeframe, so it is skipped and left out of MTF Align.",
+   "setup": "",
+   "notMean": "It does not mean that timeframe is mixed.",
+   "check": "Is the chart on a lower timeframe than every MTF row?"
+  },
+  {
+   "section": "MTF",
+   "label": "S1 to S4 · net +N (e.g. S2 · net +24)",
+   "where": "Dashboard, MTF section, TF rows, column 3",
+   "reading": "Leaning up",
+   "measures": "That higher timeframe's stage number (1 to 4, no 4a, 4b or 4c) and its Bull Score minus Bear Score, from the same closed or forming bar as the row. A plus sign means the up side scores higher, but +0 is a tie with no lean.",
+   "setup": "Bigger-picture lean from a slower chart. Technicians often use a positive net as a filter, giving more weight to faster-chart pullback setups in the up direction once the slower bar has closed.",
+   "notMean": "The net figure is a score difference, not a probability or a size.",
+   "check": "Does this stage number match the chart timeframe's Stage row?"
+  },
+  {
+   "section": "MTF",
+   "label": "S1 to S4 · net -N (e.g. S3 · net -32)",
+   "where": "Dashboard, MTF section, TF rows, column 3",
+   "reading": "Leaning down",
+   "measures": "That higher timeframe's stage number (1 to 4, no 4a, 4b or 4c) and its Bull Score minus Bear Score, from the same closed or forming bar as the row. A minus sign means the down side scores higher.",
+   "setup": "Bigger-picture lean from a slower chart. Technicians often use a negative net as a filter, giving more weight to faster-chart bounce setups in the down direction once the slower bar has closed.",
+   "notMean": "The net figure is a score difference, not a probability or a size.",
+   "check": "Does this stage number match the chart timeframe's Stage row?"
+  },
+  {
+   "section": "MTF",
+   "label": "N↑ / M↓ in green (e.g. 2↑ / 1↓, of 3 TF)",
+   "where": "Dashboard, MTF section, MTF Align row",
+   "reading": "Leaning up",
+   "measures": "More switched-on, valid TF rows read BULL than BEAR. N and M are those two counts, and column 3 shows how many rows were counted.",
+   "setup": "Multi-timeframe alignment. When most slower charts read up, technicians often treat faster-chart pullbacks as trend continuation, and look for the count to hold after the slower bars close.",
+   "notMean": "NEUT rows are left out of both counts, so 1↑ / 0↓ of 3 is thin.",
+   "check": "How many rows were counted, and how many read NEUT?"
+  },
+  {
+   "section": "MTF",
+   "label": "N↑ / M↓ in red (e.g. 0↑ / 2↓, of 3 TF)",
+   "where": "Dashboard, MTF section, MTF Align row",
+   "reading": "Leaning down",
+   "measures": "More switched-on, valid TF rows read BEAR than BULL. N and M are those two counts, and column 3 shows how many rows were counted.",
+   "setup": "Multi-timeframe alignment. When most slower charts read down, technicians often treat faster-chart bounces as trend continuation, and look for the count to hold after the slower bars close.",
+   "notMean": "NEUT rows are left out of both counts, so 0↑ / 1↓ of 3 is thin.",
+   "check": "How many rows were counted, and how many read NEUT?"
+  },
+  {
+   "section": "MTF",
+   "label": "N↑ / M↓ in orange (e.g. 1↑ / 1↓, of 3 TF)",
+   "where": "Dashboard, MTF section, MTF Align row",
+   "reading": "Mixed",
+   "measures": "Equal BULL and BEAR counts among switched-on, valid TF rows. This includes 0↑ / 0↓, when every counted row reads NEUT or no row is counted.",
+   "setup": "Timeframes disagree or read neutral, common in a range or around a turning point. Technicians often wait for the count to tip one way on closed higher-timeframe bars before reading a trend.",
+   "notMean": "It does not mean each higher timeframe is sideways. One row can read BULL and another BEAR.",
+   "check": "How many rows were counted, and how many read NEUT?"
+  },
+  {
+   "section": "EMA STACK",
+   "label": "Above ↑",
+   "where": "Dashboard, EMA STACK section, one row per EMA",
+   "reading": "Not a trend reading, price above",
+   "measures": "Live close is above that EMA. Column 3 shows the EMA value. The Trend row's 'N / 5 above' counts these rows.",
+   "setup": "Price above an EMA is often read as that average acting as support. In pullback setups technicians watch whether closes hold above the faster EMAs, and frame risk beyond the nearest swing rather than the line itself.",
+   "notMean": "It does not mean price will stay above that EMA.",
+   "check": "Has the chart bar closed above it, or only traded above it?"
+  },
+  {
+   "section": "EMA STACK",
+   "label": "Below ↓",
+   "where": "Dashboard, EMA STACK section, one row per EMA",
+   "reading": "Not a trend reading, price below",
+   "measures": "Live close is at or below that EMA. A close exactly on the EMA counts as below.",
+   "setup": "Price below an EMA is often read as that average acting as resistance. In bounce setups technicians watch whether closes stay below the faster EMAs, and frame risk beyond the nearest swing rather than the line itself.",
+   "notMean": "It does not mean price will stay below that EMA.",
+   "check": "Has the chart bar closed below it, or only traded below it?"
+  },
+  {
+   "section": "EMA STACK",
+   "label": "Bull 3/4 ↑ or Bull 4/4 ↑ (column 3: Aligned)",
+   "where": "Dashboard, EMA STACK section, Stack row",
+   "reading": "Leaning up, stack aligned",
+   "measures": "At least 3 of the 4 neighbouring pairs (EMA 1 over 2, 2 over 3, 3 over 4, 4 over 5) are in up order on the live bar.",
+   "setup": "An ordered stack, fastest on top, is the classic structure of an uptrend. Technicians often wait for price and the slope of the 50 to agree before calling it a trend, and use the stack as the backdrop for pullback setups.",
+   "notMean": "It ignores price and slope. Price can already sit below several EMAs.",
+   "check": "Do the Above and Below rows agree with this order?"
+  },
+  {
+   "section": "EMA STACK",
+   "label": "Bear 3/4 ↓ or Bear 4/4 ↓ (column 3: Aligned)",
+   "where": "Dashboard, EMA STACK section, Stack row",
+   "reading": "Leaning down, stack aligned",
+   "measures": "At least 3 of the 4 neighbouring pairs are in down order (each faster EMA below the next slower one) on the live bar.",
+   "setup": "An ordered stack, fastest at the bottom, is the classic structure of a downtrend. Technicians often wait for price and the slope of the 50 to agree before calling it a trend, and use the stack as the backdrop for bounce setups.",
+   "notMean": "It ignores price and slope. Price can already sit above several EMAs.",
+   "check": "Do the Above and Below rows agree with this order?"
+  },
+  {
+   "section": "EMA STACK",
+   "label": "Mixed (2↑/2↓) (column 3: Mixed)",
+   "where": "Dashboard, EMA STACK section, Stack row",
+   "reading": "Mixed, stack unaligned",
+   "measures": "Fewer than 3 pairs in either order. With all five EMAs available this is almost always a 2 and 2 split. The Stage row is then in stage 4.",
+   "setup": "A tangled stack usually marks a range or a regime change between trends. Technicians often set trend-following setups aside here and wait for at least three pairs to line up again on closed bars.",
+   "notMean": "It does not mean price is range-bound.",
+   "check": "Which pairs have swapped order, the fast ones or the slow ones?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "Up ↗",
+   "where": "Dashboard, TREND DYNAMICS section, EMA50 Slope row",
+   "reading": "Leaning up, EMA50 rising",
+   "measures": "EMA 3 is 0.1% or more higher than 5 bars ago, live bar. Green if Bull Score leads or ties, red if Bear Score leads. Column 3 shows the %.",
+   "setup": "A rising trend EMA is a usual condition for trend-continuation setups. Technicians often look for the 200 to rise as well, and treat a flattening 50 as an early sign that momentum is fading.",
+   "notMean": "The colour shows agreement with the leading score, not direction.",
+   "check": "Is the EMA200 Slope row pointing the same way?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "Down ↘",
+   "where": "Dashboard, TREND DYNAMICS section, EMA50 Slope row",
+   "reading": "Leaning down, EMA50 falling",
+   "measures": "EMA 3 is 0.1% or more lower than 5 bars ago, live bar. Green if Bear Score leads, red if Bull Score leads or ties.",
+   "setup": "A falling trend EMA is a usual condition for continuation setups in a decline. Technicians often look for the 200 to fall as well, and treat a flattening 50 as an early sign that momentum is fading.",
+   "notMean": "Green here does not mean up. It means it agrees with the leading score.",
+   "check": "Is the EMA200 Slope row pointing the same way?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "Flat →",
+   "where": "Dashboard, TREND DYNAMICS section, EMA50 Slope row",
+   "reading": "Sideways or chop, EMA50 flat",
+   "measures": "EMA 3 changed by less than 0.1% either way over 5 bars, live bar. Shown in orange.",
+   "setup": "A flat trend EMA often goes with a range, with price swinging across it. Technicians often treat crossings here as noise and wait for the slope to turn and hold before reading a trend.",
+   "notMean": "It does not mean price is flat. Price can swing around a flat EMA.",
+   "check": "Is price crossing EMA 3 back and forth, or holding one side?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "Up ↗",
+   "where": "Dashboard, TREND DYNAMICS section, EMA200 Slope row",
+   "reading": "Leaning up, EMA200 rising",
+   "measures": "EMA 5 is 0.05% or more higher than 5 bars ago, live bar. Colour follows the same agreement rule as the EMA50 Slope row.",
+   "setup": "A rising 200 is widely used as a slow trend filter. Technicians often favour setups in its direction and wait for the faster 50 to agree before reading the move as a full trend.",
+   "notMean": "It does not confirm that the faster EMAs are rising too.",
+   "check": "Does the EMA50 Slope row agree?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "Down ↘",
+   "where": "Dashboard, TREND DYNAMICS section, EMA200 Slope row",
+   "reading": "Leaning down, EMA200 falling",
+   "measures": "EMA 5 is 0.05% or more lower than 5 bars ago, live bar. Colour follows the same agreement rule as the EMA50 Slope row.",
+   "setup": "A falling 200 is widely used as a slow trend filter. Technicians often favour setups in its direction and wait for the faster 50 to agree before reading the move as a full trend.",
+   "notMean": "It does not confirm that the faster EMAs are falling too.",
+   "check": "Does the EMA50 Slope row agree?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "Flat →",
+   "where": "Dashboard, TREND DYNAMICS section, EMA200 Slope row",
+   "reading": "Sideways or chop, EMA200 flat",
+   "measures": "EMA 5 changed by less than 0.05% either way over 5 bars, live bar.",
+   "setup": "A flat 200 often marks a broad range or a slow transition between trends. Technicians often give its direction less weight here and rely on the faster EMAs and higher timeframes instead.",
+   "notMean": "It does not mean the faster EMAs are flat.",
+   "check": "What do the faster EMAs show on the EMA50 Slope row?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "Strengthening ↑",
+   "where": "Dashboard, TREND DYNAMICS section, Slope Accel row",
+   "reading": "Not a trend reading, slope steepening",
+   "measures": "EMA 3 slope is positive and rose more than 0.05 since 5 bars ago, or negative and fell more than 0.05. Uses the raw slope, even when the slope row reads Flat.",
+   "setup": "Momentum building in the current direction, typical of an accelerating trend. Technicians often check whether price is getting stretched from the 50, and frame risk in ATR multiples because steep moves swing wider.",
+   "notMean": "↑ and green mean steeper, not up. A falling slope getting steeper shows this too.",
+   "check": "Is the EMA50 Slope row up, down or flat right now?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "Weakening ↓",
+   "where": "Dashboard, TREND DYNAMICS section, Slope Accel row",
+   "reading": "Not a trend reading, slope easing",
+   "measures": "EMA 3 slope is positive and fell more than 0.05 since 5 bars ago, or negative and rose more than 0.05. Live bar.",
+   "setup": "Momentum fading: the trend EMA still moves, but less steeply. Technicians often read this as an early warning of a pause or a range, and wait for the stack or a close through the 50 to confirm any change.",
+   "notMean": "↓ and red mean less steep, not down. An easing decline shows this too.",
+   "check": "Is the EMA50 Slope row up, down or flat right now?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "Steady →",
+   "where": "Dashboard, TREND DYNAMICS section, Slope Accel row",
+   "reading": "Not a trend reading, slope steady",
+   "measures": "The change in EMA 3 slope over 5 bars is within 0.05 either way, or the slope is exactly zero. Column 3 shows that change.",
+   "setup": "Momentum holding a constant pace. In continuation setups technicians often treat a steady slope as neutral and look to the stack, price position and pullback behaviour for confirmation.",
+   "notMean": "It does not say whether the slope is up, down or flat.",
+   "check": "What does the EMA50 Slope row read?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "Expanding ↑",
+   "where": "Dashboard, TREND DYNAMICS section, Gap (10-50) row",
+   "reading": "Not a trend reading, gap widening",
+   "measures": "Size of the EMA 1 to EMA 3 gap, as % of EMA 3, grew by more than 0.05 over 5 bars, live bar. Column 3 shows the signed gap.",
+   "setup": "In an aligned stack, a widening gap between the fast and trend EMAs is typical of an impulse phase. Technicians often wait for a pullback rather than chase an expanding gap, and frame risk in ATR multiples.",
+   "notMean": "↑ and green mean a wider gap on either side. It shows the same in a decline.",
+   "check": "Is the gap in column 3 positive or negative?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "Compressing ↓",
+   "where": "Dashboard, TREND DYNAMICS section, Gap (10-50) row",
+   "reading": "Not a trend reading, gap narrowing",
+   "measures": "Size of the EMA 1 to EMA 3 gap, as % of EMA 3, shrank by more than 0.05 over 5 bars, live bar.",
+   "setup": "A narrowing gap can mark momentum fading or a pullback in progress. Technicians often watch whether the fast EMA holds on its side of the 50, reading a hold as continuation and a cross as a possible regime change.",
+   "notMean": "↓ and red mean a narrower gap, not a fall in price.",
+   "check": "Is EMA 1 closing in on EMA 3 from above or from below?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "Stable →",
+   "where": "Dashboard, TREND DYNAMICS section, Gap (10-50) row",
+   "reading": "Not a trend reading, gap steady",
+   "measures": "Size of the EMA 1 to EMA 3 gap changed by 0.05 or less over 5 bars, live bar.",
+   "setup": "In an aligned stack, a stable gap fits a trend moving at a steady pace, often called a mature phase. Technicians often look for pullbacks to the faster EMAs here and frame risk beyond the pullback swing.",
+   "notMean": "It does not say which side of EMA 3 the fast EMA is on.",
+   "check": "Is the gap in column 3 positive or negative?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "SQUEEZE ◆",
+   "where": "Dashboard, TREND DYNAMICS section, Ribbon Width row",
+   "reading": "Not a trend reading, ribbon narrow",
+   "measures": "Spread between the highest and lowest of the five EMAs, in ATRs (14), ranks P20 or lower against the previous 100 bars. Column 3 shows the width and rank.",
+   "setup": "A volatility squeeze: the five EMAs bunched relative to ATR, common in a range before a breakout. Technicians often wait for a close outside the range with the stack lining up, and frame risk beyond the far side of the range.",
+   "notMean": "It does not predict a breakout, its timing or its direction.",
+   "check": "Is the Stack row aligned or Mixed while the ribbon is narrow?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "Wide",
+   "where": "Dashboard, TREND DYNAMICS section, Ribbon Width row",
+   "reading": "Not a trend reading, ribbon wide",
+   "measures": "The same EMA spread, in ATRs, ranks P80 or higher against the previous 100 bars, live bar.",
+   "setup": "A wide ribbon often goes with a stretched trend or a sharp move away from the slower EMAs. Technicians often expect more pauses and pullbacks from such readings, and frame risk in ATR multiples, which adjust for the larger swings.",
+   "notMean": "It does not mean the move is about to end.",
+   "check": "Is the Extension row also showing EXTENDED?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "Normal",
+   "where": "Dashboard, TREND DYNAMICS section, Ribbon Width row",
+   "reading": "Not a trend reading, ribbon normal",
+   "measures": "The EMA spread ranks above P20 and below P80. Also shown, with P0, when there are too few bars to rank.",
+   "setup": "",
+   "notMean": "It does not mean conditions are average in any other sense.",
+   "check": "Is the P figure in column 3 drifting towards either end?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "N bars (Bull)",
+   "where": "Dashboard, TREND DYNAMICS section, Trend Age row",
+   "reading": "Leaning up, stack age",
+   "measures": "Consecutive chart bars, including the live one, that the stack has stayed in up order (at least 3 of 4 pairs). A new alignment starts at 1.",
+   "setup": "Trend age gives context for where a move sits in its life. Technicians often treat a young alignment as a possible new trend that still needs confirmation, and an old one as a mature trend where pullbacks and pauses grow more common.",
+   "notMean": "Age alone does not say a move is early or late.",
+   "check": "How does this age compare with earlier moves on this chart?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "N bars (Bear)",
+   "where": "Dashboard, TREND DYNAMICS section, Trend Age row",
+   "reading": "Leaning down, stack age",
+   "measures": "Consecutive chart bars, including the live one, that the stack has stayed in down order (at least 3 of 4 pairs). A new alignment starts at 1.",
+   "setup": "Trend age gives context for where a move sits in its life. Technicians often treat a young alignment as a possible new trend that still needs confirmation, and an old one as a mature trend where pullbacks and pauses grow more common.",
+   "notMean": "Age alone does not say a move is early or late.",
+   "check": "How does this age compare with earlier moves on this chart?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "—",
+   "where": "Dashboard, TREND DYNAMICS section, Trend Age row",
+   "reading": "No reading",
+   "measures": "The stack is not aligned: fewer than 3 of 4 pairs in either order.",
+   "setup": "",
+   "notMean": "It does not mean the previous move has reversed.",
+   "check": "What do the Stage and VERDICT rows say about the last aligned stack?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "EXTENDED ⚠",
+   "where": "Dashboard, TREND DYNAMICS section, Extension row",
+   "reading": "Not a trend reading, stretched",
+   "measures": "Live close is 2 ATR (14) or more away from EMA 3, above or below. Column 3 shows the signed distance in ATRs.",
+   "setup": "Price stretched two ATRs or more from the trend EMA, a common sign of an overextended move. Technicians often wait for a pullback or a pause before reading fresh continuation, and frame risk in ATR multiples.",
+   "notMean": "It does not say price will return to EMA 3, or when.",
+   "check": "Is the stretch above or below EMA 3, going by column 3?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "OK",
+   "where": "Dashboard, TREND DYNAMICS section, Extension row",
+   "reading": "Not a trend reading, not stretched",
+   "measures": "Live close is less than 2 ATR (14) away from EMA 3.",
+   "setup": "Price within a normal distance of the trend EMA, where pullback setups usually form. Technicians often frame risk beyond the nearest swing, which tends to sit closer at this distance.",
+   "notMean": "It does not mean conditions are favourable.",
+   "check": "Is the distance in column 3 growing bar by bar?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "1 ACCEL with RIDE LONG ↑",
+   "where": "Dashboard, TREND DYNAMICS section, Stage row",
+   "reading": "Uptrend, accelerating",
+   "measures": "Stack aligned (at least 3 of 4 pairs) and the EMA 1 to EMA 3 gap size grew by more than 0.05 over 5 bars, with Bull Score equal to or above Bear Score. The cell is green.",
+   "setup": "Uptrend in its impulse phase: aligned stack with the fast EMA pulling away from the 50. Technicians often avoid chasing and wait for a pullback towards the faster EMAs, framing risk beyond the pullback swing or as an ATR multiple.",
+   "notMean": "It does not say how far or for how many bars the move will run.",
+   "check": "Is the Extension row already showing EXTENDED?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "1 ACCEL with RIDE SHORT ↑",
+   "where": "Dashboard, TREND DYNAMICS section, Stage row",
+   "reading": "Downtrend, accelerating",
+   "measures": "Stack aligned (at least 3 of 4 pairs) and the EMA 1 to EMA 3 gap size grew by more than 0.05 over 5 bars, with Bear Score above Bull Score. The cell is red. The ↑ arrow is fixed text and does not show direction.",
+   "setup": "Downtrend in its impulse phase: aligned stack with the fast EMA pulling away from the 50. Technicians often avoid chasing and wait for a bounce towards the faster EMAs, framing risk beyond the bounce swing or as an ATR multiple.",
+   "notMean": "It does not say how far or for how many bars the move will run.",
+   "check": "Is the Extension row already showing EXTENDED?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "2 MATURE with HOLD LONG",
+   "where": "Dashboard, TREND DYNAMICS section, Stage row",
+   "reading": "Uptrend, steady",
+   "measures": "Stack aligned and the gap size changed by 0.05 or less over 5 bars, with Bull Score equal to or above Bear Score.",
+   "setup": "An established uptrend moving at a steady pace. Technicians often look for pullbacks to the 10 or 20 that close back above them, with risk framed beyond the pullback low or in R multiples.",
+   "notMean": "Mature does not mean ending. It means the gap has stopped widening.",
+   "check": "Is the Δ Score row improving or fading?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "2 MATURE with HOLD SHORT",
+   "where": "Dashboard, TREND DYNAMICS section, Stage row",
+   "reading": "Downtrend, steady",
+   "measures": "Stack aligned and the gap size changed by 0.05 or less over 5 bars, with Bear Score above Bull Score.",
+   "setup": "An established downtrend moving at a steady pace. Technicians often look for bounces to the 10 or 20 that close back below them, with risk framed beyond the bounce high or in R multiples.",
+   "notMean": "Mature does not mean ending. It means the gap has stopped widening.",
+   "check": "Is the Δ Score row improving or fading?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "3 DECEL with TRIM LONG ⚠",
+   "where": "Dashboard, TREND DYNAMICS section, Stage row",
+   "reading": "Uptrend, slowing",
+   "measures": "Stack still aligned but the EMA 1 to EMA 3 gap size shrank by more than 0.05 over 5 bars, with Bull Score equal to or above Bear Score.",
+   "setup": "Uptrend with momentum fading as the fast EMA closes in on the 50. Technicians often watch for a hold above the 50 to confirm continuation, or a stack break to confirm a regime change, and frame risk beyond the latest swing low.",
+   "notMean": "It does not mean the trend has turned. The stack is still in order.",
+   "check": "Is EMA 1 heading back towards EMA 3, or just pausing?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "3 DECEL with TRIM SHORT ⚠",
+   "where": "Dashboard, TREND DYNAMICS section, Stage row",
+   "reading": "Downtrend, slowing",
+   "measures": "Stack still aligned but the EMA 1 to EMA 3 gap size shrank by more than 0.05 over 5 bars, with Bear Score above Bull Score.",
+   "setup": "Downtrend with momentum fading as the fast EMA closes in on the 50. Technicians often watch for a hold below the 50 to confirm continuation, or a stack break to confirm a regime change, and frame risk beyond the latest swing high.",
+   "notMean": "It does not mean the trend has turned. The stack is still in order.",
+   "check": "Is EMA 1 heading back towards EMA 3, or just pausing?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "4a WATCH with WATCH LONG ⚠ or WATCH SHORT ⚠",
+   "where": "Dashboard, TREND DYNAMICS section, Stage row",
+   "reading": "Stack broken, lean holding",
+   "measures": "Stack has lost its alignment. The higher score is on the same side as the last aligned stack and is 60 or more.",
+   "setup": "Stack break with the earlier lean still strong, often a deep pullback or a pause inside the old trend. Technicians often wait for the stack to realign, or for the lean to fade, before reading continuation or reversal.",
+   "notMean": "It does not mean the earlier move has resumed or ended.",
+   "check": "Which EMA pairs swapped order to break the stack?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "4b EXIT with EXIT LONG ✕ or EXIT SHORT ✕",
+   "where": "Dashboard, TREND DYNAMICS section, Stage row",
+   "reading": "Stack broken, lean fading",
+   "measures": "Stack has lost its alignment. The higher score is still on the same side as the last aligned stack, but only 40 to 59.",
+   "setup": "Stack break with the earlier lean fading, a common sign of a regime change or a range. Technicians often treat the old trend as over and wait for a fresh alignment before reading any new trend.",
+   "notMean": "It does not mean a move the other way has started.",
+   "check": "Do the higher-timeframe rows still lean the earlier way?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "4c BUILD with BUILD LONG 👀",
+   "where": "Dashboard, TREND DYNAMICS section, Stage row",
+   "reading": "Stack broken, leaning up",
+   "measures": "Stack not aligned and Bull Score leads or ties at 40 or more, while the last aligned stack was in down order or none has formed yet on the loaded chart.",
+   "setup": "Possible regime change: the stack has broken and the up side now leads. Technicians often wait for the stack to reorder upwards on closed bars, with a higher timeframe agreeing, before treating it as a new uptrend.",
+   "notMean": "It does not mean a new stack will form.",
+   "check": "Has the Stack row started to reorder in that direction?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "4c BUILD with BUILD SHORT 👀",
+   "where": "Dashboard, TREND DYNAMICS section, Stage row",
+   "reading": "Stack broken, leaning down",
+   "measures": "Stack not aligned and Bear Score leads at 40 or more, while the last aligned stack was in up order or none has formed yet on the loaded chart.",
+   "setup": "Possible regime change: the stack has broken and the down side now leads. Technicians often wait for the stack to reorder downwards on closed bars, with a higher timeframe agreeing, before treating it as a new downtrend.",
+   "notMean": "It does not mean a new stack will form.",
+   "check": "Has the Stack row started to reorder in that direction?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "4 IDLE with WAIT",
+   "where": "Dashboard, TREND DYNAMICS section, Stage row",
+   "reading": "No reading",
+   "measures": "Stack not aligned and the higher score is below 40. With all five EMAs available the two scores total at least 80, so this needs an EMA with too little history.",
+   "setup": "",
+   "notMean": "It does not mean the market is quiet.",
+   "check": "Does the chart have enough bars for the slowest EMA?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "Green Stage cell",
+   "where": "Dashboard, TREND DYNAMICS section, Stage row, column 2",
+   "reading": "Leaning up",
+   "measures": "Bull Score leads or ties, in stages 1 to 3 and 4a to 4c. Paler in 4c. In 4b it is the opposite colour to the VERDICT row background.",
+   "setup": "",
+   "notMean": "It does not show the stack order, only which score leads.",
+   "check": "Does the VERDICT row show the same colour?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "Red Stage cell",
+   "where": "Dashboard, TREND DYNAMICS section, Stage row, column 2",
+   "reading": "Leaning down",
+   "measures": "Bear Score leads, in stages 1 to 3 and 4a to 4c. Paler in 4c. In 4b it is the opposite colour to the VERDICT row background.",
+   "setup": "",
+   "notMean": "It does not show the stack order, only which score leads.",
+   "check": "Does the VERDICT row show the same colour?"
+  },
+  {
+   "section": "TREND DYNAMICS",
+   "label": "Grey Stage cell",
+   "where": "Dashboard, TREND DYNAMICS section, Stage row, column 2",
+   "reading": "No reading",
+   "measures": "Shown in 4 IDLE: stack not aligned and the higher score below 40.",
+   "setup": "",
+   "notMean": "It does not mean the market is quiet.",
+   "check": "Does the VERDICT row show 💤 NO SETUP too?"
+  },
+  {
+   "section": "ENTRY TIMING",
+   "label": "TRIGGER ↑",
+   "where": "Dashboard, ENTRY TIMING section, Pullback row",
+   "reading": "Uptrend, pullback reclaimed",
+   "measures": "Up-ordered stack. Close crossed above EMA 1 within 5 bars of a low reaching EMA 2, or one bar touched EMA 2 and closed above EMA 1, not below its open. First bar only.",
+   "setup": "Trend continuation after a pullback: a dip to the 20 followed by a reclaim of the 10 in an up-ordered stack. Technicians often wait for the bar to close with the reclaim intact and frame risk beyond the pullback low or as an ATR multiple.",
+   "notMean": "It does not mean the pullback is over or that price will rise.",
+   "check": "Has the chart bar closed with the reclaim still in place?"
+  },
+  {
+   "section": "ENTRY TIMING",
+   "label": "TRIGGER ↓",
+   "where": "Dashboard, ENTRY TIMING section, Pullback row",
+   "reading": "Downtrend, bounce rejected",
+   "measures": "Down-ordered stack. Close crossed below EMA 1 within 5 bars of a high reaching EMA 2, or one bar touched EMA 2 and closed below EMA 1, not above its open. First bar only.",
+   "setup": "Trend continuation after a bounce: a rally to the 20 that turns back under the 10 in a down-ordered stack. Technicians often wait for the bar to close below the 10 and frame risk beyond the bounce high or as an ATR multiple.",
+   "notMean": "It does not mean the bounce is over or that price will fall.",
+   "check": "Has the chart bar closed with the move back under EMA 1 intact?"
+  },
+  {
+   "section": "ENTRY TIMING",
+   "label": "In zone (bull)",
+   "where": "Dashboard, ENTRY TIMING section, Pullback row",
+   "reading": "Uptrend, pulling back",
+   "measures": "Up-ordered stack and the live bar's low is at or below EMA 2.",
+   "setup": "A pullback into the 20 within an uptrend. Technicians often wait for a close back above the 10 to confirm the dip has ended, and watch whether price holds above the 50.",
+   "notMean": "It does not check how far below EMA 2 price went.",
+   "check": "Is price still above EMA 3, going by the EMA STACK rows?"
+  },
+  {
+   "section": "ENTRY TIMING",
+   "label": "In zone (bear)",
+   "where": "Dashboard, ENTRY TIMING section, Pullback row",
+   "reading": "Downtrend, bouncing",
+   "measures": "Down-ordered stack and the live bar's high is at or above EMA 2.",
+   "setup": "A bounce into the 20 within a downtrend. Technicians often wait for a close back below the 10 to confirm the bounce has ended, and watch whether price stays below the 50.",
+   "notMean": "It does not check how far above EMA 2 price went.",
+   "check": "Is price still below EMA 3, going by the EMA STACK rows?"
+  },
+  {
+   "section": "ENTRY TIMING",
+   "label": "Touched Nb ago (up-ordered stack)",
+   "where": "Dashboard, ENTRY TIMING section, Pullback row",
+   "reading": "Uptrend, recent pullback",
+   "measures": "Stack in up order and the last bar whose low reached EMA 2 was 1 to 5 bars ago. It keeps showing after a TRIGGER has already printed.",
+   "setup": "A recent pullback to the 20 in an uptrend. Technicians often look for a close back above the 10 within a few bars; when none comes, the pullback may be turning into something deeper.",
+   "notMean": "It does not mean a reclaim is still pending.",
+   "check": "Did a diamond already print after this touch?"
+  },
+  {
+   "section": "ENTRY TIMING",
+   "label": "Touched Nb ago (down-ordered stack)",
+   "where": "Dashboard, ENTRY TIMING section, Pullback row",
+   "reading": "Downtrend, recent bounce",
+   "measures": "Stack in down order and the last bar whose high reached EMA 2 was 1 to 5 bars ago. It keeps showing after a TRIGGER has already printed.",
+   "setup": "A recent bounce to the 20 in a downtrend. Technicians often look for a close back below the 10 within a few bars; when none comes, the bounce may be turning into something larger.",
+   "notMean": "It does not mean a move back under EMA 1 is still pending.",
+   "check": "Did a diamond already print after this touch?"
+  },
+  {
+   "section": "ENTRY TIMING",
+   "label": "—",
+   "where": "Dashboard, ENTRY TIMING section, Pullback row",
+   "reading": "No reading",
+   "measures": "No EMA 2 touch on the aligned side within the last 5 bars, or the stack is not aligned.",
+   "setup": "",
+   "notMean": "It does not mean there is no pullback, only none of this pattern.",
+   "check": "Is the stack aligned at all right now?"
+  },
+  {
+   "section": "ENTRY TIMING",
+   "label": "Bull ↑ Nb ago",
+   "where": "Dashboard, ENTRY TIMING section, Cross 10×20 row",
+   "reading": "Leaning up, fast EMAs",
+   "measures": "EMA 1 is above EMA 2 now. N is bars since EMA 1 last crossed EMA 2. Column 3 shows EMA 1 minus EMA 2 in price units.",
+   "setup": "A fast EMA cross marks a near-term momentum shift. Technicians often read it against the slower stack, giving weight to crosses that agree with the larger trend and treating crosses against it as pullbacks or bounces.",
+   "notMean": "It does not say the fast EMAs will stay in this order.",
+   "check": "Is the gap in column 3 widening or narrowing?"
+  },
+  {
+   "section": "ENTRY TIMING",
+   "label": "Bear ↓ Nb ago",
+   "where": "Dashboard, ENTRY TIMING section, Cross 10×20 row",
+   "reading": "Leaning down, fast EMAs",
+   "measures": "EMA 1 is at or below EMA 2 now. N is bars since EMA 1 last crossed EMA 2. Column 3 shows EMA 1 minus EMA 2 in price units.",
+   "setup": "A fast EMA cross marks a near-term momentum shift. Technicians often read it against the slower stack, giving weight to crosses that agree with the larger trend and treating crosses against it as pullbacks or bounces.",
+   "notMean": "It does not say the fast EMAs will stay in this order.",
+   "check": "Is the gap in column 3 widening or narrowing?"
+  },
+  {
+   "section": "ENTRY TIMING",
+   "label": "Golden ↑ Nb ago",
+   "where": "Dashboard, ENTRY TIMING section, Cross 50×200 row",
+   "reading": "Leaning up, slow EMAs",
+   "measures": "EMA 3 is above EMA 5 now. N is bars since EMA 3 last crossed EMA 5. Column 3 shows EMA 3 minus EMA 5 in price units.",
+   "setup": "The golden cross is a classic slow trend signal that lags turns by design. Technicians often treat it as confirmation of a trend already under way, and look for a rising 200 to back it.",
+   "notMean": "It does not date the start of a move, only the last cross.",
+   "check": "Does the EMA200 Slope row agree with this order?"
+  },
+  {
+   "section": "ENTRY TIMING",
+   "label": "Death ↓ Nb ago",
+   "where": "Dashboard, ENTRY TIMING section, Cross 50×200 row",
+   "reading": "Leaning down, slow EMAs",
+   "measures": "EMA 3 is at or below EMA 5 now. N is bars since EMA 3 last crossed EMA 5. Column 3 shows EMA 3 minus EMA 5 in price units.",
+   "setup": "The death cross is a classic slow trend signal that lags turns by design. Technicians often treat it as confirmation of a decline already under way, and look for a falling 200 to back it.",
+   "notMean": "It does not date the start of a move, only the last cross.",
+   "check": "Does the EMA200 Slope row agree with this order?"
+  },
+  {
+   "section": "ENTRY TIMING",
+   "label": "—",
+   "where": "Dashboard, ENTRY TIMING section, Cross 10×20 and Cross 50×200 rows",
+   "reading": "No reading",
+   "measures": "No cross between those two EMAs exists in the loaded chart history.",
+   "setup": "",
+   "notMean": "It does not mean the EMAs are level. Column 3 still shows the gap.",
+   "check": "Would more chart history show the last cross?"
+  },
+  {
+   "section": "ENTRY TIMING",
+   "label": "Price value with ±x.xx% from close",
+   "where": "Dashboard, ENTRY TIMING section, X-Price 10×20 row",
+   "reading": "Not a trend reading, cross level",
+   "measures": "The next bar's close at which EMA 1 and EMA 2 would meet, from their live values. Column 3 is its distance from the live close. Shows a dash if both lengths match.",
+   "setup": "In crossover work this is the next-bar close at which the fast pair would meet. Technicians sometimes use it to gauge how near a momentum shift is.",
+   "notMean": "It is not a forecast or a level price is expected to reach.",
+   "check": "Is the current bar still open, so this figure will keep moving?"
+  },
+  {
+   "section": "SCORING",
+   "label": "Bull Score N/100 with █ bar",
+   "where": "Dashboard, SCORING section",
+   "reading": "Not a trend reading, up-side score",
+   "measures": "8 per EMA the live close is above, 10 per pair in up order, 10 if the EMA 3 slope is Up, 10 if the gap is Expanding with an up-ordered stack.",
+   "setup": "Composite trend scores combine stack order, price position, slope and gap expansion. Technicians often read the difference between the two scores rather than one score alone, treating a wide difference as a clear trend and a narrow one as a range.",
+   "notMean": "It is not a probability. With full EMA data the two scores add to 80 to 100.",
+   "check": "How far apart are the two scores?"
+  },
+  {
+   "section": "SCORING",
+   "label": "Bear Score N/100 with █ bar",
+   "where": "Dashboard, SCORING section",
+   "reading": "Not a trend reading, down-side score",
+   "measures": "8 per EMA the live close is at or below, 10 per pair in down order, 10 if the EMA 3 slope is Down, 10 if the gap is Expanding with a down-ordered stack.",
+   "setup": "Composite trend scores combine stack order, price position, slope and gap expansion. Technicians often read the difference between the two scores rather than one score alone, treating a wide difference as a clear trend and a narrow one as a range.",
+   "notMean": "It is not a probability. With full EMA data the two scores add to 80 to 100.",
+   "check": "How far apart are the two scores?"
+  },
+  {
+   "section": "SCORING",
+   "label": "Improving ↑",
+   "where": "Dashboard, SCORING section, Δ Score (5b) row",
+   "reading": "Not a trend reading, lead widening",
+   "measures": "The leading side's margin (Bull minus Bear, reversed when Bear leads) grew by more than 5 points versus 5 bars ago. Column 3 shows the raw Bull minus Bear change.",
+   "setup": "A widening lead is typical of a trend gaining structure. Technicians often look for it to agree with the stage and slope rows before treating a move as trend continuation.",
+   "notMean": "↑ means the leading side gained. If Bear leads, the down side gained.",
+   "check": "Which score is leading right now?"
+  },
+  {
+   "section": "SCORING",
+   "label": "Fading ↓",
+   "where": "Dashboard, SCORING section, Δ Score (5b) row",
+   "reading": "Not a trend reading, lead narrowing",
+   "measures": "The leading side's margin shrank by more than 5 points versus 5 bars ago. Column 3 shows the raw Bull minus Bear change.",
+   "setup": "A shrinking lead can be an early sign of momentum fading or a range forming. Technicians often wait for the stack or the stage to confirm a change before reading it as a reversal.",
+   "notMean": "It does not mean the other side now leads.",
+   "check": "Is the gap between the two scores close to zero?"
+  },
+  {
+   "section": "SCORING",
+   "label": "Flat →",
+   "where": "Dashboard, SCORING section, Δ Score (5b) row",
+   "reading": "Not a trend reading, lead unchanged",
+   "measures": "The leading side's margin changed by 5 points or less versus 5 bars ago.",
+   "setup": "",
+   "notMean": "It does not say which side leads or by how much.",
+   "check": "Which score is leading, and by how much?"
+  },
+  {
+   "section": "SIGNAL",
+   "label": "STRONG LONG",
+   "where": "Dashboard, SIGNAL row, column 2",
+   "reading": "Uptrend, strong",
+   "measures": "Bull Score 80 or more and at least 3 of 4 EMA pairs in up order, live bar.",
+   "setup": "A strong uptrend reading on an up-ordered stack. Technicians often avoid chasing such readings and wait for a pullback towards the faster EMAs, framing risk beyond the pullback low or in R multiples.",
+   "notMean": "It describes EMA order, price position and slope, not what comes next.",
+   "check": "Does the Trend row also read BULL?"
+  },
+  {
+   "section": "SIGNAL",
+   "label": "LONG",
+   "where": "Dashboard, SIGNAL row, column 2",
+   "reading": "Leaning up, above EMAs",
+   "measures": "Bull Score 60 or more and the live close above at least 4 of 5 EMAs, without meeting the strong case.",
+   "setup": "Price above most EMAs with a clear up-side lean, without the strong case. Technicians often wait for the stack to align or a higher timeframe to agree before reading it as trend continuation.",
+   "notMean": "It is not an instruction, and it can show while the stack is unaligned.",
+   "check": "Is the Stack row aligned or Mixed?"
+  },
+  {
+   "section": "SIGNAL",
+   "label": "STRONG SHORT",
+   "where": "Dashboard, SIGNAL row, column 2",
+   "reading": "Downtrend, strong",
+   "measures": "Bear Score 80 or more and at least 3 of 4 EMA pairs in down order, live bar.",
+   "setup": "A strong downtrend reading on a down-ordered stack. Technicians often avoid chasing such readings and wait for a bounce towards the faster EMAs, framing risk beyond the bounce high or in R multiples.",
+   "notMean": "It describes EMA order, price position and slope, not what comes next.",
+   "check": "Does the Trend row also read BEAR?"
+  },
+  {
+   "section": "SIGNAL",
+   "label": "SHORT",
+   "where": "Dashboard, SIGNAL row, column 2",
+   "reading": "Leaning down, below EMAs",
+   "measures": "Bear Score 60 or more and the live close at or below at least 4 of 5 EMAs, without meeting the strong case.",
+   "setup": "Price below most EMAs with a clear down-side lean, without the strong case. Technicians often wait for the stack to align or a higher timeframe to agree before reading it as trend continuation.",
+   "notMean": "It is not an instruction, and it can show while the stack is unaligned.",
+   "check": "Is the Stack row aligned or Mixed?"
+  },
+  {
+   "section": "SIGNAL",
+   "label": "WEAK BULL",
+   "where": "Dashboard, SIGNAL row, column 2",
+   "reading": "Leaning up",
+   "measures": "Bull Score is higher than Bear Score but neither of the two stronger up cases is met.",
+   "setup": "An early or fading up-side lean, often seen in ranges and transitions. Technicians often wait for more conditions to line up, such as the stack and the slope, before reading it as a trend.",
+   "notMean": "It does not mean an uptrend is forming.",
+   "check": "Is the Δ Score row improving for the up side?"
+  },
+  {
+   "section": "SIGNAL",
+   "label": "WEAK BEAR",
+   "where": "Dashboard, SIGNAL row, column 2",
+   "reading": "Leaning down",
+   "measures": "Bear Score is higher than Bull Score but neither of the two stronger down cases is met.",
+   "setup": "An early or fading down-side lean, often seen in ranges and transitions. Technicians often wait for more conditions to line up, such as the stack and the slope, before reading it as a trend.",
+   "notMean": "It does not mean a downtrend is forming.",
+   "check": "Is the Δ Score row improving for the down side?"
+  },
+  {
+   "section": "SIGNAL",
+   "label": "WAIT",
+   "where": "Dashboard, SIGNAL row, column 2",
+   "reading": "Mixed",
+   "measures": "Bull and Bear scores are exactly equal. It can also show when an EMA has too little history and the leading score is under 40.",
+   "setup": "Balanced scores usually point to a range. Technicians often wait for a close that breaks the balance and for the stack to line up before reading direction.",
+   "notMean": "It does not mean the market is quiet or flat.",
+   "check": "Which score was leading on the previous bars?"
+  },
+  {
+   "section": "SIGNAL",
+   "label": "▲ LONG",
+   "where": "Dashboard, SIGNAL row, column 3",
+   "reading": "Leaning up",
+   "measures": "Bull Score is equal to or higher than Bear Score, live bar. Shown in green.",
+   "setup": "",
+   "notMean": "A tie shows ▲. It is a score comparison only.",
+   "check": "How close are the two scores?"
+  },
+  {
+   "section": "SIGNAL",
+   "label": "▼ SHORT",
+   "where": "Dashboard, SIGNAL row, column 3",
+   "reading": "Leaning down",
+   "measures": "Bear Score is higher than Bull Score, live bar. Shown in red.",
+   "setup": "",
+   "notMean": "It is a score comparison only, not a reading of the stack.",
+   "check": "How close are the two scores?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "💤 NO SETUP",
+   "where": "Dashboard, VERDICT row",
+   "reading": "No reading",
+   "measures": "Same case as 4 IDLE: stack not aligned and the higher score below 40. Needs an EMA with too little history.",
+   "setup": "",
+   "notMean": "It does not mean conditions are calm.",
+   "check": "Does the chart have enough bars for the slowest EMA?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "💥 TREND BROKEN LONG / 💥 TREND BROKEN SHORT",
+   "where": "Dashboard, VERDICT row",
+   "reading": "Stack broken, lean fading",
+   "measures": "Same case as 4b: stack has lost its alignment, higher score on the side of the last aligned stack but only 40 to 59. The tag names that earlier side.",
+   "setup": "Stack break with the earlier lean fading, a common sign of a regime change or a range. Technicians often treat the old trend as over and wait for a fresh alignment before reading any new trend.",
+   "notMean": "It does not mean a trend the other way has begun.",
+   "check": "Do the higher-timeframe rows still lean the earlier way?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "⚠ STRUCTURE WEAK LONG / ⚠ STRUCTURE WEAK SHORT",
+   "where": "Dashboard, VERDICT row",
+   "reading": "Stack broken, lean holding",
+   "measures": "Same case as 4a: stack has lost its alignment, higher score on the side of the last aligned stack and 60 or more.",
+   "setup": "Stack break with the earlier lean still strong, often a deep pullback or a pause inside the old trend. Technicians often wait for the stack to realign, or for the lean to fade, before reading continuation or reversal.",
+   "notMean": "It does not mean the earlier move has resumed or ended.",
+   "check": "Which EMA pairs swapped order to break the stack?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "✅ EARLY SIGNAL LONG",
+   "where": "Dashboard, VERDICT row",
+   "reading": "Uptrend, emerging",
+   "measures": "Stage 4c case where Bull Score leads at 60 or more and the live close is above at least 4 of 5 EMAs.",
+   "setup": "A possible new uptrend before the stack has caught up. Technicians often wait for the EMAs to reorder on closed bars and a higher timeframe to agree, and frame risk beyond the most recent swing low.",
+   "notMean": "It does not mean the stack will realign in this direction.",
+   "check": "Do the higher-timeframe rows lean the same way?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "✅ EARLY SIGNAL SHORT",
+   "where": "Dashboard, VERDICT row",
+   "reading": "Downtrend, emerging",
+   "measures": "Stage 4c case where Bear Score leads at 60 or more and the live close is at or below at least 4 of 5 EMAs.",
+   "setup": "A possible new downtrend before the stack has caught up. Technicians often wait for the EMAs to reorder on closed bars and a higher timeframe to agree, and frame risk beyond the most recent swing high.",
+   "notMean": "It does not mean the stack will realign in this direction.",
+   "check": "Do the higher-timeframe rows lean the same way?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "👀 SIGNAL BUILDING LONG",
+   "where": "Dashboard, VERDICT row",
+   "reading": "Leaning up, early",
+   "measures": "Stage 4c case with Bull Score leading or tied, where the 60 score and 4 of 5 EMAs condition is not met.",
+   "setup": "An early up-side lean after a stack break, often a range or a turn still forming. Technicians often wait for price to clear most EMAs and for the stack to reorder before treating it as a trend.",
+   "notMean": "It does not mean a trend is forming.",
+   "check": "Is the Δ Score row improving for the leading side?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "👀 SIGNAL BUILDING SHORT",
+   "where": "Dashboard, VERDICT row",
+   "reading": "Leaning down, early",
+   "measures": "Stage 4c case with Bear Score leading, where the 60 score and 4 of 5 EMAs condition is not met.",
+   "setup": "An early down-side lean after a stack break, often a range or a turn still forming. Technicians often wait for price to drop below most EMAs and for the stack to reorder before treating it as a trend.",
+   "notMean": "It does not mean a trend is forming.",
+   "check": "Is the Δ Score row improving for the leading side?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "📉 EASE LONG ⚠",
+   "where": "Dashboard, VERDICT row",
+   "reading": "Uptrend, slowing",
+   "measures": "Stage 3 with Bull Score leading or tied: stack aligned and the EMA 1 to EMA 3 gap shrinking. It takes priority over the strong and clear readings.",
+   "setup": "Uptrend with momentum fading as the fast EMA closes in on the 50. Technicians often watch for a hold above the 50 to confirm continuation, or a stack break to confirm a regime change, and frame risk beyond the latest swing low.",
+   "notMean": "It does not mean the trend has turned, and it is not advice to reduce anything.",
+   "check": "Is the stack still fully in order on the Stack row?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "📉 EASE SHORT ⚠",
+   "where": "Dashboard, VERDICT row",
+   "reading": "Downtrend, slowing",
+   "measures": "Stage 3 with Bear Score leading: stack aligned and the EMA 1 to EMA 3 gap shrinking. It takes priority over the strong and clear readings.",
+   "setup": "Downtrend with momentum fading as the fast EMA closes in on the 50. Technicians often watch for a hold below the 50 to confirm continuation, or a stack break to confirm a regime change, and frame risk beyond the latest swing high.",
+   "notMean": "It does not mean the trend has turned, and it is not advice to reduce anything.",
+   "check": "Is the stack still fully in order on the Stack row?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "🚀 STRONG SETUP LONG",
+   "where": "Dashboard, VERDICT row",
+   "reading": "Uptrend, strong",
+   "measures": "Stage 1 or 2, and Bull Score leads at 80 or more with at least 3 of 4 pairs in up order.",
+   "setup": "A strong uptrend reading on an up-ordered stack. Technicians often avoid chasing such readings and wait for a pullback towards the faster EMAs, framing risk beyond the pullback low or in R multiples.",
+   "notMean": "It is not an instruction and says nothing about what comes next.",
+   "check": "Is the Extension row showing EXTENDED?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "🚀 STRONG SETUP SHORT",
+   "where": "Dashboard, VERDICT row",
+   "reading": "Downtrend, strong",
+   "measures": "Stage 1 or 2, and Bear Score leads at 80 or more with at least 3 of 4 pairs in down order.",
+   "setup": "A strong downtrend reading on a down-ordered stack. Technicians often avoid chasing such readings and wait for a bounce towards the faster EMAs, framing risk beyond the bounce high or in R multiples.",
+   "notMean": "It is not an instruction and says nothing about what comes next.",
+   "check": "Is the Extension row showing EXTENDED?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "✅ SIGNAL CLEAR LONG",
+   "where": "Dashboard, VERDICT row",
+   "reading": "Uptrend",
+   "measures": "Stage 1 or 2, and Bull Score leads at 60 or more with the live close above at least 4 of 5 EMAs, below the strong case.",
+   "setup": "Trend continuation reading in an aligned uptrend. Technicians often wait for a pullback and a close back above the faster EMAs, and frame risk beyond the pullback low or in R multiples.",
+   "notMean": "It is not an instruction and says nothing about what comes next.",
+   "check": "Do the higher-timeframe rows agree?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "✅ SIGNAL CLEAR SHORT",
+   "where": "Dashboard, VERDICT row",
+   "reading": "Downtrend",
+   "measures": "Stage 1 or 2, and Bear Score leads at 60 or more with the live close at or below at least 4 of 5 EMAs, below the strong case.",
+   "setup": "Trend continuation reading in an aligned downtrend. Technicians often wait for a bounce and a close back below the faster EMAs, and frame risk beyond the bounce high or in R multiples.",
+   "notMean": "It is not an instruction and says nothing about what comes next.",
+   "check": "Do the higher-timeframe rows agree?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "🔥 TREND ACCEL LONG",
+   "where": "Dashboard, VERDICT row",
+   "reading": "Uptrend, accelerating",
+   "measures": "Stage 1 with Bull Score leading or tied, meeting neither the strong nor the clear case, usually because the live close is above fewer than 4 EMAs.",
+   "setup": "An accelerating uptrend with price back below some EMAs, often a pullback inside the impulse. Technicians often wait for a close back above the faster EMAs and frame risk beyond the pullback low or as an ATR multiple.",
+   "notMean": "It does not mean price is moving fast in that direction right now.",
+   "check": "Which EMAs is price on the other side of?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "🔥 TREND ACCEL SHORT",
+   "where": "Dashboard, VERDICT row",
+   "reading": "Downtrend, accelerating",
+   "measures": "Stage 1 with Bear Score leading, meeting neither the strong nor the clear case, usually because the live close is at or below fewer than 4 EMAs.",
+   "setup": "An accelerating downtrend with price back above some EMAs, often a bounce inside the impulse. Technicians often wait for a close back below the faster EMAs and frame risk beyond the bounce high or as an ATR multiple.",
+   "notMean": "It does not mean price is moving fast in that direction right now.",
+   "check": "Which EMAs is price on the other side of?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "⏸ TREND MATURE LONG",
+   "where": "Dashboard, VERDICT row",
+   "reading": "Uptrend, steady",
+   "measures": "Stage 2 with Bull Score leading or tied, meeting neither the strong nor the clear case.",
+   "setup": "A steady uptrend with price on the other side of some EMAs, typical of a pullback in a mature trend. Technicians often wait for a close back above the 10 and 20 and frame risk beyond the pullback low.",
+   "notMean": "Mature does not mean ending.",
+   "check": "Which EMAs is price on the other side of?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "⏸ TREND MATURE SHORT",
+   "where": "Dashboard, VERDICT row",
+   "reading": "Downtrend, steady",
+   "measures": "Stage 2 with Bear Score leading, meeting neither the strong nor the clear case.",
+   "setup": "A steady downtrend with price on the other side of some EMAs, typical of a bounce in a mature trend. Technicians often wait for a close back below the 10 and 20 and frame risk beyond the bounce high.",
+   "notMean": "Mature does not mean ending.",
+   "check": "Which EMAs is price on the other side of?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "N/100 LONG (e.g. 72/100 LONG)",
+   "where": "Dashboard, VERDICT row, column 3",
+   "reading": "Leaning up",
+   "measures": "Bull Score, when it leads or ties. Shows a dash instead in the 4 IDLE case.",
+   "setup": "",
+   "notMean": "It is not a position size or a confidence level.",
+   "check": "How far behind is the other score?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "N/100 SHORT (e.g. 68/100 SHORT)",
+   "where": "Dashboard, VERDICT row, column 3",
+   "reading": "Leaning down",
+   "measures": "Bear Score, when it leads. Shows a dash instead in the 4 IDLE case.",
+   "setup": "",
+   "notMean": "It is not a position size or a confidence level.",
+   "check": "How far behind is the other score?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "Green VERDICT background",
+   "where": "Dashboard, VERDICT row, columns 2 and 3",
+   "reading": "Leaning up",
+   "measures": "Bull Score leads or ties, outside the orange and grey cases, darkest for 🚀 and palest for 👀. The exception is 💥 TREND BROKEN, where green means a down-ordered stack broke.",
+   "setup": "",
+   "notMean": "Green behind 💥 TREND BROKEN means a down-ordered stack broke, not that price is rising.",
+   "check": "Does the Stage cell show the same colour?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "Red VERDICT background",
+   "where": "Dashboard, VERDICT row, columns 2 and 3",
+   "reading": "Leaning down",
+   "measures": "Bear Score leads, outside the orange and grey cases, darkest for 🚀 and palest for 👀. The exception is 💥 TREND BROKEN, where red means an up-ordered stack broke.",
+   "setup": "",
+   "notMean": "Red behind 💥 TREND BROKEN means an up-ordered stack broke, not that price is falling.",
+   "check": "Does the Stage cell show the same colour?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "Orange VERDICT background",
+   "where": "Dashboard, VERDICT row, columns 2 and 3",
+   "reading": "Uptrend or downtrend, weakening",
+   "measures": "Shown for ⚠ STRUCTURE WEAK (stack broken, earlier lean still 60 or more) and 📉 EASE (stack aligned, gap shrinking).",
+   "setup": "",
+   "notMean": "Orange does not show which side is weakening.",
+   "check": "Which side does the VERDICT text name?"
+  },
+  {
+   "section": "VERDICT",
+   "label": "Grey VERDICT background",
+   "where": "Dashboard, VERDICT row, columns 2 and 3",
+   "reading": "No reading",
+   "measures": "Shown with 💤 NO SETUP: stack not aligned and the higher score below 40.",
+   "setup": "",
+   "notMean": "It does not mean conditions are calm.",
+   "check": "Does the chart have enough bars for the slowest EMA?"
+  },
+  {
+   "section": "Price chart",
+   "label": "Green ▲ triangle below the bar",
+   "where": "Price chart (Signal markers)",
+   "reading": "Uptrend, strong",
+   "measures": "First bar where Bull Score reaches 80 or more with at least 3 of 4 pairs in up order. On the forming bar it can appear and vanish before close.",
+   "setup": "First bar of a strong uptrend reading. Technicians often wait for the bar to close with the marker in place, then for a pullback rather than chasing, and frame risk beyond the swing low or in ATR multiples.",
+   "notMean": "It is not an instruction and does not mark a low.",
+   "check": "Did the triangle remain after the bar closed?"
+  },
+  {
+   "section": "Price chart",
+   "label": "Red ▼ triangle above the bar",
+   "where": "Price chart (Signal markers)",
+   "reading": "Downtrend, strong",
+   "measures": "First bar where Bear Score reaches 80 or more with at least 3 of 4 pairs in down order. On the forming bar it can appear and vanish before close.",
+   "setup": "First bar of a strong downtrend reading. Technicians often wait for the bar to close with the marker in place, then for a bounce rather than chasing, and frame risk beyond the swing high or in ATR multiples.",
+   "notMean": "It is not an instruction and does not mark a high.",
+   "check": "Did the triangle remain after the bar closed?"
+  },
+  {
+   "section": "Price chart",
+   "label": "Grey × above the bar",
+   "where": "Price chart (Signal markers)",
+   "reading": "Stack broken",
+   "measures": "First bar where the stack loses alignment (fewer than 3 of 4 pairs in either order) after being aligned on the bar before. Either direction.",
+   "setup": "A stack break, a common sign of a regime change or a deep pullback. Technicians often wait to see which side leads afterwards and whether the stack realigns before reading continuation or reversal.",
+   "notMean": "It does not mean the trend has reversed, only that the order broke.",
+   "check": "Which way do the Stage and VERDICT rows lean now?"
+  },
+  {
+   "section": "Price chart",
+   "label": "Teal ◆ diamond below the bar",
+   "where": "Price chart (Pullback markers)",
+   "reading": "Uptrend, pullback reclaimed",
+   "measures": "Same condition as TRIGGER ↑ in the Pullback row. On the forming bar it can appear and vanish before close.",
+   "setup": "Trend continuation after a pullback: a dip to the 20 followed by a reclaim of the 10 in an up-ordered stack. Technicians often wait for the bar to close with the reclaim intact and frame risk beyond the pullback low or as an ATR multiple.",
+   "notMean": "It does not mark a low or say price will rise.",
+   "check": "Has the chart bar closed with the diamond still there?"
+  },
+  {
+   "section": "Price chart",
+   "label": "Red ◆ diamond above the bar",
+   "where": "Price chart (Pullback markers)",
+   "reading": "Downtrend, bounce rejected",
+   "measures": "Same condition as TRIGGER ↓ in the Pullback row. On the forming bar it can appear and vanish before close.",
+   "setup": "Trend continuation after a bounce: a rally to the 20 that turns back under the 10 in a down-ordered stack. Technicians often wait for the bar to close below the 10 and frame risk beyond the bounce high or as an ATR multiple.",
+   "notMean": "It does not mark a high or say price will fall.",
+   "check": "Has the chart bar closed with the diamond still there?"
+  },
+  {
+   "section": "Price chart",
+   "label": "GC label below the bar",
+   "where": "Price chart (Golden/Death cross markers)",
+   "reading": "Leaning up, golden cross",
+   "measures": "EMA 3 crossed from at or below EMA 5 to above it on this bar. On the forming bar it can still undo before close.",
+   "setup": "The golden cross is a classic slow trend signal that lags turns by design. Technicians often treat it as confirmation of a trend already under way, and look for a rising 200 to back it.",
+   "notMean": "It does not mean a new uptrend has started.",
+   "check": "Is the EMA200 Slope row still Down or Flat?"
+  },
+  {
+   "section": "Price chart",
+   "label": "DC label above the bar",
+   "where": "Price chart (Golden/Death cross markers)",
+   "reading": "Leaning down, death cross",
+   "measures": "EMA 3 crossed from at or above EMA 5 to below it on this bar. On the forming bar it can still undo before close.",
+   "setup": "The death cross is a classic slow trend signal that lags turns by design. Technicians often treat it as confirmation of a decline already under way, and look for a falling 200 to back it.",
+   "notMean": "It does not mean a new downtrend has started.",
+   "check": "Is the EMA200 Slope row still Up or Flat?"
+  },
+  {
+   "section": "Price chart",
+   "label": "Five EMA lines with EMA 10 to EMA 200 tags at the right edge",
+   "where": "Price chart, tags five bars right of the latest bar",
+   "reading": "Not a trend reading",
+   "measures": "Each line is an EMA of close at its set length. Each tag names that EMA's length and sits at its latest value, so it moves with the forming bar.",
+   "setup": "",
+   "notMean": "They do not mark support or resistance levels.",
+   "check": "Does the line order on the chart match the Stack row?"
+  },
+  {
+   "section": "Price chart",
+   "label": "Teal fill between EMA 1 and EMA 3",
+   "where": "Price chart",
+   "reading": "Leaning up, near-term",
+   "measures": "EMA 1 is above EMA 3 on that bar.",
+   "setup": "",
+   "notMean": "It says nothing about the slower EMAs.",
+   "check": "Do EMA 4 and EMA 5 sit below this band too?"
+  },
+  {
+   "section": "Price chart",
+   "label": "Red fill between EMA 1 and EMA 3",
+   "where": "Price chart",
+   "reading": "Leaning down, near-term",
+   "measures": "EMA 1 is at or below EMA 3 on that bar.",
+   "setup": "",
+   "notMean": "It says nothing about the slower EMAs.",
+   "check": "Do EMA 4 and EMA 5 sit above this band too?"
+  },
+  {
+   "section": "Price chart",
+   "label": "Teal bars, solid or faded",
+   "where": "Price chart (Color bars by stage, off by default)",
+   "reading": "Uptrend",
+   "measures": "Stage 1 (solid) or stage 2 (faded) with Bull Score equal to or above Bear Score.",
+   "setup": "",
+   "notMean": "Colour follows the higher score, not the stack order.",
+   "check": "Does the Stack row agree with the bar colour?"
+  },
+  {
+   "section": "Price chart",
+   "label": "Red bars, solid or faded",
+   "where": "Price chart (Color bars by stage, off by default)",
+   "reading": "Downtrend",
+   "measures": "Stage 1 (solid) or stage 2 (faded) with Bear Score above Bull Score.",
+   "setup": "",
+   "notMean": "Colour follows the higher score, not the stack order.",
+   "check": "Does the Stack row agree with the bar colour?"
+  },
+  {
+   "section": "Price chart",
+   "label": "Orange bars",
+   "where": "Price chart (Color bars by stage, off by default)",
+   "reading": "Uptrend or downtrend, slowing",
+   "measures": "Stage 3 on either side: stack aligned and the EMA 1 to EMA 3 gap shrinking.",
+   "setup": "",
+   "notMean": "It does not show which side, and does not mean the trend has turned.",
+   "check": "Which score is leading on the dashboard?"
+  },
+  {
+   "section": "Price chart",
+   "label": "Grey bars",
+   "where": "Price chart (Color bars by stage, off by default)",
+   "reading": "Stack broken",
+   "measures": "Stage 4: the stack is not aligned (all of 4a, 4b, 4c and 4 IDLE).",
+   "setup": "",
+   "notMean": "It does not separate fading, weakening or new-side cases.",
+   "check": "Which stage 4 case does the Stage row show?"
+  },
+  {
+   "section": "Alerts",
+   "label": "EMA TDB — STRONG Long",
+   "where": "Alert",
+   "reading": "Uptrend, strong",
+   "measures": "Same condition as the green triangle. When it fires depends on the alert's frequency setting, so it can fire before the bar closes.",
+   "setup": "First bar of a strong uptrend reading. Technicians often set such alerts to once per bar close, then wait for a pullback rather than chasing, and frame risk beyond the swing low or in ATR multiples.",
+   "notMean": "It is not an instruction to act.",
+   "check": "Is the alert set to once per bar close?"
+  },
+  {
+   "section": "Alerts",
+   "label": "EMA TDB — STRONG Short",
+   "where": "Alert",
+   "reading": "Downtrend, strong",
+   "measures": "Same condition as the red triangle. When it fires depends on the alert's frequency setting, so it can fire before the bar closes.",
+   "setup": "First bar of a strong downtrend reading. Technicians often set such alerts to once per bar close, then wait for a bounce rather than chasing, and frame risk beyond the swing high or in ATR multiples.",
+   "notMean": "It is not an instruction to act.",
+   "check": "Is the alert set to once per bar close?"
+  },
+  {
+   "section": "Alerts",
+   "label": "EMA TDB — Long",
+   "where": "Alert",
+   "reading": "Leaning up, above EMAs",
+   "measures": "Bull Score 60 or more with the close above at least 4 of 5 EMAs, below the strong case, becomes true. Fires again when a strong reading drops back to this one.",
+   "setup": "Price above most EMAs with a clear up-side lean, without the strong case. Technicians often wait for the stack to align or a higher timeframe to agree before reading it as trend continuation.",
+   "notMean": "It does not fire when the reading jumps straight to the strong case.",
+   "check": "Is the alert set to once per bar close?"
+  },
+  {
+   "section": "Alerts",
+   "label": "EMA TDB — Short",
+   "where": "Alert",
+   "reading": "Leaning down, below EMAs",
+   "measures": "Bear Score 60 or more with the close at or below at least 4 of 5 EMAs, below the strong case, becomes true. Fires again when a strong reading drops back to this one.",
+   "setup": "Price below most EMAs with a clear down-side lean, without the strong case. Technicians often wait for the stack to align or a higher timeframe to agree before reading it as trend continuation.",
+   "notMean": "It does not fire when the reading jumps straight to the strong case.",
+   "check": "Is the alert set to once per bar close?"
+  },
+  {
+   "section": "Alerts",
+   "label": "EMA TDB — Stack Broken",
+   "where": "Alert",
+   "reading": "Stack broken",
+   "measures": "Same condition as the grey ×: the stage becomes 4 after stage 1, 2 or 3 on the bar before.",
+   "setup": "A stack break, a common sign of a regime change or a deep pullback. Technicians often wait to see which side leads afterwards and whether the stack realigns before reading continuation or reversal.",
+   "notMean": "It does not confirm a reversal, despite the alert message wording.",
+   "check": "Which side was the stack aligned on before it broke?"
+  },
+  {
+   "section": "Alerts",
+   "label": "EMA TDB — Stage 1 ACCEL",
+   "where": "Alert",
+   "reading": "Uptrend or downtrend, accelerating",
+   "measures": "The stage becomes 1 after any other stage on the bar before. The alert does not say which side.",
+   "setup": "Start of an impulse phase in an aligned trend, on either side. Technicians often check the dashboard for the side, then wait for a pullback or bounce rather than chase, framing risk in ATR multiples.",
+   "notMean": "It does not say whether the move is up or down.",
+   "check": "Which side does the dashboard show as leading?"
+  },
+  {
+   "section": "Alerts",
+   "label": "EMA TDB — Stage 3 DECEL",
+   "where": "Alert",
+   "reading": "Uptrend or downtrend, slowing",
+   "measures": "The stage becomes 3 after any other stage on the bar before. The alert does not say which side.",
+   "setup": "Momentum fading in an aligned trend, on either side. Technicians often watch whether the fast EMA holds on its side of the 50, and read a stack break as confirmation of a regime change.",
+   "notMean": "Despite the message wording, it is not advice to reduce anything.",
+   "check": "Is the stack still aligned on the Stack row?"
+  },
+  {
+   "section": "Alerts",
+   "label": "EMA TDB — Pullback Long",
+   "where": "Alert",
+   "reading": "Uptrend, pullback reclaimed",
+   "measures": "Same condition as the teal diamond and TRIGGER ↑. It can fire before the bar closes, depending on the alert's frequency setting.",
+   "setup": "Trend continuation after a pullback: a dip to the 20 followed by a reclaim of the 10 in an up-ordered stack. Technicians often wait for the bar to close with the reclaim intact and frame risk beyond the pullback low or as an ATR multiple.",
+   "notMean": "It does not mean the pullback is over.",
+   "check": "Is the alert set to once per bar close?"
+  },
+  {
+   "section": "Alerts",
+   "label": "EMA TDB — Pullback Short",
+   "where": "Alert",
+   "reading": "Downtrend, bounce rejected",
+   "measures": "Same condition as the red diamond and TRIGGER ↓. It can fire before the bar closes, depending on the alert's frequency setting.",
+   "setup": "Trend continuation after a bounce: a rally to the 20 that turns back under the 10 in a down-ordered stack. Technicians often wait for the bar to close below the 10 and frame risk beyond the bounce high or as an ATR multiple.",
+   "notMean": "It does not mean the bounce is over.",
+   "check": "Is the alert set to once per bar close?"
+  },
+  {
+   "section": "Alerts",
+   "label": "EMA TDB — Golden Cross",
+   "where": "Alert",
+   "reading": "Leaning up, golden cross",
+   "measures": "Same condition as the GC label: EMA 3 crosses above EMA 5.",
+   "setup": "The golden cross is a classic slow trend signal that lags turns by design. Technicians often treat it as confirmation of a trend already under way, and look for a rising 200 to back it.",
+   "notMean": "It does not mean a new uptrend has started.",
+   "check": "Is the EMA200 Slope row still Down or Flat?"
+  },
+  {
+   "section": "Alerts",
+   "label": "EMA TDB — Death Cross",
+   "where": "Alert",
+   "reading": "Leaning down, death cross",
+   "measures": "Same condition as the DC label: EMA 3 crosses below EMA 5.",
+   "setup": "The death cross is a classic slow trend signal that lags turns by design. Technicians often treat it as confirmation of a decline already under way, and look for a falling 200 to back it.",
+   "notMean": "It does not mean a new downtrend has started.",
+   "check": "Is the EMA200 Slope row still Up or Flat?"
+  }
+ ]
+}

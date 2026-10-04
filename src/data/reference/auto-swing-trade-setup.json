@@ -1,0 +1,331 @@
+{
+ "version": "1.0",
+ "settings": [
+  {
+   "group": "Trade Direction",
+   "name": "Direction",
+   "value": "Long",
+   "range": "Long, Short",
+   "effect": "Mirrors all levels: mid line at or below the close (▲), above (▼)"
+  },
+  {
+   "group": "Trade Direction",
+   "name": "Show Zones",
+   "value": "On",
+   "range": "",
+   "effect": "Turns all lines, boxes, labels, markers and five of seven alerts on or off"
+  },
+  {
+   "group": "Risk Settings",
+   "name": "SL = ATR x",
+   "value": "1.5",
+   "range": "0.5 or more, step 0.1",
+   "effect": "Red line's ATR distance from mid line; green, teal and one flip line follow"
+  },
+  {
+   "group": "Risk Settings",
+   "name": "TP1 R:R",
+   "value": "1.5",
+   "range": "1 or more, step 0.1",
+   "effect": "Green line's distance, as a multiple of the red line's distance"
+  },
+  {
+   "group": "Risk Settings",
+   "name": "TP2 R:R",
+   "value": "2.5",
+   "range": "1 or more, step 0.1",
+   "effect": "Teal line's distance, as a multiple of the red line's distance"
+  },
+  {
+   "group": "Risk Settings",
+   "name": "Flip = ATR x",
+   "value": "2",
+   "range": "1 or more, step 0.1",
+   "effect": "ATR distance of the purple (▲) or pink (▼) line from mid line"
+  },
+  {
+   "group": "Risk Settings",
+   "name": "Line Length (bars)",
+   "value": "50",
+   "range": "10 to 200",
+   "effect": "How many bars back from the latest bar the lines and boxes start"
+  },
+  {
+   "group": "Risk Settings",
+   "name": "Zone 1 width (ATR x)",
+   "value": "0.3",
+   "range": "0.1 or more, step 0.1",
+   "effect": "Depth of the Z1 box in ATR, on the price side of mid line"
+  },
+  {
+   "group": "Risk Settings",
+   "name": "Zone 2 width (ATR x)",
+   "value": "0.6",
+   "range": "0.2 or more, step 0.1",
+   "effect": "Depth of the Z2 box in ATR, beyond the mid line from price"
+  },
+  {
+   "group": "Reference Indicators",
+   "name": "EMA Fast (entry ref)",
+   "value": "20",
+   "range": "",
+   "effect": "EMA length on close, one of two candidates for the mid line"
+  },
+  {
+   "group": "Reference Indicators",
+   "name": "BB Length (entry ref)",
+   "value": "20",
+   "range": "",
+   "effect": "SMA length on close, the other mid line candidate; no bands drawn"
+  },
+  {
+   "group": "Reference Indicators",
+   "name": "ATR Length",
+   "value": "14",
+   "range": "",
+   "effect": "ATR period behind every distance, including the mid line's clamp"
+  }
+ ],
+ "states": [
+  {
+   "section": "Direction badge",
+   "label": "▲ LONG  R:R 1.5 / 2.5 (green badge)",
+   "where": "price chart, right of the mid line",
+   "reading": "Not a trend reading",
+   "measures": "Repeats your Direction setting and the two ratio inputs (1.5 and 2.5 by default). Nothing on the chart is detected. Drawn on the latest bar only, 25 bars to the right.",
+   "setup": "This setting frames a trend continuation after a pullback. Technicians usually confirm the uptrend on a slower timeframe first, then wait for a pullback towards a moving average. Risk is framed as an ATR multiple beyond the entry zone, with R multiples as reference levels.",
+   "notMean": "Not a detected uptrend or a view on direction. You set it.",
+   "check": "What did my own analysis say before I chose this setting?"
+  },
+  {
+   "section": "Direction badge",
+   "label": "▼ SHORT  R:R 1.5 / 2.5 (red badge)",
+   "where": "price chart, right of the mid line",
+   "reading": "Not a trend reading",
+   "measures": "Repeats your Direction setting and the two ratio inputs (1.5 and 2.5 by default). Nothing on the chart is detected. Drawn on the latest bar only, 25 bars to the right.",
+   "setup": "This setting frames a trend continuation after a bounce. Technicians usually confirm the downtrend on a slower timeframe first, then wait for a bounce towards a moving average. Risk is framed as an ATR multiple beyond the entry zone, with R multiples as reference levels.",
+   "notMean": "Not a detected downtrend or a view on direction. You set it.",
+   "check": "Does my own reading of the chart still match this setting?"
+  },
+  {
+   "section": "Entry zones",
+   "label": "Thin dotted amber line (no label)",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "The mid line. ▲: higher of EMA 20 and SMA 20 of close. Above the latest close it resets to 0.3 ATR below; over 0.7 ATR below, to 0.5 ATR below. ▼ mirrors this above price. Live bar included.",
+   "setup": "In a pullback or bounce setup, a 20-period moving average is a common reference for where the countermove may stall. Technicians often wait for a close back in the trend direction near the average before treating the countermove as over.",
+   "notMean": "Not support or resistance the tool found. It is held close to price.",
+   "check": "Does this line sit near any level I marked myself?"
+  },
+  {
+   "section": "Entry zones",
+   "label": "Z1 [low]-[high], paler amber box with solid border",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "A band 0.3 ATR deep beside the mid line on the price side: above it in ▲, below it in ▼. Rebuilt from the latest close on every update, live bar included.",
+   "setup": "In a pullback or bounce setup, the shallow part of the countermove is often treated as the first entry zone. Technicians usually wait for a close back in the trend direction there, with risk framed to a stop an ATR multiple beyond the zone.",
+   "notMean": "Not a fixed zone. It moves with every new price on the live bar.",
+   "check": "Has this box moved since I last looked at it?"
+  },
+  {
+   "section": "Entry zones",
+   "label": "Z2 [low]-[high], stronger amber box with dashed border",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "A band 0.6 ATR deep on the far side of the mid line, away from price: below it in ▲, above it in ▼. Rebuilt from the latest close on every update.",
+   "setup": "A deeper second entry zone is a common way to stage a pullback or bounce setup. Technicians usually check that the countermove has not broken the prior swing, and measure the combined risk to the stop in R multiples.",
+   "notMean": "Not a better price, and not a place price is expected to reach.",
+   "check": "Would price reaching this box change my own view?"
+  },
+  {
+   "section": "Entry zones",
+   "label": "Solid amber line above, dashed amber line below",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "The outer edges of Z1 and Z2 together. The solid line is always the top edge and the dashed line the bottom edge, in both modes.",
+   "setup": "",
+   "notMean": "The lines reach back 50 bars for display only; the levels did not exist then.",
+   "check": "Am I reading the back-extended lines as past levels?"
+  },
+  {
+   "section": "Stop line",
+   "label": "SL [price], thick red line",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "The mid line minus 1.5 ATR in ▲, plus 1.5 ATR in ▼. It moves whenever the mid line moves, including on the live bar.",
+   "setup": "In pullback or bounce setups, the stop is commonly placed an ATR multiple beyond the entry zone or beyond the last swing, so that ordinary noise is less likely to reach it. The distance from entry to stop defines one R.",
+   "notMean": "Not a level the market is known to respect. It is a fixed ATR distance.",
+   "check": "Does this distance fit my own risk limit?"
+  },
+  {
+   "section": "R-multiple lines",
+   "label": "TP1 [price], green dotted line",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "The mid line plus 1.5 times the red line's distance in ▲, minus in ▼. With default settings that is 2.25 ATR from the mid line.",
+   "setup": "R multiples express a distance as a multiple of the initial risk. Technicians often compare a first R level with prior swing highs or lows in the trend direction, and watch momentum for signs of fading near it.",
+   "notMean": "Not a forecast that price will get there.",
+   "check": "What levels on my own chart sit between here and the mid line?"
+  },
+  {
+   "section": "R-multiple lines",
+   "label": "TP2 [price], teal dotted line",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "The mid line plus 2.5 times the red line's distance in ▲, minus in ▼. With default settings that is 3.75 ATR from the mid line.",
+   "setup": "A larger R multiple assumes an extended trend leg. Technicians usually check that a slower timeframe still agrees with the trend, and how often legs of that size, measured in ATR, have occurred on the same timeframe.",
+   "notMean": "Not a forecast. It is a ratio of the red line's distance.",
+   "check": "How often has price travelled this far, in ATR, on this timeframe?"
+  },
+  {
+   "section": "Flip lines",
+   "label": "SFLIP [price], purple dashed line",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "▲: the mid line plus 2.0 ATR, between the mid line and the green line by default. ▼: the same price as the red line; its label is drawn over the red line's label.",
+   "setup": "Flip levels come from invalidation practice: a close above the line is usually taken to void a downtrend view. With the direction down, it is the stop itself. With the direction up, it sits above price, so a rise through it is no failure.",
+   "notMean": "Not a detected change of trend. A fixed ATR distance only.",
+   "check": "Has my own reading of the market changed?"
+  },
+  {
+   "section": "Flip lines",
+   "label": "LFLIP [price], pink dashed line",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "▼: the mid line minus 2.0 ATR, between the mid line and the green line by default. ▲: the same price as the red line; its label is drawn over the red line's label.",
+   "setup": "Flip levels come from invalidation practice: a close below the line is usually taken to void an uptrend view. With the direction up, it is the stop itself. With the direction down, it sits below price, so a fall through it is no failure.",
+   "notMean": "Not a detected change of trend. A fixed ATR distance only.",
+   "check": "Would I read the chart the same way without this line?"
+  },
+  {
+   "section": "Hit markers",
+   "label": "Amber diamond below the bar, text Z1",
+   "where": "price chart, below the bar",
+   "reading": "Not a trend reading",
+   "measures": "The bar's range overlaps Z1 as built from that same bar's close, and the previous bar's did not. Shown in both modes. Can appear and vanish while the bar is live.",
+   "setup": "In a pullback or bounce setup, a move into the first entry zone usually starts the watch rather than confirming anything. Many technicians wait for a close back in the trend direction before treating the countermove as finished.",
+   "notMean": "Not that price touched the box drawn now. Each past bar used its own levels.",
+   "check": "Has the bar closed, and which levels was it measured against?"
+  },
+  {
+   "section": "Hit markers",
+   "label": "Paler amber diamond below the bar, text Z2",
+   "where": "price chart, below the bar",
+   "reading": "Not a trend reading",
+   "measures": "The bar's range overlaps Z2 as built from that same bar's close, and the previous bar's did not. In effect the low (▲) or high (▼) reached its own mid line. Live bar can change.",
+   "setup": "In a pullback or bounce setup, a move into the deeper zone is a common checkpoint, not a confirmation. Technicians usually check whether the prior swing still holds and whether a slower timeframe still agrees before treating the trend as intact.",
+   "notMean": "Not that price touched the box drawn now. Each past bar used its own levels.",
+   "check": "Has the bar closed yet?"
+  },
+  {
+   "section": "Hit markers",
+   "label": "Red × below the bar (▲) or above the bar (▼)",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "The low crosses below (▲) or the high above (▼) the red line built from that bar's own close, so it sits over 1.5 ATR from that close. Live bar can change.",
+   "setup": "In ATR-based risk framing, a move beyond the stop is where a setup is usually treated as failed. Technicians often separate a wick through the level from a close beyond it. This mark never comes with a close beyond it.",
+   "notMean": "Not that the red line drawn now was reached. Past bars used their own levels.",
+   "check": "Does the bar's close agree with what its wick did?"
+  },
+  {
+   "section": "Hit markers",
+   "label": "Green ▲ above the bar (▲) or green ▼ below the bar (▼)",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "The high crosses above (▲) or the low below (▼) the green line built from that bar's own close. Needs over 1.55 ATR from that close by default. Live bar can change.",
+   "setup": "In R-multiple framing, the first reference level is a common point to reassess the trend. Technicians often check momentum, the next swing level and how much open risk remains.",
+   "notMean": "Not that the green line drawn now was reached, and not part of a sequence.",
+   "check": "Did anything else on my chart change on this bar?"
+  },
+  {
+   "section": "Hit markers",
+   "label": "Teal ▲ above the bar (▲) or teal ▼ below the bar (▼)",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "The high crosses above (▲) or the low below (▼) the teal line built from that bar's own close. Needs over 3.05 ATR from that close by default. Live bar can change.",
+   "setup": "In R-multiple framing, a larger reference level is usually reached only in an extended trend leg. This mark shows one bar reaching far from its own close, not a leg. Technicians often judge the leg itself from momentum and a slower timeframe.",
+   "notMean": "Not that the teal line drawn now was reached. Past bars used their own levels.",
+   "check": "How often does a wick this wide appear on this chart?"
+  },
+  {
+   "section": "Show Zones off",
+   "label": "No lines, boxes, labels or markers",
+   "where": "price chart",
+   "reading": "No reading",
+   "measures": "Show Zones is off. No levels, boxes, labels or markers are drawn, and five of the seven alerts cannot fire. The two flip alerts still can.",
+   "setup": "",
+   "notMean": "Not that conditions are quiet. The tool is simply switched off.",
+   "check": "Did I switch Show Zones off on purpose?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Zone 1 Hit: \"Price entered Zone 1 (first fill)\"",
+   "where": "alert",
+   "reading": "Not a trend reading",
+   "measures": "Same condition as the Z1 diamond: the bar's range overlaps Z1 built from that bar's close, and the previous bar's did not. Checked on the live bar too. Cannot fire when Show Zones is off.",
+   "setup": "In a pullback or bounce setup, an alert at the first entry zone is usually a prompt to look, not a confirmation. Technicians often wait for a close back in the trend direction before treating the countermove as finished.",
+   "notMean": "Not that price reached the box that was on screen when the alert was made.",
+   "check": "Is the alert set to once per bar close or once per bar?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Zone 2 Hit: \"Price entered Zone 2 (averaging zone)\"",
+   "where": "alert",
+   "reading": "Not a trend reading",
+   "measures": "Same condition as the Z2 diamond: the bar's range overlaps Z2 built from that bar's close, and the previous bar's did not. Checked on the live bar too. Cannot fire when Show Zones is off.",
+   "setup": "In a pullback or bounce setup, a move into the deeper zone is a checkpoint, not a confirmation. Technicians usually recheck the prior swing and the slower timeframe, and measure the combined risk to the stop in R multiples.",
+   "notMean": "Not a suggestion to act. It reports a range overlap with Z2 only.",
+   "check": "Has the bar closed since the alert arrived?"
+  },
+  {
+   "section": "Alerts",
+   "label": "SL Hit: \"STOP LOSS hit — EXIT\"",
+   "where": "alert",
+   "reading": "Not a trend reading",
+   "measures": "Same as the red ×: the low crosses below (▲) or the high above (▼) the red line built from that bar's close. Checked on the live bar too. Cannot fire when Show Zones is off.",
+   "setup": "In ATR-based risk framing, a move beyond the stop is where a setup is usually treated as failed. Technicians often separate a wick through the level from a close beyond it. This alert never comes with a close beyond it.",
+   "notMean": "Not an instruction. It reports a wide wick against levels built on that bar.",
+   "check": "Does my own plan define this level, or only the tool?"
+  },
+  {
+   "section": "Alerts",
+   "label": "TP1 Hit: \"TP1 hit — close 50%\"",
+   "where": "alert",
+   "reading": "Not a trend reading",
+   "measures": "Same as the green triangles: the high crosses above (▲) or the low below (▼) the green line built from that bar's close. Checked on the live bar too. Cannot fire when Show Zones is off.",
+   "setup": "In R-multiple framing, the first reference level is a common point to reassess. Technicians often review momentum, the next swing level and how much open risk remains.",
+   "notMean": "Not an instruction. It reports a price cross only.",
+   "check": "What did my own plan say about this level?"
+  },
+  {
+   "section": "Alerts",
+   "label": "TP2 Hit: \"TP2 hit — close remaining\"",
+   "where": "alert",
+   "reading": "Not a trend reading",
+   "measures": "Same as the teal triangles: the high crosses above (▲) or the low below (▼) the teal line built from that bar's close. Checked on the live bar too. Cannot fire when Show Zones is off.",
+   "setup": "In R-multiple framing, a larger reference level is usually reached only in an extended trend leg. This alert reports one bar reaching far from its own close, not a leg. Technicians often judge the leg itself from momentum and a slower timeframe.",
+   "notMean": "Not an instruction. It reports a price cross only.",
+   "check": "How far did the bar close from the end of its wick?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Long Flip: \"Long signal flipped — re-evaluate\"",
+   "where": "alert (▲ only, no chart marker)",
+   "reading": "Not a trend reading",
+   "measures": "▲ only: the high crosses above the purple line (mid line plus 2.0 ATR, so over 1.3 ATR above that bar's close). Still fires with Show Zones off. Checked on the live bar too.",
+   "setup": "In invalidation practice, technicians usually wait for a close above such a line before a downtrend view counts as void. This alert never comes with a close above it, and it fires in the chosen direction, so it is not a reversal.",
+   "notMean": "Not a detected reversal. It fires on a rise, in the direction you chose.",
+   "check": "Has anything on my own chart actually changed direction?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Short Flip: \"Short signal flipped — re-evaluate\"",
+   "where": "alert (▼ only, no chart marker)",
+   "reading": "Not a trend reading",
+   "measures": "▼ only: the low crosses below the pink line (mid line minus 2.0 ATR, so over 1.3 ATR below that bar's close). Still fires with Show Zones off. Checked on the live bar too.",
+   "setup": "In invalidation practice, technicians usually wait for a close below such a line before an uptrend view counts as void. This alert never comes with a close below it, and it fires in the chosen direction, so it is not a reversal.",
+   "notMean": "Not a detected reversal. It fires on a fall, in the direction you chose.",
+   "check": "Has anything on my own chart actually changed direction?"
+  }
+ ]
+}

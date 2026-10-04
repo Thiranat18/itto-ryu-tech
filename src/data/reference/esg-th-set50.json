@@ -1,0 +1,352 @@
+{
+ "version": "2.0",
+ "settings": [
+  {
+   "group": "1) Display",
+   "name": "Show table",
+   "value": "On",
+   "range": "",
+   "effect": "Shows or hides the ESG table; the background tint is unaffected"
+  },
+  {
+   "group": "1) Display",
+   "name": "Background tint by grade",
+   "value": "On",
+   "range": "",
+   "effect": "Shows or hides the grade-coloured chart background on SET symbols"
+  },
+  {
+   "group": "1) Display",
+   "name": "Language",
+   "value": "EN",
+   "range": "EN, TH",
+   "effect": "TH shows the Thai summary and Buddhist Era years; labels stay English"
+  },
+  {
+   "group": "1) Display",
+   "name": "Table position",
+   "value": "top_right",
+   "range": "top_right, top_left, bottom_right, bottom_left",
+   "effect": "Moves the table to one of the four chart corners"
+  },
+  {
+   "group": "1) Display",
+   "name": "Text size",
+   "value": "small",
+   "range": "tiny, small, normal",
+   "effect": "Sets the table font size: tiny, small or normal"
+  }
+ ],
+ "states": [
+  {
+   "section": "Header",
+   "label": "ESG <ticker> (2025)",
+   "where": "ESG table, header row, left cell",
+   "reading": "Not a trend reading",
+   "measures": "The chart's ticker and the rating year of the stored data. The year reads 2568 in TH mode and is left off when the ticker is not stored or the symbol is not on SET.",
+   "setup": "",
+   "notMean": "Not a live data feed or the date the chart last updated.",
+   "check": "Is this still the latest SET ESG Ratings round?"
+  },
+  {
+   "section": "Header",
+   "label": "AAA",
+   "where": "ESG table, header grade cell (green header and green chart tint)",
+   "reading": "Not a trend reading",
+   "measures": "The company's grade in SET ESG Ratings 2025, announced 12 Dec 2025. AAA is the highest of SET's four grades (AAA, AA, A, BBB). Stored data, not a live lookup.",
+   "setup": "",
+   "notMean": "Not a view on the share price or where it may go.",
+   "check": "Have I read what the grade covers on SET's own site?"
+  },
+  {
+   "section": "Header",
+   "label": "AA",
+   "where": "ESG table, header grade cell (teal header and teal chart tint)",
+   "reading": "Not a trend reading",
+   "measures": "The company's grade in SET ESG Ratings 2025, announced 12 Dec 2025. AA is the second highest of SET's four grades. Stored data, not a live lookup.",
+   "setup": "",
+   "notMean": "Not a comment on the share price or the company's prospects.",
+   "check": "Does the History row show this grade changed recently?"
+  },
+  {
+   "section": "Header",
+   "label": "A",
+   "where": "ESG table, header grade cell (blue header and blue chart tint)",
+   "reading": "Not a trend reading",
+   "measures": "The company's grade in SET ESG Ratings 2025, announced 12 Dec 2025. A is the third of SET's four grades. Stored data, not a live lookup.",
+   "setup": "",
+   "notMean": "Not a comment on the share price or the company's prospects.",
+   "check": "How does this grade compare with the Peers row?"
+  },
+  {
+   "section": "Header",
+   "label": "BBB",
+   "where": "ESG table, header grade cell (amber header and amber chart tint)",
+   "reading": "Not a trend reading",
+   "measures": "The company's grade in SET ESG Ratings 2025, announced 12 Dec 2025. BBB is the lowest of SET's four grades. Stored data, not a live lookup. No stored company holds it as its 2025 grade.",
+   "setup": "",
+   "notMean": "Not the same as NR: BBB is still a published grade.",
+   "check": "Does the CG score row tell a similar story?"
+  },
+  {
+   "section": "Header",
+   "label": "NR (full table shown)",
+   "where": "ESG table, header grade cell (grey header and grey chart tint)",
+   "reading": "Not a trend reading",
+   "measures": "The company is in the tool's dataset but has no grade in SET ESG Ratings 2025. The other rows still show history, index, CG, Yearbook and SBTi data.",
+   "setup": "",
+   "notMean": "Not a low grade. No grade was given in this round.",
+   "check": "Does the History row show a grade in earlier years?"
+  },
+  {
+   "section": "Header",
+   "label": "NR (header and Source rows only, no year in the header)",
+   "where": "ESG table, header grade cell (grey header and grey chart tint)",
+   "reading": "No reading",
+   "measures": "A SET symbol outside the 54 stored stocks (those in SET50 in either half of 2026), such as another share or a SET index. The grade cell shows NR and the tint is grey.",
+   "setup": "",
+   "notMean": "Does not mean SET left the company ungraded; the tool has no record.",
+   "check": "Is this a stock the tool covers, rather than an index or another share?"
+  },
+  {
+   "section": "Header",
+   "label": "No data",
+   "where": "ESG table, header grade cell",
+   "reading": "No reading",
+   "measures": "The chart symbol's exchange prefix does not start with SET, so the stored data is not used. The header is grey, no background tint is drawn and only the Source row follows.",
+   "setup": "",
+   "notMean": "Not a grade and not a comment on the instrument.",
+   "check": "Is the chart showing the SET-listed share rather than a futures contract or another exchange?"
+  },
+  {
+   "section": "History",
+   "label": "<2023 grade> → <2024 grade> → <2025 grade>",
+   "where": "ESG table, History row (History 2023→2024→2025, or 2566→2567→2568 in TH)",
+   "reading": "Not a trend reading",
+   "measures": "The company's stored SET ESG grades for the 2023, 2024 and 2025 rounds, oldest first. NR means no grade is stored for that year.",
+   "setup": "",
+   "notMean": "Not a price history; the arrows only separate the three years.",
+   "check": "Do the three grades move one way or back and forth?"
+  },
+  {
+   "section": "History",
+   "label": "▲ up",
+   "where": "ESG table, History row, after the three grades",
+   "reading": "Not a trend reading",
+   "measures": "The 2025 grade ranks above the 2024 grade, using AAA over AA over A over BBB over NR. Going from NR to any grade also counts as up. 2023 is shown but not compared.",
+   "setup": "",
+   "notMean": "Not a price uptrend or a forecast of next year's grade.",
+   "check": "Was the earlier NR a missing rating rather than a weak one?"
+  },
+  {
+   "section": "History",
+   "label": "▼ down",
+   "where": "ESG table, History row, after the three grades",
+   "reading": "Not a trend reading",
+   "measures": "The 2025 grade ranks below the 2024 grade. Falling from any grade to NR also counts as down. 2023 is shown but not compared.",
+   "setup": "",
+   "notMean": "Not a price downtrend; a 2025 NR may only mean no grade this round.",
+   "check": "Is the 2025 grade NR rather than a lower letter grade?"
+  },
+  {
+   "section": "History",
+   "label": "= same",
+   "where": "ESG table, History row, after the three grades",
+   "reading": "Not a trend reading",
+   "measures": "The 2025 and 2024 grades are equal, including NR in both years. The 2023 grade is not part of the comparison.",
+   "setup": "",
+   "notMean": "Not proof the grade has been steady for all three years.",
+   "check": "Does the 2023 grade differ from the later two?"
+  },
+  {
+   "section": "Peers",
+   "label": "<grade> <n> of <m> rated",
+   "where": "ESG table, Peers · <industry group> row",
+   "reading": "Not a trend reading",
+   "measures": "Of the m companies graded in SET ESG Ratings 2025 in the same SET industry group, n hold the same grade, this company included. Counts are stored, not live.",
+   "setup": "",
+   "notMean": "Not a rank inside the group or a comparison of share prices.",
+   "check": "Is the group large enough for this count to mean much?"
+  },
+  {
+   "section": "Peers",
+   "label": "— (row label reads Peers)",
+   "where": "ESG table, Peers row",
+   "reading": "No reading",
+   "measures": "No industry group and no count of graded peers is stored for the company, so no peer count is shown. In the current data this happens for every company graded NR, because the group comes from the SET ESG Ratings list.",
+   "setup": "",
+   "notMean": "Not a sign the company has no industry peers.",
+   "check": "Is the header grade NR this round?"
+  },
+  {
+   "section": "Index",
+   "label": "SETESG ✓ / SETESG ✗",
+   "where": "ESG table, Index row",
+   "reading": "Not a trend reading",
+   "measures": "✓ when the stock is in SET's SETESG index list for the second half of 2026, as stored on 11 Sep 2026. A stored snapshot that does not update at later reviews.",
+   "setup": "",
+   "notMean": "Not current membership if a later review has changed it.",
+   "check": "Has SET announced a newer SETESG review since September 2026?"
+  },
+  {
+   "section": "Index",
+   "label": "SET50 ✓ / ✗ · SET100 ✓ / ✗",
+   "where": "ESG table, Index row",
+   "reading": "Not a trend reading",
+   "measures": "✓ when the stock is in SET50 or SET100 for the second half of 2026, as stored on 11 Sep 2026. Every stored stock shows SET100 ✓. Not refreshed at later reviews.",
+   "setup": "",
+   "notMean": "Not a live membership check for today's date.",
+   "check": "Has a newer SET50 or SET100 review taken effect since September 2026?"
+  },
+  {
+   "section": "Index",
+   "label": "TESG ✓ / TESG ✗",
+   "where": "ESG table, Index row",
+   "reading": "Not a trend reading",
+   "measures": "✓ when the stock is in the Thai ESG fund universe. The stored data sets this equal to holding a 2025 SET ESG grade, so it mirrors the header grade.",
+   "setup": "",
+   "notMean": "Not a statement that any fund holds or will hold the stock.",
+   "check": "Do the current Thai ESG fund rules still rely on SET ESG grades?"
+  },
+  {
+   "section": "CG score",
+   "label": "★★★★★ Excellent / ★★★★ Very Good / ★★★ Good",
+   "where": "ESG table, CG score (IOD 2025) row",
+   "reading": "Not a trend reading",
+   "measures": "The company's level in the Thai IOD Corporate Governance Report 2025: five stars Excellent, four Very Good, three Good. Stored data, not a live lookup.",
+   "setup": "",
+   "notMean": "Not an ESG grade and not a view on the share.",
+   "check": "Is the IOD 2025 report still the latest one published?"
+  },
+  {
+   "section": "CG score",
+   "label": "not announced",
+   "where": "ESG table, CG score (IOD 2025) row",
+   "reading": "No reading",
+   "measures": "No IOD 2025 corporate governance level is stored for the company, either because none was announced or because it is missing from the stored IOD list.",
+   "setup": "",
+   "notMean": "Not a low governance score; there is simply no stored level.",
+   "check": "Has IOD published a level for this company since?"
+  },
+  {
+   "section": "CG score",
+   "label": "⚠ CG news (value text in amber)",
+   "where": "ESG table, CG score (IOD 2025) row",
+   "reading": "Not a trend reading",
+   "measures": "Appended, with the value text turned amber (the row label stays grey), when IOD marked the company with an asterisk for corporate governance related news. A code comment says this lowered the published range.",
+   "setup": "",
+   "notMean": "Not this tool's own judgement of the news.",
+   "check": "Have I read the IOD note behind the asterisk?"
+  },
+  {
+   "section": "S&P Yearbook",
+   "label": "Top 1% / Top 5% / Top 10% / Member",
+   "where": "ESG table, S&P Yearbook 2026 row",
+   "reading": "Not a trend reading",
+   "measures": "The distinction the company holds in the S&P Global Sustainability Yearbook 2026, as stored in the data. The tiers are S&P Global's own labels, set within each industry.",
+   "setup": "",
+   "notMean": "Not a percentile of share returns or of all listed companies.",
+   "check": "Have I checked how S&P Global defines each tier?"
+  },
+  {
+   "section": "S&P Yearbook",
+   "label": "not selected",
+   "where": "ESG table, S&P Yearbook 2026 row",
+   "reading": "Not a trend reading",
+   "measures": "The company does not appear in the S&P Global Sustainability Yearbook 2026, according to the stored data.",
+   "setup": "",
+   "notMean": "Not proof the company was assessed and not chosen.",
+   "check": "Did S&P Global assess this company at all?"
+  },
+  {
+   "section": "SBTi",
+   "label": "net-zero 2050 · 1.5°C 2030 / net-zero committed · 1.5°C 2028 / net-zero committed / Well-below 2°C 2031",
+   "where": "ESG table, SBTi climate target row",
+   "reading": "Not a trend reading",
+   "measures": "From the stored SBTi dashboard record. net-zero <year>: a validated net-zero goal year. net-zero committed: pledged, not yet validated. 1.5°C or Well-below 2°C <year>: a validated near-term goal's class and year.",
+   "setup": "",
+   "notMean": "Not evidence the company is on track to meet it.",
+   "check": "Does the SBTi dashboard still show the same status today?"
+  },
+  {
+   "section": "SBTi",
+   "label": "commitment removed",
+   "where": "ESG table, SBTi climate target row",
+   "reading": "Not a trend reading",
+   "measures": "The stored SBTi record lists the company's near-term or net-zero commitment as removed. When this applies, any other status on the record is not shown.",
+   "setup": "",
+   "notMean": "Not a reason; the table does not say why it was removed.",
+   "check": "Have I read the SBTi dashboard record itself?"
+  },
+  {
+   "section": "SBTi",
+   "label": "none on dashboard",
+   "where": "ESG table, SBTi climate target row",
+   "reading": "Not a trend reading",
+   "measures": "The company does not appear on the SBTi dashboard in the stored data.",
+   "setup": "",
+   "notMean": "Not proof the company has no climate plan of its own.",
+   "check": "Has the company joined SBTi since the data was stored?"
+  },
+  {
+   "section": "Dates",
+   "label": "Dec 2026 · next: FTSE Russell ESG Scores",
+   "where": "ESG table, Valid until row",
+   "reading": "Not a trend reading",
+   "measures": "Fixed text. The stored grades are stated to stay valid until Dec 2026, with FTSE Russell ESG Scores named as what follows. Shown in CE in both languages.",
+   "setup": "",
+   "notMean": "Not a live check for newer ratings.",
+   "check": "Is today past the valid-until month?"
+  },
+  {
+   "section": "Dates",
+   "label": "Jun <year> (semi-annual) / Dec <year> (semi-annual)",
+   "where": "ESG table, Index review row",
+   "reading": "Not a trend reading",
+   "measures": "A calendar estimate from the clock when the script last ran, not the data: Jun from January to June, otherwise Dec, year in CE. Reviews are announced around mid-June and mid-December.",
+   "setup": "",
+   "notMean": "Not an announced date or a hint about this stock's membership.",
+   "check": "Has SET already announced this round's review?"
+  },
+  {
+   "section": "Summary and source",
+   "label": "Summary row text",
+   "where": "ESG table, Summary row",
+   "reading": "Not a trend reading",
+   "measures": "A brief description of the company's business written by the tool's author, sometimes with a second line on sustainability topics. English or Thai by the Language input.",
+   "setup": "",
+   "notMean": "Not a research note or a view on the share.",
+   "check": "Is this description still accurate after recent company news?"
+  },
+  {
+   "section": "Summary and source",
+   "label": "SET ESG Ratings 2025 · 2025-12-12",
+   "where": "ESG table, Source row (dim text)",
+   "reading": "Not a trend reading",
+   "measures": "Names the rating round behind the table and its announcement date. The year reads 2568 in TH mode; the date stays in CE. Shown for every SET symbol.",
+   "setup": "",
+   "notMean": "Not proof this stock was graded; uncovered stocks show it too.",
+   "check": "Is a newer rating round available on SET's site?"
+  },
+  {
+   "section": "Summary and source",
+   "label": "non-SET symbol",
+   "where": "ESG table, Source row (dim text)",
+   "reading": "No reading",
+   "measures": "Printed in place of the rating source when the chart symbol's exchange prefix does not start with SET. It always appears together with No data in the header.",
+   "setup": "",
+   "notMean": "Not an error and not a comment on the instrument.",
+   "check": "Have I opened the stock on its SET chart?"
+  },
+  {
+   "section": "Price chart",
+   "label": "Green, teal, blue, amber or grey background tint",
+   "where": "Price chart background, every bar",
+   "reading": "Not a trend reading",
+   "measures": "Colours every bar with the current 2025 grade: AAA green, AA teal, A blue, BBB amber, NR or not covered grey. 85% transparent, SET symbols only, hidden when the tint input is off.",
+   "setup": "",
+   "notMean": "Not a price zone; older bars do not show the grade held then.",
+   "check": "Am I reading the colour as an ESG grade, not market direction?"
+  }
+ ]
+}

@@ -32,9 +32,9 @@ export const indicators: Indicator[] = [
     name: 'MACD Trend Phase MTF',
     tvTitle: 'MACD Trend Phase MTF by [Itto Ryu]',
     category: 'Trend',
-    summary: 'Which phase of the trend, across three timeframes.',
+    summary: 'Which phase of the trend, across several timeframes.',
     howItWorks:
-      'Reads a PPO-normalised MACD on three timeframes. A slow timeframe sets the regime, a middle one defines the phase, and the chart timeframe tracks timing. The result is a named phase, a multi-timeframe dashboard and a weighted consensus. Because it is measured in percentages, the same settings can be read on any symbol.',
+      'Reads a PPO-normalised MACD on several timeframes. A slow timeframe sets the regime, a middle one defines the phase that tints the pane, and the chart timeframe tracks timing. A table lists the phase on four grid timeframes and weighs them into one consensus reading, MAJOR. Because it is measured in percentages, the same settings can be used on any instrument.',
     howToUse:
       'Read the phase first, as context for your own analysis. What you do with it is your own decision.',
     access: 'Open-source',
@@ -86,9 +86,9 @@ export const indicators: Indicator[] = [
     category: 'Trend',
     summary: 'Four trend stages from a five-EMA stack.',
     howItWorks:
-      'Five exponential moving averages (10, 20, 50, 100, 200) are read three ways: how well they stack, the slope of the 50, and the gap between the fast and trend lines. Together these place the market in one of four stages: Accel, Mature, Decel, or a fourth stage where the stack has broken. A 0–100 bull/bear score and a one-line label summarise the reading.',
+      'Five exponential moving averages (10, 20, 50, 100, 200) are read for how well they stack and whether the gap between the 10 and the 50 is widening or narrowing. That places the market in one of four stages: Accel, Mature, Decel, or a broken stack, split by whether the earlier side still leads and how strongly. Up and down scores out of 100, EMA slopes, pullback and cross rows, and up to three higher timeframes add context, and a one-line verdict sums up the reading.',
     howToUse:
-      'Use the stage as context for your own analysis. It describes where a trend is in its life, not what to do about it.',
+      'Use the stage as context for your own analysis, together with the higher-timeframe rows. It describes where a trend is in its life, not what to do about it.',
     access: 'Open-source',
     url: 'https://www.tradingview.com/script/FvCmBVYO-EMA-Trend-Dash-Board-by-Itto-Ryu/',
     image: '/indicators/FvCmBVYO.jpg',
@@ -142,9 +142,9 @@ export const indicators: Indicator[] = [
     category: 'Planning',
     summary: 'Rule-based entry zones, an ATR stop and R-multiple reference levels. Levels, not forecasts.',
     howItWorks:
-      'From your chosen direction and inputs, it draws a primary and a secondary entry zone, an ATR-based stop, R-multiple reference levels and the lines where the idea would no longer hold. The levels are arithmetic, not predictions.',
+      'From your chosen direction, it sets a mid line from the 20-period averages, held close to price. Around it, it draws a primary and a secondary entry zone, an ATR-based stop, R-multiple reference levels and two flip lines, all redrawn from the latest close. The levels are arithmetic, not predictions.',
     howToUse:
-      'Decide your bias first, from your own analysis. The tool then draws the same levels the same way every time, so the plan is on the chart before the trade.',
+      'Decide your bias first, from your own analysis. The tool then applies the same arithmetic every time. The levels are redrawn from the latest close on every update, live bar included, so they show where the rules sit now, not a plan fixed in advance.',
     access: 'Open-source',
     url: 'https://www.tradingview.com/script/VJLIg6Ir-Auto-Swing-Trade-Set-Up-v1-0-by-Itto-Ryu/',
     image: '/indicators/VJLIg6Ir.jpg',
@@ -193,7 +193,7 @@ export const indicators: Indicator[] = [
     category: 'Research',
     summary: 'Published sustainability data beside the chart.',
     howItWorks:
-      "Shows a SET50 company's published sustainability data (SET ESG Ratings, Thai IOD CG scores, the S&P Global Sustainability Yearbook and SBTi climate targets) in a small table in the corner of the chart. Values are reproduced as each source published them.",
+      "Shows a SET50 company's published sustainability data (SET ESG Ratings, Thai IOD CG scores, the S&P Global Sustainability Yearbook and SBTi climate targets) in a small table in the corner of the chart, and tints the chart background by ESG grade. Grades and scores are stored, not live, and are reproduced as each source published them.",
     howToUse:
       'Read it as background about the company, alongside price. It is context for study, not a trading signal.',
     access: 'Open-source',

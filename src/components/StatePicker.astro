@@ -1,0 +1,156 @@
+---
+// "Reading the states": pick a part of the screen, then one of the labels the tool shows there, and read one panel.
+// Without JavaScript every panel is listed.
+import type { Reference } from '../data/reference';
+
+interface Props {
+  states: Reference['states'];
+}
+
+const { states } = Astro.props;
+const kindOf = (reading: string) =>
+  /^uptrend or downtrend/i.test(reading)
+    ? 'other'
+    : /^(uptrend|leaning up|momentum turned up)/i.test(reading)
+    ? 'up'
+    : /^(downtrend|leaning down|momentum turned down)/i.test(reading)
+      ? 'down'
+      : /^(sideways|mixed)/i.test(reading)
+        ? 'side'
+        : 'other';
+const repeats = (s: Props['states'][number]) =>
+  states.filter((t) => t.section === s.section && t.label === s.label).length > 1 || !/[A-Za-z0-9]/.test(s.label);
+// When a label repeats in its section, or is only a symbol such as "—", the chip also names its dashboard row.
+const items = states.map((s, i) => ({
+  ...s,
+  i,
+  kind: kindOf(s.reading),
+  row: repeats(s) ? s.where.split(', ').at(-1)!.replace(/ rows?$/, '') : '',
+}));
+const sections = [...new Set(items.map((s) => s.section))].map((name) => ({
+  name,
+  items: items.filter((s) => s.section === name),
+}));
+// Illustrative sketches only, never market data.
+const sketch = {
+  up: 'M4 50 L22 38 L30 44 L48 26 L56 32 L76 14 L84 19 L116 6',
+  down: 'M4 8 L22 20 L30 14 L48 32 L56 26 L76 44 L84 39 L116 52',
+  side: 'M4 30 L18 18 L32 40 L46 20 L60 39 L74 19 L88 40 L102 21 L116 30',
+};
+---
+
+<div class="picker" data-picker>
+  <div class="picker-nav">
+    <p class="picker-step">Where on the chart</p>
+    <div class="sec-row">
+      {
+        sections.map((sec, k) => (
+          <button type="button" class="sec-btn" aria-pressed={k === 0 ? 'true' : 'false'} data-sec={k}>
+            {sec.name}
+          </button>
+        ))
+      }
+    </div>
+    <p class="picker-step">What it shows</p>
+    {
+      sections.map((sec, k) => (
+        <div class="chip-row" data-chips={k}>
+          {sec.items.map((s) => (
+            <button
+              type="button"
+              class="chip-btn"
+              aria-pressed="false"
+              aria-controls={`state-${s.i}`}
+              data-state={s.i}
+              data-setup={s.setup ? '' : undefined}
+              aria-label={s.row ? `${s.row}: ${s.label}` : undefined}
+            >
+              <span class={`dot k-${s.kind}`} aria-hidden="true" />
+              {s.row && <span class="chip-q">{s.row}</span>}
+              {s.label}
+            </button>
+          ))}
+        </div>
+      ))
+    }
+  </div>
+  <p class="sr-only" aria-live="polite" data-status></p>
+  <div class="panels">
+    {
+      items.map((s) => (
+        <div class={`panel k-${s.kind}`} id={`state-${s.i}`} data-panel={s.i}>
+          <div class="panel-head">
+            <div>
+              <h3 class="panel-label">{s.label}</h3>
+              <p class="panel-where">{s.where}</p>
+            </div>
+            <p class="panel-reading">{s.reading}</p>
+          </div>
+          <div class="panel-body">
+            {s.kind !== 'other' && (
+              <svg class="sketch" viewBox="0 0 120 58" aria-hidden="true">
+                <path d={sketch[s.kind]} />
+              </svg>
+            )}
+            <dl>
+              <div>
+                <dt>What it measures</dt>
+                <dd>{s.measures}</dd>
+              </div>
+              {s.setup && (
+                <div>
+                  <dt>Technical setup</dt>
+                  <dd>{s.setup}</dd>
+                </div>
+              )}
+              <div>
+                <dt>What it does not mean</dt>
+                <dd>{s.notMean}</dd>
+              </div>
+              <div>
+                <dt>Check yourself</dt>
+                <dd>{s.check}</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  for (const picker of document.querySelectorAll<HTMLElement>('[data-picker]')) {
+    const secs = [...picker.querySelectorAll<HTMLButtonElement>('[data-sec]')];
+    const rows = [...picker.querySelectorAll<HTMLElement>('[data-chips]')];
+    const chips = [...picker.querySelectorAll<HTMLButtonElement>('[data-state]')];
+    const panels = [...picker.querySelectorAll<HTMLElement>('[data-panel]')];
+    const showState = (id: string) => {
+      for (const c of chips) c.setAttribute('aria-pressed', String(c.dataset.state === id));
+      for (const p of panels) p.hidden = p.dataset.panel !== id;
+    };
+    const showSection = (k: string) => {
+      for (const b of secs) b.setAttribute('aria-pressed', String(b.dataset.sec === k));
+      for (const r of rows) r.hidden = r.dataset.chips !== k;
+      // Open on the first label that has a technical setup, not on a plain display row.
+      const row = rows.find((r) => r.dataset.chips === k);
+      const first = row?.querySelector<HTMLButtonElement>('[data-setup]') ?? row?.querySelector<HTMLButtonElement>('[data-state]');
+      if (first) showState(first.dataset.state!);
+    };
+    for (const b of secs) b.addEventListener('click', () => showSection(b.dataset.sec!));
+    const status = picker.querySelector<HTMLElement>('[data-status]');
+    for (const c of chips) {
+      c.addEventListener('click', () => {
+        showState(c.dataset.state!);
+        if (status) status.textContent = `Showing ${c.getAttribute('aria-label') ?? c.textContent!.trim()}`;
+        // On phones a long chip list can leave the panel below the screen.
+        const panel = panels.find((p) => p.dataset.panel === c.dataset.state);
+        if (panel && panel.getBoundingClientRect().top > innerHeight - 120) {
+          const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+          panel.scrollIntoView({ block: 'start', behavior: smooth ? 'smooth' : 'auto' });
+        }
+      });
+    }
+    showSection('0');
+  }
+</script>

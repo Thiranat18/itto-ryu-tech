@@ -1,7 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ExternalLink from '../../components/ExternalLink.astro';
+import StatePicker from '../../components/StatePicker.astro';
 import { indicators, TV_PROFILE } from '../../data/indicators';
+import { getReference } from '../../data/reference';
 
 export function getStaticPaths() {
   return indicators.map((indicator) => ({ params: { slug: indicator.slug }, props: { indicator } }));
@@ -17,6 +19,13 @@ const tended = new Date(indicator.tended).toLocaleDateString('en-GB', {
   year: 'numeric',
   timeZone: 'UTC',
 });
+const ref = getReference(indicator.slug);
+// Settings in the order and groups of the TradingView settings dialog.
+const groups = ref.settings.reduce<{ name: string; rows: typeof ref.settings }[]>((acc, row) => {
+  if (acc.at(-1)?.name !== row.group) acc.push({ name: row.group, rows: [] });
+  acc.at(-1)!.rows.push(row);
+  return acc;
+}, []);
 ---
 
 <Layout title={indicator.name} description={indicator.summary} image={indicator.image} bodyClass="p-tools">
@@ -79,6 +88,17 @@ const tended = new Date(indicator.tended).toLocaleDateString('en-GB', {
           <ul class="dash">{indicator.notDo.map((line) => <li>{line}</li>)}</ul>
         </section>
 
+        <section class="guide" aria-labelledby="readings">
+          <h2 id="readings">Reading the states</h2>
+          <p class="guide-lede">
+            <span class="js-only"
+              >Pick a part of the chart, then a word or mark the tool shows there, to see what it measures in technical
+              terms.</span
+            ><span class="no-js">Each word or mark the tool shows, grouped by the part of the chart where it appears.</span>
+          </p>
+          <StatePicker states={ref.states} />
+        </section>
+
         <section class="guide" aria-labelledby="settings">
           <h2 id="settings">Settings</h2>
           <table class="settings" aria-labelledby="settings">
@@ -97,6 +117,41 @@ const tended = new Date(indicator.tended).toLocaleDateString('en-GB', {
               }
             </tbody>
           </table>
+          <details class="all-settings">
+            <summary>All {ref.settings.length} settings, with ranges</summary>
+            <table class="settings" aria-label={`All ${indicator.name} settings`}>
+              <thead>
+                <tr>
+                  <th scope="col">Setting</th><th scope="col">Default</th><th scope="col">Range</th><th scope="col"
+                    >What it changes</th
+                  >
+                </tr>
+              </thead>
+              {
+                groups.map((g) => (
+                  <tbody>
+                    <tr class="grp">
+                      <th scope="rowgroup" colspan="4">
+                        {g.name}
+                      </th>
+                    </tr>
+                    {g.rows.map((r) => (
+                      <tr>
+                        <th scope="row">{r.name}</th>
+                        <td>
+                          {r.value.startsWith('#') && <span class="swatch" style={`background:${r.value}`} aria-hidden="true" />}
+                          {r.value}
+                        </td>
+                        <td class="range">{r.range}</td>
+                        <td>{r.effect}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                ))
+              }
+            </table>
+            <p class="guide-note">Defaults and ranges as published on TradingView, version {ref.version}.</p>
+          </details>
         </section>
 
         <section class="guide" aria-labelledby="questions">
