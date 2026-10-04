@@ -143,8 +143,6 @@ p{text-wrap:pretty}
 .foot-in{display:grid;grid-template-columns:5fr 6fr;gap:72px;padding-top:96px;padding-bottom:72px;position:relative}
 .foot .brand{color:var(--washi)} .foot .brand .tech{color:#A8A196}
 .motto{font-family:var(--serif);font-size:44px;line-height:1.2;margin-top:40px}
-.foot-nav{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:40px;font-size:15px;color:#D9D3C6}
-.foot-nav a:hover{color:var(--washi)}
 .foot :focus-visible{outline-color:var(--washi)}
 .legal{font-size:14px;line-height:1.75;color:#B5AFA3;align-self:end;max-width:440px}
 .legal p+p{margin-top:12px}
@@ -359,9 +357,9 @@ p{text-wrap:pretty}
   .philo blockquote p{font-size:26px}
   .foot-in{grid-template-columns:1fr;gap:40px;padding-top:64px;padding-bottom:48px}
   .motto{font-size:34px}
-  .foot-mark{right:18px;top:56px}
-  .foot-kiko{display:none}
-  .tate{font-size:22px;color:#8F897E}
+  .foot-mark{position:static;justify-content:flex-end;padding:0 var(--pad) 32px}
+  .foot-kiko{height:110px}
+  .tate{position:absolute;right:18px;top:56px;font-size:22px;color:#8F897E}
   .foot-bottom{flex-direction:column;gap:6px}
   .page-head{padding:44px 0 24px}
   .page-head h1{font-size:46px}
