@@ -15,7 +15,8 @@
     "footEdu": "เพื่อการศึกษาเท่านั้น ไม่ใช่คำแนะนำการลงทุน Indicator ใช้อธิบายสภาวะตลาด ไม่ได้ทำนายราคา",
     "footAffiliationHtml": "ไม่มีส่วนเกี่ยวข้องกับ TradingView และไม่ได้รับการรับรองจาก TradingView ไม่มีส่วนเกี่ยวข้องกับสำนักดาบ <span class=\"nowrap\">Ittō-ryū</span> ใด ๆ",
     "footOwned": "© 2026 ITTO RYU TECH เจ้าของและผู้พัฒนาคือ {owner} {role}",
-    "footLicences": "โค้ดเว็บไซต์ MIT · Indicator แบบ open-source MPL 2.0 · ข้อความ CC BY 4.0 (ไม่รวมโลโก้และภาพชาร์ต)"
+    "footLicences": "โค้ดเว็บไซต์ MIT · Indicator แบบ open-source MPL 2.0 · ข้อความ CC BY 4.0 (ไม่รวมโลโก้และภาพชาร์ต)",
+    "kanjiCredit": "ลำดับขีด: KanjiVG (CC BY-SA 3.0)"
   },
   "labels": {
     "categories": {
@@ -73,7 +74,11 @@
       }
     ],
     "quote": "ความมั่งคั่งต้องค่อย ๆ เลี้ยง ไม่ใช่รีบคว้า",
-    "quoteNote": "เป็นแนวคิด ไม่ใช่คำสัญญาเรื่องผลตอบแทน"
+    "quoteNote": "เป็นแนวคิด ไม่ใช่คำสัญญาเรื่องผลตอบแทน",
+    "scrollHint": "เลื่อนลง ↓",
+    "unrollHint": "เลื่อนเพื่อคลี่ม้วน →",
+    "counter": "{n} / {total}",
+    "chapters": ["เริ่ม", "วิถี", "เครื่องมือ", "หลักปฏิบัติ", "ปิดท้าย"]
   },
   "tools": {
     "title": "เครื่องมือ",

@@ -15,7 +15,8 @@
     "footEdu": "For education only. Not investment advice. Indicators describe market conditions; they do not predict prices.",
     "footAffiliationHtml": "Not affiliated with or endorsed by TradingView. Not affiliated with any <span class=\"nowrap\">Ittō-ryū</span> school of swordsmanship.",
     "footOwned": "© 2026 ITTO RYU TECH, owned and developed by {owner}, {role}.",
-    "footLicences": "Website code MIT · Open-source indicators MPL 2.0 · Text CC BY 4.0 (logo and chart images excluded)"
+    "footLicences": "Website code MIT · Open-source indicators MPL 2.0 · Text CC BY 4.0 (logo and chart images excluded)",
+    "kanjiCredit": "Stroke order: KanjiVG (CC BY-SA 3.0)"
   },
   "labels": {
     "categories": { "Trend": "Trend", "Planning": "Planning", "Research": "Research" },
@@ -48,7 +49,11 @@
       { "b": "Describes, never predicts.", "text": "Readings are context for your own analysis." }
     ],
     "quote": "Wealth is grown, not grabbed.",
-    "quoteNote": "A way of thinking, not a promise of returns."
+    "quoteNote": "A way of thinking, not a promise of returns.",
+    "scrollHint": "Scroll ↓",
+    "unrollHint": "Scroll to unroll →",
+    "counter": "{n} / {total}",
+    "chapters": ["Open", "Ways", "Tools", "Practice", "Close"]
   },
   "tools": {
     "title": "Tools",

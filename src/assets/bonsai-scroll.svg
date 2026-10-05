@@ -1,0 +1,31 @@
+<!-- The opening bonsai, split into parts that can be animated. Derived from src/assets/bonsai.svg (same geometry, colours as tokens). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 440" class="bonsai-scroll" aria-hidden="true">
+ <line class="ground" x1="30" y1="408" x2="390" y2="408" stroke="var(--line)" stroke-width="1.2"/>
+ <g class="pot">
+  <path d="M118 346 H302 L288 400 H132 Z" fill="none" stroke="var(--sumi)" stroke-width="1.6"/>
+  <path d="M106 334 H314 V346 H106 Z" fill="var(--sumi)"/>
+  <path d="M150 400 v8 M270 400 v8" stroke="var(--sumi)" stroke-width="3"/>
+ </g>
+ <path class="trunk draw" pathLength="1" d="M214 334 C208 306 236 292 228 266 C220 238 176 236 182 204 C187 178 222 170 216 140" fill="none" stroke="var(--sumi)" stroke-width="11" stroke-linecap="round"/>
+ <g class="branches" fill="none" stroke="var(--sumi)" stroke-linecap="round">
+  <path class="draw" pathLength="1" d="M226 268 C252 262 270 254 290 246" stroke-width="5"/>
+  <path class="draw" pathLength="1" d="M186 210 C164 206 142 204 118 196" stroke-width="5"/>
+  <path class="draw" pathLength="1" d="M214 150 C226 140 244 132 262 128" stroke-width="4"/>
+  <path class="draw" pathLength="1" d="M210 296 C194 300 180 306 166 306" stroke-width="4.5"/>
+ </g>
+ <path class="ghost" d="M166 306 C150 306 134 314 118 322" fill="none" stroke="var(--usuzumi)" stroke-width="2" stroke-dasharray="3 5" stroke-linecap="round"/>
+ <g class="pruned">
+  <path class="draw" pathLength="1" d="M166 306 C150 306 134 314 118 322" fill="none" stroke="var(--sumi)" stroke-width="3.5" stroke-linecap="round"/>
+  <ellipse class="pad" cx="104" cy="318" rx="36" ry="12" fill="var(--matsu)"/>
+ </g>
+ <g class="pads" fill="var(--matsu)">
+  <ellipse class="pad" cx="292" cy="236" rx="62" ry="20" opacity=".88"/>
+  <ellipse class="pad" cx="270" cy="226" rx="40" ry="14"/>
+  <ellipse class="pad" cx="122" cy="186" rx="68" ry="21" opacity=".88"/>
+  <ellipse class="pad" cx="146" cy="176" rx="42" ry="14"/>
+  <ellipse class="pad" cx="226" cy="118" rx="86" ry="27" opacity=".88"/>
+  <ellipse class="pad" cx="210" cy="104" rx="52" ry="18"/>
+  <ellipse class="pad" cx="248" cy="96" rx="30" ry="11"/>
+ </g>
+ <line class="cut-mark" x1="160" y1="294" x2="172" y2="318" stroke="var(--shu)" stroke-width="2.4"/>
+</svg>

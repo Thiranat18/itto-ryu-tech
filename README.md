@@ -26,3 +26,5 @@ Languages: English at the root (default) and Thai under `/th/`, built from the s
 - Open-source indicators: Mozilla Public License 2.0 (as published on TradingView)
 - Site text: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The logo and chart screenshots are not covered.
 - Fonts in `public/fonts`: SIL Open Font License 1.1 (see the `OFL-*.txt` files)
+- Kanji stroke order in `src/assets/kanji/`: the stroke data comes from [KanjiVG](https://kanjivg.tagaini.net) (© Ulrich Apel) under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). The KanjiVG originals (`kanjivg-*.svg`) keep their header comments, and the brush SVGs derived from them (`brush-*.svg`) are under CC BY-SA 3.0 too.
+- Home scroll animation: [GSAP](https://gsap.com) with ScrollTrigger, under the GSAP Standard License

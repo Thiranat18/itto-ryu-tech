@@ -1,10 +1,15 @@
 ---
+// Home as a five-chapter scroll story: 序 Open · 道 Ways · 具 Tools · 心 Practice · 結 Close.
+// The HTML is the finished page; src/scripts/scrolly.ts animates it when GSAP has loaded and motion is allowed.
 import Layout from '../../layouts/Layout.astro';
 import ExternalLink from '../../components/ExternalLink.astro';
 import ToolDiagram from '../../components/ToolDiagram.astro';
 import Phrases from '../../components/Phrases.astro';
 import bonsai from '../../assets/bonsai.svg?raw';
-import { FULL_MARK } from '../../components/marks';
+import bonsaiScroll from '../../assets/bonsai-scroll.svg?raw';
+import brushGrow from '../../assets/kanji/brush-grow.svg?raw';
+import brushCut from '../../assets/kanji/brush-cut.svg?raw';
+import brushWait from '../../assets/kanji/brush-wait.svg?raw';
 import { indicatorsIn, TV_PROFILE } from '../../data/indicators';
 import { LANGS, fill, label, langOf, langParam, localize, t } from '../../i18n';
 
@@ -17,87 +22,155 @@ const ui = t(lang);
 const copy = ui.home;
 const indicators = indicatorsIn(lang);
 const ways = [
-  { cls: 'k-grow', kanji: '育', romaji: 'sodateru' },
-  { cls: 'k-cut', kanji: '切', romaji: 'kiru' },
-  { cls: 'k-wait', kanji: '待', romaji: 'matsu' },
+  { id: 'grow', romaji: 'sodateru', svg: brushGrow },
+  { id: 'cut', romaji: 'kiru', svg: brushCut },
+  { id: 'wait', romaji: 'matsu', svg: brushWait },
 ].map((w, i) => ({ ...w, ...copy.ways[i] }));
+const chapters = ['序', '道', '具', '心', '結'].map((kanji, i) => ({ kanji, label: copy.chapters[i] }));
+const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
 <Layout bodyClass="p-home">
-  <section class="tile tile-fill tile-big hero" aria-labelledby="hero-title">
-    <p class="intro">{copy.intro}</p>
-    <h1 id="hero-title">
-      <span class="l l1">{copy.heroLine1} </span><span class="cut" aria-hidden="true"></span><span class="l l2"
-        >{copy.heroLine2}</span
-      >
-    </h1>
-    <div class="hero-foot">
-      <p class="lede">{copy.lede}</p>
-      <div class="actions">
-        <a class="btn btn-primary" href={localize(lang, '/tools')}>{copy.browse}</a>
-        <ExternalLink class="btn btn-ghost" href={TV_PROFILE}>{copy.follow}</ExternalLink>
+  <div class="story-rail" slot="rail" aria-hidden="true">
+    <div class="story-track"><i class="story-ink"></i></div>
+    <ol class="story-chapters">
+      {
+        chapters.map((c) => (
+          <li>
+            <span class="ch-k" lang="ja">{c.kanji}</span>
+            <span class="ch-l">{c.label}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+
+  <!-- 1 · 序 Open: the bonsai grows, one cut -->
+  <section class="chapter ch-open" aria-labelledby="hero-title" data-chapter="open">
+    <div class="tile tile-fill hero">
+      <p class="intro">{copy.intro}</p>
+      <h1 id="hero-title">
+        <span class="l l1">{copy.heroLine1} </span><span class="cut" aria-hidden="true"></span><span class="l l2"
+          >{copy.heroLine2}</span
+        >
+      </h1>
+      <div class="hero-foot">
+        <p class="lede">{copy.lede}</p>
+        <div class="actions">
+          <a class="btn btn-primary" href={localize(lang, '/tools')}>{copy.browse}</a>
+          <ExternalLink class="btn btn-ghost" href={TV_PROFILE}>{copy.follow}</ExternalLink>
+        </div>
       </div>
+      <p class="scroll-hint" aria-hidden="true">{copy.scrollHint}</p>
     </div>
+    <div class="tile tile-fill bonsai-tile"><Fragment set:html={bonsaiScroll} /></div>
   </section>
-  <div class="tile tile-fill niwa" aria-hidden="true">
-    <svg viewBox="0 0 100 100" focusable="false"><g set:html={FULL_MARK} /></svg>
-  </div>
 
-  <h2 class="sr-only">{copy.waysTitle}</h2>
-  {
-    ways.map((w) => (
-      <div class="tile tile-line way">
-        <span class={`kanji ${w.cls}`} lang="ja">{w.kanji}</span>
-        <div>
-          <p class="word">{w.word} <i lang="ja-Latn">{w.romaji}</i></p>
-          <p class="saying"><Phrases text={w.saying} /></p>
-        </div>
-      </div>
-    ))
-  }
-  <div class="tile tile-ink ink-tools">
-    <p class="ink-label">{fill(copy.toolsCount, { n: indicators.length })}</p>
-    <h2 id="tools-title" class="ink-title" set:html={copy.inkTitleHtml} />
-    <a class="text-link" href={localize(lang, '/tools')}>{copy.seeAll}</a>
-  </div>
-
-  {
-    indicators.map((t) => (
-      <a
-        class="tile tile-fill tool-tile"
-        href={localize(lang, `/tools/${t.slug}`)}
-        aria-labelledby={`tile-${t.slug}`}
-        aria-describedby={`tile-${t.slug}-d`}
-      >
-        <div class="tool-fig" lang="en">
-          <ToolDiagram slug={t.slug} />
-        </div>
-        <div>
-          <div class="meta">
-            <span class="cat">{label(lang, 'categories', t.category)}</span>
-            <span class="lic">{label(lang, 'access', t.access)}</span>
+  <!-- 2 · 道 Ways: the brush writes 育 → 切 → 待 (stroke order: KanjiVG, CC BY-SA 3.0) -->
+  <section class="chapter ch-ways" aria-labelledby="ways-title" data-chapter="ways">
+    <h2 id="ways-title" class="ways-title"><Phrases text={copy.waysTitle} /></h2>
+    <div class="ways-row">
+      {
+        ways.map((w) => (
+          <div class={`tile tile-line way way-${w.id}`}>
+            <Fragment set:html={w.svg} />
+            <div class="way-text">
+              <p class="word">
+                {w.word} <i lang="ja-Latn">{w.romaji}</i>
+              </p>
+              <p class="saying">
+                <Phrases text={w.saying} />
+              </p>
+            </div>
           </div>
-          <h3 id={`tile-${t.slug}`}>{t.name}</h3>
-          <p id={`tile-${t.slug}-d`}>{t.summary}</p>
-        </div>
-      </a>
-    ))
-  }
-
-  <div class="tile tile-fill philo-art" lang="en"><Fragment set:html={bonsai} /></div>
-  <section class="tile tile-line philo" aria-labelledby="philo-title">
-    <h2 id="philo-title"><Phrases text={copy.philoTitle} /></h2>
-    <p class="body">{copy.philoBody}</p>
-    <ul class="dash practice">
-      {copy.practice.map((p) => <li><b>{p.b}</b> {p.text}</li>)}
-    </ul>
+        ))
+      }
+    </div>
   </section>
 
-  <figure class="tile tile-line quote">
-    <img src="/kiko-scene.svg" width="182" height="180" loading="lazy" alt="" />
-    <div>
-      <blockquote><p><Phrases text={copy.quote} /></p></blockquote>
-      <small>{copy.quoteNote}</small>
+  <!-- 3 · 具 Tools: unrolled like a handscroll -->
+  <section class="chapter ch-tools" aria-labelledby="tools-title" data-chapter="tools">
+    <div class="tools-head">
+      <h2 id="tools-title"><small>{fill(copy.toolsCount, { n: indicators.length })}</small>{copy.toolsTitle}</h2>
+      <p>{copy.toolsText}</p>
+      <span class="counter" aria-hidden="true" data-counter data-format={copy.counter} data-total={pad(indicators.length)}
+        >{fill(copy.counter, { n: pad(1), total: pad(indicators.length) })}</span
+      >
     </div>
-  </figure>
+    <div class="track-view">
+      <div class="track">
+        <div class="tile tile-ink ink-tools">
+          <span class="ink-k" lang="ja" aria-hidden="true">具</span>
+          <div>
+            <p class="ink-title" set:html={copy.inkTitleHtml} />
+            <p class="unroll-hint" aria-hidden="true">{copy.unrollHint}</p>
+          </div>
+          <a class="text-link" href={localize(lang, '/tools')}>{copy.seeAll}</a>
+        </div>
+        {
+          indicators.map((tool, i) => (
+            <a
+              class="tile tile-fill tool-tile"
+              href={localize(lang, `/tools/${tool.slug}`)}
+              aria-labelledby={`tile-${tool.slug}`}
+              aria-describedby={`tile-${tool.slug}-d`}
+            >
+              <div class="tool-fig" lang="en">
+                <ToolDiagram slug={tool.slug} />
+              </div>
+              <div class="meta">
+                <span class="tool-n" aria-hidden="true">
+                  {pad(i + 1)}
+                </span>
+                <span class="cat">{label(lang, 'categories', tool.category)}</span>
+                <span class="lic">{label(lang, 'access', tool.access)}</span>
+              </div>
+              <h3 id={`tile-${tool.slug}`}>{tool.name}</h3>
+              <p id={`tile-${tool.slug}-d`}>{tool.summary}</p>
+              <span class="more" aria-hidden="true">
+                {copy.viewTool}
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · 心 Practice -->
+  <section class="chapter ch-prac" aria-labelledby="philo-title" data-chapter="practice">
+    <div class="tile tile-fill philo-art" lang="en"><Fragment set:html={bonsai} /></div>
+    <div class="tile tile-line philo">
+      <h2 id="philo-title"><Phrases text={copy.philoTitle} /></h2>
+      <p class="body">{copy.philoBody}</p>
+      <ul class="practice">
+        {
+          copy.practice.map((p) => (
+            <li>
+              <span class="dash-mark" aria-hidden="true" />
+              <span>
+                <b>{p.b}</b> {p.text}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5 · 結 Close -->
+  <div class="chapter ch-close" data-chapter="close">
+    <figure class="tile tile-line close-tile">
+      <img class="close-kiko" src="/kiko.svg" width="178" height="300" loading="lazy" alt="" />
+      <div class="close-words">
+        <blockquote><p class="quote-text"><Phrases text={copy.quote} /></p></blockquote>
+        <p class="quote-note">{copy.quoteNote}</p>
+      </div>
+      <p class="close-tate" lang="ja" aria-hidden="true"><span>明</span><span>鏡</span><span>止</span><span>水</span></p>
+    </figure>
+  </div>
+
+  <script>
+    import '../../scripts/scrolly';
+  </script>
 </Layout>

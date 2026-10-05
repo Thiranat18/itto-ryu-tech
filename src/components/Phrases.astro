@@ -9,7 +9,9 @@ interface Props {
 
 const { text } = Astro.props;
 // The spaces around ๆ belong to the word it repeats ("ค่อย ๆ เลี้ยง"), so they are not phrase breaks.
-const phrases = langOf(Astro.url.pathname) === 'th' ? text.split(/(?<!ๆ) (?!ๆ)/) : null;
+// Inside a phrase the space before ๆ must not break either, or ๆ starts a line.
+const phrases =
+  langOf(Astro.url.pathname) === 'th' ? text.split(/(?<!ๆ) (?!ๆ)/).map((p) => p.replace(/ ๆ/g, '\u00a0ๆ')) : null;
 ---
 
 {phrases ? phrases.map((p, i) => <>{i > 0 && ' '}<span class="ph">{p}</span></>) : text}

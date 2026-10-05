@@ -91,6 +91,7 @@ const current = (href: string) =>
           <span class="rail-kanji" lang="ja">一刀流</span>
           <span class="rail-word">{site}</span>
         </a>
+        <slot name="rail" />
         <div class="rail-end">
           <nav class="rail-nav" aria-label={ui.site.mainNav}>
             {nav.map((item) => <a href={item.href} aria-current={current(item.href)}>{item.label}</a>)}
@@ -116,7 +117,7 @@ const current = (href: string) =>
             )
           }
           <button class="menu" type="button" aria-expanded="false" aria-controls="menu-panel">{ui.site.menu}</button>
-          <div class="hanko" aria-hidden="true"><span lang="ja">一刀</span></div>
+          <div class="hanko" aria-hidden="true" lang="ja"></div>
         </div>
         <nav id="menu-panel" class="menu-panel" aria-label={ui.site.mainNav} hidden>
           <ul>
@@ -141,7 +142,9 @@ const current = (href: string) =>
             <p class="first">{ui.site.footEdu}</p>
             <p set:html={ui.site.footAffiliationHtml} />
             <p>{fill(ui.site.footOwned, { owner: OWNER_DISPLAY, role: ui.site.ownerRole })}</p>
-            <p class="foot-faint">{ui.site.footLicences}</p>
+            <p class="foot-faint">
+              {ui.site.footLicences} · <ExternalLink href="https://kanjivg.tagaini.net">{ui.site.kanjiCredit}</ExternalLink>
+            </p>
           </div>
         </footer>
       </div>
