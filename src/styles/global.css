@@ -221,6 +221,14 @@ a.tile-fill:hover{background:var(--kinari-2)}
 .sw-stop{width:18px;border-top:2px solid #F23645}
 .sw-r{width:18px;border-top:2px dotted #089981}
 .sw-flip{width:18px;border-top:2px dashed #E91E63}
+.legend :is(.sw-kumo,.sw-candles){margin-top:7px}
+.legend .sw-marks{margin-top:8px}
+.sw-blade{width:18px;height:2px;background:linear-gradient(90deg,#EF5350,#26A69A)}
+.sw-kumo{width:18px;height:12px;background:linear-gradient(90deg,#26A69A73 50%,#EF535073 50%);border-radius:1px}
+.sw-candles{width:18px;height:12px;background:linear-gradient(90deg,#26A69A 0 4px,transparent 4px 7px,#EF5350 7px 11px,transparent 11px 14px,#FFB300 14px)}
+.sw-magK{width:18px;border-top:2px dashed #FFB74D}
+.sw-magB{width:18px;border-top:2px dashed #BA68C8}
+.sw-marks{width:0;height:0;border:0 solid transparent;border-width:0 6px 10px;border-bottom-color:#26A69A}
 .guide{padding:32px 36px}
 .guide h2{font-family:var(--serif);font-weight:500;font-size:28px;margin-top:12px}
 .guide h2:first-child{margin-top:0}
@@ -508,7 +516,8 @@ a.tile-fill:hover{background:var(--kinari-2)}
   .ch-open,.ch-prac{grid-template-columns:repeat(2,minmax(0,1fr))}
   .ways-row{grid-template-columns:repeat(3,minmax(0,1fr))}
   .track{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .ink-tools{grid-column:1/-1}
+  /* The ink tile takes a full row only when that leaves the tool tiles in pairs. */
+  .track:has(> :last-child:nth-child(odd)) .ink-tools{grid-column:1/-1}
   .philo{padding:72px 56px}
   .story-rail{gap:14px;height:250px}
   .story-track{width:1px;background:var(--line);position:relative}

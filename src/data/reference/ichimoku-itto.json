@@ -1,0 +1,694 @@
+{
+ "version": "1.0",
+ "settings": [
+  {
+   "group": "Ichimoku",
+   "name": "Preset",
+   "value": "Classic",
+   "range": "Classic, 5-Day Week, Crypto",
+   "effect": "Tenkan, Kijun, Span B and displacement: 9/26/52/26, 7/22/44/22 or 20/60/120/30"
+  },
+  {
+   "group": "Ichimoku",
+   "name": "Kijun slope lookback",
+   "value": "5",
+   "range": "1 or more",
+   "effect": "Check 5 compares the Kijun with its value this many bars back; no change scores 0"
+  },
+  {
+   "group": "Signals",
+   "name": "Strong threshold",
+   "value": "4",
+   "range": "2 to 5",
+   "effect": "Points for STRONG UP / DOWN, the triangles, Strong alerts and full shade (4 = 80%)"
+  },
+  {
+   "group": "Signals",
+   "name": "Chop score band",
+   "value": "1",
+   "range": "0 to 3",
+   "effect": "Score within ± this many points is chop, as is a close inside the Kumo (1 = 20%)"
+  },
+  {
+   "group": "Signals",
+   "name": "Show Strong Up / Down marks",
+   "value": "On",
+   "range": "",
+   "effect": "Shows or hides the Strong triangles and their text; Strong alerts still fire"
+  },
+  {
+   "group": "Signals",
+   "name": "Show 3/3 Aligned labels",
+   "value": "On",
+   "range": "",
+   "effect": "Shows or hides the 3/3 Aligned labels; Aligned alerts still fire"
+  },
+  {
+   "group": "Equilibrium Magnets",
+   "name": "Show magnets",
+   "value": "On",
+   "range": "",
+   "effect": "Shows or hides the dashed lines where the Kijun or Span B stays flat"
+  },
+  {
+   "group": "Equilibrium Magnets",
+   "name": "Flat bars",
+   "value": "8",
+   "range": "2 or more",
+   "effect": "Bars in a row the Kijun or Span B must stay level before a magnet is drawn"
+  },
+  {
+   "group": "Equilibrium Magnets",
+   "name": "Keep last",
+   "value": "6",
+   "range": "1 to 20",
+   "effect": "Magnet lines kept, both kinds together; the oldest is deleted first"
+  },
+  {
+   "group": "Lines",
+   "name": "Tenkan",
+   "value": "Off",
+   "range": "",
+   "effect": "Draws the Tenkan line; check 2 uses it either way"
+  },
+  {
+   "group": "Lines",
+   "name": "Chikou",
+   "value": "Off",
+   "range": "",
+   "effect": "Draws the Chikou, the close shifted 25 bars back (Classic); check 3 uses it either way"
+  },
+  {
+   "group": "Lines",
+   "name": "Senkou spans",
+   "value": "Off",
+   "range": "",
+   "effect": "Draws the two cloud edges: Senkou A in green, Senkou B in red"
+  },
+  {
+   "group": "Lines",
+   "name": "Kumo",
+   "value": "On",
+   "range": "",
+   "effect": "Shades the cloud, 25 bars ahead with Classic; the score uses it either way"
+  },
+  {
+   "group": "Lines",
+   "name": "Table",
+   "value": "On",
+   "range": "",
+   "effect": "Shows or hides the whole dashboard; marks and alerts are unaffected"
+  },
+  {
+   "group": "Lines",
+   "name": "Size",
+   "value": "Small",
+   "range": "Tiny, Small, Normal, Large",
+   "effect": "Text size of the dashboard: Tiny, Small, Normal or Large"
+  },
+  {
+   "group": "Lines",
+   "name": "Color candles by trend",
+   "value": "On",
+   "range": "",
+   "effect": "Colours candles green, red or amber (chop zone), by the Trend row's rules"
+  },
+  {
+   "group": "Lines",
+   "name": "Color candles by trend (style)",
+   "value": "3 colors",
+   "range": "3 colors, Strength shades",
+   "effect": "Strength shades: full colour at ±80% and beyond, lighter at ±60%, lightest at ±40%"
+  },
+  {
+   "group": "Colors",
+   "name": "Score +5",
+   "value": "#26A69A",
+   "range": "",
+   "effect": "Up colour: blade gradient, candles, marks, labels, table cells, Senkou A line"
+  },
+  {
+   "group": "Colors",
+   "name": "Score -5",
+   "value": "#EF5350",
+   "range": "",
+   "effect": "Down colour: blade gradient, candles, marks, labels, table cells, Senkou B line"
+  },
+  {
+   "group": "Colors",
+   "name": "Chop (blade)",
+   "value": "#787B86",
+   "range": "",
+   "effect": "Colours the Kijun in the chop zone, and the None and — cells in the table"
+  },
+  {
+   "group": "Colors",
+   "name": "Tenkan",
+   "value": "#2962FF",
+   "range": "",
+   "effect": "Colours the optional Tenkan line"
+  },
+  {
+   "group": "Colors",
+   "name": "Chikou",
+   "value": "#B2B5BE",
+   "range": "",
+   "effect": "Colours the optional Chikou line"
+  },
+  {
+   "group": "Colors",
+   "name": "Kijun magnet",
+   "value": "#FFB74D",
+   "range": "",
+   "effect": "Colours the dashed Kijun magnet lines"
+  },
+  {
+   "group": "Colors",
+   "name": "Span B magnet",
+   "value": "#BA68C8",
+   "range": "",
+   "effect": "Colours the dashed Span B magnet lines"
+  },
+  {
+   "group": "Colors",
+   "name": "Kumo up",
+   "value": "#26A69A73",
+   "range": "",
+   "effect": "Cloud fill where Senkou A is above Senkou B, semi-transparent"
+  },
+  {
+   "group": "Colors",
+   "name": "Kumo down",
+   "value": "#EF535073",
+   "range": "",
+   "effect": "Cloud fill where Senkou A is at or below Senkou B, semi-transparent"
+  },
+  {
+   "group": "Colors",
+   "name": "Chop zone",
+   "value": "#FFB300",
+   "range": "",
+   "effect": "Colours chop-zone candles, the Zone row's Chop cell and the Trend row's CHOP ZONE cell"
+  },
+  {
+   "group": "MTF table",
+   "name": "TF 1",
+   "value": "1 hour",
+   "range": "",
+   "effect": "Timeframe of table row 1, read on its latest closed bar"
+  },
+  {
+   "group": "MTF table",
+   "name": "TF 2",
+   "value": "4 hours",
+   "range": "",
+   "effect": "Timeframe of table row 2, read on its latest closed bar"
+  },
+  {
+   "group": "MTF table",
+   "name": "TF 3",
+   "value": "1 day",
+   "range": "",
+   "effect": "Timeframe of table row 3, read on its latest closed bar"
+  },
+  {
+   "group": "MTF table",
+   "name": "TF 4",
+   "value": "1 week",
+   "range": "",
+   "effect": "Timeframe of table row 4, read on its latest closed bar"
+  }
+ ],
+ "states": [
+  {
+   "section": "Trend row",
+   "label": "STRONG UP",
+   "where": "dashboard table, Trend row",
+   "reading": "Uptrend, strong",
+   "measures": "Score +80% or +100% on the chart's current bar, outside the chop zone, so the close is above the Kumo. Solid green cell. The bar may still be forming, so the row can change until it closes.",
+   "setup": "Trend continuation, with nearly every check agreeing. Technicians often wait for a pullback towards the Kijun rather than chasing the move, and frame risk beyond the Kijun or the Kumo, or as an ATR multiple.",
+   "notMean": "Not a forecast; it describes how the five checks stand on this bar.",
+   "check": "Do the slower rows in the TF table point the same way?"
+  },
+  {
+   "section": "Trend row",
+   "label": "UP",
+   "where": "dashboard table, Trend row",
+   "reading": "Uptrend",
+   "measures": "Score +60% on the chart's current bar, with the close outside the Kumo: three points net up out of five. Lighter green cell. The bar may still be forming.",
+   "setup": "Trend continuation with one or two checks not yet agreeing. Technicians often look at which check lags, such as a flat Kijun or a red Kumo ahead, and wait for a pullback to hold above the Kijun, framing risk beyond it or as an ATR multiple.",
+   "notMean": "Not a measure of move size; the score counts checks, not distance.",
+   "check": "Is the Kijun flat, or is the cloud ahead red?"
+  },
+  {
+   "section": "Trend row",
+   "label": "SIDEWAYS UP",
+   "where": "dashboard table, Trend row",
+   "reading": "Leaning up",
+   "measures": "Score +40% on the chart's current bar, with the close outside the Kumo: two points net up. Palest green cell; one point less and the row turns to CHOP ZONE · NO ACTION.",
+   "setup": "An early or fading move: price is clear of the Kumo but the checks only lean up. Technicians often treat it as a transition and wait for +60% or more, or a slower timeframe agreeing, before reading an uptrend.",
+   "notMean": "Not an uptrend reading yet; at least two checks are neutral or point down.",
+   "check": "Is the score rising out of chop, or falling from UP?"
+  },
+  {
+   "section": "Trend row",
+   "label": "SIDEWAYS DOWN",
+   "where": "dashboard table, Trend row",
+   "reading": "Leaning down",
+   "measures": "Score -40% on the chart's current bar, with the close outside the Kumo: two points net down. Palest red cell; one point more and the row turns to CHOP ZONE · NO ACTION.",
+   "setup": "An early or fading move: price is clear of the Kumo but the checks only lean down. Technicians often treat it as a transition and wait for -60% or less, or a slower timeframe agreeing, before reading a downtrend.",
+   "notMean": "Not a downtrend reading yet; at least two checks are neutral or point up.",
+   "check": "Is the score falling out of chop, or rising from DOWN?"
+  },
+  {
+   "section": "Trend row",
+   "label": "DOWN",
+   "where": "dashboard table, Trend row",
+   "reading": "Downtrend",
+   "measures": "Score -60% on the chart's current bar, with the close outside the Kumo: three points net down out of five. Lighter red cell. The bar may still be forming.",
+   "setup": "Trend continuation with one or two checks not yet agreeing. Technicians often look at which check lags, such as a flat Kijun or a green Kumo ahead, and wait for a bounce to stall below the Kijun, framing risk beyond it or as an ATR multiple.",
+   "notMean": "Not a measure of move size; the score counts checks, not distance.",
+   "check": "Is the Kijun flat, or is the cloud ahead green?"
+  },
+  {
+   "section": "Trend row",
+   "label": "STRONG DOWN",
+   "where": "dashboard table, Trend row",
+   "reading": "Downtrend, strong",
+   "measures": "Score -80% or -100% on the chart's current bar, outside the chop zone, so the close is below the Kumo. Solid red cell. The bar may still be forming, so the row can change until it closes.",
+   "setup": "Trend continuation, with nearly every check agreeing. Technicians often wait for a bounce towards the Kijun rather than chasing the move, and frame risk beyond the Kijun or the Kumo, or as an ATR multiple.",
+   "notMean": "Not a forecast; it describes how the five checks stand on this bar.",
+   "check": "Do the slower rows in the TF table point the same way?"
+  },
+  {
+   "section": "Trend row",
+   "label": "CHOP ZONE · NO ACTION",
+   "where": "dashboard table, Trend row",
+   "reading": "Sideways or chop",
+   "measures": "The close is inside the Kumo at the current bar, edges included, or the score is -20%, 0% or +20%. It overrides the score, and also shows while there is no score yet. Amber cell.",
+   "setup": "A range or a transition: price sits in the cloud or the checks cancel out. Technicians often set trend methods aside here and wait for price to leave the Kumo with the score at ±40% or beyond; in a range, risk is usually framed beyond its edges.",
+   "notMean": "Not an instruction; NO ACTION is the tool's name for bars where the score is set aside.",
+   "check": "Is the close inside the Kumo, or is the score near zero?"
+  },
+  {
+   "section": "Score and Zone",
+   "label": "+20% to +100%",
+   "where": "dashboard table, Score row",
+   "reading": "Leaning up",
+   "measures": "The five-check score on the chart's current bar is +1 to +5 points, 20% each: more checks point up than down. The cell turns greener as it rises. The bar may still be forming.",
+   "setup": "A net count of Ichimoku checks pointing up. Technicians often give it weight only outside the chop zone, from +40% with price clear of the Kumo, and wait for it to hold on a closed bar.",
+   "notMean": "Not a probability; each check simply adds +1, 0 or -1.",
+   "check": "Does the Zone row say Trending or Chop?"
+  },
+  {
+   "section": "Score and Zone",
+   "label": "0%",
+   "where": "dashboard table, Score row",
+   "reading": "Mixed",
+   "measures": "The five-check score on the chart's current bar is 0: the checks pointing up and down cancel out, or all are neutral. A score of 0 is always in the chop zone, whatever the Chop score band. The bar may still be forming.",
+   "setup": "No net side from the five checks, common in ranges and transitions. Technicians often wait for the score to reach ±40% or beyond with price clear of the Kumo before reading a trend.",
+   "notMean": "Not a flat market; checks pointing up and down can cancel out.",
+   "check": "Is the close inside the Kumo, or clear of it?"
+  },
+  {
+   "section": "Score and Zone",
+   "label": "-20% to -100%",
+   "where": "dashboard table, Score row",
+   "reading": "Leaning down",
+   "measures": "The five-check score on the chart's current bar is -1 to -5 points, 20% each: more checks point down than up. The cell turns redder as it falls. The bar may still be forming.",
+   "setup": "A net count of Ichimoku checks pointing down. Technicians often give it weight only outside the chop zone, from -40% with price clear of the Kumo, and wait for it to hold on a closed bar.",
+   "notMean": "Not a probability; each check simply adds +1, 0 or -1.",
+   "check": "Does the Zone row say Trending or Chop?"
+  },
+  {
+   "section": "Score and Zone",
+   "label": "—",
+   "where": "dashboard table, Score row",
+   "reading": "No reading",
+   "measures": "No score yet: the chart does not have enough bars for all five checks (about 77 with Classic). Meanwhile the Trend row shows CHOP ZONE · NO ACTION.",
+   "setup": "",
+   "notMean": "Not a score of zero; there is not yet enough history.",
+   "check": "How much history does this chart have?"
+  },
+  {
+   "section": "Score and Zone",
+   "label": "Trending",
+   "where": "dashboard table, Zone row",
+   "reading": "Uptrend or downtrend, out of chop",
+   "measures": "The close is outside the Kumo at the current bar and the score is +40% or more, or -40% or less. The cell takes the score's colour, green or red.",
+   "setup": "The state in which trend methods are usually applied. Technicians often take the side from the Trend row and look for a slower timeframe to agree before reading continuation.",
+   "notMean": "Not a direction on its own; the colour and the Trend row give the side.",
+   "check": "Is the cell green or red, and how strong is the Trend row?"
+  },
+  {
+   "section": "Score and Zone",
+   "label": "Chop",
+   "where": "dashboard table, Zone row",
+   "reading": "Sideways or chop",
+   "measures": "Same test as CHOP ZONE · NO ACTION: the close is inside the Kumo, or the score is -20%, 0% or +20%, or there is no score yet. Amber cell.",
+   "setup": "No clear side from the five checks, as in a range or a turn in progress. Technicians often wait for price to leave the cloud and the score to reach ±40% or beyond before reading a trend; in a range, risk is usually framed beyond its edges.",
+   "notMean": "Not a forecast of a range; the next bar can leave the zone.",
+   "check": "Did price enter the cloud, or did the checks cancel out?"
+  },
+  {
+   "section": "Kumo row",
+   "label": "Thin",
+   "where": "dashboard table, Kumo row",
+   "reading": "Not a trend reading",
+   "measures": "The gap between Senkou A and B at the current bar ranks in the bottom 20% of the last 252 bars. Orange text. That part of the cloud was set 25 bars earlier (Classic), so it does not change during the bar.",
+   "setup": "",
+   "notMean": "Not a direction; it measures the cloud's thickness, not its colour.",
+   "check": "Is the cloud ahead thicker or thinner than the part at the current bar?"
+  },
+  {
+   "section": "Kumo row",
+   "label": "Normal",
+   "where": "dashboard table, Kumo row",
+   "reading": "Not a trend reading",
+   "measures": "The gap between Senkou A and B at the current bar ranks between the 20th and 80th percentile of the last 252 bars. Blue-grey text.",
+   "setup": "",
+   "notMean": "Not a direction; it measures the cloud's thickness only.",
+   "check": "Is the cloud ahead getting thicker or thinner?"
+  },
+  {
+   "section": "Kumo row",
+   "label": "Thick",
+   "where": "dashboard table, Kumo row",
+   "reading": "Not a trend reading",
+   "measures": "The gap between Senkou A and B at the current bar ranks in the top 20% of the last 252 bars. Blue text.",
+   "setup": "",
+   "notMean": "Not a level price must respect; it ranks thickness against this chart's own history.",
+   "check": "Is price inside, above or below this thick cloud?"
+  },
+  {
+   "section": "Kumo row",
+   "label": "—",
+   "where": "dashboard table, Kumo row",
+   "reading": "No reading",
+   "measures": "The thickness has no rank yet: the chart does not have enough history for the Kumo and the 252-bar comparison.",
+   "setup": "",
+   "notMean": "Not a thin cloud; there is not yet enough data to rank it.",
+   "check": "Does the chart reach back far enough to rank the cloud?"
+  },
+  {
+   "section": "TF table",
+   "label": "1H, 4H, D, W",
+   "where": "dashboard table, TF column",
+   "reading": "Not a trend reading",
+   "measures": "The timeframes set in TF 1 to TF 4. Whole hours under a day print as hours (60 as 1H, 240 as 4H); other values print as set, such as 30, D or W. After a timeframe switch the table takes a moment to load.",
+   "setup": "",
+   "notMean": "Not the chart's own timeframe; the Score, Zone, Kumo and Trend rows use that.",
+   "check": "Which row, if any, matches the chart's timeframe?"
+  },
+  {
+   "section": "TF table",
+   "label": "+20% to +100%",
+   "where": "dashboard table, TF rows, Score column",
+   "reading": "Leaning up",
+   "measures": "That timeframe's score on its latest closed bar is +1 to +5 points, the same on any chart timeframe. The table has no chop test, so this can show at +20% or with the close inside that timeframe's Kumo.",
+   "setup": "Top-down context. Many technicians read D as the main chart and W as the bigger picture, and look for the faster rows to agree with them before reading an uptrend. It is normal for timeframes to disagree.",
+   "notMean": "Not the chart's current bar; on a 1H chart the 1H row can differ from the Score row until the bar closes.",
+   "check": "Do the D and W rows point the same way?"
+  },
+  {
+   "section": "TF table",
+   "label": "0%",
+   "where": "dashboard table, TF rows, Score column",
+   "reading": "Mixed",
+   "measures": "That timeframe's score on its latest closed bar is 0: the checks pointing up and down cancel out, or all are neutral.",
+   "setup": "No net side on that timeframe, common in ranges and transitions. Technicians often wait for the score there to move clear of zero on a closed bar before reading a trend on it.",
+   "notMean": "Not a flat market; checks pointing up and down can cancel out.",
+   "check": "Do the other rows show a side?"
+  },
+  {
+   "section": "TF table",
+   "label": "-20% to -100%",
+   "where": "dashboard table, TF rows, Score column",
+   "reading": "Leaning down",
+   "measures": "That timeframe's score on its latest closed bar is -1 to -5 points, the same on any chart timeframe. The table has no chop test, so this can show at -20% or with the close inside that timeframe's Kumo.",
+   "setup": "Top-down context. Many technicians read D as the main chart and W as the bigger picture, and look for the faster rows to agree with them before reading a downtrend. It is normal for timeframes to disagree.",
+   "notMean": "Not the chart's current bar; on a 1H chart the 1H row can differ from the Score row until the bar closes.",
+   "check": "Do the D and W rows point the same way?"
+  },
+  {
+   "section": "TF table",
+   "label": "—",
+   "where": "dashboard table, TF rows, Score or Aligned column",
+   "reading": "No reading",
+   "measures": "No closed bar of that timeframe could be read. In the Score column it can also mean too few bars there for a score; Aligned then shows None. Below the chart timeframe, a new chart bar shows it until a smaller bar closes.",
+   "setup": "",
+   "notMean": "Not a score of zero, and not a None reading.",
+   "check": "Did a new chart bar just open, or does that timeframe lack history?"
+  },
+  {
+   "section": "TF table",
+   "label": "Up",
+   "where": "dashboard table, TF rows, Aligned column",
+   "reading": "Leaning up, three core checks agree",
+   "measures": "On that timeframe's latest closed bar, checks 1 to 3 all point up: close above the Kumo, Tenkan above Kijun, and the close above the high of the bar the Chikou is plotted against.",
+   "setup": "The classic three-way agreement, Sanyaku Koten. Technicians often treat it as uptrend context on that timeframe and look for the faster rows to line up with it, framing risk beyond the Kijun or the Kumo.",
+   "notMean": "Not the full score; the Kumo ahead and the Kijun slope can still point down.",
+   "check": "How strong is the Score column on the same row?"
+  },
+  {
+   "section": "TF table",
+   "label": "Down",
+   "where": "dashboard table, TF rows, Aligned column",
+   "reading": "Leaning down, three core checks agree",
+   "measures": "On that timeframe's latest closed bar, checks 1 to 3 all point down: close below the Kumo, Tenkan below Kijun, and the close below the low of the bar the Chikou is plotted against.",
+   "setup": "The classic three-way agreement, Sanyaku Gyakuten. Technicians often treat it as downtrend context on that timeframe and look for the faster rows to line up with it, framing risk beyond the Kijun or the Kumo.",
+   "notMean": "Not the full score; the Kumo ahead and the Kijun slope can still point up.",
+   "check": "How strong is the Score column on the same row?"
+  },
+  {
+   "section": "TF table",
+   "label": "None",
+   "where": "dashboard table, TF rows, Aligned column",
+   "reading": "Mixed",
+   "measures": "On that timeframe's latest closed bar, checks 1 to 3 do not all point the same way. Also shown while that timeframe has too few bars for a score. Grey text.",
+   "setup": "No three-way agreement on that timeframe, common in ranges and transitions. Technicians often wait for price, Tenkan and Kijun, and Chikou to line up on a closed bar there before reading a trend.",
+   "notMean": "Not a sideways reading; the same row's score can still reach ±80%.",
+   "check": "Which of the three checks disagrees?"
+  },
+  {
+   "section": "Blade and candles",
+   "label": "Green blade (Kijun) and green candles",
+   "where": "price chart",
+   "reading": "Leaning up or stronger",
+   "measures": "Outside the chop zone with a score of +40% or more. The Kijun turns a fuller green as the score rises. Candles are green; with Strength shades they are full at +80% and up, lighter at +60%, lightest at +40%.",
+   "setup": "Trend continuation, readable straight from the chart. Technicians often watch whether pullbacks hold above the Kijun, and frame risk beyond it or as an ATR multiple.",
+   "notMean": "Not settled on the live bar; the colours can change until it closes.",
+   "check": "Has the bar closed with the colour unchanged?"
+  },
+  {
+   "section": "Blade and candles",
+   "label": "Red blade (Kijun) and red candles",
+   "where": "price chart",
+   "reading": "Leaning down or stronger",
+   "measures": "Outside the chop zone with a score of -40% or less. The Kijun turns a fuller red as the score falls. Candles are red; with Strength shades they are full at -80% and below, lighter at -60%, lightest at -40%.",
+   "setup": "Trend continuation, readable straight from the chart. Technicians often watch whether bounces stall below the Kijun, and frame risk beyond it or as an ATR multiple.",
+   "notMean": "Not settled on the live bar; the colours can change until it closes.",
+   "check": "Has the bar closed with the colour unchanged?"
+  },
+  {
+   "section": "Blade and candles",
+   "label": "Grey blade (Kijun) and amber candles",
+   "where": "price chart",
+   "reading": "Sideways or chop",
+   "measures": "Chop zone: the close is inside the Kumo, or the score is -20%, 0% or +20%, or there is no score yet. Candles are solid amber in both candle styles. On the live bar both can change until it closes.",
+   "setup": "No clear side, as in a range or a turn in progress. Technicians often set the Kijun aside as a trend line here and wait for the chop zone to end before reading a trend; in a range, risk is usually framed beyond its edges.",
+   "notMean": "Not a forecast of a range; it marks bars where the score is set aside.",
+   "check": "Is price inside the cloud, or is the score near zero?"
+  },
+  {
+   "section": "Cloud and lines",
+   "label": "Green Kumo (cloud)",
+   "where": "price chart, cloud",
+   "reading": "Leaning up",
+   "measures": "Senkou A is above Senkou B. Each part of the cloud is drawn 25 bars ahead of the bar it comes from (Classic); its right end is check 4, the future Kumo.",
+   "setup": "The slow layer of Ichimoku. Technicians often read a green cloud ahead as a backdrop for uptrend readings, and watch a twist, where the spans cross, as an early sign of change.",
+   "notMean": "Not a forecast; the cloud is plotted forward by design and does not predict price.",
+   "check": "What colour is the cloud at its right end?"
+  },
+  {
+   "section": "Cloud and lines",
+   "label": "Red Kumo (cloud)",
+   "where": "price chart, cloud",
+   "reading": "Leaning down",
+   "measures": "Senkou A is at or below Senkou B. Each part of the cloud is drawn 25 bars ahead of the bar it comes from (Classic); its right end is check 4, the future Kumo.",
+   "setup": "The slow layer of Ichimoku. Technicians often read a red cloud ahead as a backdrop for downtrend readings, and watch a twist, where the spans cross, as an early sign of change.",
+   "notMean": "Not a forecast; the cloud is plotted forward by design and does not predict price.",
+   "check": "What colour is the cloud at its right end?"
+  },
+  {
+   "section": "Cloud and lines",
+   "label": "Blue line (Tenkan)",
+   "where": "price chart (Lines group, off by default)",
+   "reading": "Not a trend reading",
+   "measures": "Midpoint of the highest high and lowest low of the last 9 bars (Classic). Check 2 compares it with the Kijun: above scores +1, below -1, equal 0. The check runs whether the line is shown or not.",
+   "setup": "",
+   "notMean": "Not a signal on its own; it is one input of the score.",
+   "check": "Is it above or below the Kijun on the closed bar?"
+  },
+  {
+   "section": "Cloud and lines",
+   "label": "Light grey line shifted back (Chikou)",
+   "where": "price chart (Lines group, off by default)",
+   "reading": "Not a trend reading",
+   "measures": "The close, plotted 25 bars back (Classic). Check 3 needs that close above the high (+1) or below the low (-1) of the bar it sits against; anything in between counts 0.",
+   "setup": "",
+   "notMean": "Not the usual close-versus-close test; the tool uses that bar's high and low.",
+   "check": "Is the line clear of the candles it sits against?"
+  },
+  {
+   "section": "Cloud and lines",
+   "label": "Thin green and red lines at the cloud edges (Senkou spans)",
+   "where": "price chart (Lines group, off by default)",
+   "reading": "Not a trend reading",
+   "measures": "Senkou A (green), the midpoint of Tenkan and Kijun, and Senkou B (red), the midpoint of the 52-bar high and low (Classic). Both are plotted 25 bars ahead.",
+   "setup": "",
+   "notMean": "Not levels found by the tool; they are the cloud's two edges.",
+   "check": "Where do the two lines cross ahead of price?"
+  },
+  {
+   "section": "Marks and labels",
+   "label": "Strong Up (green triangle below the bar)",
+   "where": "price chart, below the bar",
+   "reading": "Uptrend, strong",
+   "measures": "On a closed bar outside the chop zone, the score reaches +80% or more after being below +80% on the bar before. It prints once per crossing, and not when price leaves the Kumo with the score already at +80%.",
+   "setup": "First closed bar of a strong uptrend reading. Technicians often wait for a pullback towards the Kijun rather than chasing, and frame risk beyond the Kijun or the Kumo, or as an ATR multiple.",
+   "notMean": "Not an instruction; it describes the Ichimoku state on a closed bar.",
+   "check": "Do the slower rows in the TF table read the same way?"
+  },
+  {
+   "section": "Marks and labels",
+   "label": "Strong Down (red triangle above the bar)",
+   "where": "price chart, above the bar",
+   "reading": "Downtrend, strong",
+   "measures": "On a closed bar outside the chop zone, the score reaches -80% or less after being above -80% on the bar before. It prints once per crossing, and not when price leaves the Kumo with the score already at -80%.",
+   "setup": "First closed bar of a strong downtrend reading. Technicians often wait for a bounce towards the Kijun rather than chasing, and frame risk beyond the Kijun or the Kumo, or as an ATR multiple.",
+   "notMean": "Not an instruction; it describes the Ichimoku state on a closed bar.",
+   "check": "Do the slower rows in the TF table read the same way?"
+  },
+  {
+   "section": "Marks and labels",
+   "label": "Strong Up / 3/3 Aligned Up (two-line label below the bar)",
+   "where": "price chart, below the bar",
+   "reading": "Uptrend, strong",
+   "measures": "A Strong Up crossing and a new 3/3 Aligned Up on the same closed bar, with both marks switched on. The triangle loses its text and both names share one label, 1.5 ATR(14) below the low.",
+   "setup": "A strong uptrend reading with the three core checks newly aligned. Technicians often still wait for a pullback towards the Kijun rather than chasing, framing risk beyond the Kijun or the Kumo.",
+   "notMean": "Not a stronger reading than either mark alone; the texts are merged so they do not overlap.",
+   "check": "How far above the Kijun did this bar close?"
+  },
+  {
+   "section": "Marks and labels",
+   "label": "Strong Down / 3/3 Aligned Down (two-line label above the bar)",
+   "where": "price chart, above the bar",
+   "reading": "Downtrend, strong",
+   "measures": "A Strong Down crossing and a new 3/3 Aligned Down on the same closed bar, with both marks switched on. The triangle loses its text and both names share one label, 1.5 ATR(14) above the high.",
+   "setup": "A strong downtrend reading with the three core checks newly aligned. Technicians often still wait for a bounce towards the Kijun rather than chasing, framing risk beyond the Kijun or the Kumo.",
+   "notMean": "Not a stronger reading than either mark alone; the texts are merged so they do not overlap.",
+   "check": "How far below the Kijun did this bar close?"
+  },
+  {
+   "section": "Marks and labels",
+   "label": "3/3 Aligned Up (label below the bar)",
+   "where": "price chart, below the bar",
+   "reading": "Leaning up, three core checks agree",
+   "measures": "First closed bar where checks 1 to 3 all point up: close above the Kumo, Tenkan above Kijun, close above the high of the Chikou's bar. Placed 1.5 ATR(14) below the low; classic Ichimoku calls it Sanyaku Koten.",
+   "setup": "The classic three-way agreement. Technicians often look for the cloud ahead to be green and the Kijun to rise as well before reading a full uptrend, framing risk beyond the Kijun or the Kumo.",
+   "notMean": "Not the full score; the cloud ahead and the Kijun slope can still point down.",
+   "check": "Is the cloud ahead green, and is the Kijun rising?"
+  },
+  {
+   "section": "Marks and labels",
+   "label": "3/3 Aligned Down (label above the bar)",
+   "where": "price chart, above the bar",
+   "reading": "Leaning down, three core checks agree",
+   "measures": "First closed bar where checks 1 to 3 all point down: close below the Kumo, Tenkan below Kijun, close below the low of the Chikou's bar. Placed 1.5 ATR(14) above the high; classic Ichimoku calls it Sanyaku Gyakuten.",
+   "setup": "The classic three-way agreement. Technicians often look for the cloud ahead to be red and the Kijun to fall as well before reading a full downtrend, framing risk beyond the Kijun or the Kumo.",
+   "notMean": "Not the full score; the cloud ahead and the Kijun slope can still point up.",
+   "check": "Is the cloud ahead red, and is the Kijun falling?"
+  },
+  {
+   "section": "Magnets",
+   "label": "Dashed orange line (Kijun magnet)",
+   "where": "price chart, extended right",
+   "reading": "Not a trend reading",
+   "measures": "The Kijun has held the same level for 8 bars in a row, checked on closed bars. One line per flat run, starting at its first bar; only the last 6 magnets, both kinds together, are kept.",
+   "setup": "",
+   "notMean": "Not a forecast that price returns; in Ichimoku theory it marks a balance price.",
+   "check": "How far is price from the line now?"
+  },
+  {
+   "section": "Magnets",
+   "label": "Dashed purple line (Span B magnet)",
+   "where": "price chart, extended right",
+   "reading": "Not a trend reading",
+   "measures": "Senkou Span B has held the same level for 8 bars in a row, checked on closed bars. The line starts where that flat stretch sits in the cloud, 25 bars ahead with Classic, and extends right.",
+   "setup": "",
+   "notMean": "Not a new level; it extends a flat edge of the cloud.",
+   "check": "Does it line up with a flat edge of the cloud ahead?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Strong Up",
+   "where": "alert",
+   "reading": "Uptrend, strong",
+   "measures": "Same condition as the Strong Up triangle, on confirmed bars only, even with the marks hidden. Message: score crossed up through the Strong threshold.",
+   "setup": "First closed bar of a strong uptrend reading. Technicians often treat such an alert as a prompt to review the chart, then wait for a pullback towards the Kijun rather than chasing.",
+   "notMean": "Not an instruction to act.",
+   "check": "What do the slower rows in the table show now?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Strong Down",
+   "where": "alert",
+   "reading": "Downtrend, strong",
+   "measures": "Same condition as the Strong Down triangle, on confirmed bars only, even with the marks hidden. Message: score crossed down through the Strong threshold.",
+   "setup": "First closed bar of a strong downtrend reading. Technicians often treat such an alert as a prompt to review the chart, then wait for a bounce towards the Kijun rather than chasing.",
+   "notMean": "Not an instruction to act.",
+   "check": "What do the slower rows in the table show now?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Aligned Up",
+   "where": "alert",
+   "reading": "Leaning up, three core checks agree",
+   "measures": "Same condition as the 3/3 Aligned Up label, on confirmed bars only, even with the labels hidden. Message: 3/3 Aligned Up (price, Tenkan/Kijun, Chikou).",
+   "setup": "The classic three-way agreement. Technicians often check the cloud ahead and the Kijun slope as well before reading a full uptrend.",
+   "notMean": "Not the full score; two checks can still point down.",
+   "check": "What does the Trend row show on this bar?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Aligned Down",
+   "where": "alert",
+   "reading": "Leaning down, three core checks agree",
+   "measures": "Same condition as the 3/3 Aligned Down label, on confirmed bars only, even with the labels hidden. Message: 3/3 Aligned Down (price, Tenkan/Kijun, Chikou).",
+   "setup": "The classic three-way agreement. Technicians often check the cloud ahead and the Kijun slope as well before reading a full downtrend.",
+   "notMean": "Not the full score; two checks can still point up.",
+   "check": "What does the Trend row show on this bar?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Enter Chop",
+   "where": "alert",
+   "reading": "Sideways or chop",
+   "measures": "Fires on the closed bar where the chop zone begins after a bar outside it: the close moved into the Kumo, or the score came to -20%, 0% or +20%.",
+   "setup": "A trend reading has paused or ended. Technicians often set trend methods aside here and wait for the chop zone to end, reading a range by its edges.",
+   "notMean": "Not a reversal; the next trend reading can be on either side.",
+   "check": "Did price move into the cloud, or did the score fade?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Exit Chop",
+   "where": "alert",
+   "reading": "Uptrend or downtrend, leaving chop",
+   "measures": "Fires on the closed bar where the chop zone ends: the close is outside the Kumo and the score is +40% or more, or -40% or less. The message does not say which side.",
+   "setup": "A possible start of a trend reading after a range or transition. Technicians often take the side from the Trend row and look for a slower timeframe to agree before reading it as a trend.",
+   "notMean": "Not directional; the side has to be read from the chart.",
+   "check": "Which side does the Trend row show now?"
+  }
+ ]
+}

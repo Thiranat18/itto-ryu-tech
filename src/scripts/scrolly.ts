@@ -79,7 +79,8 @@ function start(open: HTMLElement) {
         counter.dataset.total!,
       );
     };
-    const stTools = pin(tools, 1.55, toolsTl, {
+    // 1.55 viewports for four tiles; more tiles get a longer pin so the scroll keeps the same pace.
+    const stTools = pin(tools, 1.55 * (toolTiles.length / 4), toolsTl, {
       onUpdate: (self) => unroll(self.progress),
       onRefresh: (self) => unroll(self.progress),
     });

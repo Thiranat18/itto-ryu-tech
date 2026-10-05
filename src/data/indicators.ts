@@ -18,7 +18,10 @@ export type Indicator = {
   imageWidth: number;
   imageHeight: number;
   /** "What it draws" legend on the detail page, taken from the tool's own description. */
-  legend?: { swatch: 'zone' | 'zone2' | 'stop' | 'r' | 'flip'; label: string }[];
+  legend?: {
+    swatch: 'zone' | 'zone2' | 'stop' | 'r' | 'flip' | 'blade' | 'kumo' | 'candles' | 'magK' | 'magB' | 'marks';
+    label: string;
+  }[];
   /** Date the guide was last checked against the published script (YYYY-MM-DD). */
   tended: string;
   /** Field guide: input titles and defaults exactly as in the TradingView settings dialog. */
@@ -30,6 +33,70 @@ export type Indicator = {
 
 // Only scripts published publicly on TradingView. No test status or performance figures (owner's decision).
 export const indicators: Indicator[] = [
+  {
+    slug: 'ichimoku-itto',
+    name: 'Ichimoku Itto',
+    tvTitle: 'Ichimoku Itto by [Itto-Ryu]',
+    category: 'Trend',
+    summary: 'One glance, one cut: five Ichimoku checks read as one score.',
+    howItWorks:
+      'Keeps the classic Ichimoku maths, but sums five checks into one score from -100% to +100% instead of leaving five lines to be judged by eye. The checks are price against the Kumo, Tenkan against Kijun, the future Kumo colour, the Kijun slope, and a stricter Chikou test: the close must clear the high or low of the bar Chikou is plotted against. A built-in chop zone covers price inside the Kumo or a score near zero. Flat Kijun and Span B levels are drawn as dashed Equilibrium Magnets, Kumo thickness reads Thin, Normal or Thick, and a table shows four timeframes.',
+    howToUse:
+      'Read the score and the Trend row as context for your own analysis. The chop zone means no reading: neither Uptrend nor Downtrend. Many technicians read the daily chart as the main view and the weekly chart as context, and the table shows both by default. Marks, labels, magnets and alerts are set on closed bars only. The blade and candle colours on the live bar can change until it closes.',
+    access: 'Open-source',
+    url: 'https://www.tradingview.com/script/ujoplFUL-Ichimoku-Itto-by-Itto-Ryu/',
+    image: '/indicators/ujoplFUL.jpg',
+    imageWidth: 1200,
+    imageHeight: 645,
+    tended: '2026-10-05',
+    settings: [
+      {
+        name: 'Preset',
+        value: 'Classic',
+        effect: 'Lengths and displacement: Classic 9/26/52/26, 5-Day Week or Crypto',
+      },
+      { name: 'Kijun slope lookback', value: '5', effect: 'Bars back the Kijun is compared with for the slope check' },
+      { name: 'Strong threshold', value: '4', effect: 'Score for Strong marks and STRONG UP / DOWN (4 = 80%)' },
+      { name: 'Chop score band', value: '1', effect: 'Scores within ±20% also read as chop (1 = 20%)' },
+      {
+        name: 'Flat bars',
+        value: '8',
+        effect: 'Bars in a row the Kijun or Span B must stay flat before a magnet is drawn',
+      },
+      {
+        name: 'Color candles by trend',
+        value: 'On',
+        effect: 'Colours candles green or red by score, amber in the chop zone',
+      },
+    ],
+    notDo: [
+      'It does not place orders or know your position. STRONG UP, CHOP ZONE · NO ACTION and the marks are readings, not instructions.',
+      'It does not forecast or give a probability. A score of +80% means four checks read up and one reads neutral. The Kumo is plotted forward by design, not as a forecast.',
+      'It does not suit Heikin Ashi, Renko or other non-standard charts. Its readings assume standard candles or bars.',
+    ],
+    questions: [
+      {
+        q: 'Why can the Score row differ from the 1H row on a 1H chart?',
+        a: "The TF rows show the latest closed bar of each timeframe, so they read the same on any chart timeframe. The Score and Trend rows show the chart's current bar, which may still be forming. On a 1H chart the two can differ until the bar closes. Different timeframes can also disagree, and that is normal. The table loads a moment after a timeframe switch.",
+      },
+      {
+        q: 'Which timeframe was Ichimoku designed for, and what do the presets mean?',
+        a: 'Ichimoku was designed for the daily chart. There, the Classic lengths 9, 26 and 52 match about 1.5 weeks, 1 month and 2 months of a 6-day trading week. The 5-Day Week preset (7/22/44) is for markets that trade five days a week, and Crypto (20/60/120) for markets that trade 24/7. On intraday charts the lengths are plain bar counts. No timeframe is claimed to be more accurate.',
+      },
+      {
+        q: 'What does CHOP ZONE · NO ACTION mean?',
+        a: "It is the tool's label for no reading, not an instruction. It shows when price is inside the Kumo, whatever the score, or when the score is from -20% to +20%, the default band. The Zone row then reads Chop, the blade turns grey, candles turn amber and Strong marks do not print. 3/3 Aligned labels can still print, as they use only three of the five checks.",
+      },
+    ],
+    legend: [
+      { swatch: 'blade', label: 'Kijun blade, green to red by score, grey in the chop zone' },
+      { swatch: 'kumo', label: 'Kumo, projected forward' },
+      { swatch: 'candles', label: 'Candles green or red by score, amber in the chop zone' },
+      { swatch: 'marks', label: 'Strong Up / Strong Down triangles and 3/3 Aligned labels' },
+      { swatch: 'magK', label: 'Kijun magnet, dashed orange' },
+      { swatch: 'magB', label: 'Span B magnet, dashed purple' },
+    ],
+  },
   {
     slug: 'macd-trend-phase-mtf',
     name: 'MACD Trend Phase MTF',
