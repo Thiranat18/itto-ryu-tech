@@ -1,7 +1,7 @@
 import type { Lang } from '../i18n';
 import thText from './indicators.th.json';
 
-export const TV_PROFILE = 'https://www.tradingview.com/u/Thiranat/';
+export const TV_PROFILE = 'https://www.tradingview.com/u/ITTO-RYU/';
 
 export type Indicator = {
   slug: string;
