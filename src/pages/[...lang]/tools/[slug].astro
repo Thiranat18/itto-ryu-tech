@@ -126,6 +126,45 @@ const groups = ref.settings.reduce<{ name: string; rows: typeof ref.settings }[]
     </section>
   </div>
 
+  {
+    indicator.manual && (
+      <section class="tile tile-fill span-4 guide manual" id="manual" aria-labelledby="manual-title">
+        <a class="manual-cover" href={indicator.manual.pdf} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <img src={indicator.manual.cover} width="480" height="480" loading="lazy" decoding="async" alt="" />
+        </a>
+        <div class="manual-body">
+          <p class="manual-eyebrow"><span class="kanji-mark k-wait" lang="ja" aria-hidden="true">巻</span>{copy.manual}</p>
+          <h2 id="manual-title">{indicator.manual.title}</h2>
+          <p>{indicator.manual.summary}</p>
+          <h3>{copy.manualPrinciples}</h3>
+          <ol class="manual-steps">{indicator.manual.principles.map((line) => <li>{line}</li>)}</ol>
+          <h3>{copy.manualPresets}</h3>
+          <dl class="manual-presets">
+            {
+              indicator.manual.presets.map((p) => (
+                <div>
+                  <dt>{p.name}</dt>
+                  <dd>{p.values}</dd>
+                </div>
+              ))
+            }
+          </dl>
+          <div class="manual-act">
+            <ExternalLink class="btn btn-primary" href={indicator.manual.pdf} data-event="manual_open" data-tool={indicator.slug}
+              >{copy.manualRead}</ExternalLink
+            >
+            <a class="btn btn-ghost" href={indicator.manual.pdf} download data-event="manual_download" data-tool={indicator.slug}
+              >{copy.manualDownload}</a
+            >
+          </div>
+          <p class="guide-note">
+            {fill(copy.manualMeta, { pages: indicator.manual.pages, size: indicator.manual.sizeKB })} · {copy.edu}
+          </p>
+        </div>
+      </section>
+    )
+  }
+
   <section class="tile tile-line span-4 guide" aria-labelledby="readings">
     <h2 id="readings">{copy.readings}</h2>
     <p class="guide-lede">

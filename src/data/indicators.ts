@@ -29,6 +29,20 @@ export type Indicator = {
   notDo: string[];
   /** Questions worth asking: three at launch, later only real questions from TradingView. */
   questions: { q: string; a: string }[];
+  /** Downloadable manual (PDF in public/guides) with a short web summary. */
+  manual?: Manual;
+};
+
+export type Manual = {
+  title: string;
+  summary: string;
+  pdf: string;
+  pages: number;
+  sizeKB: number;
+  /** Top of the first page, 480×480. */
+  cover: string;
+  principles: string[];
+  presets: { name: string; values: string }[];
 };
 
 // Only scripts published publicly on TradingView. No test status or performance figures (owner's decision).
@@ -49,6 +63,27 @@ export const indicators: Indicator[] = [
     imageWidth: 1200,
     imageHeight: 645,
     tended: '2026-10-05',
+    manual: {
+      title: 'Timeframe & Preset Guide',
+      summary:
+        'Which preset and timeframes to use with Ichimoku Itto for each market and style: index futures, gold, US stocks and crypto, for swing and trend following. Four pages with a preset decision chart, a timeframe map, settings for each style and notes per market.',
+      pdf: '/guides/ichimoku-itto-tf-preset-guide.pdf',
+      pages: 4,
+      sizeKB: 180,
+      cover: '/guides/ichimoku-itto-tf-preset-guide.jpg',
+      principles: [
+        'Choose the preset by your Decision TF. The preset also drives every row of the MTF table.',
+        'Intraday: Classic. Below Daily, periods count bars, not days, so no preset has calendar meaning.',
+        'Daily and above: count the trading days. 5-day markets use Classic, 7-day markets use Crypto.',
+        'Three timeframe layers: Direction, Decision and Timing, about 4–7x apart.',
+        'Timeframes that disagree read as chop: no reading until they line up.',
+      ],
+      presets: [
+        { name: 'Classic', values: '9 / 26 / 52 · disp 26' },
+        { name: '5-Day Week', values: '7 / 22 / 44 · disp 22' },
+        { name: 'Crypto', values: '20 / 60 / 120 · disp 30' },
+      ],
+    },
     settings: [
       {
         name: 'Preset',
@@ -305,6 +340,8 @@ type Text = Pick<Indicator, 'summary' | 'howItWorks' | 'howToUse' | 'notDo' | 'q
   /** The effect of each setting, in order; names and values stay as in TradingView. */
   settings: string[];
   legend: string[];
+  /** Title, summary and principles; the PDF, cover and size are the Thai file's. */
+  manual?: Pick<Manual, 'title' | 'summary' | 'pdf' | 'sizeKB' | 'cover' | 'principles'>;
 };
 const translations: Record<string, Text> = thText;
 
@@ -318,7 +355,9 @@ export function indicatorsIn(lang: Lang): Indicator[] {
       x.settings.length !== t.settings.length ||
       x.notDo.length !== t.notDo.length ||
       x.questions.length !== t.questions.length ||
-      x.legend.length !== (t.legend?.length ?? 0)
+      x.legend.length !== (t.legend?.length ?? 0) ||
+      !t.manual !== !x.manual ||
+      x.manual?.principles.length !== t.manual?.principles.length
     )
       throw new Error(`Thai text for ${t.slug} is missing or out of step with indicators.ts`);
     return {
@@ -330,6 +369,7 @@ export function indicatorsIn(lang: Lang): Indicator[] {
       notDo: x.notDo,
       questions: x.questions,
       legend: t.legend?.map((item, i) => ({ ...item, label: x.legend[i] })),
+      manual: t.manual && x.manual && { ...t.manual, ...x.manual },
     };
   });
 }

@@ -37,7 +37,21 @@
    "สามเหลี่ยม Strong Up / Strong Down และป้าย 3/3 Aligned",
    "Kijun magnet เส้นประสีส้ม",
    "Span B magnet เส้นประสีม่วง"
-  ]
+  ],
+  "manual": {
+   "title": "คู่มือเลือก TF และ Preset",
+   "summary": "preset และ timeframe ที่ใช้กับ Ichimoku Itto แยกตามตลาดและสไตล์ ทั้ง index futures ทองคำ หุ้นสหรัฐ และ crypto สำหรับ swing และ trend following มี 4 หน้า ประกอบด้วยแผนผังเลือก preset แผนที่ timeframe การตั้งค่าของแต่ละสไตล์ และหมายเหตุของแต่ละตลาด",
+   "pdf": "/guides/ichimoku-itto-tf-preset-guide-th.pdf",
+   "sizeKB": 260,
+   "cover": "/guides/ichimoku-itto-tf-preset-guide-th.jpg",
+   "principles": [
+    "เลือก preset ตาม Decision TF เพราะ preset ใช้คำนวณทุกแถวของ MTF table ด้วย",
+    "Intraday ใช้ Classic เพราะต่ำกว่า Daily period นับเป็นจำนวนแท่ง ไม่ใช่จำนวนวัน จึงไม่มี preset ไหนมีความหมายเชิงปฏิทิน",
+    "Daily ขึ้นไป ดูว่าตลาดเปิดกี่วัน: 5 วันใช้ Classic ส่วน 7 วันใช้ Crypto",
+    "ใช้ TF สามชั้น คือ Direction, Decision และ Timing ห่างกันราว 4–7 เท่า",
+    "TF ที่ขัดกันอ่านเป็น chop และยังไม่มี reading จนกว่าจะไปทางเดียวกัน"
+   ]
+  }
  },
  "macd-trend-phase-mtf": {
   "summary": "trend อยู่ใน phase ไหน บนหลาย timeframe",
