@@ -350,6 +350,10 @@ a.tile-fill:hover{background:var(--kinari-2)}
 .owner-tile .role{color:var(--usuzumi);margin-top:6px}
 .owner-tile p+p,.owner-tile .disc{margin-top:16px}
 .owner-tile .disc{margin-top:28px}
+.owner-tile .edu-label{margin-top:20px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--usuzumi)}
+.owner-tile .edu{margin-top:6px;padding-left:0;list-style:none}
+.owner-tile .edu li+li{margin-top:4px}
+.owner-tile .edu+p{margin-top:20px}
 
 /* ---------- disclaimer ---------- */
 .edu-tile{display:flex;align-items:flex-end;padding:28px 30px}

@@ -3,8 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import ExternalLink from '../../components/ExternalLink.astro';
 import Phrases from '../../components/Phrases.astro';
 import { TV_PROFILE } from '../../data/indicators';
-import { OWNER_DISPLAY } from '../../data/owner';
-import { LANGS, fill, langOf, langParam, localize, t } from '../../i18n';
+import { LANGS, langOf, langParam, localize, t } from '../../i18n';
 
 export function getStaticPaths() {
   return LANGS.map((lang) => ({ params: { lang: langParam(lang) } }));
@@ -48,10 +47,15 @@ const copy = ui.about;
   <section class="tile tile-line span-4 owner-tile" aria-labelledby="author">
     <h2 id="author">{copy.ownerTitle}</h2>
     <div>
-      <p class="who">{OWNER_DISPLAY}</p>
-      <p class="role">{ui.site.ownerRole}</p>
+      <p class="who">{copy.ownerName}</p>
+      <p class="role">{copy.ownerRole}</p>
+      <p>{copy.ownerBio}</p>
+      <p class="edu-label">{copy.ownerEduLabel}</p>
+      <ul class="edu">
+        {copy.ownerEdu.map((e: string) => <li>{e}</li>)}
+      </ul>
       <p>
-        {fill(copy.owner1Before, { owner: OWNER_DISPLAY })}<ExternalLink class="text-link" href={TV_PROFILE}
+        {copy.owner1Before}<ExternalLink class="text-link" href={TV_PROFILE}
           >TradingView</ExternalLink
         >{copy.owner1After}
       </p>
