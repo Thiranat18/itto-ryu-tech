@@ -1,0 +1,153 @@
+---
+// Sample report sections, one at a time: grouped by asset, rotating every few seconds while in view.
+// Without JavaScript every slide stays listed; with reduced motion nothing rotates on its own.
+import type { ReelSlide } from '../data/skills';
+import { fill, formatDate, langOf, t } from '../i18n';
+
+interface Props {
+  slides: ReelSlide[];
+  /** Selector of an element whose text follows the slide's command (the home page's terminal line). */
+  commandTarget?: string;
+}
+
+const { slides, commandTarget } = Astro.props;
+const lang = langOf(Astro.url.pathname);
+const copy = t(lang).skill;
+const assets = [...new Set(slides.map((s) => s.asset))];
+// Before the script runs, the frame keeps the tallest slide's shape.
+const ratio = Math.max(...slides.map((s) => s.height / s.width));
+const meta = (s: ReelSlide) =>
+  `${s.asset} · 1D · ${s.preset} · ${fill(copy.reelAsof, { d: formatDate(lang, s.asof) })}`;
+---
+
+<div class="reel" role="group" aria-roledescription="carousel" aria-label={copy.reelLabel} data-reel data-command-target={commandTarget}>
+  <div class="reel-frame" style={`aspect-ratio:1/${ratio.toFixed(4)}`}>
+    {
+      slides.map((s, i) => (
+        <figure class="reel-slide" data-asset={s.asset} data-command={s.command} data-meta={meta(s)} aria-hidden={i ? 'true' : undefined}>
+          <img
+            src={s.src}
+            width={s.width}
+            height={s.height}
+            loading={i ? 'lazy' : 'eager'}
+            decoding="async"
+            alt={fill(copy.reelAlt, { section: s.section, asset: s.asset })}
+          />
+        </figure>
+      ))
+    }
+  </div>
+  <div class="reel-bar">
+    <div class="reel-assets">
+      {
+        assets.map((a, i) => (
+          <button type="button" class="reel-asset" data-asset={a} aria-pressed={i ? 'false' : 'true'}>
+            {a.split(':')[1]}
+          </button>
+        ))
+      }
+    </div>
+    <div class="reel-sections">
+      {
+        slides.map((s, i) => (
+          <button type="button" class="reel-dot" data-i={i} data-asset={s.asset} aria-pressed={i ? 'false' : 'true'} hidden={s.asset !== assets[0]}>
+            <span lang="ja" aria-hidden="true">{s.jp}</span> {s.section}
+          </button>
+        ))
+      }
+    </div>
+    <button type="button" class="reel-play" data-pause={copy.reelPause} data-play={copy.reelPlay} aria-pressed="false">{copy.reelPause}</button>
+  </div>
+  <p class="reel-cap"><span data-reel-meta>{meta(slides[0])}</span> · {copy.reelNote}</p>
+</div>
+
+<script is:inline>
+  (() => {
+    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    for (const reel of document.querySelectorAll('[data-reel]:not([data-ready])')) {
+      reel.dataset.ready = '';
+      reel.classList.add('reel-js');
+      const slides = [...reel.querySelectorAll('.reel-slide')];
+      const dots = [...reel.querySelectorAll('.reel-dot')];
+      const assets = [...reel.querySelectorAll('.reel-asset')];
+      const play = reel.querySelector('.reel-play');
+      const metaEl = reel.querySelector('[data-reel-meta]');
+      const target = reel.dataset.commandTarget && document.querySelector(reel.dataset.commandTarget);
+      let i = 0;
+      let paused = calm;
+      let hover = false;
+      let seen = false;
+      let timer = 0;
+      let typing = 0;
+
+      // The terminal line retypes the command when the asset changes.
+      const type = (text) => {
+        if (!target || target.dataset.text === text) return;
+        target.dataset.text = text;
+        clearInterval(typing);
+        if (calm) {
+          target.textContent = text;
+          return;
+        }
+        let n = 0;
+        target.textContent = '';
+        typing = setInterval(() => {
+          target.textContent = text.slice(0, ++n);
+          if (n >= text.length) clearInterval(typing);
+        }, 28);
+      };
+
+      const frame = reel.querySelector('.reel-frame');
+      // The frame follows the shown slide's height, so a short section leaves no gap below it.
+      const fit = () => (frame.style.height = slides[i].offsetHeight + 'px');
+      addEventListener('resize', fit);
+      const show = (k, fromUser) => {
+        i = (k + slides.length) % slides.length;
+        const s = slides[i];
+        fit();
+        slides.forEach((el, j) => {
+          el.classList.toggle('on', j === i);
+          el.setAttribute('aria-hidden', String(j !== i));
+        });
+        dots.forEach((d, j) => {
+          d.hidden = d.dataset.asset !== s.dataset.asset;
+          d.setAttribute('aria-pressed', String(j === i));
+        });
+        assets.forEach((a) => a.setAttribute('aria-pressed', String(a.dataset.asset === s.dataset.asset)));
+        metaEl.textContent = s.dataset.meta;
+        if (target && (fromUser || target.dataset.text)) type(s.dataset.command);
+        schedule();
+      };
+
+      const schedule = () => {
+        clearTimeout(timer);
+        if (!paused && !hover && seen) timer = setTimeout(() => show(i + 1), 4500);
+      };
+
+      dots.forEach((d) => d.addEventListener('click', () => show(Number(d.dataset.i), true)));
+      assets.forEach((a) =>
+        a.addEventListener('click', () => show(slides.findIndex((s) => s.dataset.asset === a.dataset.asset), true)),
+      );
+      play.addEventListener('click', () => {
+        paused = !paused;
+        play.textContent = paused ? play.dataset.play : play.dataset.pause;
+        play.setAttribute('aria-pressed', String(paused));
+        schedule();
+      });
+      if (calm) {
+        play.textContent = play.dataset.play;
+        play.setAttribute('aria-pressed', 'true');
+      }
+      reel.addEventListener('pointerenter', () => ((hover = true), schedule()));
+      reel.addEventListener('pointerleave', () => ((hover = false), schedule()));
+      reel.addEventListener('focusin', () => ((hover = true), schedule()));
+      reel.addEventListener('focusout', () => ((hover = false), schedule()));
+      new IntersectionObserver(([e]) => {
+        seen = e.isIntersecting;
+        if (seen && target && !target.dataset.text) target.dataset.text = slides[i].dataset.command;
+        schedule();
+      }, { threshold: 0.4 }).observe(reel);
+      show(0);
+    }
+  })();
+</script>

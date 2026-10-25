@@ -29,11 +29,12 @@ function start(open: HTMLElement) {
   document.documentElement.classList.add('js-scrolly');
 
   const ways = q('.ch-ways');
+  const lab = q('.ch-lab');
   const tools = q('.ch-tools');
   const prac = q('.ch-prac');
   const close = q('.ch-close');
   const foot = q('.foot');
-  const chapters = [open, ways, tools, prac, close];
+  const chapters = [open, ways, lab, tools, prac, close];
   const maxScroll = () => ScrollTrigger.maxScroll(window);
 
   const mm = gsap.matchMedia();
@@ -56,6 +57,7 @@ function start(open: HTMLElement) {
 
     const stOpen = pin(open, 1, opening(gsap.timeline({ paused: true })));
     pin(ways, 1.67, writing(gsap.timeline({ paused: true })));
+    pin(lab, 1.2, typing(gsap.timeline({ paused: true }), 'scrub'));
 
     // 具 Tools: the handscroll moves left while the chapter is pinned.
     const track = q('.track', tools);
@@ -156,6 +158,9 @@ function start(open: HTMLElement) {
 
     once(q('.ways-title', ways), rise(q('.ways-title', ways), 24));
     for (const tile of qa('.way', ways)) once(tile, writeOnce(tile), 'top 70%');
+
+    once(q('.lab-head', lab), rise(q('.lab-head', lab), 24));
+    once(q('.lab-term', lab), typing(gsap.timeline({ paused: true }), 'time'), 'top 75%');
 
     once(q('.tools-head', tools), rise(q('.tools-head', tools), 24));
     for (const tile of qa('.ink-tools, .tool-tile', tools)) once(tile, rise(tile, 28));
@@ -321,6 +326,30 @@ function start(open: HTMLElement) {
     tl.to(guide, { opacity: 0.4, duration: 0.3, ease: OUT }, end);
     tl.to(tile, { backgroundColor: WASHI, borderColor: LINE, duration: 0.4, ease: 'none' }, end + 0.1);
     tl.fromTo(q('.way-text', tile), { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: OUT }, end + 0.05);
+    return tl;
+  }
+
+  // 智 AI-Lab: the head and tiles rise, the command types itself one character at a time, then the report answers.
+  function typing(tl: gsap.core.Timeline, mode: 'scrub' | 'time') {
+    const head = q('.lab-head', lab);
+    const term = q('.lab-term', lab);
+    const copy = q('.lab-copy', lab);
+    const chars = qa('.term-type .ch', term);
+    const report = q('.reel', term);
+    const steps = qa('.lab-steps li', copy);
+    if (mode === 'scrub') {
+      seg(tl, head, { y: 24, opacity: 0 }, { y: 0, opacity: 1 }, 0, 0.1);
+      seg(tl, [term, copy], { y: 30, opacity: 0 }, { y: 0, opacity: 1 }, 0.04, 0.16);
+      chars.forEach((c, i) => tl.fromTo(c, { opacity: 0 }, { opacity: 1, duration: 0.004, ease: 'none' }, 0.16 + (i * 0.3) / chars.length));
+      seg(tl, report, { y: 24, opacity: 0 }, { y: 0, opacity: 1 }, 0.5, 0.66);
+      steps.forEach((li, i) => seg(tl, li, { y: 14, opacity: 0 }, { y: 0, opacity: 1 }, 0.3 + i * 0.12, 0.4 + i * 0.12));
+      return tl.set({}, {}, 1);
+    }
+    tl.fromTo([term, copy], { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: OUT }, 0);
+    chars.forEach((c, i) => tl.fromTo(c, { opacity: 0 }, { opacity: 1, duration: 0.01, ease: 'none' }, 0.3 + i * 0.03));
+    const end = 0.3 + chars.length * 0.03;
+    tl.fromTo(report, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: OUT }, end + 0.1);
+    steps.forEach((li, i) => tl.fromTo(li, { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: OUT }, 0.3 + i * 0.15));
     return tl;
   }
 

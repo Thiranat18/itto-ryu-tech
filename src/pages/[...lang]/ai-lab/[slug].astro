@@ -1,0 +1,301 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ReportReel from '../../../components/ReportReel.astro';
+import { skillsIn, type Skill } from '../../../data/skills';
+import { indicatorsIn } from '../../../data/indicators';
+import { LANGS, fill, formatDate, langParam, localize, t, type Lang } from '../../../i18n';
+
+export function getStaticPaths() {
+  return LANGS.flatMap((lang) =>
+    skillsIn(lang).map((skill) => ({ params: { lang: langParam(lang), slug: skill.slug }, props: { skill, lang } })),
+  );
+}
+
+const { skill: s, lang } = Astro.props as { skill: Skill; lang: Lang };
+const copy = t(lang).skill;
+const edu = t(lang).tool.edu;
+const companion = indicatorsIn(lang).find((i) => i.slug === s.companion);
+const released = formatDate(lang, s.released);
+const routeTag = [s.routes.recommended, '', '', s.routes.advanced];
+---
+
+<Layout title={s.name} description={s.summary} bodyClass="p-ai-lab">
+  <header class="tile tile-fill tile-big span-3 tool-head">
+    <a class="back" href={localize(lang, '/ai-lab')}><span aria-hidden="true">← </span>{copy.back}</a>
+    <div class="meta">
+      <span class="cat">{s.kind}</span>
+      <span class="lic">{t(lang).aiLab.free}</span>
+      <span class="lic">v{s.version}</span>
+    </div>
+    <h1>{s.name}</h1>
+    <span class="cut" aria-hidden="true"></span>
+    <p class="lede">{s.summary}</p>
+    <p class="skill-state">{s.stateOnly}</p>
+    <div class="code code-hero" lang="en">
+      <code>{s.command} BTCUSD</code>
+      <button class="copy" type="button" data-copy={`${s.command} BTCUSD`} data-done={copy.copied}>{copy.copy}</button>
+    </div>
+    <p class="byline">{copy.by} · {copy.released} <time datetime={s.released}>{released}</time> · {s.language}</p>
+  </header>
+
+  <aside class="tile tile-ink rows-2 aside" aria-label={copy.asideLabel}>
+    <p class="ink-label">{copy.asideLabel}</p>
+    <a class="btn btn-light" href={s.zip.href} download data-event="skill_download" data-skill={s.slug}>{copy.download}</a>
+    <p class="listed">{fill(copy.zipMeta, { v: s.version, size: s.zip.sizeKB, licence: s.licence })}</p>
+    <p>
+      <a class="text-link" href={s.guide.href} target="_blank" rel="noopener" data-event="skill_guide" data-skill={s.slug}
+        >{copy.guide}</a
+      >
+    </p>
+    <hr />
+    <div class="stack-s">
+      <h2>{copy.requirements}</h2>
+      <ul class="dash ink-dash">{s.requirements.map((r) => <li>{r}</li>)}</ul>
+      <p class="quiet">{s.noNeed}</p>
+    </div>
+    {
+      companion && (
+        <div class="stack-s">
+          <p class="quiet">{copy.companion}</p>
+          <p>
+            <a class="text-link" href={localize(lang, `/tools/${companion.slug}`)}>{companion.name}</a>
+          </p>
+        </div>
+      )
+    }
+    <img class="aside-kiko" src="/kiko-light.svg" width="66" height="110" loading="lazy" alt="" />
+    <p class="edu">{edu}</p>
+  </aside>
+
+  <section class="tile tile-line span-3 guide" aria-labelledby="what">
+    <span class="kanji-mark k-grow" lang="ja" aria-hidden="true">一目</span>
+    <h2 id="what">{copy.whatTitle}</h2>
+    <ul class="features">
+      {
+        s.features.map((f) => (
+          <li>
+            <h3>{f.title}</h3>
+            <p>{f.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="span-4 install" aria-labelledby="install">
+    <div class="section-head">
+      <span class="kanji-mark k-wait" lang="ja" aria-hidden="true">導入</span>
+      <h2 id="install">{copy.installTitle}</h2>
+      <p>{copy.installLede}</p>
+    </div>
+    <div class="install-cols">
+      <div class="tile tile-fill guide">
+        <h3 class="col-title">{s.installApp.title}</h3>
+        <ol class="manual-steps">{s.installApp.steps.map((step) => <li>{step}</li>)}</ol>
+        <p class="guide-note">{s.installApp.note}</p>
+      </div>
+      <div class="tile tile-fill guide">
+        <h3 class="col-title">{s.installCode.title}</h3>
+        <ol class="manual-steps">{s.installCode.steps.map((step) => <li>{step}</li>)}</ol>
+        <div class="code" lang="en">
+          <code>{s.installCode.path}</code>
+          <button class="copy" type="button" data-copy={s.installCode.path} data-done={copy.copied}>{copy.copy}</button>
+        </div>
+      </div>
+    </div>
+    <p class="guide-note">{s.update}</p>
+  </section>
+
+  <section class="tile tile-line span-4 guide" aria-labelledby="use">
+    <span class="kanji-mark k-wait" lang="ja" aria-hidden="true">使い方</span>
+    <h2 id="use">{copy.firstRunTitle}</h2>
+    <div class="use-grid">
+      <div>
+        <ol class="manual-steps">{s.firstRun.map((step) => <li>{step}</li>)}</ol>
+        <p class="guide-lede">{s.defaults}</p>
+      </div>
+      <div>
+        <h3 class="col-title">{copy.useTitle}</h3>
+        <div class="code code-wrap" lang="en">
+          <code>{s.syntax}</code>
+        </div>
+        <ul class="cmds">
+          {
+            s.commands.map((c) => (
+              <li>
+                <div class="code code-s" lang="en">
+                  <code>{c.cmd}</code>
+                  <button class="copy" type="button" data-copy={c.cmd} data-done={copy.copied}>{copy.copy}</button>
+                </div>
+                <p>{c.what}</p>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="guide-note">{s.plainWords}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tile tile-line span-2 guide" aria-labelledby="modes">
+    <span class="kanji-mark k-wait" lang="ja" aria-hidden="true">速 · 全</span>
+    <h2 id="modes">{copy.modesTitle}</h2>
+    <div class="table-scroll" tabindex="0" role="region" aria-labelledby="modes">
+      <table class="settings sk-table">
+        <thead>
+          <tr>{s.modes.cols.map((c) => <th scope="col">{c}</th>)}</tr>
+        </thead>
+        <tbody>
+          {
+            s.modes.rows.map(([name, ...cells]) => (
+              <tr>
+                <th scope="row">{name}</th>
+                {cells.map((c) => <td>{c}</td>)}
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="guide-note">{s.modes.note}</p>
+  </section>
+
+  <section class="tile tile-line span-2 guide" aria-labelledby="match">
+    <span class="kanji-mark k-wait" lang="ja" aria-hidden="true">合わせる</span>
+    <h2 id="match">{copy.matchTitle}</h2>
+    <p>{s.matchText}</p>
+    <dl class="manual-presets">
+      {
+        s.presets.map((p) => (
+          <div>
+            <dt>{p.name}</dt>
+            <dd>{p.values}</dd>
+            <dd class="use">{p.use}</dd>
+          </div>
+        ))
+      }
+    </dl>
+    <p class="guide-note">{copy.colPeriods}</p>
+    <p>{s.liveBar}</p>
+    <p class="guide-note">{s.otherInputs}</p>
+  </section>
+
+  <section class="tile tile-line span-4 guide" aria-labelledby="routes">
+    <span class="kanji-mark k-wait" lang="ja" aria-hidden="true">道</span>
+    <h2 id="routes">{copy.routesTitle}</h2>
+    <div class="table-scroll" tabindex="0" role="region" aria-labelledby="routes">
+      <table class="settings sk-table">
+        <thead>
+          <tr>{s.routes.cols.map((c) => <th scope="col">{c}</th>)}</tr>
+        </thead>
+        <tbody>
+          {
+            s.routes.rows.map(([name, ...cells], i) => (
+              <tr>
+                <th scope="row">
+                  {name}
+                  {routeTag[i] && <span class={i === 0 ? 'tag tag-on' : 'tag'}>{routeTag[i]}</span>}
+                </th>
+                {cells.map((c) => <td>{c}</td>)}
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="guide-note">{s.routes.note}</p>
+  </section>
+
+  <section class="tile tile-line span-4 guide" aria-labelledby="report">
+    <span class="kanji-mark k-wait" lang="ja" aria-hidden="true">読み</span>
+    <h2 id="report">{copy.reportTitle}</h2>
+    <div class="sample">
+      <p class="sample-title">{s.sample.title}</p>
+      <ReportReel slides={s.reel} />
+    </div>
+    <ol class="report-list">
+      {
+        s.report.rows.map(([name, text]) => (
+          <li>
+            <h3>{name}</h3>
+            <p>{text}</p>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="guide-note">{s.report.note}</p>
+  </section>
+
+  <section class="tile tile-fill span-4 guide manual" aria-labelledby="guide-title">
+    <a class="manual-cover" href={s.guide.href} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+      <img src={s.guide.cover} width="707" height="1000" loading="lazy" decoding="async" alt="" />
+    </a>
+    <div class="manual-body">
+      <p class="manual-eyebrow"><span class="kanji-mark k-wait" lang="ja" aria-hidden="true">巻</span>{copy.guideEyebrow}</p>
+      <h2 id="guide-title">{s.name} · User Guide</h2>
+      <p>{s.guideSummary}</p>
+      <h3 id="config">{copy.configTitle}</h3>
+      <p>{s.configText}</p>
+      <pre class="code code-block" lang="en"><code>{s.config}</code></pre>
+      <div class="manual-act">
+        <a class="btn btn-primary" href={s.guide.href} target="_blank" rel="noopener" data-event="skill_guide" data-skill={s.slug}
+          >{copy.guideRead}</a
+        >
+        <a class="btn btn-ghost" href={s.guide.href} download data-event="skill_guide_download" data-skill={s.slug}
+          >{copy.guideDownload}</a
+        >
+      </div>
+      <p class="guide-note">{fill(copy.guideMeta, { pages: s.guide.pages, size: s.guide.sizeKB })}</p>
+    </div>
+  </section>
+
+  <section class="span-4 qa-sec" aria-labelledby="trouble">
+    <h2 id="trouble">{copy.troubleTitle}</h2>
+    <dl class="qa">
+      {
+        s.trouble.map((item) => (
+          <div>
+            <dt>{item.q}</dt>
+            <dd>{item.a}</dd>
+          </div>
+        ))
+      }
+    </dl>
+    <h2 id="faq" class="qa-next">{copy.faqTitle}</h2>
+    <dl class="qa">
+      {
+        s.faq.map((item) => (
+          <div>
+            <dt>{item.q}</dt>
+            <dd>{item.a}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  <div class="tile tile-line span-4 sk-disc">
+    <p class="disc">{copy.disclaimer}</p>
+  </div>
+
+  <script>
+    for (const el of document.querySelectorAll<HTMLElement>('[data-event]')) {
+      el.addEventListener('click', () => {
+        const { event, ...data } = el.dataset;
+        (window as { va?: (type: string, payload: object) => void }).va?.('event', { name: event, data });
+      });
+    }
+    for (const btn of document.querySelectorAll<HTMLButtonElement>('button[data-copy]')) {
+      const label = btn.textContent;
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(btn.dataset.copy ?? '');
+          btn.textContent = btn.dataset.done ?? label;
+          setTimeout(() => (btn.textContent = label), 1600);
+        } catch {
+          /* Clipboard blocked: the text stays selectable. */
+        }
+      });
+    }
+  </script>
+</Layout>

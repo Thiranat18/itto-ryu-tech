@@ -1,0 +1,119 @@
+{
+  "name": "Ichimoku Itto Read",
+  "kind": "Claude Skill",
+  "summary": "พิมพ์ชื่อสินทรัพย์ แล้ว Claude จะสร้างตาราง Ichimoku Itto บน 1H, 4H, 1D และ 1W ขึ้นมาใหม่ เพิ่มองค์ประกอบ Ichimoku แบบคลาสสิก และอธิบายสถานะตามหลักการ ทั้งเป็นสรุปในแชตและรายงาน HTML ที่อ่านง่าย",
+  "stateOnly": "บอกเฉพาะสถานะเท่านั้น ไม่มีคำแนะนำซื้อขาย จุดเข้า จุดตัดขาดทุน หรือเป้าหมาย คุณเป็นผู้ตัดสินใจทุกอย่างเอง",
+  "language": "ฉบับภาษาอังกฤษ: skill เขียนรายงานเป็นภาษาอังกฤษ",
+  "features": [
+    { "title": "ตาราง Ichimoku Itto", "text": "Score, Zone, Kumo, แถว 1H / 4H / D / W และ Trend คำนวณด้วยกฎเดียวกับ indicator" },
+    { "title": "ที่มาของ Score", "text": "การตรวจ 5 ข้อเบื้องหลัง Score: Kumo, Tenkan/Kijun, Chikou, Kumo อนาคต และความชันของ Kijun" },
+    { "title": "Ichimoku แบบคลาสสิก", "text": "ราคาเทียบ Kumo, Tenkan เทียบ Kijun, Chikou, Kumo อนาคต และ Sanyaku 三役 ในทุก timeframe" },
+    { "title": "เครื่องหมายและ magnet", "text": "เครื่องหมาย Strong Up / Down และ 3/3 Aligned ล่าสุด พร้อมระดับ Kijun และ Span B ที่แบนราบ" },
+    { "title": "จุดเปลี่ยนสถานะ", "text": "ราคาที่องค์ประกอบจะเปลี่ยนสถานะ ใช้บอกสถานะ ไม่ใช่ระดับสำหรับเทรด" },
+    { "title": "สองด้าน น้ำหนักเท่ากัน", "text": "อะไรสนับสนุนสถานะปัจจุบัน และอะไรที่ควรเฝ้าดูว่าสถานะจะเปลี่ยน" }
+  ],
+  "requirements": [
+    "Claude แพ็กเกจใดก็ได้ที่รองรับ Skills (เว็บ เดสก์ท็อป หรือมือถือ) หรือ Claude Code",
+    "เปิด Code execution ใน Claude",
+    "แหล่งข้อมูลราคาหนึ่งทาง: TradingView connector, ไฟล์ CSV หรือภาพหน้าจอ"
+  ],
+  "noNeed": "ไม่ต้องใช้ API key และไม่ต้องติดตั้งแพ็กเกจ Python สคริปต์ใช้แค่ Python standard library และไม่ดาวน์โหลดอะไรระหว่างทำงาน",
+  "installApp": {
+    "title": "Claude (เว็บ / เดสก์ท็อป)",
+    "steps": [
+      "ดาวน์โหลด ichimoku-itto-read-en.zip จากหน้านี้ ไม่ต้องแตกไฟล์",
+      "ใน Claude เปิด Settings → Capabilities แล้วเปิด Code execution and file creation (หน้าตาใหม่ใช้ชื่อ Create and edit files)",
+      "ไปที่ Customize → Skills กด + → Create skill → Upload a skill แล้วเลือกไฟล์ zip",
+      "ตรวจว่าเปิดใช้ skill แล้ว เพื่อดึงข้อมูลได้ง่ายที่สุด ให้เพิ่ม TradingView connector ด้วย"
+    ],
+    "note": "แพ็กเกจ Team หรือ Enterprise: เจ้าของ organization ต้องอนุญาต Skills และ Code execution ก่อน"
+  },
+  "installCode": {
+    "title": "Claude Code",
+    "steps": [
+      "แตกไฟล์ ichimoku-itto-read-en.zip",
+      "คัดลอกโฟลเดอร์ให้ไฟล์อยู่ที่ path ด้านล่าง",
+      "เปิด Claude Code แล้วพิมพ์คำสั่ง เช่น ichimoku-itto-read-en XAUUSD"
+    ],
+    "path": "~/.claude/skills/ichimoku-itto-read-en/SKILL.md"
+  },
+  "update": "อัปเดตเวอร์ชัน: ลบ skill เดิมออก แล้วอัปโหลด zip ใหม่ (หรือแทนที่โฟลเดอร์ใน Claude Code)",
+  "firstRun": [
+    "เชื่อมต่อ TradingView connector ใน Claude หรือเตรียมไฟล์ CSV หรือภาพหน้าจอชาร์ตไว้",
+    "เริ่มแชตใหม่แล้วพิมพ์คำสั่ง",
+    "Claude ดึงแท่งราคา 1H, 4H, 1D และ 1W รันสคริปต์ แล้วตอบกลับด้วยสรุปและรายงาน HTML"
+  ],
+  "defaults": "ไม่ถามคำถามตั้งค่าก่อน skill จะรันด้วยค่าเริ่มต้น (Quick mode, preset Classic 9/26/52/26, timeframe ชาร์ต 1D) และหัวรายงานทุกฉบับจะบอกค่าที่ใช้พร้อมคำสั่งสำหรับเปลี่ยน ถ้าสินทรัพย์ซื้อขายในหลายตลาด Claude จะถามครั้งเดียวว่าหมายถึงตลาดไหน",
+  "syntax": "ichimoku-itto-read-en <SYMBOL> [chart TF] [preset] [quick | full]",
+  "commands": [
+    { "cmd": "ichimoku-itto-read-en BTCUSD", "what": "Quick mode, preset Classic, 1D" },
+    { "cmd": "ichimoku-itto-read-en OANDA:XAUUSD full", "what": "ครบทุกช่อง รวม Kumo Thin / Normal / Thick" },
+    { "cmd": "ichimoku-itto-read-en BTCUSD crypto", "what": "preset Crypto 20/60/120/30" },
+    { "cmd": "ichimoku-itto-read-en NYSE:BB 5-day", "what": "preset 5-Day Week 7/22/44/22" },
+    { "cmd": "ichimoku-itto-read-en EURUSD 4H", "what": "Score / Zone / Kumo / Trend จากแท่ง 4H" }
+  ],
+  "plainWords": "พิมพ์เป็นประโยคธรรมดาก็ได้ เช่น \"read gold in detail\" ใส่ชื่อตลาดนำหน้า (NASDAQ:AAPL) เพื่อข้ามคำถามเรื่องตลาด",
+  "modes": {
+    "cols": ["", "Quick (ค่าเริ่มต้น)", "Full"],
+    "rows": [
+      ["จำนวนแท่งที่ดึง", "90 แท่งต่อ timeframe (Crypto 160)", "340 แท่งบน timeframe ชาร์ต (Crypto 410)"],
+      ["Kumo Thin / Normal / Thick", "\"— (full mode)\"", "มี คำนวณ percent rank จาก 252 แท่ง"],
+      ["เครื่องหมายและ magnet", "ภายในแท่งที่ดึงมา", "ภายในประมาณ 340 แท่ง"],
+      ["ความเร็วและการใช้งาน", "เบากว่า", "หนักกว่า"]
+    ],
+    "note": "ทั้งสองโหมดให้ Score, Zone, Trend, แถว timeframe และองค์ประกอบคลาสสิกเหมือนกัน เติม full ท้ายคำสั่งใดก็ได้"
+  },
+  "presets": [
+    { "name": "Classic", "values": "9 / 26 / 52 / 26", "use": "ค่าเริ่มต้น" },
+    { "name": "5-Day Week", "values": "7 / 22 / 44 / 22", "use": "ตลาดที่เปิด 5 วันต่อสัปดาห์" },
+    { "name": "Crypto", "values": "20 / 60 / 120 / 30", "use": "ตลาดที่เปิด 24/7" }
+  ],
+  "matchText": "skill คำนวณจากข้อมูลราคา จึงต้องใช้ preset และ input เดียวกับ Ichimoku Itto บน TradingView ของคุณ ถ้าไม่ตรงกัน ตัวเลขจะต่างกัน",
+  "liveBar": "เหมือน indicator คือแถว 1H / 4H / D / W ใช้แท่งล่าสุดที่ปิดแล้วของแต่ละ timeframe ส่วน Score, Zone, Kumo และ Trend ใช้แท่งปัจจุบัน ค่าที่อ่านระหว่างแท่งยังไม่ปิดอาจเปลี่ยนได้",
+  "otherInputs": "เปลี่ยน input อื่นไว้ (Kijun slope, Strong threshold, Chop band, magnet)? ตั้งค่าเดียวกันใน config.yaml หรือบอกในคำสั่ง",
+  "routes": {
+    "cols": ["ช่องทาง", "สิ่งที่ต้องมี", "สิ่งที่ได้"],
+    "rows": [
+      ["TradingView connector", "เพิ่ม connector ใน Claude", "ได้ครบทุกส่วน ไม่ต้องเปิด TradingView"],
+      ["CSV", "ไฟล์ export ชาร์ต 1H, 4H, 1D และ 1W", "ได้ครบทุกส่วน จากไฟล์ของคุณ"],
+      ["ภาพหน้าจอ", "ภาพชาร์ตที่เห็นตาราง dashboard", "ตารางที่อ่านจากภาพ และให้คุณยืนยันตัวเลข"],
+      ["อ่านจากชาร์ต", "TradingView desktop MCP ที่อ่านตาราง Pine ได้", "ตารางจริงพร้อมการเทียบความตรงกัน (parity check)"]
+    ],
+    "recommended": "แนะนำ",
+    "advanced": "ขั้นสูง",
+    "note": "เมื่ออ่านจากชาร์ต skill อ่านอย่างเดียว ไม่เปลี่ยนสินทรัพย์ timeframe layout indicator สคริปต์ alert หรือเส้นที่วาดไว้"
+  },
+  "sample": {
+    "title": "ตัวอย่างรายงาน"
+  },
+  "report": {
+    "cols": ["ส่วน", "บอกอะไร"],
+    "rows": [
+      ["ป้ายโหมดและค่าที่ใช้", "Quick หรือ Full, preset, timeframe, วันที่ของข้อมูล และวิธีเปลี่ยน ดูส่วนนี้ก่อน"],
+      ["สรุป 総括", "timeframe ต่างๆ สอดคล้องกันหรือไม่ และไปทางไหน"],
+      ["Dashboard", "ตาราง Ichimoku Itto ระบุว่าคำนวณเอง หรืออ่านจากชาร์ตหรือภาพ"],
+      ["แถบสถานะ 状態", "หนึ่งแถวต่อ timeframe: Kumo, Tenkan/Kijun, Chikou, Kumo อนาคต, Sanyaku"],
+      ["บันไดราคา 水準", "Close, Tenkan, Kijun และขอบ Kumo บนสเกลเดียวกัน"],
+      ["จุดเปลี่ยน 変化点", "ราคาที่องค์ประกอบเปลี่ยนสถานะ ไม่ใช่ระดับสำหรับเทรด"],
+      ["สองด้าน 陽 · 陰", "อะไรสนับสนุนสถานะ และอะไรจะเปลี่ยนมัน จะกลายเป็น \"What to watch\" เมื่อเป็น Chop หรือ timeframe ไม่ตรงกัน"],
+      ["บทเรียน 学び", "หนึ่งหลักการในภาษาง่ายๆ ติดป้าย Classic หรือ Itto"]
+    ],
+    "note": "Classic คือความรู้ Ichimoku Kinkō Hyō มาตรฐาน ส่วน Itto คือกฎของ Ichimoku Itto ที่มาจากโค้ด open-source ของ indicator ถ้าต้องการไฟล์ ใช้คำสั่ง Print → Save as PDF ในเบราว์เซอร์"
+  },
+  "config": "jp_accents: true          # Japanese terms next to English names\nmode: quick               # quick | full\nchart_tf: 1D              # timeframe for Score / Zone / Kumo / Trend\ndashboard_tfs: [1H, 4H, 1D, 1W]\npreset: Classic           # Classic | 5-Day Week | Crypto\nindicator_inputs: {kijun_slope: 5, strong_threshold: 4, chop_band: 1, magnet_flat_bars: 8, magnet_keep: 6}\nsymbol_defaults:          # skip the exchange question\n  XAUUSD: OANDA:XAUUSD\n  BTCUSD: BITSTAMP:BTCUSD\nhtml_report: true",
+  "configText": "ไฟล์ config.yaml ในโฟลเดอร์ skill เก็บค่าเริ่มต้นของคุณ แก้ไขก่อน zip หรือบอกค่าที่ต้องการในคำสั่งได้เลย",
+  "trouble": [
+    { "q": "skill ไม่ทำงาน", "a": "ตรวจว่าเปิด skill ไว้ใน Customize → Skills และเปิด code execution แล้ว จากนั้นเริ่มแชตใหม่" },
+    { "q": "ขึ้นว่า \"No data route available\"", "a": "เพิ่ม TradingView connector หรือแนบไฟล์ CSV หรือภาพหน้าจอ" },
+    { "q": "ตัวเลขไม่ตรงกับชาร์ต", "a": "ตรวจสินทรัพย์และตลาด preset และ input และดูว่าแท่งยังไม่ปิดหรือเปล่า ใน Quick mode ช่อง Kumo จะแสดง \"— (full mode)\"" },
+    { "q": "มีบรรทัด ⚠ parity ในรายงาน", "a": "ตารางจริงกับที่คำนวณได้ไม่ตรงกัน รายงานจะบอกว่าค่าไหน ให้ตรวจสินทรัพย์ preset และ input" },
+    { "q": "อัปโหลดไม่ผ่าน", "a": "อัปโหลด zip ตามที่ดาวน์โหลดมา และอย่าเปลี่ยนชื่อโฟลเดอร์ข้างใน" }
+  ],
+  "faq": [
+    { "q": "ให้สัญญาณซื้อขายไหม", "a": "ไม่ให้ skill อ่านสถานะตามหลักการ มีตัวตรวจในตัวที่กันคำแนะนำการลงทุนก่อนแสดงผล และทุกรายงานปิดท้ายด้วยข้อจำกัดความรับผิดชอบ" },
+    { "q": "ต้องใช้ TradingView Premium หรือต้องมี indicator บนชาร์ตไหม", "a": "ไม่ต้อง ถ้าใช้ connector หรือ CSV skill จะคำนวณตารางเอง เพิ่ม Ichimoku Itto บน TradingView ถ้าอยากเห็นภาพและเทียบค่า" },
+    { "q": "ใช้กับตลาดไหนได้บ้าง", "a": "ทุกตลาดที่มีข้อมูล OHLCV: forex โลหะ คริปโต หุ้น ดัชนี และ futures" },
+    { "q": "ข้อมูลของฉันถูกส่งไปที่อื่นไหม", "a": "สคริปต์ทำงานใน code environment ของ Claude และไม่เชื่อมต่อเครือข่าย ข้อมูลราคามาจากช่องทางที่คุณใช้เท่านั้น" }
+  ],
+  "guideSummary": "ทุกอย่างในหน้านี้อยู่ใน PDF 9 หน้า (ภาษาอังกฤษ): การติดตั้ง คำสั่ง โหมด ช่องทางข้อมูล รายงานทีละส่วน การตั้งค่า การแก้ปัญหา และคำถามที่พบบ่อย"
+}
