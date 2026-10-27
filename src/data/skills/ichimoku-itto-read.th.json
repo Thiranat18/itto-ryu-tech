@@ -39,7 +39,7 @@
   },
   "update": "อัปเดตเวอร์ชัน: ลบ skill เดิมออก แล้วอัปโหลด zip ใหม่ (หรือแทนที่โฟลเดอร์ใน Claude Code)",
   "presetGuide": {
-    "lede": "skill อ่านด้วย preset Classic บน 1D ถ้าไม่ได้ระบุอย่างอื่น ตั้ง preset, chart TF และแถว TF ให้ตรงกับ Ichimoku Itto ของคุณก่อนใช้ครั้งแรก ไม่อย่างนั้นตัวเลขจะไม่ตรงกับชาร์ต",
+    "lede": "skill อ่านด้วย preset Classic บน 1D ถ้าไม่ได้ระบุอย่างอื่น ตั้ง preset, chart TF และแถว TF ให้ตรงกับ Ichimoku Itto ของคุณก่อนใช้ครั้งแรก ไม่อย่างนั้นตัวเลขจะไม่ตรงกับชาร์ต ตั้งแต่ v0.3.3 ทุกรายงานจะมีบรรทัด Guide tip บอก preset ที่คู่มือนี้ใช้กับตลาดและ chart TF ของคุณ โดย skill จะไม่เปลี่ยน preset ให้เอง",
     "principle": "เลือก preset ตาม Decision TF คือ timeframe ที่คุณใช้ตัดสินใจ และ preset ยังกำหนดทุกแถวของตาราง MTF ด้วย",
     "decide": [
       {

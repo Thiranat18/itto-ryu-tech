@@ -30,12 +30,12 @@ const SKILLS = [
   {
     slug: 'ichimoku-itto-read',
     command: 'ichimoku-itto-read-en',
-    version: '0.3.2',
-    released: '2026-10-26',
+    version: '0.3.3',
+    released: '2026-10-27',
     licence: 'MPL-2.0',
     /** The indicator the skill reads, by its /tools slug. */
     companion: 'ichimoku-itto',
-    zip: { href: '/ai-lab/ichimoku-itto-read-en.zip', sizeKB: 44 },
+    zip: { href: '/ai-lab/ichimoku-itto-read-en.zip', sizeKB: 49 },
     guide: { href: '/ai-lab/ichimoku-itto-read-user-guide.pdf', cover: '/ai-lab/ichimoku-itto-read-guide-cover.jpg', pages: 9, sizeKB: 295 },
     /** Sample report sections the reel rotates through: price levels are cut out of every image. */
     reel: [

@@ -39,7 +39,7 @@
   },
   "update": "To update: remove the old skill, then upload the new zip (or replace the folder in Claude Code).",
   "presetGuide": {
-    "lede": "The skill reads with Classic on 1D unless you say otherwise. Set the preset, chart TF and TF rows to match your Ichimoku Itto before the first run, or the numbers will not match your chart.",
+    "lede": "The skill reads with Classic on 1D unless you say otherwise. Set the preset, chart TF and TF rows to match your Ichimoku Itto before the first run, or the numbers will not match your chart. From v0.3.3 every report adds a Guide tip that names the preset this guide uses for your market and chart TF; the skill never switches it on its own.",
     "principle": "Choose the preset by your Decision TF, the timeframe you make decisions on. It also drives every row of the MTF table.",
     "decide": [
       {
