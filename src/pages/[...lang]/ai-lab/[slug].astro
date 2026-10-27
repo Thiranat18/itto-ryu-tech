@@ -16,6 +16,7 @@ const copy = t(lang).skill;
 const edu = t(lang).tool.edu;
 const companion = indicatorsIn(lang).find((i) => i.slug === s.companion);
 const released = formatDate(lang, s.released);
+const g = s.presetGuide;
 const routeTag = [s.routes.recommended, '', '', s.routes.advanced];
 ---
 
@@ -106,6 +107,88 @@ const routeTag = [s.routes.recommended, '', '', s.routes.advanced];
     <p class="guide-note">{s.update}</p>
   </section>
 
+  <section class="tile tile-fill span-4 guide preset-guide" id="preset" aria-labelledby="preset-title">
+    <p class="manual-eyebrow"><span class="kanji-mark k-cut" lang="ja" aria-hidden="true">先</span>{copy.presetEyebrow}</p>
+    <h2 id="preset-title">{copy.presetTitle}</h2>
+    <p class="preset-lede">{g.lede}</p>
+    <p class="preset-principle">{g.principle}</p>
+
+    <ol class="decide">
+      {
+        g.decide.map((d) => (
+          <li>
+            <p class="decide-when">{d.when}</p>
+            <p class="decide-market">{d.market}</p>
+            <p class="decide-preset">
+              {d.preset} <span>{s.presets.find((p) => p.name === d.preset)?.values}</span>
+            </p>
+            <p class="decide-check">{d.check}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="markets">
+      {
+        g.markets.map((m) => (
+          <div class="market">
+            <h3>{m.market}</h3>
+            <p class="market-note">{m.note}</p>
+            {m.styles.map((st) => (
+              <div class="mstyle">
+                <p class="mstyle-head">
+                  <b>{st.style}</b> <span>{st.hold}</span>
+                </p>
+                <p class="layers" aria-label={g.layersLabel}>
+                  {st.layers.map((tf, i) => (
+                    <span class={i === 1 ? 'tf tf-decide' : 'tf'}>{tf}</span>
+                  ))}
+                </p>
+                <dl class="mstyle-dl">
+                  <div><dt>{g.presetLabel}</dt><dd>{st.preset}</dd></div>
+                  <div><dt>{g.rowsLabel}</dt><dd>{st.rows}</dd></div>
+                </dl>
+                <div class="code code-s" lang="en">
+                  <code>{st.cmd}</code>
+                  <button class="copy" type="button" data-copy={st.cmd} data-done={copy.copied}>{copy.copy}</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+    <p class="guide-note layers-key"><span class="tf tf-decide">D</span> = Decision TF · {g.layersLabel}</p>
+
+    <div class="preset-foot">
+      <div>
+        <h3>{copy.matchTitle}</h3>
+        <p>{g.chartTf}</p>
+        <p>{g.tfRows}</p>
+        <p>{s.liveBar}</p>
+        <p>{s.otherInputs}</p>
+      </div>
+      <div>
+        <h3>{g.saveTitle}</h3>
+        <ul class="dash">{g.save.map((x) => <li>{x}</li>)}</ul>
+        <h3>{g.crossTitle}</h3>
+        <p>{g.cross}</p>
+        {
+          g.crossCmds.map((c) => (
+            <div class="code code-s" lang="en">
+              <code>{c}</code>
+              <button class="copy" type="button" data-copy={c} data-done={copy.copied}>{copy.copy}</button>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <p class="guide-note">
+      {g.manualNote} ·{' '}
+      <a class="text-link" href={localize(lang, '/tools/ichimoku-itto#manual')}>{g.manualLink}</a>
+    </p>
+  </section>
+
   <section class="tile tile-line span-4 guide" aria-labelledby="use">
     <span class="kanji-mark k-wait" lang="ja" aria-hidden="true">使い方</span>
     <h2 id="use">{copy.firstRunTitle}</h2>
@@ -137,7 +220,7 @@ const routeTag = [s.routes.recommended, '', '', s.routes.advanced];
     </div>
   </section>
 
-  <section class="tile tile-line span-2 guide" aria-labelledby="modes">
+  <section class="tile tile-line span-4 guide" aria-labelledby="modes">
     <span class="kanji-mark k-wait" lang="ja" aria-hidden="true">速 · 全</span>
     <h2 id="modes">{copy.modesTitle}</h2>
     <div class="table-scroll" tabindex="0" role="region" aria-labelledby="modes">
@@ -158,26 +241,6 @@ const routeTag = [s.routes.recommended, '', '', s.routes.advanced];
       </table>
     </div>
     <p class="guide-note">{s.modes.note}</p>
-  </section>
-
-  <section class="tile tile-line span-2 guide" aria-labelledby="match">
-    <span class="kanji-mark k-wait" lang="ja" aria-hidden="true">合わせる</span>
-    <h2 id="match">{copy.matchTitle}</h2>
-    <p>{s.matchText}</p>
-    <dl class="manual-presets">
-      {
-        s.presets.map((p) => (
-          <div>
-            <dt>{p.name}</dt>
-            <dd>{p.values}</dd>
-            <dd class="use">{p.use}</dd>
-          </div>
-        ))
-      }
-    </dl>
-    <p class="guide-note">{copy.colPeriods}</p>
-    <p>{s.liveBar}</p>
-    <p class="guide-note">{s.otherInputs}</p>
   </section>
 
   <section class="tile tile-line span-4 guide" aria-labelledby="routes">

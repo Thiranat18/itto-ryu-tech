@@ -38,6 +38,170 @@
     "path": "~/.claude/skills/ichimoku-itto-read-en/SKILL.md"
   },
   "update": "To update: remove the old skill, then upload the new zip (or replace the folder in Claude Code).",
+  "presetGuide": {
+    "lede": "The skill reads with Classic on 1D unless you say otherwise. Set the preset, chart TF and TF rows to match your Ichimoku Itto before the first run, or the numbers will not match your chart.",
+    "principle": "Choose the preset by your Decision TF, the timeframe you make decisions on. It also drives every row of the MTF table.",
+    "decide": [
+      {
+        "when": "Decision TF below Daily",
+        "market": "Any market",
+        "preset": "Classic",
+        "check": "Periods count bars, not days, so use the settings most traders watch."
+      },
+      {
+        "when": "Daily and above · 5-day market",
+        "market": "S50 · XAUUSD · US stocks",
+        "preset": "Classic",
+        "check": "Cross-check: 5-Day Week"
+      },
+      {
+        "when": "Daily and above · 7-day market",
+        "market": "BTC · ETH · other crypto",
+        "preset": "Crypto",
+        "check": "Cross-check: Classic"
+      }
+    ],
+    "layersLabel": "Direction · Decision · Timing",
+    "presetLabel": "Preset",
+    "rowsLabel": "TF rows",
+    "markets": [
+      {
+        "market": "S50",
+        "note": "SET50 index futures (TFEX). The lunch break makes 4H bars uneven, so 1H is used instead.",
+        "styles": [
+          {
+            "style": "Swing",
+            "hold": "~3–10 days",
+            "layers": [
+              "D",
+              "1H",
+              "15m"
+            ],
+            "preset": "Classic",
+            "rows": "15 / 60 / D / W",
+            "cmd": "ichimoku-itto-read-en TFEX:S501! 1H"
+          },
+          {
+            "style": "Trend",
+            "hold": "~1–4 months",
+            "layers": [
+              "W",
+              "D",
+              "1H"
+            ],
+            "preset": "Classic + 5-Day Week check",
+            "rows": "60 / D / W / M",
+            "cmd": "ichimoku-itto-read-en TFEX:S501! 1D"
+          }
+        ]
+      },
+      {
+        "market": "XAUUSD",
+        "note": "Open 23/5, so 5 daily bars a week: Classic, not Crypto. Stick to one data feed.",
+        "styles": [
+          {
+            "style": "Swing",
+            "hold": "~3–10 days",
+            "layers": [
+              "D",
+              "4H",
+              "1H"
+            ],
+            "preset": "Classic",
+            "rows": "60 / 240 / D / W",
+            "cmd": "ichimoku-itto-read-en OANDA:XAUUSD 4H"
+          },
+          {
+            "style": "Trend",
+            "hold": "~1–4 months",
+            "layers": [
+              "W",
+              "D",
+              "4H"
+            ],
+            "preset": "Classic + 5-Day Week check",
+            "rows": "240 / D / W / M",
+            "cmd": "ichimoku-itto-read-en OANDA:XAUUSD 1D"
+          }
+        ]
+      },
+      {
+        "market": "US stocks",
+        "note": "Daily stays the Decision TF even for swing, because of overnight and earnings gaps.",
+        "styles": [
+          {
+            "style": "Swing",
+            "hold": "~2–6 weeks",
+            "layers": [
+              "W",
+              "D",
+              "1H"
+            ],
+            "preset": "Classic + 5-Day Week check",
+            "rows": "60 / D / W / M",
+            "cmd": "ichimoku-itto-read-en NASDAQ:AAPL 1D"
+          },
+          {
+            "style": "Trend",
+            "hold": "several months+",
+            "layers": [
+              "M",
+              "W",
+              "D"
+            ],
+            "preset": "Classic",
+            "rows": "60 / D / W / M",
+            "cmd": "ichimoku-itto-read-en NASDAQ:AAPL 1W"
+          }
+        ]
+      },
+      {
+        "market": "Crypto",
+        "note": "7 daily bars a week, so Crypto on Daily and above. Weekly needs about 3 years of data.",
+        "styles": [
+          {
+            "style": "Swing",
+            "hold": "~3–10 days",
+            "layers": [
+              "D",
+              "4H",
+              "1H"
+            ],
+            "preset": "Classic",
+            "rows": "60 / 240 / D / W",
+            "cmd": "ichimoku-itto-read-en BITSTAMP:BTCUSD 4H"
+          },
+          {
+            "style": "Trend",
+            "hold": "~1–4 months",
+            "layers": [
+              "W",
+              "D",
+              "4H"
+            ],
+            "preset": "Crypto + Classic check",
+            "rows": "60 / 240 / D / W",
+            "cmd": "ichimoku-itto-read-en BITSTAMP:BTCUSD 1D crypto"
+          }
+        ]
+      }
+    ],
+    "chartTf": "The chart TF in the command is your Decision TF: Score, Zone, Kumo and Trend are read on it. Keep your TradingView chart on the same TF.",
+    "tfRows": "TF rows other than 60 / 240 / D / W: put them in config.yaml (dashboard_tfs), or say them in the request, for example \"TF rows 60/D/W/M\".",
+    "saveTitle": "Save your choice once",
+    "save": [
+      "config.yaml in the skill folder: preset, chart_tf and dashboard_tfs, before you zip and upload it.",
+      "Or your Claude project instructions or memory, for example \"For BTCUSD use the Crypto preset on 1D\"."
+    ],
+    "crossTitle": "Cross-check two presets",
+    "cross": "On Daily the guide pairs each preset with a second one. Run the skill twice and compare: if both read the same state, the reading is firmer; if they disagree, treat it as chop and wait.",
+    "crossCmds": [
+      "ichimoku-itto-read-en OANDA:XAUUSD 1D 5-day",
+      "ichimoku-itto-read-en BITSTAMP:BTCUSD 1D"
+    ],
+    "manualLink": "Full Timeframe & Preset Guide (PDF, 4 pages)",
+    "manualNote": "Settings guidance from the Ichimoku Itto manual. Starting points, not optimised values."
+  },
   "firstRun": [
     "Connect the TradingView connector in Claude, or have a CSV export or a chart screenshot ready.",
     "Start a new chat and type a command.",
@@ -68,7 +232,6 @@
     { "name": "5-Day Week", "values": "7 / 22 / 44 / 22", "use": "Markets that trade 5 days a week" },
     { "name": "Crypto", "values": "20 / 60 / 120 / 30", "use": "24/7 markets" }
   ],
-  "matchText": "The skill computes from price data, so it needs the same preset and inputs as your Ichimoku Itto on TradingView. If they differ, the numbers differ.",
   "liveBar": "Like the indicator, the 1H / 4H / D / W rows use each timeframe's latest closed bar, while Score, Zone, Kumo and Trend use the live bar. A reading taken mid-bar can change before the bar closes.",
   "otherInputs": "Changed other inputs (Kijun slope, Strong threshold, Chop band, magnets)? Set the same values in config.yaml, or say them in the request.",
   "routes": {

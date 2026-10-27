@@ -202,6 +202,8 @@
     "whatTitle": "ทำอะไรได้บ้าง",
     "installTitle": "การติดตั้ง",
     "installLede": "ใช้เวลาประมาณสองนาที ไม่ต้องใช้ API key ไม่ต้องติดตั้งแพ็กเกจ",
+    "presetTitle": "ตั้ง preset ก่อนใช้",
+    "presetEyebrow": "ทำก่อนใช้ครั้งแรก",
     "firstRunTitle": "ใช้ครั้งแรก",
     "useTitle": "คำสั่ง",
     "copy": "คัดลอก",

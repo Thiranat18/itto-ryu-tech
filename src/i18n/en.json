@@ -177,6 +177,8 @@
     "whatTitle": "What it does",
     "installTitle": "Install",
     "installLede": "About two minutes. No API keys, no packages.",
+    "presetTitle": "Set your preset first",
+    "presetEyebrow": "Before the first run",
     "firstRunTitle": "First run",
     "useTitle": "Commands",
     "copy": "Copy",

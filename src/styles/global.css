@@ -856,3 +856,47 @@ a.tile-fill:hover{background:var(--kinari-2)}
   .reel-play{margin-left:auto}
   .reel-dot{white-space:nowrap}
 }
+/* skill page: set your preset first (from the Timeframe & Preset Guide) */
+.preset-guide h2{margin-top:10px}
+.preset-lede{font-size:18px;max-width:760px}
+.guide .preset-principle{margin-top:10px;color:var(--usuzumi);border-left:1.5px solid var(--shu);padding-left:14px;max-width:760px}
+.decide{list-style:none;counter-reset:dec;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);margin-top:24px}
+.decide li{counter-increment:dec;position:relative;background:var(--washi);border:1px solid var(--line);border-radius:6px;padding:20px 22px 20px}
+.decide li::before{content:counter(dec);position:absolute;right:18px;top:14px;font-family:var(--serif);font-size:28px;color:var(--line)}
+.guide .decide p{margin-top:0}
+.decide-when{font-size:12.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--usuzumi);padding-right:26px}
+.guide .decide-market{margin-top:6px;font-size:15px}
+.guide .decide-preset{margin-top:14px;font-family:var(--serif);font-size:28px;line-height:1.15}
+.decide-preset span{display:block;font-family:var(--sans);font-size:13px;color:var(--usuzumi);font-variant-numeric:tabular-nums}
+.guide .decide-check{margin-top:10px;font-size:13.5px;color:var(--matsu)}
+.markets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap);margin-top:var(--gap)}
+.market{background:var(--washi);border:1px solid var(--line);border-radius:6px;padding:22px 24px;min-width:0}
+.market h3{font-family:var(--serif);font-weight:500;font-size:24px}
+.guide .market-note{margin-top:4px;font-size:13.5px;color:var(--usuzumi)}
+.mstyle{border-top:1px solid var(--line);margin-top:16px;padding-top:14px;min-width:0}
+.guide .mstyle p{margin-top:0}
+.mstyle-head b{font-weight:500}
+.mstyle-head span{font-size:13px;color:var(--usuzumi);margin-left:6px}
+.guide .layers{display:flex;gap:6px;margin-top:8px}
+.tf{display:inline-block;min-width:40px;text-align:center;font-size:13px;font-weight:500;border:1px solid var(--line);border-radius:3px;padding:2px 8px;background:var(--kinari);color:var(--usuzumi)}
+.tf-decide{background:var(--sumi);border-color:var(--sumi);color:var(--washi)}
+.mstyle-dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 16px;margin-top:10px;font-size:14px}
+.mstyle-dl dt{font-size:11.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--usuzumi)}
+.mstyle-dl dd{font-variant-numeric:tabular-nums}
+.mstyle .code{margin-top:10px}
+.layers-key .tf{min-width:0;padding:0 6px;font-size:11.5px;margin-right:2px}
+.preset-foot{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px;margin-top:26px;padding-top:24px;border-top:1px solid var(--line)}
+.preset-foot>div{min-width:0}
+.preset-foot h3{font-size:12.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--matsu)}
+.preset-foot h3+p,.preset-foot h3+ul{margin-top:8px}
+.guide .preset-foot p{margin-top:8px;font-size:15px}
+.preset-foot ul+h3{margin-top:22px}
+.preset-foot .dash li{font-size:15px}
+@media (max-width:1180px){
+  .decide{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:900px){
+  .markets,.preset-foot{grid-template-columns:minmax(0,1fr)}
+  .preset-foot{gap:24px}
+  .market{padding:20px 18px}
+}
