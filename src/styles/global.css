@@ -921,3 +921,14 @@ a.tile-fill:hover{background:var(--kinari-2)}
   .preset-foot{gap:24px}
   .market{padding:20px 18px}
 }
+
+/* ---------- Home: sumi-e ground ----------
+   Washi grain over the page and a faint ink landscape (mountains in mist, an ensō, three birds) fixed behind the
+   chapters, so the margins and the space between chapters read as one ink painting. Tiles stay opaque. */
+.p-home{background:var(--washi) url(/ink/washi.svg) repeat}
+.p-home::before{content:"";position:fixed;inset:0 0 0 var(--rail);background:url(/ink/sansui.svg) center bottom / cover no-repeat;pointer-events:none;z-index:0}
+.p-home .grid{position:relative;z-index:1}
+.p-home .tile-line{background:rgba(250,248,243,.94)}
+@media (max-width:900px){
+  .p-home::before{inset:0;opacity:.7}
+}
