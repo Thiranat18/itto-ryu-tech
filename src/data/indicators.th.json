@@ -53,6 +53,63 @@
    ]
   }
  },
+ "auto-market-structure-liquidity": {
+  "summary": "โครงสร้างราคา ระดับที่จะเปลี่ยนโครงสร้างนั้น และขาราคาถูก retrace ไปแล้วเท่าไร",
+  "howItWorks": "swing จะถูกยืนยันเมื่อราคากลับตัวได้ตามจำนวนเท่าของ ATR(14) ที่ตั้งไว้ ค่าเริ่มต้น 2.0 ดังนั้น swing high และ swing low จึงสลับกันเสมอ ราคาปิดที่ผ่าน swing ล่าสุดคือ BOS และ swing อีกฝั่งจะกลายเป็น Protected level ราคาปิดที่ผ่าน Protected level คือ CHoCH และโครงสร้างจะเปลี่ยนทิศ Fibonacci retracement ถูกวาดบนขาเดียวกัน จาก Protected level (100%) ถึงจุดสุดขั้วนับจากนั้น (0%) โดยเส้น 61.8% เป็นสีทอง เมื่อโครงสร้างเป็น Bearish จะมีพื้นที่ Bottom-out 2 ช่วง คือ Stable ที่ 23.6–38.2% และ Confirm ที่ 38.2–50% Liquidity zone อยู่ถัดจาก pivot high และ pivot low ล่าสุดที่ยังไม่ถูก sweep ส่วน dashboard อ่านสถานะตลาดเป็น TREND, READY หรือ WAIT จาก momentum ความตรงของเส้นทางราคา และ volatility ซึ่งแต่ละตัวถูกจัดอันดับเทียบกับข้อมูลราว 1 ปีของตลาดเดียวกัน",
+  "howToUse": "ตั้ง Market ก่อน: Classic, Crypto, FX & Gold หรือ Custom ตามจำนวนวันทำการต่อปี ปล่อย Style ไว้ที่ Auto เว้นแต่ต้องการสถานะที่ช้าลงหรือเร็วขึ้น แล้วตรวจแถว Preset อ่านแถว Structure คู่กับ Protected level: ตราบใดที่ราคาปิดยังอยู่ฝั่งเดิมของระดับนี้ โครงสร้างก็ยังไม่เปลี่ยน ในขาลง Fibonacci และพื้นที่ Bottom-out ใช้อธิบายว่าขานั้นถูก retrace ไปแล้วเท่าไร สถานะ BOS, CHoCH, sweep และ alert เกิดบนแท่งที่ปิดแล้ว ส่วนระดับ Fibonacci 0% และเครื่องหมาย ✓ จะตามแท่งปัจจุบันจนกว่าแท่งจะปิด",
+  "settings": [
+   "ช่วงข้อมูลย้อนหลัง 1 ปี: Classic 252, Crypto 365, FX & Gold 260 หรือ Custom ตามจำนวนวันที่กำหนด",
+   "ความเร็วของสถานะและ swing: Scalp ≤ 15m, Swing 30m–4H, Position D ขึ้นไป",
+   "ระยะกลับตัวเป็นจำนวนเท่าของ ATR(14) ที่ใช้ยืนยัน swing ค่ายิ่งมาก swing ยิ่งน้อย",
+   "ขาราคาจาก Protected level ถึงจุดสุดขั้วนับจากนั้น โดยเส้น 61.8% เป็นสีทอง",
+   "Stable 23.6–38.2% และ Confirm 38.2–50% แสดงเฉพาะโครงสร้าง Bearish",
+   "Off ใช้สีแท่งเทียนเดิมของชาร์ต ส่วน Structure หรือ State จะแต้มสีแท่งเทียน"
+  ],
+  "notDo": [
+   "ไม่ได้ให้สัญญาณหรือส่งคำสั่งเทรด TREND, READY, WAIT, BOS, CHoCH และเครื่องหมาย ✓ อธิบายสภาพชาร์ต ไม่ใช่สิ่งที่ต้องทำ",
+   "ไม่ได้พยากรณ์ พื้นที่ Bottom-out และ golden ratio เป็นสัดส่วน Fibonacci แบบคงที่บนขาราคาปัจจุบัน ไม่ใช่สัญญาณที่ผ่านการทดสอบ แถว Next 10 bars บอกความกว้างของกรอบราคา ไม่ได้บอกทิศทาง",
+   "ไม่เหมาะกับชาร์ต Heikin Ashi, Renko หรือชาร์ตแบบไม่มาตรฐานอื่น ๆ swing, การ break และ sweep ตั้งอยู่บนสมมติฐานว่าใช้แท่งเทียนมาตรฐาน"
+  ],
+  "questions": [
+   {
+    "q": "Protected level คืออะไร",
+    "a": "หลัง BOS ขึ้น คือราคาต่ำสุดนับจาก swing high ที่ถูกทะลุ เรียกว่า Protected Low หลัง BOS ลง คือราคาสูงสุดนับจาก swing low ที่ถูกทะลุ เรียกว่า Protected High ราคาปิดที่ผ่านระดับนี้คือ CHoCH และโครงสร้างจะเปลี่ยนทิศ ไส้เทียนที่ผ่านระดับนี้ไม่นับ"
+   },
+   {
+    "q": "พื้นที่ Bottom-out ได้เครื่องหมาย ✓ เมื่อไร",
+    "a": "เฉพาะเมื่อโครงสร้างเป็น Bearish บนขาเดียวกับ Fibonacci โดย Stable ได้ ✓ เมื่อราคาปิดล่าสุดอยู่เหนือ 38.2% ของขา และ Confirm ได้ ✓ เมื่ออยู่เหนือ 50% แท่งล่าสุดอาจยังไม่ปิด ✓ จึงเปลี่ยนได้จนกว่าแท่งจะปิด ส่วนโครงสร้างจะเปลี่ยนทิศที่ Protected High เท่านั้น"
+   },
+   {
+    "q": "Market preset แต่ละแบบเหมาะกับชาร์ตแบบไหน",
+    "a": "Classic (252 วัน) สำหรับหุ้น ETF และดัชนี, Crypto (365) สำหรับตลาดที่เปิด 7 วันต่อสัปดาห์, FX & Gold (260) สำหรับคู่สกุลเงินและทองคำ ส่วน Custom ใช้จำนวนวันทำการของปฏิทินอื่น เช่น TFEX ราว 242 preset นี้กำหนดเพียงช่วงข้อมูลย้อนหลัง 1 ปีที่ใช้จัดอันดับ แถว Preset บน dashboard จะแสดงค่าที่ใช้อยู่"
+   }
+  ],
+  "legend": [
+   "BOS และ CHoCH เส้นประจาก swing ที่ถูกทะลุถึงจุดที่ทะลุ",
+   "Protected High หรือ Protected Low เส้นประ",
+   "ระดับ Fibonacci บนขาของโครงสร้าง เส้นจุดสีเทา",
+   "golden ratio 61.8% เส้นทึบสีทอง",
+   "Bottom-out Stable ช่วง 23.6–38.2% ของขาลง",
+   "Bottom-out Confirm ช่วง 38.2–50% ของขาลง",
+   "Liquidity zone ถัดจาก pivot ล่าสุด ◆ คือจุดที่เกิด sweep",
+   "Pullback zone พร้อม Floor หรือ Ceiling"
+  ],
+  "manual": {
+   "title": "Setup & Reading Guide",
+   "summary": "วิธีตั้ง Market preset และ Style แล้วอ่าน dashboard กับ 12 state, โครงสร้าง BOS / CHoCH พร้อม Protected level, ขา Fibonacci กับพื้นที่ Bottom-out และ liquidity zone มี 6 หน้า พร้อมการ์ด preset, ผังเลือก Market และ Style, คำอธิบายสิ่งที่วาดบนชาร์ต และแผนภาพ Fibonacci",
+   "pdf": "/guides/auto-structure-guide-th.pdf",
+   "sizeKB": 554,
+   "cover": "/guides/auto-structure-guide-th.jpg",
+   "principles": [
+    "ตั้ง Market ก่อน: กำหนดช่วงข้อมูลย้อนหลังราว 1 ปีที่ทุก rank ใช้",
+    "ปล่อย Style เป็น Auto เว้นแต่ต้องการ state ที่ช้าลงหรือเร็วขึ้น แถว Preset แสดงค่าที่ใช้อยู่",
+    "โครงสร้างเปลี่ยนเฉพาะที่ Protected level เมื่อราคาปิดผ่าน ไส้เทียนที่ทะลุเป็นเพียง sweep ไม่ใช่ break",
+    "Fibonacci และพื้นที่ Bottom-out ใช้ขาเดียวกับโครงสร้าง: 100% คือ Protected level, 0% คือจุดสุดขั้วนับจากนั้น",
+    "ทุกอย่างอธิบายชาร์ต ณ ตอนนี้ อ่านบนแท่งที่ปิดแล้ว และไม่ได้พยากรณ์ทิศทาง"
+   ],
+   "presetsLabel": "Market preset"
+  }
+ },
  "macd-trend-phase-mtf": {
   "summary": "trend อยู่ใน phase ไหน บนหลาย timeframe",
   "howItWorks": "อ่านค่า MACD ที่ปรับมาตรฐานแบบ PPO บนหลาย timeframe โดย timeframe ช้ากำหนด regime ส่วน timeframe กลางกำหนด phase ที่แต้มสีใน pane และ timeframe ของชาร์ตใช้ติดตามจังหวะเวลา ตารางแสดง phase ของ 4 timeframe ใน grid แล้วถ่วงน้ำหนักรวมเป็นค่าที่อ่านได้แบบ consensus ค่าเดียว คือ MAJOR เนื่องจากวัดเป็นเปอร์เซ็นต์ จึงใช้การตั้งค่าชุดเดียวกันได้กับทุกสินทรัพย์",

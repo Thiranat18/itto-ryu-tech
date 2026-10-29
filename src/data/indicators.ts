@@ -19,7 +19,26 @@ export type Indicator = {
   imageHeight: number;
   /** "What it draws" legend on the detail page, taken from the tool's own description. */
   legend?: {
-    swatch: 'zone' | 'zone2' | 'stop' | 'r' | 'flip' | 'blade' | 'kumo' | 'candles' | 'magK' | 'magB' | 'marks';
+    swatch:
+      | 'zone'
+      | 'zone2'
+      | 'stop'
+      | 'r'
+      | 'flip'
+      | 'blade'
+      | 'kumo'
+      | 'candles'
+      | 'magK'
+      | 'magB'
+      | 'marks'
+      | 'brk'
+      | 'prot'
+      | 'fib'
+      | 'gold'
+      | 'boS'
+      | 'boC'
+      | 'liq'
+      | 'pb';
     label: string;
   }[];
   /** Date the guide was last checked against the published script (YYYY-MM-DD). */
@@ -43,6 +62,8 @@ export type Manual = {
   cover: string;
   principles: string[];
   presets: { name: string; values: string }[];
+  /** Heading over the presets list; defaults to the site's "The three presets". */
+  presetsLabel?: string;
 };
 
 // Only scripts published publicly on TradingView. No test status or performance figures (owner's decision).
@@ -130,6 +151,83 @@ export const indicators: Indicator[] = [
       { swatch: 'marks', label: 'Strong Up / Strong Down triangles and 3/3 Aligned labels' },
       { swatch: 'magK', label: 'Kijun magnet, dashed orange' },
       { swatch: 'magB', label: 'Span B magnet, dashed purple' },
+    ],
+  },
+  {
+    slug: 'auto-market-structure-liquidity',
+    name: 'Auto Market Structure & Liquidity',
+    tvTitle: 'Auto Market Structure & Liquidity by [Itto-Ryu]',
+    category: 'Structure',
+    summary: 'Structure, the level that would change it, and how far the leg has retraced.',
+    howItWorks:
+      'Swings are confirmed once price reverses a set multiple of ATR(14), 2.0 by default, so swing highs and lows always alternate. A close beyond the last swing marks a BOS, and the swing on the other side becomes the Protected level. A close beyond the Protected level marks a CHoCH and turns the structure. A Fibonacci retracement is drawn on the same leg, from the Protected level (100%) to the extreme since it (0%), with 61.8% in gold. In a Bearish structure two Bottom-out areas are shaded: Stable at 23.6–38.2% and Confirm at 38.2–50%. Liquidity zones sit just beyond recent unswept pivot highs and lows. A dashboard reads the market state as TREND, READY or WAIT from momentum, path efficiency and volatility, each ranked against about one year of the same market.',
+    howToUse:
+      'Set Market first: Classic, Crypto, FX & Gold or Custom trading days per year. Leave Style on Auto unless slower or faster states are wanted, and check the Preset row. Read the Structure row together with the Protected level: while closes stay on its side, the structure is unchanged. On a down leg, the Fibonacci and Bottom-out areas describe how much of the leg has been retraced. States, BOS, CHoCH, sweeps and alerts are set on closed bars; the Fibonacci 0% level and the ✓ marks follow the live bar until it closes.',
+    access: 'Open-source',
+    url: 'https://www.tradingview.com/script/jkU2PlM7-Auto-Market-Structure-Liquidity-by-Itto-Ryu/',
+    image: '/indicators/jkU2PlM7.jpg',
+    imageWidth: 1200,
+    imageHeight: 648,
+    tended: '2026-10-30',
+    manual: {
+      title: 'Setup & Reading Guide',
+      summary:
+        'How to set the Market preset and Style, then read the dashboard and its 12 states, the BOS / CHoCH structure with its Protected level, the Fibonacci leg with the Bottom-out areas, and the liquidity zones. Six pages with preset cards, a Market and Style chooser, a drawings legend and a Fibonacci diagram.',
+      pdf: '/guides/auto-structure-guide.pdf',
+      pages: 6,
+      sizeKB: 520,
+      cover: '/guides/auto-structure-guide.jpg',
+      principles: [
+        'Set Market first: it sets the one-year look-back behind every rank.',
+        'Leave Style on Auto unless slower or faster states are wanted; the Preset row shows what is in use.',
+        'Structure changes only at the Protected level, on a close. A wick beyond it is a sweep, not a break.',
+        'Fibonacci and Bottom-out areas share the structure leg: 100% is the Protected level, 0% the extreme since it.',
+        'Everything describes the chart now. Read it on closed bars; it forecasts no direction.',
+      ],
+      presetsLabel: 'Market presets',
+      presets: [
+        { name: 'Classic', values: '252 days · stocks, ETFs, indices' },
+        { name: 'Crypto', values: '365 days · 7-day markets' },
+        { name: 'FX & Gold', values: '260 days · forex, gold, silver' },
+        { name: 'Custom', values: 'your days · e.g. TFEX ≈ 242' },
+      ],
+    },
+    settings: [
+      { name: 'Market', value: 'Classic', effect: 'One-year look-back: Classic 252, Crypto 365, FX & Gold 260 or Custom days' },
+      { name: 'Style', value: 'Auto — follows chart TF', effect: 'Speed of states and swings: Scalp ≤ 15m, Swing 30m–4H, Position D+' },
+      { name: 'Swing size (× ATR)', value: '2', effect: 'Reversal in ATR(14) that confirms a swing; larger = fewer swings' },
+      { name: 'Fibonacci retracement', value: 'On', effect: 'Leg from the Protected level to the extreme since it, 61.8% in gold' },
+      { name: 'Bottom-out areas', value: 'On', effect: 'Stable 23.6–38.2% and Confirm 38.2–50%, Bearish structure only' },
+      { name: 'Color candles by', value: 'Off', effect: 'Off keeps your chart colours; Structure or State colour the candles' },
+    ],
+    notDo: [
+      'It does not give signals or place orders. TREND, READY, WAIT, BOS, CHoCH and the ✓ marks describe the chart, not what to do.',
+      'It does not forecast. Bottom-out areas and the golden ratio are fixed Fibonacci conventions on the current leg, not tested signals. The Next 10 bars row gives a range width, not a direction.',
+      'It does not suit Heikin Ashi, Renko or other non-standard charts. Swings, breaks and sweeps assume standard candles.',
+    ],
+    questions: [
+      {
+        q: 'What is the Protected level?',
+        a: 'After a BOS up, it is the lowest low since the swing high that was broken: the Protected Low. After a BOS down, it is the highest high since the broken swing low: the Protected High. A close beyond it is a CHoCH, and the structure turns. Wicks beyond it do not count.',
+      },
+      {
+        q: 'When do the Bottom-out areas get a ✓?',
+        a: 'Only in a Bearish structure, on the same leg as the Fibonacci. Stable gets a ✓ when the last close is above 38.2% of the leg, Confirm when it is above 50%. The last bar may still be forming, so the ✓ can change until it closes. The structure itself turns only at the Protected High.',
+      },
+      {
+        q: 'Which Market preset fits which chart?',
+        a: 'Classic (252 days) for stocks, ETFs and indices, Crypto (365) for markets open seven days a week, FX & Gold (260) for forex pairs and gold. Custom takes the trading days of any other calendar, about 242 for TFEX. The preset only sets the one-year look-back for the ranks; the dashboard Preset row shows what is in use.',
+      },
+    ],
+    legend: [
+      { swatch: 'brk', label: 'BOS and CHoCH, dashed from the broken swing to the break' },
+      { swatch: 'prot', label: 'Protected High or Protected Low, dashed' },
+      { swatch: 'fib', label: 'Fibonacci levels on the structure leg, grey dotted' },
+      { swatch: 'gold', label: '61.8% golden ratio, solid gold' },
+      { swatch: 'boS', label: 'Bottom-out Stable, 23.6–38.2% of a down leg' },
+      { swatch: 'boC', label: 'Bottom-out Confirm, 38.2–50% of a down leg' },
+      { swatch: 'liq', label: 'Liquidity zones beyond recent pivots, ◆ marks a sweep' },
+      { swatch: 'pb', label: 'Pullback zone with its Floor or Ceiling' },
     ],
   },
   {
@@ -341,7 +439,7 @@ type Text = Pick<Indicator, 'summary' | 'howItWorks' | 'howToUse' | 'notDo' | 'q
   settings: string[];
   legend: string[];
   /** Title, summary and principles; the PDF, cover and size are the Thai file's. */
-  manual?: Pick<Manual, 'title' | 'summary' | 'pdf' | 'sizeKB' | 'cover' | 'principles'>;
+  manual?: Pick<Manual, 'title' | 'summary' | 'pdf' | 'sizeKB' | 'cover' | 'principles' | 'presetsLabel'>;
 };
 const translations: Record<string, Text> = thText;
 

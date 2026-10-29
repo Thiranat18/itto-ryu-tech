@@ -1,0 +1,964 @@
+{
+ "version": "1.0",
+ "settings": [
+  {
+   "group": "① Start here — Market & Style",
+   "name": "Market",
+   "value": "Classic",
+   "range": "Classic, Crypto, FX & Gold, Custom",
+   "effect": "Trading days per year behind the one-year rank window: 252, 365, 260 or your own number"
+  },
+  {
+   "group": "① Start here — Market & Style",
+   "name": "Trading days per year (Custom only)",
+   "value": "252",
+   "range": "50 to 366",
+   "effect": "Used only with Market = Custom; multiplied by bars per day counted on the chart, capped at 5,000 bars"
+  },
+  {
+   "group": "① Start here — Market & Style",
+   "name": "Style",
+   "value": "Auto — follows chart TF",
+   "range": "Auto — follows chart TF, Scalp · fast · 1m–15m, Swing · medium · 30m–4H, Position · slow · D and above, Custom",
+   "effect": "Sets momentum, ER, pivot, swing look-back and hold lengths; Auto picks Scalp up to 15m, Swing below D, Position from D"
+  },
+  {
+   "group": "② Pullback",
+   "name": "Pullback method",
+   "value": "ATR",
+   "range": "ATR, Fibonacci",
+   "effect": "Pullback zone and Floor / Ceiling as ATR distances from the trend extreme, or as Fib of the last pivot leg"
+  },
+  {
+   "group": "② Pullback",
+   "name": "Pullback depth",
+   "value": "Mid",
+   "range": "Shallow, Mid, Deep, Custom",
+   "effect": "Zone and Floor: ATR 0.3–1 / 1.5, 0.5–1.5 / 2, 1–2 / 3; Fib 23.6–38.2 / 61.8, 38.2–61.8 / 78.6, 50–78.6 / 100%"
+  },
+  {
+   "group": "② Pullback",
+   "name": "Highlight ATR/Fib confluence",
+   "value": "Off",
+   "range": "",
+   "effect": "Shades where the ATR and Fibonacci pullback zones overlap, labelled Confluence"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Liquidity zones",
+   "value": "On",
+   "range": "",
+   "effect": "Purple zones beyond the last three unswept pivot highs and lows, with ◆ sweep marks; also needed for sweep alerts"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Compress box",
+   "value": "On",
+   "range": "",
+   "effect": "Grey dashed box while the ATR rank is in its lowest 10%; the last two boxes are kept"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Breakout / Breakdown lines",
+   "value": "On",
+   "range": "",
+   "effect": "Lines at the top and bottom of the latest compress box while it is live"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Pullback zone + Floor / Ceiling",
+   "value": "On",
+   "range": "",
+   "effect": "Amber zone and Floor or Ceiling line while the state machine holds a trend"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Protected level",
+   "value": "On",
+   "range": "",
+   "effect": "Dashed Protected Low or Protected High line; a close beyond it is a CHoCH"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Swing size (× ATR)",
+   "value": "2",
+   "range": "0.5 or more, step 0.25",
+   "effect": "Reversal in ATR(14) that confirms a swing; drives BOS, CHoCH, the Protected level and the Fib leg"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "BOS / CHoCH",
+   "value": "On",
+   "range": "",
+   "effect": "Dashed break lines with BOS or CHoCH text; the last 12 are kept; BOS and CHoCH alerts still fire"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Swing High / Low",
+   "value": "On",
+   "range": "",
+   "effect": "Swing High, Swing Low and Mid lines over the swing look-back, in WAIT and Sideways states only"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Fibonacci retracement",
+   "value": "On",
+   "range": "",
+   "effect": "Fib lines on the leg from the Protected level to the latest extreme; 61.8% drawn in gold"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Bottom-out areas",
+   "value": "On",
+   "range": "",
+   "effect": "Stable (23.6–38.2%) and Confirm (38.2–50%) boxes on the same leg, in a Bearish structure only"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Fibonacci extension",
+   "value": "Off",
+   "range": "Auto, Up, Down, Off",
+   "effect": "Ext 1.272 / 1.618 / 2 / 2.618 lines from the last three pivots; Auto follows the state and draws none in WAIT or Compressed"
+  },
+  {
+   "group": "④ Dashboard",
+   "name": "Show dashboard",
+   "value": "On",
+   "range": "",
+   "effect": "Shows or hides the state table"
+  },
+  {
+   "group": "④ Dashboard",
+   "name": "Size",
+   "value": "Small",
+   "range": "Tiny, Small, Normal, Large",
+   "effect": "Text size of the dashboard"
+  },
+  {
+   "group": "④ Dashboard",
+   "name": "Position",
+   "value": "Top Right",
+   "range": "Top Right, Bottom Right, Top Left, Bottom Left",
+   "effect": "Corner of the chart where the dashboard sits"
+  },
+  {
+   "group": "④ Dashboard",
+   "name": "Expected range row",
+   "value": "On",
+   "range": "",
+   "effect": "Shows the Next 10 bars row: a span of 2.07 to 5.71 × ATR(14), width only"
+  },
+  {
+   "group": "④ Dashboard",
+   "name": "Preset row",
+   "value": "On",
+   "range": "",
+   "effect": "Shows the Market and Style in use, with bars per day counted from the chart"
+  },
+  {
+   "group": "⑤ Colors",
+   "name": "Color candles by",
+   "value": "Off",
+   "range": "Structure, State, Off",
+   "effect": "Off keeps your chart's colours; Structure colours by Bullish / Bearish; State by TREND / READY / WAIT"
+  },
+  {
+   "group": "⑤ Colors",
+   "name": "Up / TREND",
+   "value": "#009E73",
+   "range": "",
+   "effect": "Bullish structure, upward BOS and CHoCH, Breakout line, TREND states that point up"
+  },
+  {
+   "group": "⑤ Colors",
+   "name": "Down",
+   "value": "#D55E00",
+   "range": "",
+   "effect": "Bearish structure, downward BOS and CHoCH, Breakdown line, TREND states that point down"
+  },
+  {
+   "group": "⑤ Colors",
+   "name": "READY",
+   "value": "#0072B2",
+   "range": "",
+   "effect": "Dashboard header and State-mode candles in the READY group"
+  },
+  {
+   "group": "⑤ Colors",
+   "name": "WAIT",
+   "value": "#E69F00",
+   "range": "",
+   "effect": "Dashboard header and State-mode candles in the WAIT group, and the HTF ⚠ text"
+  },
+  {
+   "group": "⑤ Colors",
+   "name": "Liquidity",
+   "value": "#8E44AD",
+   "range": "",
+   "effect": "Liquidity zones and ◆ sweep marks"
+  },
+  {
+   "group": "⑤ Colors",
+   "name": "Pullback",
+   "value": "#F2A900",
+   "range": "",
+   "effect": "Pullback zone, Floor / Ceiling line and Confluence shading"
+  },
+  {
+   "group": "⑤ Colors",
+   "name": "Bottom-out Stable",
+   "value": "#56B4E9",
+   "range": "",
+   "effect": "Bottom-out Stable box"
+  },
+  {
+   "group": "⑤ Colors",
+   "name": "Bottom-out Confirm",
+   "value": "#009E73",
+   "range": "",
+   "effect": "Bottom-out Confirm box"
+  },
+  {
+   "group": "⑤ Colors",
+   "name": "Golden ratio",
+   "value": "#FFD700",
+   "range": "",
+   "effect": "Fib 61.8% line"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "Momentum short (bars)",
+   "value": "5",
+   "range": "2 or more",
+   "effect": "Custom only: fast momentum look-back, used for pullback entry and breakout direction"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "Momentum long (bars)",
+   "value": "20",
+   "range": "3 or more",
+   "effect": "Custom only: slow momentum look-back (mL), ranked over about a year; also used by the HTF row"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "Efficiency Ratio length",
+   "value": "10",
+   "range": "3 or more",
+   "effect": "Custom only: bars in the Efficiency Ratio, the measure of how straight the path was"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "Pivot left / right bars",
+   "value": "5",
+   "range": "2 or more",
+   "effect": "Custom only: bars each side that confirm a pivot for liquidity zones, the Fib pullback leg and Ext lines"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "Swing look-back (bars)",
+   "value": "20",
+   "range": "5 or more",
+   "effect": "Custom only: bars behind Swing High / Low and Mid, not counting the current bar"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "Breakout window (bars)",
+   "value": "10",
+   "range": "1 or more",
+   "effect": "Custom only: bars a finished compress box can still be broken"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "Breakout hold (bars)",
+   "value": "3",
+   "range": "1 or more",
+   "effect": "Custom only: bars a Breakout Up or Breakdown state is kept"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "Minimum state hold (bars)",
+   "value": "2",
+   "range": "1 or more",
+   "effect": "Custom only: bars a state must last before it can change (Breakout and Volatile excepted)"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "ATR length",
+   "value": "14",
+   "range": "2 or more",
+   "effect": "Every Style: ATR for momentum, volatility rank, pullback zones and liquidity width; swings and range row keep ATR(14)"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "Efficiency Ratio trend threshold",
+   "value": "0.3",
+   "range": "Any value, step 0.01",
+   "effect": "Every Style: ER at or above it counts as a clean path; it switches off 0.05 lower"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "Chop ↔ Neutral hold",
+   "value": "3",
+   "range": "1 or more",
+   "effect": "Every Style: bars Chop or Neutral must last before switching to the other"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "Group change hold",
+   "value": "3",
+   "range": "1 or more",
+   "effect": "Every Style: bars the WAIT / READY / TREND group must last before it changes; Volatile and Breakout override"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "Feature smoothing (EMA bars)",
+   "value": "3",
+   "range": "1 or more",
+   "effect": "Every Style: EMA on ER and slow momentum before states are set; 1 = none"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "Custom ATR zone start (× ATR)",
+   "value": "0.5",
+   "range": "Any value, step 0.1",
+   "effect": "Pullback depth = Custom only: zone start, in ATR from the trend extreme"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "end",
+   "value": "1.5",
+   "range": "Any value, step 0.1",
+   "effect": "Pullback depth = Custom only: zone end, in ATR from the trend extreme"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "Floor / Ceiling",
+   "value": "2",
+   "range": "Any value, step 0.1",
+   "effect": "Pullback depth = Custom only: Floor or Ceiling distance, in ATR from the trend extreme"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "Custom Fib zone start %",
+   "value": "38.2",
+   "range": "Any value",
+   "effect": "Pullback depth = Custom only: zone start, % of the trend's last pivot leg"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "end %",
+   "value": "61.8",
+   "range": "Any value",
+   "effect": "Pullback depth = Custom only: zone end, % of the trend's last pivot leg"
+  },
+  {
+   "group": "⑥ Advanced (Style = Custom)",
+   "name": "Floor / Ceiling %",
+   "value": "78.6",
+   "range": "Any value",
+   "effect": "Pullback depth = Custom only: Floor or Ceiling, % of the trend's last pivot leg"
+  }
+ ],
+ "states": [
+  {
+   "section": "Dashboard header",
+   "label": "流 TREND",
+   "where": "dashboard table, state row, left cell",
+   "reading": "Uptrend or downtrend",
+   "measures": "The group of the state beside it: Up, Down, Breakout Up, Breakdown, Sideways Up or Sideways Down. Header and state row turn green (up) or orange-red (down). Set on closed bars; the forming bar shows the last closed state.",
+   "setup": "",
+   "notMean": "Not a signal. The group names the kind of market on the last closed bar.",
+   "check": "Which state sits beside it, and does the Structure row agree?"
+  },
+  {
+   "section": "Dashboard header",
+   "label": "昇 Up",
+   "where": "dashboard table, state row, right cell",
+   "reading": "Uptrend",
+   "measures": "Clean path and strong momentum: smoothed Efficiency Ratio 0.30 or more and slow-momentum rank 66% or more over the look-back (on until ER drops below 0.25 or rank below 60%), with slow momentum at or above zero. Closed bars only.",
+   "setup": "Trend continuation. Technicians often wait for a pullback into the Pullback zone rather than chasing the move, and frame risk beyond the Protected level or as an ATR multiple.",
+   "notMean": "Not a forecast. It describes how straight and strong the recent path was.",
+   "check": "Does the Structure row read Bullish, and what does the HTF row show?"
+  },
+  {
+   "section": "Dashboard header",
+   "label": "降 Down",
+   "where": "dashboard table, state row, right cell",
+   "reading": "Downtrend",
+   "measures": "Clean path and strong momentum: smoothed Efficiency Ratio 0.30 or more and slow-momentum rank 66% or more over the look-back (on until ER drops below 0.25 or rank below 60%), with slow momentum below zero. Closed bars only.",
+   "setup": "Trend continuation. Technicians often wait for a bounce into the Pullback zone rather than chasing the move, and frame risk beyond the Protected level or as an ATR multiple.",
+   "notMean": "Not a forecast. It describes how straight and strong the recent path was.",
+   "check": "Does the Structure row read Bearish, and what does the HTF row show?"
+  },
+  {
+   "section": "Dashboard header",
+   "label": "破 Breakout Up",
+   "where": "dashboard table, state row, right cell",
+   "reading": "Uptrend, leaving a compress box",
+   "measures": "A closed bar ended above the top of a compress box of 3 bars or more, while the box was live (10 bars after it ends in Swing style), with fast momentum up and ER 0.30 or more. Kept 3 bars in Swing style and skips the hold rules.",
+   "setup": "Volatility expansion after compression. Technicians often wait for a retest of the Breakout line or a first pullback that holds above it, and frame risk below the box or as an ATR multiple.",
+   "notMean": "Not a promise the move continues; the state ends after its hold bars.",
+   "check": "Did the close clear the box clearly, or only just?"
+  },
+  {
+   "section": "Dashboard header",
+   "label": "破 Breakdown",
+   "where": "dashboard table, state row, right cell",
+   "reading": "Downtrend, leaving a compress box",
+   "measures": "A closed bar ended below the bottom of a compress box of 3 bars or more, while the box was live (10 bars after it ends in Swing style), with fast momentum down and ER 0.30 or more. Kept 3 bars in Swing style and skips the hold rules.",
+   "setup": "Volatility expansion after compression. Technicians often wait for a retest of the Breakdown line from below or a first bounce that stalls under it, and frame risk above the box or as an ATR multiple.",
+   "notMean": "Not a promise the move continues; the state ends after its hold bars.",
+   "check": "Did the close clear the box clearly, or only just?"
+  },
+  {
+   "section": "Dashboard header",
+   "label": "横 Sideways Up",
+   "where": "dashboard table, state row, right cell",
+   "reading": "Leaning up",
+   "measures": "Trend conditions are off, but momentum rank is 33% or more (off below 28%) and the path is not choppy. The side comes from the state machine's trend memory, or from slow momentum when there is none. Swing High / Low lines show.",
+   "setup": "A weak or fading move. Technicians often treat it as a transition and wait for Up, or a pullback that holds, before reading an uptrend.",
+   "notMean": "Not a range. Price is moving, but not cleanly enough for a trend reading.",
+   "check": "Is it rising out of WAIT, or fading from Up?"
+  },
+  {
+   "section": "Dashboard header",
+   "label": "横 Sideways Down",
+   "where": "dashboard table, state row, right cell",
+   "reading": "Leaning down",
+   "measures": "Trend conditions are off, but momentum rank is 33% or more (off below 28%) and the path is not choppy. The side comes from the state machine's trend memory, or from slow momentum when there is none. Swing High / Low lines show.",
+   "setup": "A weak or fading move. Technicians often treat it as a transition and wait for Down, or a bounce that stalls, before reading a downtrend.",
+   "notMean": "Not a range. Price is moving, but not cleanly enough for a trend reading.",
+   "check": "Is it falling out of WAIT, or fading from Down?"
+  },
+  {
+   "section": "Dashboard header",
+   "label": "構 READY",
+   "where": "dashboard table, state row, left cell",
+   "reading": "Mixed, a pause inside or before a move",
+   "measures": "The group of Pullback Up, Pullback Down and Compressed. Blue header and state row. A group change needs 3 bars in the new group, unless Volatile or Breakout takes over. Closed bars only.",
+   "setup": "",
+   "notMean": "Not a ready-to-act signal. The name describes a pause.",
+   "check": "Is this a pullback inside a held trend, or compression?"
+  },
+  {
+   "section": "Dashboard header",
+   "label": "押 Pullback Up",
+   "where": "dashboard table, state row, right cell",
+   "reading": "Uptrend, in a pullback",
+   "measures": "The state machine still holds an up trend from Up or Breakout Up, fast momentum is below zero (or the state was already on), and the close sits between the Pullback Floor and the top of the Pullback zone: 0.5 to 2.0 ATR below the trend high with Mid ATR.",
+   "setup": "A pullback in an uptrend. Technicians often wait for a close back up from the zone, and frame risk beyond the Pullback Floor or the Protected Low, or as an ATR multiple.",
+   "notMean": "Not that the pullback is over. A close below the Floor clears the trend memory.",
+   "check": "Is the close nearer the zone or the Floor?"
+  },
+  {
+   "section": "Dashboard header",
+   "label": "押 Pullback Down",
+   "where": "dashboard table, state row, right cell",
+   "reading": "Downtrend, in a bounce",
+   "measures": "The state machine still holds a down trend from Down or Breakdown, fast momentum is above zero (or the state was already on), and the close sits between the Pullback Ceiling and the bottom of the Pullback zone: 0.5 to 2.0 ATR above the trend low with Mid ATR.",
+   "setup": "A bounce in a downtrend. Technicians often wait for a close back down from the zone, and frame risk beyond the Pullback Ceiling or the Protected High, or as an ATR multiple.",
+   "notMean": "Not that the bounce is over. A close above the Ceiling clears the trend memory.",
+   "check": "Is the close nearer the zone or the Ceiling?"
+  },
+  {
+   "section": "Dashboard header",
+   "label": "静 Compressed",
+   "where": "dashboard table, state row, right cell",
+   "reading": "Sideways or chop, compressed",
+   "measures": "Volatility rank (ATR over the look-back) is in its lowest 10%, on until it rises above 15%, and trend conditions are off. A grey Compress box is drawn while volatility stays compressed.",
+   "setup": "Volatility contraction. Technicians often mark the box edges and wait for a close outside with a clean move, the condition for Breakout Up or Breakdown.",
+   "notMean": "Not a direction. A compressed market can leave on either side.",
+   "check": "Where are the Breakout and Breakdown lines?"
+  },
+  {
+   "section": "Dashboard header",
+   "label": "待 WAIT",
+   "where": "dashboard table, state row, left cell",
+   "reading": "Sideways or chop",
+   "measures": "The group of Chop, Volatile and Neutral. Orange header and state row; Swing High, Swing Low and Mid lines show. A group change needs 3 bars in the new group, unless Volatile or Breakout takes over.",
+   "setup": "Technicians often set trend methods aside here and read the market by its Swing High and Swing Low.",
+   "notMean": "Not a reversal; the next trend reading can be on either side.",
+   "check": "Which WAIT state is it: Chop, Volatile or Neutral?"
+  },
+  {
+   "section": "Dashboard header",
+   "label": "揉 Chop",
+   "where": "dashboard table, state row, right cell",
+   "reading": "Sideways or chop",
+   "measures": "No clean path: smoothed ER below 0.25 (on until it reaches 0.30) and trend conditions off. Switching between Chop and Neutral needs 3 bars.",
+   "setup": "A range or noisy market. Technicians often read it by its edges, the Swing High and Swing Low, and wait for a cleaner path before reading a trend.",
+   "notMean": "Not low volatility; price can swing widely without a clean path.",
+   "check": "Is the Vol rank in the Move row high or low?"
+  },
+  {
+   "section": "Dashboard header",
+   "label": "乱 Volatile",
+   "where": "dashboard table, state row, right cell",
+   "reading": "Mixed, very volatile",
+   "measures": "Volatility rank 90% or more (on until below 85%) with no clean path (ER below 0.25). Skips the hold rules and clears the state machine's trend memory.",
+   "setup": "A disorderly market. Technicians often widen any ATR-based risk frame, or stand aside until volatility settles.",
+   "notMean": "Not a direction, and not a sign that a move is ending.",
+   "check": "How wide is the band in the Next 10 bars row?"
+  },
+  {
+   "section": "Dashboard header",
+   "label": "中 Neutral",
+   "where": "dashboard table, state row, right cell",
+   "reading": "Mixed",
+   "measures": "None of the other states applies, for example momentum too weak for Sideways while the path is not choppy. Often early in a turn. Switching between Neutral and Chop needs 3 bars.",
+   "setup": "",
+   "notMean": "Not a calm market; it is what is left when no other rule fits.",
+   "check": "Has the Structure row changed recently?"
+  },
+  {
+   "section": "Dashboard header",
+   "label": "— warming up",
+   "where": "dashboard table, state row",
+   "reading": "No reading",
+   "measures": "Not enough history yet to rank momentum and volatility over the look-back, about one year of bars (50 to 5,000). The group cell shows —, State-mode candles keep chart colours, and no group alert fires on the first state after it.",
+   "setup": "",
+   "notMean": "Not a quiet market. The tool cannot read yet.",
+   "check": "Is enough history loaded for this timeframe?"
+  },
+  {
+   "section": "Structure row",
+   "label": "Bullish (HH · HL) · protected [price]",
+   "where": "dashboard table, Structure row",
+   "reading": "Uptrend by structure",
+   "measures": "The last break was up: a close above a swing high (BOS) or the Protected High (CHoCH). HH or LH compares the last two swing highs, HL or LL the last two lows, from the ATR zigzag (2.0 × ATR). Other pairs can print while still Bullish. Green text.",
+   "setup": "Trend continuation by Dow structure. Technicians often watch pullbacks that hold above the Protected Low, and frame risk beyond it or as an ATR multiple.",
+   "notMean": "Not a forecast. Bullish stays until a close below the Protected Low, however far price falls before that.",
+   "check": "Do the swing pairs read HH · HL, or is one against it?"
+  },
+  {
+   "section": "Structure row",
+   "label": "Bearish (LH · LL) · protected [price]",
+   "where": "dashboard table, Structure row",
+   "reading": "Downtrend by structure",
+   "measures": "The last break was down: a close below a swing low (BOS) or the Protected Low (CHoCH). HH or LH compares the last two swing highs, HL or LL the last two lows, from the ATR zigzag (2.0 × ATR). Other pairs can print while still Bearish. Orange-red text.",
+   "setup": "Trend continuation by Dow structure. Technicians often watch bounces that stall below the Protected High, and frame risk beyond it or as an ATR multiple.",
+   "notMean": "Not a forecast. Bearish stays until a close above the Protected High, however far price rises before that.",
+   "check": "Do the swing pairs read LH · LL, or is one against it?"
+  },
+  {
+   "section": "Structure row",
+   "label": "— (—)",
+   "where": "dashboard table, Structure row",
+   "reading": "No reading",
+   "measures": "No structure break yet on the loaded history, so neither Bullish nor Bearish; grey text. (—) alone means fewer than two confirmed swing highs or lows, and can also follow Bullish or Bearish early in the history.",
+   "setup": "",
+   "notMean": "Not a range reading. The structure has not started yet.",
+   "check": "Is enough history loaded, or is Swing size very large?"
+  },
+  {
+   "section": "HTF row",
+   "label": "✓ [HTF] Up = [chart] Up",
+   "where": "dashboard table, HTF row",
+   "reading": "Uptrend, timeframes agree",
+   "measures": "The higher timeframe (1H for 15m or less, 4H up to 1H, D up to 4H, W up to D, M above) is read on its last closed bar: momentum up over the slow look-back, ranked 33% or more on its own history, and the chart's state points up (Up, Breakout Up, Sideways Up or Pullback Up). Green text.",
+   "setup": "Multi-timeframe agreement. Technicians often give more weight to a trend reading when the slower timeframe points the same way.",
+   "notMean": "Not confirmation of a move ahead; it compares two readings.",
+   "check": "When does the current higher-timeframe bar close?"
+  },
+  {
+   "section": "HTF row",
+   "label": "✓ [HTF] Down = [chart] Down",
+   "where": "dashboard table, HTF row",
+   "reading": "Downtrend, timeframes agree",
+   "measures": "The higher timeframe (1H for 15m or less, 4H up to 1H, D up to 4H, W up to D, M above) is read on its last closed bar: momentum down over the slow look-back, ranked 33% or more on its own history, and the chart's state points down (Down, Breakdown, Sideways Down or Pullback Down). Orange-red text.",
+   "setup": "Multi-timeframe agreement. Technicians often give more weight to a trend reading when the slower timeframe points the same way.",
+   "notMean": "Not confirmation of a move ahead; it compares two readings.",
+   "check": "When does the current higher-timeframe bar close?"
+  },
+  {
+   "section": "HTF row",
+   "label": "⚠ [HTF] Down vs [chart] Up, or ⚠ [HTF] Up vs [chart] Down",
+   "where": "dashboard table, HTF row",
+   "reading": "Mixed, timeframes disagree",
+   "measures": "The higher timeframe (1H for 15m or less, 4H up to 1H, D up to 4H, W up to D, M above) is read on its last closed bar. Its momentum, ranked 33% or more, points the other way from the chart's state. Orange text.",
+   "setup": "Timeframe conflict. Technicians often read the chart's move as a pullback or bounce inside the bigger move until the slower timeframe turns.",
+   "notMean": "Not a reversal call on either timeframe.",
+   "check": "Which timeframe does my own analysis start from?"
+  },
+  {
+   "section": "HTF row",
+   "label": "[HTF] flat · [chart] Up, or [HTF] Up · [chart] no trend (grey)",
+   "where": "dashboard table, HTF row",
+   "reading": "No reading",
+   "measures": "Grey text when the higher timeframe's momentum rank is below 33% (flat), or the chart's state has no side: Compressed, a WAIT state or warming up.",
+   "setup": "",
+   "notMean": "Not a conflict; one side has nothing to compare.",
+   "check": "Which side is grey: the higher timeframe or this chart?"
+  },
+  {
+   "section": "HTF row",
+   "label": "[HTF] n/a — not enough history",
+   "where": "dashboard table, HTF row",
+   "reading": "No reading",
+   "measures": "The higher timeframe has no ranked value yet, or is not higher than the chart, for example on a monthly chart. Grey text.",
+   "setup": "",
+   "notMean": "Not a flat higher timeframe; there is no value to read.",
+   "check": "Is this chart already on the highest step?"
+  },
+  {
+   "section": "Other rows",
+   "label": "Reason: mL [x] ATR (rank [n]%) · ER [x] · Vol rank [n]%",
+   "where": "dashboard table, Reason row",
+   "reading": "Not a trend reading",
+   "measures": "The three inputs behind the state on the last closed bar: smoothed slow momentum in ATR and its rank over the look-back, smoothed Efficiency Ratio (0 = noise, 1 = straight line) and the rank of ATR.",
+   "setup": "",
+   "notMean": "Not scores to compare across markets; ranks are within this symbol and timeframe.",
+   "check": "Which of the three values moved the state?"
+  },
+  {
+   "section": "Other rows",
+   "label": "Next 10 bars: range ≈ [a] – [b]",
+   "where": "dashboard table, Next 10 bars row",
+   "reading": "Not a trend reading",
+   "measures": "A range band from ATR(14) of the last closed bar: 2.07 × and 5.71 × ATR(14), as price distances, for the high-to-low span of the next 10 bars. It gives width, not direction.",
+   "setup": "Volatility sizing. Technicians often compare a risk frame or a range's height with this band to judge whether it is normal for the market.",
+   "notMean": "Not price levels and not a direction; two widths only.",
+   "check": "Is my own risk frame small or large next to this band?"
+  },
+  {
+   "section": "Other rows",
+   "label": "Move (live): mL [x] ATR · ER [x] · Vol rank [n]%",
+   "where": "dashboard table, Move (live) row",
+   "reading": "Not a trend reading",
+   "measures": "The same three values as Reason, from the forming bar, so they change until it closes. The state only follows them once the bar has closed.",
+   "setup": "",
+   "notMean": "Not the state; a live preview of its inputs.",
+   "check": "Has the bar closed yet?"
+  },
+  {
+   "section": "Other rows",
+   "label": "Levels: Floor [price] · Protected [price], Ceiling [price] · Protected [price], or Swing H [price] · L [price]",
+   "where": "dashboard table, Levels row",
+   "reading": "Not a trend reading",
+   "measures": "While the state machine holds a trend: the Pullback Floor (up) or Ceiling (down), and the structure's Protected level; the two come from separate engines. With no trend memory: highest high and lowest low of the swing look-back (20 bars in Swing style).",
+   "setup": "Technicians often frame risk beyond one of these levels, or as an ATR multiple, and read a range by Swing H and L.",
+   "notMean": "Not stop prices chosen by the tool; reference levels only.",
+   "check": "Which level is nearer the close?"
+  },
+  {
+   "section": "Other rows",
+   "label": "Preset: [Market] ([n] bars/day × [d] d) · [Style] (auto · [TF])",
+   "where": "dashboard table, Preset row",
+   "reading": "Not a trend reading",
+   "measures": "The Market and Style in use. Bars per day are counted from the chart and shown on intraday charts only; (auto · …) appears when Style is Auto, with the raw timeframe code, such as 60.",
+   "setup": "",
+   "notMean": "Not a reading of the market; a settings check.",
+   "check": "Does this match the market on my chart?"
+  },
+  {
+   "section": "Structure lines",
+   "label": "BOS (green or orange-red dashed line)",
+   "where": "price chart",
+   "reading": "Uptrend or downtrend by structure, continuing",
+   "measures": "A closed bar ended beyond the last swing in the structure's direction, or the first break. A wick is not a break. The line runs from the swing to the break bar: green with text above when up, orange-red with text below when down. Moves the Protected level. Last 12 kept.",
+   "setup": "Trend continuation by structure. Technicians often wait for a pullback after a BOS, and frame risk beyond the new Protected level or as an ATR multiple.",
+   "notMean": "Not drawn in real time: the swing is confirmed only after a 2 × ATR reversal, then a close beyond it.",
+   "check": "How far did the close go beyond the swing?"
+  },
+  {
+   "section": "Structure lines",
+   "label": "CHoCH (green or orange-red dashed line)",
+   "where": "price chart",
+   "reading": "Change of structure, either side",
+   "measures": "A closed bar ended beyond the Protected level, against the structure. Bullish becomes Bearish (orange-red, text below) or the reverse (green, text above). The line runs from the Protected level's bar to the break bar.",
+   "setup": "A possible change of trend. Technicians often wait for a BOS in the new direction before reading a new trend, and frame risk beyond the new Protected level.",
+   "notMean": "Not a confirmed new trend; one close beyond one level.",
+   "check": "Has a BOS in the new direction followed yet?"
+  },
+  {
+   "section": "Structure lines",
+   "label": "Protected Low [price] (magenta dashed line)",
+   "where": "price chart",
+   "reading": "Uptrend by structure, the level that holds it",
+   "measures": "In a Bullish structure: the lowest low from the broken swing high to the break bar, reset at each upward BOS; after a CHoCH up, the lowest low since the old Protected High. A close below it is a CHoCH. The line starts at that low's bar.",
+   "setup": "Technicians often frame risk beyond the Protected Low, as the level whose loss changes the structure.",
+   "notMean": "Not a level price must hold; a wick below does not count, only a close.",
+   "check": "How far is the close from this line, in ATR?"
+  },
+  {
+   "section": "Structure lines",
+   "label": "Protected High [price] (purple dashed line)",
+   "where": "price chart",
+   "reading": "Downtrend by structure, the level that holds it",
+   "measures": "In a Bearish structure: the highest high from the broken swing low to the break bar, reset at each downward BOS; after a CHoCH down, the highest high since the old Protected Low. A close above it is a CHoCH. The line starts at that high's bar.",
+   "setup": "Technicians often frame risk beyond the Protected High, as the level whose loss changes the structure.",
+   "notMean": "Not a level price must stay under; a wick above does not count, only a close.",
+   "check": "How far is the close from this line, in ATR?"
+  },
+  {
+   "section": "Fibonacci",
+   "label": "Fib 0% (swing high) [price] or Fib 0% (swing low) [price]",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "The most extreme price since the Protected level: the highest high in a Bullish structure, the lowest low in a Bearish one, including the forming bar, so it can move until the bar closes. Grey dotted line from the Protected level's bar.",
+   "setup": "",
+   "notMean": "Not a confirmed swing; it follows each new extreme. A fixed convention, untested as a signal.",
+   "check": "Did the forming bar just set this level?"
+  },
+  {
+   "section": "Fibonacci",
+   "label": "Fib 100% (protected low) [price] or Fib 100% (protected high) [price]",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "The same price as the Protected level, the anchor of the leg. The whole leg moves to a new anchor after each BOS or CHoCH.",
+   "setup": "",
+   "notMean": "Not a separate level; it repeats the Protected line. A fixed convention, untested as a signal.",
+   "check": "When did the anchor last move?"
+  },
+  {
+   "section": "Fibonacci",
+   "label": "Fib 23.6%, Fib 38.2%, Fib 50%, Fib 78.6% [price] (grey dotted lines)",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "Retracements of the same leg, measured back from 0%: down from the high in a Bullish structure, up from the low in a Bearish one. Rebuilt on the latest bar only.",
+   "setup": "Retracement framing. Technicians often watch whether a pullback stalls between 38.2% and 61.8%, and look for structure to agree before reading anything.",
+   "notMean": "Fixed Fibonacci conventions, untested as signals. Not support or resistance the tool found.",
+   "check": "Does a level line up with a swing I marked myself?"
+  },
+  {
+   "section": "Fibonacci",
+   "label": "Fib 61.8% (golden ratio) [price] (solid gold line)",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "The 61.8% retracement of the same leg, drawn thicker and in gold.",
+   "setup": "Many technicians watch the 61.8% retracement as the deep end of a normal pullback, and look for structure to agree before reading anything.",
+   "notMean": "A fixed convention, untested as a signal; not a turning point.",
+   "check": "Is the Protected level far beyond this line or close to it?"
+  },
+  {
+   "section": "Bottom-out areas",
+   "label": "Bottom-out Stable (light blue box)",
+   "where": "price chart, Bearish structure only",
+   "reading": "Not a trend reading",
+   "measures": "23.6–38.2% of the down leg, measured up from its low, on the same leg as the Fibonacci. The box runs from the low's bar to the right edge. Shown only in a Bearish structure.",
+   "setup": "",
+   "notMean": "Not a bottom call. A fixed Fibonacci convention, untested as a signal; the structure changes only at the Protected High.",
+   "check": "Where is the close relative to the box?"
+  },
+  {
+   "section": "Bottom-out areas",
+   "label": "Bottom-out Stable ✓",
+   "where": "price chart, Bearish structure only",
+   "reading": "Not a trend reading",
+   "measures": "The last close, forming bar included, is above the top of the Stable area (38.2% of the leg). The ✓ can come and go until the bar closes.",
+   "setup": "Retracement framing. Technicians often treat a partial recovery of a down leg as a description only, and wait for a CHoCH at the Protected High before reading a change.",
+   "notMean": "Not a signal and not a structure change. A fixed convention, untested as a signal.",
+   "check": "Has the bar closed, and where is the Protected High?"
+  },
+  {
+   "section": "Bottom-out areas",
+   "label": "Bottom-out Confirm (green box)",
+   "where": "price chart, Bearish structure only",
+   "reading": "Not a trend reading",
+   "measures": "38.2–50% of the same down leg, directly above the Stable area, from the low's bar to the right edge. Shown only in a Bearish structure.",
+   "setup": "",
+   "notMean": "Not a confirmed bottom despite the name. A fixed Fibonacci convention, untested as a signal.",
+   "check": "How far is the box from the Protected High?"
+  },
+  {
+   "section": "Bottom-out areas",
+   "label": "Bottom-out Confirm ✓",
+   "where": "price chart, Bearish structure only",
+   "reading": "Not a trend reading",
+   "measures": "The last close, forming bar included, is above the top of the Confirm area (50% of the leg). The ✓ can come and go until the bar closes.",
+   "setup": "Retracement framing. Technicians often treat a half recovery of a down leg as a description only, and wait for a CHoCH at the Protected High before reading a change.",
+   "notMean": "Not a signal and not a structure change; the structure is still Bearish. A fixed convention, untested as a signal.",
+   "check": "Has the bar closed, and where is the Protected High?"
+  },
+  {
+   "section": "Zones and boxes",
+   "label": "Liquidity (thin purple zone)",
+   "where": "price chart, beyond a swing high or low",
+   "reading": "Not a trend reading",
+   "measures": "A zone 0.25 × ATR deep just above a pivot high or below a pivot low (5 bars each side in Swing style), drawn from the pivot bar once confirmed and extended right. The last three unswept zones each side are kept.",
+   "setup": "Liquidity framing. Technicians often watch how price behaves at a prior swing: a close through it, or a wick through and a close back.",
+   "notMean": "Not proof that orders sit there; it marks a prior swing extreme.",
+   "check": "Has price reached this zone yet?"
+  },
+  {
+   "section": "Zones and boxes",
+   "label": "Liquidity ×2 (darker purple zone)",
+   "where": "price chart, beyond a swing high or low",
+   "reading": "Not a trend reading",
+   "measures": "A new pivot within 0.1 × ATR of an existing zone merges into it: the zone keeps the more extreme price and counts the pivots (×2, ×3 …). Darker shade.",
+   "setup": "Technicians often note repeated swings at a similar price, and watch for a close through the level or a sweep.",
+   "notMean": "Not a stronger level by any test; it counts pivots at a similar price.",
+   "check": "How many times has price turned here?"
+  },
+  {
+   "section": "Zones and boxes",
+   "label": "◆ (purple diamond)",
+   "where": "price chart, at the bar's high or low",
+   "reading": "Not a trend reading",
+   "measures": "On a closed bar, the wick went beyond a liquidity zone's swing price and the close came back inside: a sweep. The zone is removed. A close beyond the price removes the zone too, without ◆. Last 30 kept.",
+   "setup": "Sweep-and-reclaim framing. Technicians often wait for the next bars to confirm the rejection, and frame risk beyond the wick or as an ATR multiple.",
+   "notMean": "Not a reversal signal; one wick and one close.",
+   "check": "Did the next bar close the same way?"
+  },
+  {
+   "section": "Zones and boxes",
+   "label": "Compress (grey dashed box)",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "Drawn while the ATR rank is in its lowest 10% over the look-back (on until above 15%), stretching to each bar's high and low. The last two boxes are kept.",
+   "setup": "Volatility contraction. Technicians often mark the box edges and wait for a close outside with a clean move.",
+   "notMean": "Not a direction.",
+   "check": "How many bars has the box lasted?"
+  },
+  {
+   "section": "Zones and boxes",
+   "label": "Breakout [price] (green dashed) and Breakdown [price] (orange-red dashed)",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "The top and bottom of the latest compress box while it is live: still compressing, or within the breakout window after (10 bars in Swing style). A close beyond one ends the box; Breakout Up or Breakdown also needs fast momentum that way, ER 0.30 or more and a box of 3 bars or more.",
+   "setup": "Technicians often wait for a close beyond a line rather than a wick, and frame risk on the other side of the box or as an ATR multiple.",
+   "notMean": "Not a prediction of which side gives way.",
+   "check": "Which line is closer to the close?"
+  },
+  {
+   "section": "Zones and boxes",
+   "label": "Pullback zone (amber box)",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "Shown while the state machine holds a trend, set by Up, Down, Breakout Up or Breakdown. ATR, Mid: 0.5 to 1.5 ATR back from the trend extreme, ATR taken at the extreme's bar. Fibonacci method: 38.2–61.8% of the last pivot leg. The box starts at the extreme's bar.",
+   "setup": "A pullback or bounce zone. Technicians often wait for a close back in the trend direction inside it, and frame risk beyond the Floor or Ceiling.",
+   "notMean": "Not support or resistance the tool found; a fixed distance from the extreme.",
+   "check": "Is the trend extreme still updating?"
+  },
+  {
+   "section": "Zones and boxes",
+   "label": "Pullback Floor [price] or Pullback Ceiling [price] (amber line)",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "2.0 ATR back from the trend extreme with Mid (78.6% with Fibonacci). A close beyond it, a close beyond the last opposite pivot, or a Volatile state clears the trend memory, and the zone and line disappear.",
+   "setup": "Technicians often frame risk beyond this line or the Protected level.",
+   "notMean": "Not the Protected level; the two come from different engines.",
+   "check": "Is it above or below the Protected level?"
+  },
+  {
+   "section": "Zones and boxes",
+   "label": "Confluence (deeper amber box)",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "Off by default. Where the ATR and Fibonacci pullback zones overlap, when they do and the Fibonacci leg exists.",
+   "setup": "",
+   "notMean": "Not a stronger zone by any test; it shows overlap only.",
+   "check": "How wide is the overlap compared with ATR?"
+  },
+  {
+   "section": "Zones and boxes",
+   "label": "Swing High [price], Swing Low [price] and Mid [price]",
+   "where": "price chart, WAIT and Sideways states",
+   "reading": "Not a trend reading",
+   "measures": "Highest high and lowest low of the swing look-back (20 bars in Swing style, current bar excluded), grey dashed; Mid is halfway, grey dotted. Shown only in WAIT, Sideways Up and Sideways Down.",
+   "setup": "Range framing. Technicians often read a range by its edges and wait for a close outside before reading a trend.",
+   "notMean": "Not swings from the zigzag; plain look-back highs and lows.",
+   "check": "Is price nearer the top or the bottom of this span?"
+  },
+  {
+   "section": "Zones and boxes",
+   "label": "Ext 1.272, Ext 1.618, Ext 2, Ext 2.618 (teal dotted lines)",
+   "where": "price chart",
+   "reading": "Not a trend reading",
+   "measures": "Off by default. Three-point extension from the last pivots: up needs a low, a high, then a higher low; each level is that higher low plus (high − first low) × ratio. Down mirrors it. Auto follows the state's side and draws nothing in WAIT or Compressed.",
+   "setup": "",
+   "notMean": "Reference geometry only: fixed conventions, untested as signals, and not places price is expected to reach.",
+   "check": "Which three pivots is it drawn from?"
+  },
+  {
+   "section": "Candles",
+   "label": "Green, orange-red or grey candles (Color candles by = Structure)",
+   "where": "price chart, candles",
+   "reading": "Uptrend or downtrend by structure",
+   "measures": "Off by default. Green from a break that makes the structure Bullish until a CHoCH down, orange-red the other way, grey before the first break. Set on closed bars; the forming candle keeps the last closed colour.",
+   "setup": "",
+   "notMean": "Not entry timing; a colour for the structure only.",
+   "check": "When did the colour last change, and at which CHoCH?"
+  },
+  {
+   "section": "Candles",
+   "label": "TREND, READY and WAIT colours (Color candles by = State)",
+   "where": "price chart, candles",
+   "reading": "Follows the state group",
+   "measures": "Off by default. Green or orange-red in TREND by side, blue in READY, orange in WAIT; chart colours while warming up. Set on closed bars.",
+   "setup": "",
+   "notMean": "Not entry timing; a colour for the state group only.",
+   "check": "Does the candle colour match the dashboard header?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Group → TREND, Group → READY, Group → WAIT",
+   "where": "alert",
+   "reading": "Group changed, any side",
+   "measures": "Three conditions. Each fires on the closed bar where the group changes to the one named, but not on the first state after warm-up. Message: Auto Structure: TREND (or READY, WAIT) on [ticker] [interval]. The side is not given.",
+   "setup": "",
+   "notMean": "Not a signal; it reports a change of group.",
+   "check": "Which state is shown in the dashboard now?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Breakout Up",
+   "where": "alert",
+   "reading": "Uptrend, leaving a compress box",
+   "measures": "Fires on the closed bar where the state becomes 破 Breakout Up. Message: Auto Structure: Breakout Up on [ticker] [interval].",
+   "setup": "Volatility expansion after compression. Technicians often wait for a retest of the Breakout line before reading the move as established.",
+   "notMean": "Not an instruction; it reports a state change.",
+   "check": "Where did the bar close relative to the box?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Breakdown",
+   "where": "alert",
+   "reading": "Downtrend, leaving a compress box",
+   "measures": "Fires on the closed bar where the state becomes 破 Breakdown. Message: Auto Structure: Breakdown on [ticker] [interval].",
+   "setup": "Volatility expansion after compression. Technicians often wait for a retest of the Breakdown line from below before reading the move as established.",
+   "notMean": "Not an instruction; it reports a state change.",
+   "check": "Where did the bar close relative to the box?"
+  },
+  {
+   "section": "Alerts",
+   "label": "BOS",
+   "where": "alert",
+   "reading": "Uptrend or downtrend by structure, continuing",
+   "measures": "Fires on the closed bar of every BOS, either side, even with BOS / CHoCH lines switched off. Message: Auto Structure: BOS on [ticker] [interval]. The side is not given.",
+   "setup": "Trend continuation by structure. Technicians often take the side from the Structure row and wait for a pullback before reading further.",
+   "notMean": "Not directional; the side has to be read from the chart.",
+   "check": "Which side does the Structure row show now?"
+  },
+  {
+   "section": "Alerts",
+   "label": "CHoCH",
+   "where": "alert",
+   "reading": "Change of structure, either side",
+   "measures": "Fires on the closed bar of every CHoCH, even with BOS / CHoCH lines switched off. Message: Auto Structure: CHoCH on [ticker] [interval]. The side is not given.",
+   "setup": "A possible change of trend. Technicians often wait for a BOS in the new direction before reading a new trend.",
+   "notMean": "Not a confirmed new trend; one close beyond the Protected level.",
+   "check": "Which side does the Structure row show now?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Liquidity sweep",
+   "where": "alert",
+   "reading": "Not a trend reading",
+   "measures": "Fires on the closed bar of a ◆ sweep, above or below. Needs Liquidity zones on, since no zones exist without it. Message: Auto Structure: liquidity sweep on [ticker] [interval].",
+   "setup": "Sweep-and-reclaim framing. Technicians often wait for the next bars to confirm the rejection before reading anything.",
+   "notMean": "Not a reversal signal, and the side is not given.",
+   "check": "Was the sweep above a high or below a low?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Any alert() function call (JSON messages)",
+   "where": "alert",
+   "reading": "Not a trend reading",
+   "measures": "One alert for JSON events, once per bar close: group, breakout_up or breakdown, pullback_start, pullback_floor_crossed, flip_crossed (last opposite pivot of the trend memory), bos or choch with direction, sweep_high or sweep_low.",
+   "setup": "",
+   "notMean": "Not a signal feed; each message reports one event on a closed bar.",
+   "check": "Which event does this message name?"
+  }
+ ]
+}

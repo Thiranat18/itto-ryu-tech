@@ -138,7 +138,7 @@ const groups = ref.settings.reduce<{ name: string; rows: typeof ref.settings }[]
           <p>{indicator.manual.summary}</p>
           <h3>{copy.manualPrinciples}</h3>
           <ol class="manual-steps">{indicator.manual.principles.map((line) => <li>{line}</li>)}</ol>
-          <h3>{copy.manualPresets}</h3>
+          <h3>{indicator.manual.presetsLabel ?? copy.manualPresets}</h3>
           <dl class="manual-presets">
             {
               indicator.manual.presets.map((p) => (

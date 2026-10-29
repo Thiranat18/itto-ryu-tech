@@ -20,7 +20,7 @@
     "kanjiCredit": "Stroke order: KanjiVG (CC BY-SA 3.0)"
   },
   "labels": {
-    "categories": { "Trend": "Trend", "Planning": "Planning", "Research": "Research" },
+    "categories": { "Trend": "Trend", "Planning": "Planning", "Research": "Research", "Structure": "Structure" },
     "access": { "Open-source": "Open-source", "Protected": "Protected" }
   },
   "home": {

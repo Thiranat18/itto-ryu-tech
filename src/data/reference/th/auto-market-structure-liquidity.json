@@ -1,0 +1,921 @@
+{
+ "settings": [
+  {
+   "name": "Market",
+   "range": "Classic, Crypto, FX & Gold, Custom",
+   "effect": "จำนวนวันเทรดต่อปีที่ใช้กำหนดช่วง rank ราว 1 ปี: 252, 365, 260 หรือค่าที่ตั้งเอง"
+  },
+  {
+   "name": "Trading days per year (Custom only)",
+   "range": "50 ถึง 366",
+   "effect": "ใช้เฉพาะเมื่อ Market = Custom โดยคูณกับจำนวนแท่งต่อวันที่นับจากชาร์ต สูงสุด 5,000 แท่ง"
+  },
+  {
+   "name": "Style",
+   "range": "Auto — follows chart TF, Scalp · fast · 1m–15m, Swing · medium · 30m–4H, Position · slow · D and above, Custom",
+   "effect": "กำหนดความยาวของ momentum, ER, pivot, swing look-back และจำนวนแท่งที่ต้องคงสถานะ; Auto เลือก Scalp ที่ 15m ลงไป, Swing ต่ำกว่า D และ Position ตั้งแต่ D"
+  },
+  {
+   "name": "Pullback method",
+   "range": "ATR, Fibonacci",
+   "effect": "วัด Pullback zone และ Floor / Ceiling เป็นระยะ ATR จากจุดสุดของ trend หรือเป็น Fib ของขาล่าสุดระหว่าง pivot"
+  },
+  {
+   "name": "Pullback depth",
+   "range": "Shallow, Mid, Deep, Custom",
+   "effect": "โซนและ Floor: ATR 0.3–1 / 1.5, 0.5–1.5 / 2, 1–2 / 3; Fib 23.6–38.2 / 61.8, 38.2–61.8 / 78.6, 50–78.6 / 100%"
+  },
+  {
+   "name": "Highlight ATR/Fib confluence",
+   "range": "",
+   "effect": "แรเงาส่วนที่ Pullback zone แบบ ATR และแบบ Fibonacci ซ้อนกัน พร้อมป้าย Confluence"
+  },
+  {
+   "name": "Liquidity zones",
+   "range": "",
+   "effect": "โซนสีม่วงถัดจาก pivot high และ pivot low 3 ตัวล่าสุดที่ยังไม่ถูก sweep พร้อมเครื่องหมาย ◆ และต้องเปิดไว้ alert sweep จึงทำงาน"
+  },
+  {
+   "name": "Compress box",
+   "range": "",
+   "effect": "กล่องเส้นประสีเทาขณะที่ ATR rank อยู่ในกลุ่มต่ำสุด 10% เก็บไว้ 2 กล่องล่าสุด"
+  },
+  {
+   "name": "Breakout / Breakdown lines",
+   "range": "",
+   "effect": "เส้นที่ขอบบนและขอบล่างของกล่อง compress ล่าสุดขณะที่กล่องยังมีผลอยู่"
+  },
+  {
+   "name": "Pullback zone + Floor / Ceiling",
+   "range": "",
+   "effect": "โซนสีเหลืองอำพันและเส้น Floor หรือ Ceiling ขณะที่ state machine ยังจำ trend อยู่"
+  },
+  {
+   "name": "Protected level",
+   "range": "",
+   "effect": "เส้นประ Protected Low หรือ Protected High ราคาปิดที่เลยเส้นนี้ไปคือ CHoCH"
+  },
+  {
+   "name": "Swing size (× ATR)",
+   "range": "ตั้งแต่ 0.5 ขึ้นไป ทีละ 0.25",
+   "effect": "ระยะกลับตัวเป็น ATR(14) ที่ยืนยัน swing ส่งผลต่อ BOS, CHoCH, Protected level และขา Fib"
+  },
+  {
+   "name": "BOS / CHoCH",
+   "range": "",
+   "effect": "เส้นประตรงจุด break พร้อมข้อความ BOS หรือ CHoCH เก็บไว้ 12 ครั้งล่าสุด alert BOS และ CHoCH ยังทำงานแม้ปิดไว้"
+  },
+  {
+   "name": "Swing High / Low",
+   "range": "",
+   "effect": "เส้น Swing High, Swing Low และ Mid จาก swing look-back แสดงเฉพาะใน state กลุ่ม WAIT และ Sideways"
+  },
+  {
+   "name": "Fibonacci retracement",
+   "range": "",
+   "effect": "เส้น Fib บนขาจาก Protected level ถึงจุดสุดล่าสุด โดยเส้น 61.8% เป็นสีทอง"
+  },
+  {
+   "name": "Bottom-out areas",
+   "range": "",
+   "effect": "กล่อง Stable (23.6–38.2%) และ Confirm (38.2–50%) บนขาเดียวกัน แสดงเฉพาะในโครงสร้าง Bearish"
+  },
+  {
+   "name": "Fibonacci extension",
+   "range": "Auto, Up, Down, Off",
+   "effect": "เส้น Ext 1.272 / 1.618 / 2 / 2.618 จาก pivot 3 จุดล่าสุด; Auto ตามทิศของ state และไม่วาดใน WAIT หรือ Compressed"
+  },
+  {
+   "name": "Show dashboard",
+   "range": "",
+   "effect": "แสดงหรือซ่อนตารางสถานะ"
+  },
+  {
+   "name": "Size",
+   "range": "Tiny, Small, Normal, Large",
+   "effect": "ขนาดตัวอักษรของ dashboard"
+  },
+  {
+   "name": "Position",
+   "range": "Top Right, Bottom Right, Top Left, Bottom Left",
+   "effect": "มุมของชาร์ตที่วาง dashboard"
+  },
+  {
+   "name": "Expected range row",
+   "range": "",
+   "effect": "แสดงแถว Next 10 bars: ช่วงกว้าง 2.07 ถึง 5.71 × ATR(14) บอกเฉพาะความกว้าง"
+  },
+  {
+   "name": "Preset row",
+   "range": "",
+   "effect": "แสดง Market และ Style ที่ใช้อยู่ พร้อมจำนวนแท่งต่อวันที่นับจากชาร์ต"
+  },
+  {
+   "name": "Color candles by",
+   "range": "Structure, State, Off",
+   "effect": "Off ใช้สีแท่งของชาร์ตเอง; Structure ระบายตาม Bullish / Bearish; State ระบายตาม TREND / READY / WAIT"
+  },
+  {
+   "name": "Up / TREND",
+   "range": "",
+   "effect": "โครงสร้าง Bullish, BOS และ CHoCH ฝั่งขึ้น, เส้น Breakout และ state กลุ่ม TREND ที่ชี้ขึ้น"
+  },
+  {
+   "name": "Down",
+   "range": "",
+   "effect": "โครงสร้าง Bearish, BOS และ CHoCH ฝั่งลง, เส้น Breakdown และ state กลุ่ม TREND ที่ชี้ลง"
+  },
+  {
+   "name": "READY",
+   "range": "",
+   "effect": "หัวตาราง dashboard และแท่งเทียนโหมด State ในกลุ่ม READY"
+  },
+  {
+   "name": "WAIT",
+   "range": "",
+   "effect": "หัวตาราง dashboard และแท่งเทียนโหมด State ในกลุ่ม WAIT รวมถึงข้อความ ⚠ ในแถว HTF"
+  },
+  {
+   "name": "Liquidity",
+   "range": "",
+   "effect": "Liquidity zone และเครื่องหมาย ◆"
+  },
+  {
+   "name": "Pullback",
+   "range": "",
+   "effect": "Pullback zone, เส้น Floor / Ceiling และแถบ Confluence"
+  },
+  {
+   "name": "Bottom-out Stable",
+   "range": "",
+   "effect": "กล่อง Bottom-out Stable"
+  },
+  {
+   "name": "Bottom-out Confirm",
+   "range": "",
+   "effect": "กล่อง Bottom-out Confirm"
+  },
+  {
+   "name": "Golden ratio",
+   "range": "",
+   "effect": "เส้น Fib 61.8%"
+  },
+  {
+   "name": "Momentum short (bars)",
+   "range": "ตั้งแต่ 2 ขึ้นไป",
+   "effect": "เฉพาะ Custom: ช่วงย้อนหลังของ momentum เร็ว ใช้กับการเข้าสู่ pullback และทิศของ breakout"
+  },
+  {
+   "name": "Momentum long (bars)",
+   "range": "ตั้งแต่ 3 ขึ้นไป",
+   "effect": "เฉพาะ Custom: ช่วงย้อนหลังของ momentum ช้า (mL) ที่จัด rank ราว 1 ปี และใช้ในแถว HTF ด้วย"
+  },
+  {
+   "name": "Efficiency Ratio length",
+   "range": "ตั้งแต่ 3 ขึ้นไป",
+   "effect": "เฉพาะ Custom: จำนวนแท่งของ Efficiency Ratio ซึ่งวัดว่าเส้นทางราคาตรงแค่ไหน"
+  },
+  {
+   "name": "Pivot left / right bars",
+   "range": "ตั้งแต่ 2 ขึ้นไป",
+   "effect": "เฉพาะ Custom: จำนวนแท่งแต่ละข้างที่ยืนยัน pivot สำหรับ Liquidity zone, ขา Fib ของ pullback และเส้น Ext"
+  },
+  {
+   "name": "Swing look-back (bars)",
+   "range": "ตั้งแต่ 5 ขึ้นไป",
+   "effect": "เฉพาะ Custom: จำนวนแท่งที่ใช้หา Swing High / Low และ Mid ไม่นับแท่งปัจจุบัน"
+  },
+  {
+   "name": "Breakout window (bars)",
+   "range": "ตั้งแต่ 1 ขึ้นไป",
+   "effect": "เฉพาะ Custom: จำนวนแท่งที่กล่อง compress ซึ่งจบแล้วยังถูก break ได้"
+  },
+  {
+   "name": "Breakout hold (bars)",
+   "range": "ตั้งแต่ 1 ขึ้นไป",
+   "effect": "เฉพาะ Custom: จำนวนแท่งที่คงสถานะ Breakout Up หรือ Breakdown"
+  },
+  {
+   "name": "Minimum state hold (bars)",
+   "range": "ตั้งแต่ 1 ขึ้นไป",
+   "effect": "เฉพาะ Custom: จำนวนแท่งขั้นต่ำก่อน state จะเปลี่ยนได้ (ยกเว้น Breakout และ Volatile)"
+  },
+  {
+   "name": "ATR length",
+   "range": "ตั้งแต่ 2 ขึ้นไป",
+   "effect": "ใช้ทุก Style: ATR ของ momentum, volatility rank, Pullback zone และความกว้าง Liquidity zone; swing และแถว Next 10 bars ใช้ ATR(14) เสมอ"
+  },
+  {
+   "name": "Efficiency Ratio trend threshold",
+   "range": "ค่าใดก็ได้ ทีละ 0.01",
+   "effect": "ใช้ทุก Style: ER ที่ถึงค่านี้นับว่าเส้นทางสะอาด และจะปิดเมื่อต่ำกว่าค่านี้ 0.05"
+  },
+  {
+   "name": "Chop ↔ Neutral hold",
+   "range": "ตั้งแต่ 1 ขึ้นไป",
+   "effect": "ใช้ทุก Style: จำนวนแท่งที่ Chop หรือ Neutral ต้องคงอยู่ก่อนสลับไปอีกตัว"
+  },
+  {
+   "name": "Group change hold",
+   "range": "ตั้งแต่ 1 ขึ้นไป",
+   "effect": "ใช้ทุก Style: จำนวนแท่งที่กลุ่ม WAIT / READY / TREND ต้องคงอยู่ก่อนเปลี่ยน; Volatile และ Breakout ข้ามเงื่อนไขนี้ได้"
+  },
+  {
+   "name": "Feature smoothing (EMA bars)",
+   "range": "ตั้งแต่ 1 ขึ้นไป",
+   "effect": "ใช้ทุก Style: EMA ที่เกลี่ย ER และ momentum ช้าก่อนกำหนด state; 1 = ไม่เกลี่ย"
+  },
+  {
+   "name": "Custom ATR zone start (× ATR)",
+   "range": "ค่าใดก็ได้ ทีละ 0.1",
+   "effect": "เฉพาะ Pullback depth = Custom: จุดเริ่มโซน เป็น ATR จากจุดสุดของ trend"
+  },
+  {
+   "name": "end",
+   "range": "ค่าใดก็ได้ ทีละ 0.1",
+   "effect": "เฉพาะ Pullback depth = Custom: ปลายโซน เป็น ATR จากจุดสุดของ trend"
+  },
+  {
+   "name": "Floor / Ceiling",
+   "range": "ค่าใดก็ได้ ทีละ 0.1",
+   "effect": "เฉพาะ Pullback depth = Custom: ระยะ Floor หรือ Ceiling เป็น ATR จากจุดสุดของ trend"
+  },
+  {
+   "name": "Custom Fib zone start %",
+   "range": "ค่าใดก็ได้",
+   "effect": "เฉพาะ Pullback depth = Custom: จุดเริ่มโซน เป็น % ของขา pivot ล่าสุดของ trend"
+  },
+  {
+   "name": "end %",
+   "range": "ค่าใดก็ได้",
+   "effect": "เฉพาะ Pullback depth = Custom: ปลายโซน เป็น % ของขา pivot ล่าสุดของ trend"
+  },
+  {
+   "name": "Floor / Ceiling %",
+   "range": "ค่าใดก็ได้",
+   "effect": "เฉพาะ Pullback depth = Custom: Floor หรือ Ceiling เป็น % ของขา pivot ล่าสุดของ trend"
+  }
+ ],
+ "states": [
+  {
+   "section": "หัวตาราง dashboard",
+   "en": "流 TREND",
+   "label": "流 TREND",
+   "where": "ตาราง dashboard, แถวสถานะ, ช่องซ้าย",
+   "reading": "Uptrend หรือ Downtrend",
+   "measures": "กลุ่มของ state ที่อยู่ข้าง ๆ: Up, Down, Breakout Up, Breakdown, Sideways Up หรือ Sideways Down หัวตารางและแถวสถานะเป็นสีเขียว (ขึ้น) หรือสีส้มแดง (ลง) กำหนดบนแท่งที่ปิดแล้ว แท่งที่ยังไม่ปิดจึงแสดงสถานะของแท่งที่ปิดล่าสุด",
+   "setup": "",
+   "notMean": "ไม่ใช่สัญญาณ กลุ่มนี้บอกลักษณะตลาดบนแท่งที่ปิดล่าสุดเท่านั้น",
+   "check": "state ข้าง ๆ คืออะไร และแถว Structure ตรงกันหรือไม่"
+  },
+  {
+   "section": "หัวตาราง dashboard",
+   "en": "昇 Up",
+   "label": "昇 Up",
+   "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
+   "reading": "Uptrend",
+   "measures": "เส้นทางสะอาดและ momentum แรง: Efficiency Ratio ที่เกลี่ยแล้ว 0.30 ขึ้นไป และ rank ของ momentum ช้า 66% ขึ้นไปในช่วง look-back (คงอยู่จนกว่า ER ต่ำกว่า 0.25 หรือ rank ต่ำกว่า 60%) โดย momentum ช้าอยู่ที่ศูนย์หรือสูงกว่า ใช้เฉพาะแท่งที่ปิดแล้ว",
+   "setup": "trend ที่ไปต่อ นักวิเคราะห์ทางเทคนิคมักรอ pullback เข้า Pullback zone แทนการไล่ราคา และกำหนดขอบเขตความเสี่ยงไว้เลย Protected level ออกไป หรือเป็นจำนวนเท่าของ ATR",
+   "notMean": "ไม่ใช่การพยากรณ์ แต่อธิบายว่าเส้นทางราคาช่วงที่ผ่านมาตรงและแรงแค่ไหน",
+   "check": "แถว Structure เป็น Bullish หรือไม่ และแถว HTF แสดงอะไร"
+  },
+  {
+   "section": "หัวตาราง dashboard",
+   "en": "降 Down",
+   "label": "降 Down",
+   "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
+   "reading": "Downtrend",
+   "measures": "เส้นทางสะอาดและ momentum แรง: Efficiency Ratio ที่เกลี่ยแล้ว 0.30 ขึ้นไป และ rank ของ momentum ช้า 66% ขึ้นไปในช่วง look-back (คงอยู่จนกว่า ER ต่ำกว่า 0.25 หรือ rank ต่ำกว่า 60%) โดย momentum ช้าต่ำกว่าศูนย์ ใช้เฉพาะแท่งที่ปิดแล้ว",
+   "setup": "trend ที่ไปต่อ นักวิเคราะห์ทางเทคนิคมักรอ bounce เข้า Pullback zone แทนการไล่ราคา และกำหนดขอบเขตความเสี่ยงไว้เลย Protected level ออกไป หรือเป็นจำนวนเท่าของ ATR",
+   "notMean": "ไม่ใช่การพยากรณ์ แต่อธิบายว่าเส้นทางราคาช่วงที่ผ่านมาตรงและแรงแค่ไหน",
+   "check": "แถว Structure เป็น Bearish หรือไม่ และแถว HTF แสดงอะไร"
+  },
+  {
+   "section": "หัวตาราง dashboard",
+   "en": "破 Breakout Up",
+   "label": "破 Breakout Up",
+   "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
+   "reading": "Uptrend, ออกจากกล่อง compress",
+   "measures": "แท่งที่ปิดแล้วปิดเหนือขอบบนของกล่อง compress ที่ยาว 3 แท่งขึ้นไป ขณะที่กล่องยังมีผล (อีก 10 แท่งหลังกล่องจบใน Swing style) โดย momentum เร็วชี้ขึ้นและ ER 0.30 ขึ้นไป คงอยู่ 3 แท่งใน Swing style และข้ามกฎการคงสถานะ",
+   "setup": "ความผันผวนขยายตัวหลังช่วงบีบตัว นักวิเคราะห์ทางเทคนิคมักรอให้ราคากลับมาทดสอบเส้น Breakout หรือรอ pullback แรกที่ยืนเหนือเส้นได้ และกำหนดขอบเขตความเสี่ยงไว้ใต้กล่อง หรือเป็นจำนวนเท่าของ ATR",
+   "notMean": "ไม่ได้รับประกันว่าการเคลื่อนไหวจะไปต่อ state นี้จบลงเมื่อครบจำนวนแท่งที่คงไว้",
+   "check": "ราคาปิดพ้นกล่องอย่างชัดเจน หรือแค่พ้นมานิดเดียว"
+  },
+  {
+   "section": "หัวตาราง dashboard",
+   "en": "破 Breakdown",
+   "label": "破 Breakdown",
+   "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
+   "reading": "Downtrend, ออกจากกล่อง compress",
+   "measures": "แท่งที่ปิดแล้วปิดใต้ขอบล่างของกล่อง compress ที่ยาว 3 แท่งขึ้นไป ขณะที่กล่องยังมีผล (อีก 10 แท่งหลังกล่องจบใน Swing style) โดย momentum เร็วชี้ลงและ ER 0.30 ขึ้นไป คงอยู่ 3 แท่งใน Swing style และข้ามกฎการคงสถานะ",
+   "setup": "ความผันผวนขยายตัวหลังช่วงบีบตัว นักวิเคราะห์ทางเทคนิคมักรอให้ราคากลับขึ้นมาทดสอบเส้น Breakdown จากด้านล่าง หรือรอ bounce แรกที่หยุดอยู่ใต้เส้น และกำหนดขอบเขตความเสี่ยงไว้เหนือกล่อง หรือเป็นจำนวนเท่าของ ATR",
+   "notMean": "ไม่ได้รับประกันว่าการเคลื่อนไหวจะไปต่อ state นี้จบลงเมื่อครบจำนวนแท่งที่คงไว้",
+   "check": "ราคาปิดพ้นกล่องอย่างชัดเจน หรือแค่พ้นมานิดเดียว"
+  },
+  {
+   "section": "หัวตาราง dashboard",
+   "en": "横 Sideways Up",
+   "label": "横 Sideways Up",
+   "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
+   "reading": "เอียงขึ้น",
+   "measures": "เงื่อนไข trend ไม่ผ่าน แต่ rank ของ momentum อยู่ที่ 33% ขึ้นไป (ปิดเมื่อต่ำกว่า 28%) และเส้นทางไม่ chop ฝั่งมาจาก trend ที่ state machine จำไว้ หรือจาก momentum ช้าถ้าไม่มี trend ในความจำ เส้น Swing High / Low แสดงขึ้น",
+   "setup": "การเคลื่อนไหวที่อ่อนหรือกำลังแผ่ว นักวิเคราะห์ทางเทคนิคมักมองว่าเป็นช่วงเปลี่ยนผ่าน และรอ Up หรือ pullback ที่ยืนได้ ก่อนจะอ่านเป็น Uptrend",
+   "notMean": "ไม่ใช่กรอบราคา ราคายังเคลื่อนไหว แต่ยังไม่สะอาดพอจะอ่านเป็น trend",
+   "check": "กำลังขึ้นมาจาก WAIT หรือกำลังแผ่วลงจาก Up"
+  },
+  {
+   "section": "หัวตาราง dashboard",
+   "en": "横 Sideways Down",
+   "label": "横 Sideways Down",
+   "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
+   "reading": "เอียงลง",
+   "measures": "เงื่อนไข trend ไม่ผ่าน แต่ rank ของ momentum อยู่ที่ 33% ขึ้นไป (ปิดเมื่อต่ำกว่า 28%) และเส้นทางไม่ chop ฝั่งมาจาก trend ที่ state machine จำไว้ หรือจาก momentum ช้าถ้าไม่มี trend ในความจำ เส้น Swing High / Low แสดงขึ้น",
+   "setup": "การเคลื่อนไหวที่อ่อนหรือกำลังแผ่ว นักวิเคราะห์ทางเทคนิคมักมองว่าเป็นช่วงเปลี่ยนผ่าน และรอ Down หรือ bounce ที่หยุดลง ก่อนจะอ่านเป็น Downtrend",
+   "notMean": "ไม่ใช่กรอบราคา ราคายังเคลื่อนไหว แต่ยังไม่สะอาดพอจะอ่านเป็น trend",
+   "check": "กำลังลงมาจาก WAIT หรือกำลังแผ่วลงจาก Down"
+  },
+  {
+   "section": "หัวตาราง dashboard",
+   "en": "構 READY",
+   "label": "構 READY",
+   "where": "ตาราง dashboard, แถวสถานะ, ช่องซ้าย",
+   "reading": "ไม่ชัดทาง, ช่วงพักระหว่างหรือก่อนการเคลื่อนไหว",
+   "measures": "กลุ่มของ Pullback Up, Pullback Down และ Compressed หัวตารางและแถวสถานะเป็นสีน้ำเงิน การเปลี่ยนกลุ่มต้องอยู่ในกลุ่มใหม่ 3 แท่ง เว้นแต่ Volatile หรือ Breakout เข้ามาแทน ใช้เฉพาะแท่งที่ปิดแล้ว",
+   "setup": "",
+   "notMean": "ไม่ใช่สัญญาณให้ลงมือ ชื่อนี้อธิบายช่วงพักเท่านั้น",
+   "check": "นี่คือ pullback ภายใน trend ที่ยังจำไว้ หรือเป็นช่วงบีบตัว"
+  },
+  {
+   "section": "หัวตาราง dashboard",
+   "en": "押 Pullback Up",
+   "label": "押 Pullback Up",
+   "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
+   "reading": "Uptrend, อยู่ในช่วง pullback",
+   "measures": "state machine ยังจำ trend ขาขึ้นจาก Up หรือ Breakout Up, momentum เร็วต่ำกว่าศูนย์ (หรือ state นี้เปิดอยู่แล้ว) และราคาปิดอยู่ระหว่าง Pullback Floor กับขอบบนของ Pullback zone: ต่ำกว่าจุดสูงสุดของ trend 0.5 ถึง 2.0 ATR เมื่อใช้ ATR แบบ Mid",
+   "setup": "pullback ใน Uptrend นักวิเคราะห์ทางเทคนิคมักรอราคาปิดกลับขึ้นจากโซน และกำหนดขอบเขตความเสี่ยงไว้เลย Pullback Floor หรือ Protected Low ออกไป หรือเป็นจำนวนเท่าของ ATR",
+   "notMean": "ไม่ได้แปลว่า pullback จบแล้ว ราคาปิดใต้ Floor จะล้างความจำ trend",
+   "check": "ราคาปิดอยู่ใกล้โซนหรือใกล้ Floor มากกว่า"
+  },
+  {
+   "section": "หัวตาราง dashboard",
+   "en": "押 Pullback Down",
+   "label": "押 Pullback Down",
+   "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
+   "reading": "Downtrend, อยู่ในช่วง bounce",
+   "measures": "state machine ยังจำ trend ขาลงจาก Down หรือ Breakdown, momentum เร็วสูงกว่าศูนย์ (หรือ state นี้เปิดอยู่แล้ว) และราคาปิดอยู่ระหว่าง Pullback Ceiling กับขอบล่างของ Pullback zone: สูงกว่าจุดต่ำสุดของ trend 0.5 ถึง 2.0 ATR เมื่อใช้ ATR แบบ Mid",
+   "setup": "bounce ใน Downtrend นักวิเคราะห์ทางเทคนิคมักรอราคาปิดกลับลงจากโซน และกำหนดขอบเขตความเสี่ยงไว้เลย Pullback Ceiling หรือ Protected High ออกไป หรือเป็นจำนวนเท่าของ ATR",
+   "notMean": "ไม่ได้แปลว่า bounce จบแล้ว ราคาปิดเหนือ Ceiling จะล้างความจำ trend",
+   "check": "ราคาปิดอยู่ใกล้โซนหรือใกล้ Ceiling มากกว่า"
+  },
+  {
+   "section": "หัวตาราง dashboard",
+   "en": "静 Compressed",
+   "label": "静 Compressed",
+   "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
+   "reading": "Sideways หรือ chop, ความผันผวนบีบตัว",
+   "measures": "volatility rank (ATR ในช่วง look-back) อยู่ในกลุ่มต่ำสุด 10% และคงอยู่จนกว่าจะสูงกว่า 15% โดยเงื่อนไข trend ไม่ผ่าน ระหว่างที่ความผันผวนยังบีบตัวจะมีกล่อง Compress สีเทา",
+   "setup": "ความผันผวนหดตัว นักวิเคราะห์ทางเทคนิคมักทำเครื่องหมายขอบกล่อง และรอราคาปิดออกนอกกล่องพร้อมการเคลื่อนไหวที่สะอาด ซึ่งเป็นเงื่อนไขของ Breakout Up หรือ Breakdown",
+   "notMean": "ไม่ได้บอกทิศทาง ตลาดที่บีบตัวออกได้ทั้งสองฝั่ง",
+   "check": "เส้น Breakout และ Breakdown อยู่ตรงไหน"
+  },
+  {
+   "section": "หัวตาราง dashboard",
+   "en": "待 WAIT",
+   "label": "待 WAIT",
+   "where": "ตาราง dashboard, แถวสถานะ, ช่องซ้าย",
+   "reading": "Sideways หรือ chop",
+   "measures": "กลุ่มของ Chop, Volatile และ Neutral หัวตารางและแถวสถานะเป็นสีส้ม มีเส้น Swing High, Swing Low และ Mid การเปลี่ยนกลุ่มต้องอยู่ในกลุ่มใหม่ 3 แท่ง เว้นแต่ Volatile หรือ Breakout เข้ามาแทน",
+   "setup": "นักวิเคราะห์ทางเทคนิคมักพักวิธีแบบตาม trend ไว้ก่อน และอ่านตลาดจาก Swing High และ Swing Low",
+   "notMean": "ไม่ใช่การกลับตัว ค่าที่อ่านได้แบบ trend ครั้งถัดไปอาจเป็นฝั่งใดก็ได้",
+   "check": "เป็น state ใดในกลุ่ม WAIT: Chop, Volatile หรือ Neutral"
+  },
+  {
+   "section": "หัวตาราง dashboard",
+   "en": "揉 Chop",
+   "label": "揉 Chop",
+   "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
+   "reading": "Sideways หรือ chop",
+   "measures": "เส้นทางไม่สะอาด: ER ที่เกลี่ยแล้วต่ำกว่า 0.25 (คงอยู่จนกว่าจะถึง 0.30) และเงื่อนไข trend ไม่ผ่าน การสลับระหว่าง Chop กับ Neutral ต้องใช้ 3 แท่ง",
+   "setup": "กรอบราคาหรือตลาดที่มี noise มาก นักวิเคราะห์ทางเทคนิคมักอ่านจากขอบ คือ Swing High และ Swing Low และรอเส้นทางที่สะอาดขึ้นก่อนจะอ่านเป็น trend",
+   "notMean": "ไม่ได้แปลว่าความผันผวนต่ำ ราคาแกว่งกว้างได้โดยไม่มีเส้นทางที่สะอาด",
+   "check": "Vol rank ในแถว Move สูงหรือต่ำ"
+  },
+  {
+   "section": "หัวตาราง dashboard",
+   "en": "乱 Volatile",
+   "label": "乱 Volatile",
+   "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
+   "reading": "ไม่ชัดทาง, ผันผวนสูงมาก",
+   "measures": "volatility rank 90% ขึ้นไป (คงอยู่จนกว่าจะต่ำกว่า 85%) และเส้นทางไม่สะอาด (ER ต่ำกว่า 0.25) ข้ามกฎการคงสถานะ และล้างความจำ trend ของ state machine",
+   "setup": "ตลาดที่ไร้ระเบียบ นักวิเคราะห์ทางเทคนิคมักขยายกรอบความเสี่ยงที่อิง ATR หรือรอดูจนความผันผวนสงบลง",
+   "notMean": "ไม่ได้บอกทิศทาง และไม่ใช่สัญญาณว่าการเคลื่อนไหวกำลังจบ",
+   "check": "แถบในแถว Next 10 bars กว้างแค่ไหน"
+  },
+  {
+   "section": "หัวตาราง dashboard",
+   "en": "中 Neutral",
+   "label": "中 Neutral",
+   "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
+   "reading": "ไม่ชัดทาง",
+   "measures": "ไม่เข้า state อื่นเลย เช่น momentum อ่อนเกินกว่าจะเป็น Sideways แต่เส้นทางก็ไม่ chop มักเกิดช่วงต้นของการเปลี่ยนทิศ การสลับระหว่าง Neutral กับ Chop ต้องใช้ 3 แท่ง",
+   "setup": "",
+   "notMean": "ไม่ได้แปลว่าตลาดสงบ เป็นสิ่งที่เหลือเมื่อไม่เข้ากฎข้ออื่น",
+   "check": "แถว Structure เพิ่งเปลี่ยนไปหรือไม่"
+  },
+  {
+   "section": "หัวตาราง dashboard",
+   "en": "— warming up",
+   "label": "— warming up",
+   "where": "ตาราง dashboard, แถวสถานะ",
+   "reading": "ยังไม่มีค่าอ่าน",
+   "measures": "ประวัติราคายังไม่พอให้จัด rank ของ momentum และความผันผวนในช่วง look-back ซึ่งราว 1 ปีของแท่ง (50 ถึง 5,000 แท่ง) ช่องกลุ่มแสดง — แท่งเทียนโหมด State ใช้สีของชาร์ต และ state แรกหลังจากนี้ไม่ส่ง alert กลุ่ม",
+   "setup": "",
+   "notMean": "ไม่ได้แปลว่าตลาดเงียบ เครื่องมือยังอ่านค่าไม่ได้",
+   "check": "โหลดประวัติราคาพอสำหรับ timeframe นี้แล้วหรือยัง"
+  },
+  {
+   "section": "แถว Structure",
+   "en": "Bullish (HH · HL) · protected [price]",
+   "label": "Bullish (HH · HL) · protected [price]",
+   "where": "ตาราง dashboard, แถว Structure",
+   "reading": "Uptrend ตามโครงสร้าง",
+   "measures": "break ครั้งล่าสุดเป็นฝั่งขึ้น: ราคาปิดเหนือ swing high (BOS) หรือเหนือ Protected High (CHoCH) HH หรือ LH เทียบ swing high 2 ตัวล่าสุด HL หรือ LL เทียบ swing low 2 ตัวล่าสุด จาก ATR zigzag (2.0 × ATR) คู่แบบอื่นแสดงได้ทั้งที่ยังเป็น Bullish ข้อความสีเขียว",
+   "setup": "trend ที่ไปต่อตามโครงสร้างแบบ Dow นักวิเคราะห์ทางเทคนิคมักดู pullback ที่ยืนเหนือ Protected Low ได้ และกำหนดขอบเขตความเสี่ยงไว้เลยระดับนั้นออกไป หรือเป็นจำนวนเท่าของ ATR",
+   "notMean": "ไม่ใช่การพยากรณ์ Bullish คงอยู่จนกว่าราคาปิดใต้ Protected Low ไม่ว่าก่อนหน้านั้นราคาจะลงมาไกลแค่ไหน",
+   "check": "คู่ swing เป็น HH · HL หรือมีตัวใดสวนทาง"
+  },
+  {
+   "section": "แถว Structure",
+   "en": "Bearish (LH · LL) · protected [price]",
+   "label": "Bearish (LH · LL) · protected [price]",
+   "where": "ตาราง dashboard, แถว Structure",
+   "reading": "Downtrend ตามโครงสร้าง",
+   "measures": "break ครั้งล่าสุดเป็นฝั่งลง: ราคาปิดใต้ swing low (BOS) หรือใต้ Protected Low (CHoCH) HH หรือ LH เทียบ swing high 2 ตัวล่าสุด HL หรือ LL เทียบ swing low 2 ตัวล่าสุด จาก ATR zigzag (2.0 × ATR) คู่แบบอื่นแสดงได้ทั้งที่ยังเป็น Bearish ข้อความสีส้มแดง",
+   "setup": "trend ที่ไปต่อตามโครงสร้างแบบ Dow นักวิเคราะห์ทางเทคนิคมักดู bounce ที่หยุดอยู่ใต้ Protected High และกำหนดขอบเขตความเสี่ยงไว้เลยระดับนั้นออกไป หรือเป็นจำนวนเท่าของ ATR",
+   "notMean": "ไม่ใช่การพยากรณ์ Bearish คงอยู่จนกว่าราคาปิดเหนือ Protected High ไม่ว่าก่อนหน้านั้นราคาจะขึ้นไปไกลแค่ไหน",
+   "check": "คู่ swing เป็น LH · LL หรือมีตัวใดสวนทาง"
+  },
+  {
+   "section": "แถว Structure",
+   "en": "— (—)",
+   "label": "— (—)",
+   "where": "ตาราง dashboard, แถว Structure",
+   "reading": "ยังไม่มีค่าอ่าน",
+   "measures": "ยังไม่มี break ของโครงสร้างในประวัติที่โหลดไว้ จึงไม่เป็นทั้ง Bullish และ Bearish ข้อความสีเทา ส่วน (—) อย่างเดียวหมายถึงมี swing high หรือ swing low ที่ยืนยันแล้วไม่ถึง 2 ตัว และอาจตามหลัง Bullish หรือ Bearish ได้ในช่วงต้นของประวัติ",
+   "setup": "",
+   "notMean": "ไม่ใช่ค่าที่บอกว่าเป็นกรอบราคา โครงสร้างยังไม่เริ่มต้น",
+   "check": "โหลดประวัติพอหรือยัง หรือ Swing size ตั้งไว้ใหญ่มาก"
+  },
+  {
+   "section": "แถว HTF",
+   "en": "✓ [HTF] Up = [chart] Up",
+   "label": "✓ [HTF] Up = [chart] Up",
+   "where": "ตาราง dashboard, แถว HTF",
+   "reading": "Uptrend, timeframe สอดคล้องกัน",
+   "measures": "timeframe ที่สูงกว่า (1H สำหรับ 15m ลงไป, 4H ถึง 1H, D ถึง 4H, W ถึง D, M สำหรับที่สูงกว่านั้น) อ่านจากแท่งที่ปิดล่าสุดของ timeframe นั้น: momentum ช่วงย้อนหลังแบบช้าชี้ขึ้น มี rank 33% ขึ้นไปเทียบกับประวัติของตัวเอง และ state ของชาร์ตชี้ขึ้น (Up, Breakout Up, Sideways Up หรือ Pullback Up) ข้อความสีเขียว",
+   "setup": "ความสอดคล้องหลาย timeframe นักวิเคราะห์ทางเทคนิคมักให้น้ำหนักกับค่าที่อ่านได้แบบ trend มากขึ้นเมื่อ timeframe ที่ช้ากว่าชี้ไปทางเดียวกัน",
+   "notMean": "ไม่ได้ยืนยันการเคลื่อนไหวข้างหน้า แค่เทียบค่าที่อ่านได้ 2 ค่า",
+   "check": "แท่งปัจจุบันของ timeframe ที่สูงกว่าจะปิดเมื่อไร"
+  },
+  {
+   "section": "แถว HTF",
+   "en": "✓ [HTF] Down = [chart] Down",
+   "label": "✓ [HTF] Down = [chart] Down",
+   "where": "ตาราง dashboard, แถว HTF",
+   "reading": "Downtrend, timeframe สอดคล้องกัน",
+   "measures": "timeframe ที่สูงกว่า (1H สำหรับ 15m ลงไป, 4H ถึง 1H, D ถึง 4H, W ถึง D, M สำหรับที่สูงกว่านั้น) อ่านจากแท่งที่ปิดล่าสุดของ timeframe นั้น: momentum ช่วงย้อนหลังแบบช้าชี้ลง มี rank 33% ขึ้นไปเทียบกับประวัติของตัวเอง และ state ของชาร์ตชี้ลง (Down, Breakdown, Sideways Down หรือ Pullback Down) ข้อความสีส้มแดง",
+   "setup": "ความสอดคล้องหลาย timeframe นักวิเคราะห์ทางเทคนิคมักให้น้ำหนักกับค่าที่อ่านได้แบบ trend มากขึ้นเมื่อ timeframe ที่ช้ากว่าชี้ไปทางเดียวกัน",
+   "notMean": "ไม่ได้ยืนยันการเคลื่อนไหวข้างหน้า แค่เทียบค่าที่อ่านได้ 2 ค่า",
+   "check": "แท่งปัจจุบันของ timeframe ที่สูงกว่าจะปิดเมื่อไร"
+  },
+  {
+   "section": "แถว HTF",
+   "en": "⚠ [HTF] Down vs [chart] Up, or ⚠ [HTF] Up vs [chart] Down",
+   "label": "⚠ [HTF] Down vs [chart] Up หรือ ⚠ [HTF] Up vs [chart] Down",
+   "where": "ตาราง dashboard, แถว HTF",
+   "reading": "ไม่ชัดทาง, timeframe ขัดกัน",
+   "measures": "timeframe ที่สูงกว่า (1H สำหรับ 15m ลงไป, 4H ถึง 1H, D ถึง 4H, W ถึง D, M สำหรับที่สูงกว่านั้น) อ่านจากแท่งที่ปิดล่าสุดของ timeframe นั้น momentum ของ timeframe นั้นซึ่งมี rank 33% ขึ้นไป ชี้สวนทางกับ state ของชาร์ต ข้อความสีส้ม",
+   "setup": "timeframe ขัดกัน นักวิเคราะห์ทางเทคนิคมักอ่านการเคลื่อนไหวบนชาร์ตเป็น pullback หรือ bounce ภายในการเคลื่อนไหวที่ใหญ่กว่า จนกว่า timeframe ที่ช้ากว่าจะเปลี่ยนทิศ",
+   "notMean": "ไม่ได้บอกว่า timeframe ใดกำลังกลับตัว",
+   "check": "การวิเคราะห์ของตัวเองเริ่มจาก timeframe ใด"
+  },
+  {
+   "section": "แถว HTF",
+   "en": "[HTF] flat · [chart] Up, or [HTF] Up · [chart] no trend (grey)",
+   "label": "[HTF] flat · [chart] Up หรือ [HTF] Up · [chart] no trend (สีเทา)",
+   "where": "ตาราง dashboard, แถว HTF",
+   "reading": "ยังไม่มีค่าอ่าน",
+   "measures": "ข้อความสีเทาเมื่อ rank ของ momentum ใน timeframe ที่สูงกว่าต่ำกว่า 33% (flat) หรือ state ของชาร์ตไม่มีฝั่ง: Compressed, state ในกลุ่ม WAIT หรือ warming up",
+   "setup": "",
+   "notMean": "ไม่ใช่การขัดกัน ฝั่งหนึ่งไม่มีค่าให้เทียบ",
+   "check": "ฝั่งที่เป็นสีเทาคือ timeframe ที่สูงกว่าหรือชาร์ตนี้"
+  },
+  {
+   "section": "แถว HTF",
+   "en": "[HTF] n/a — not enough history",
+   "label": "[HTF] n/a — not enough history",
+   "where": "ตาราง dashboard, แถว HTF",
+   "reading": "ยังไม่มีค่าอ่าน",
+   "measures": "timeframe ที่สูงกว่ายังไม่มีค่า rank หรือไม่ได้สูงกว่าชาร์ต เช่น บนชาร์ตรายเดือน ข้อความสีเทา",
+   "setup": "",
+   "notMean": "ไม่ได้แปลว่า timeframe ที่สูงกว่า flat แต่ไม่มีค่าให้อ่าน",
+   "check": "ชาร์ตนี้อยู่ที่ timeframe ขั้นสูงสุดแล้วหรือไม่"
+  },
+  {
+   "section": "แถวอื่น ๆ",
+   "en": "Reason: mL [x] ATR (rank [n]%) · ER [x] · Vol rank [n]%",
+   "label": "Reason: mL [x] ATR (rank [n]%) · ER [x] · Vol rank [n]%",
+   "where": "ตาราง dashboard, แถว Reason",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "ค่าตั้งต้น 3 ค่าเบื้องหลัง state บนแท่งที่ปิดล่าสุด: momentum ช้าที่เกลี่ยแล้วเป็นหน่วย ATR พร้อม rank ในช่วง look-back, Efficiency Ratio ที่เกลี่ยแล้ว (0 = noise, 1 = เส้นตรง) และ rank ของ ATR",
+   "setup": "",
+   "notMean": "ไม่ใช่คะแนนที่เอาไปเทียบข้ามตลาด rank คิดภายใน symbol และ timeframe นี้เท่านั้น",
+   "check": "ค่าใดใน 3 ค่าที่ทำให้ state เปลี่ยน"
+  },
+  {
+   "section": "แถวอื่น ๆ",
+   "en": "Next 10 bars: range ≈ [a] – [b]",
+   "label": "Next 10 bars: range ≈ [a] – [b]",
+   "where": "ตาราง dashboard, แถว Next 10 bars",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "แถบช่วงกว้างจาก ATR(14) ของแท่งที่ปิดล่าสุด: 2.07 × และ 5.71 × ATR(14) แสดงเป็นระยะราคา สำหรับระยะจากจุดสูงสุดถึงจุดต่ำสุดของ 10 แท่งถัดไป บอกความกว้าง ไม่ได้บอกทิศทาง",
+   "setup": "การประเมินขนาดความผันผวน นักวิเคราะห์ทางเทคนิคมักเทียบกรอบความเสี่ยงหรือความสูงของกรอบราคากับแถบนี้ เพื่อดูว่าปกติสำหรับตลาดนั้นหรือไม่",
+   "notMean": "ไม่ใช่ระดับราคาและไม่ใช่ทิศทาง เป็นแค่ความกว้าง 2 ค่า",
+   "check": "กรอบความเสี่ยงของตัวเองเล็กหรือใหญ่เมื่อเทียบกับแถบนี้"
+  },
+  {
+   "section": "แถวอื่น ๆ",
+   "en": "Move (live): mL [x] ATR · ER [x] · Vol rank [n]%",
+   "label": "Move (live): mL [x] ATR · ER [x] · Vol rank [n]%",
+   "where": "ตาราง dashboard, แถว Move (live)",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "ค่า 3 ค่าเดียวกับ Reason แต่มาจากแท่งที่ยังไม่ปิด จึงเปลี่ยนได้จนกว่าแท่งจะปิด state จะตามค่าเหล่านี้ก็ต่อเมื่อแท่งปิดแล้ว",
+   "setup": "",
+   "notMean": "ไม่ใช่ state แต่เป็นการดูค่าตั้งต้นแบบสด",
+   "check": "แท่งนี้ปิดแล้วหรือยัง"
+  },
+  {
+   "section": "แถวอื่น ๆ",
+   "en": "Levels: Floor [price] · Protected [price], Ceiling [price] · Protected [price], or Swing H [price] · L [price]",
+   "label": "Levels: Floor [price] · Protected [price], Ceiling [price] · Protected [price] หรือ Swing H [price] · L [price]",
+   "where": "ตาราง dashboard, แถว Levels",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "ขณะที่ state machine ยังจำ trend: Pullback Floor (ขึ้น) หรือ Ceiling (ลง) และ Protected level ของโครงสร้าง ซึ่งมาจากคนละกลไก เมื่อไม่มี trend ในความจำ: จุดสูงสุดและต่ำสุดของ swing look-back (20 แท่งใน Swing style)",
+   "setup": "นักวิเคราะห์ทางเทคนิคมักกำหนดขอบเขตความเสี่ยงไว้เลยระดับใดระดับหนึ่งนี้ออกไป หรือเป็นจำนวนเท่าของ ATR และอ่านกรอบราคาจาก Swing H และ L",
+   "notMean": "ไม่ใช่ราคา stop ที่เครื่องมือเลือกให้ เป็นแค่ระดับอ้างอิง",
+   "check": "ระดับใดอยู่ใกล้ราคาปิดมากกว่า"
+  },
+  {
+   "section": "แถวอื่น ๆ",
+   "en": "Preset: [Market] ([n] bars/day × [d] d) · [Style] (auto · [TF])",
+   "label": "Preset: [Market] ([n] bars/day × [d] d) · [Style] (auto · [TF])",
+   "where": "ตาราง dashboard, แถว Preset",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "Market และ Style ที่ใช้อยู่ จำนวนแท่งต่อวันนับจากชาร์ตและแสดงเฉพาะชาร์ต intraday ส่วน (auto · …) แสดงเมื่อ Style เป็น Auto พร้อมรหัส timeframe ดิบ เช่น 60",
+   "setup": "",
+   "notMean": "ไม่ใช่ค่าที่อ่านจากตลาด เป็นการตรวจการตั้งค่า",
+   "check": "ตรงกับตลาดบนชาร์ตของตัวเองหรือไม่"
+  },
+  {
+   "section": "เส้น Structure",
+   "en": "BOS (green or orange-red dashed line)",
+   "label": "BOS (เส้นประสีเขียวหรือสีส้มแดง)",
+   "where": "ชาร์ตราคา",
+   "reading": "Uptrend หรือ Downtrend ตามโครงสร้าง, ไปต่อ",
+   "measures": "แท่งที่ปิดแล้วปิดเลย swing ล่าสุดไปในทิศของโครงสร้าง หรือเป็น break ครั้งแรก ไส้เทียนไม่นับเป็น break เส้นลากจาก swing ถึงแท่งที่ break: สีเขียวพร้อมข้อความด้านบนเมื่อขึ้น สีส้มแดงพร้อมข้อความด้านล่างเมื่อลง และขยับ Protected level เก็บไว้ 12 ครั้งล่าสุด",
+   "setup": "trend ที่ไปต่อตามโครงสร้าง นักวิเคราะห์ทางเทคนิคมักรอ pullback หลัง BOS และกำหนดขอบเขตความเสี่ยงไว้เลย Protected level ใหม่ออกไป หรือเป็นจำนวนเท่าของ ATR",
+   "notMean": "ไม่ได้วาดแบบทันที swing ยืนยันหลังราคากลับตัว 2 × ATR แล้วจึงต้องมีราคาปิดเลยออกไป",
+   "check": "ราคาปิดเลย swing ไปไกลแค่ไหน"
+  },
+  {
+   "section": "เส้น Structure",
+   "en": "CHoCH (green or orange-red dashed line)",
+   "label": "CHoCH (เส้นประสีเขียวหรือสีส้มแดง)",
+   "where": "ชาร์ตราคา",
+   "reading": "โครงสร้างเปลี่ยนข้าง, ได้ทั้งสองฝั่ง",
+   "measures": "แท่งที่ปิดแล้วปิดเลย Protected level ไปในทิศสวนโครงสร้าง Bullish เปลี่ยนเป็น Bearish (สีส้มแดง ข้อความด้านล่าง) หรือกลับกัน (สีเขียว ข้อความด้านบน) เส้นลากจากแท่งของ Protected level ถึงแท่งที่ break",
+   "setup": "อาจเป็นการเปลี่ยน trend นักวิเคราะห์ทางเทคนิคมักรอ BOS ในทิศใหม่ก่อนจะอ่านเป็น trend ใหม่ และกำหนดขอบเขตความเสี่ยงไว้เลย Protected level ใหม่ออกไป",
+   "notMean": "ยังไม่ใช่ trend ใหม่ที่ยืนยันแล้ว เป็นแค่ราคาปิด 1 แท่งที่เลยระดับเดียว",
+   "check": "มี BOS ในทิศใหม่ตามมาแล้วหรือยัง"
+  },
+  {
+   "section": "เส้น Structure",
+   "en": "Protected Low [price] (magenta dashed line)",
+   "label": "Protected Low [price] (เส้นประสีบานเย็น)",
+   "where": "ชาร์ตราคา",
+   "reading": "Uptrend ตามโครงสร้าง, ระดับที่ค้ำโครงสร้างไว้",
+   "measures": "ในโครงสร้าง Bullish: จุดต่ำสุดตั้งแต่ swing high ที่ถูก break จนถึงแท่งที่ break และตั้งใหม่ทุกครั้งที่เกิด BOS ฝั่งขึ้น หลัง CHoCH ฝั่งขึ้นจะเป็นจุดต่ำสุดนับจาก Protected High เดิม ราคาปิดใต้เส้นนี้คือ CHoCH เส้นเริ่มที่แท่งของจุดต่ำนั้น",
+   "setup": "นักวิเคราะห์ทางเทคนิคมักกำหนดขอบเขตความเสี่ยงไว้เลย Protected Low ออกไป เพราะเป็นระดับที่ถ้าเสียไปโครงสร้างจะเปลี่ยน",
+   "notMean": "ไม่ใช่ระดับที่ราคาต้องยืนได้ ไส้เทียนที่หลุดลงไปไม่นับ นับเฉพาะราคาปิด",
+   "check": "ราคาปิดห่างจากเส้นนี้กี่ ATR"
+  },
+  {
+   "section": "เส้น Structure",
+   "en": "Protected High [price] (purple dashed line)",
+   "label": "Protected High [price] (เส้นประสีม่วง)",
+   "where": "ชาร์ตราคา",
+   "reading": "Downtrend ตามโครงสร้าง, ระดับที่ค้ำโครงสร้างไว้",
+   "measures": "ในโครงสร้าง Bearish: จุดสูงสุดตั้งแต่ swing low ที่ถูก break จนถึงแท่งที่ break และตั้งใหม่ทุกครั้งที่เกิด BOS ฝั่งลง หลัง CHoCH ฝั่งลงจะเป็นจุดสูงสุดนับจาก Protected Low เดิม ราคาปิดเหนือเส้นนี้คือ CHoCH เส้นเริ่มที่แท่งของจุดสูงนั้น",
+   "setup": "นักวิเคราะห์ทางเทคนิคมักกำหนดขอบเขตความเสี่ยงไว้เลย Protected High ออกไป เพราะเป็นระดับที่ถ้าเสียไปโครงสร้างจะเปลี่ยน",
+   "notMean": "ไม่ใช่ระดับที่ราคาต้องอยู่ใต้เสมอ ไส้เทียนที่ทะลุขึ้นไปไม่นับ นับเฉพาะราคาปิด",
+   "check": "ราคาปิดห่างจากเส้นนี้กี่ ATR"
+  },
+  {
+   "section": "Fibonacci",
+   "en": "Fib 0% (swing high) [price] or Fib 0% (swing low) [price]",
+   "label": "Fib 0% (swing high) [price] หรือ Fib 0% (swing low) [price]",
+   "where": "ชาร์ตราคา",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "ราคาที่สุดขั้วที่สุดนับจาก Protected level: จุดสูงสุดในโครงสร้าง Bullish หรือจุดต่ำสุดในโครงสร้าง Bearish รวมแท่งที่ยังไม่ปิดด้วย จึงขยับได้จนกว่าแท่งจะปิด เส้นจุดสีเทาเริ่มจากแท่งของ Protected level",
+   "setup": "",
+   "notMean": "ไม่ใช่ swing ที่ยืนยันแล้ว ระดับนี้ตามจุดสุดขั้วใหม่ทุกครั้ง เป็นธรรมเนียมตายตัวที่ยังไม่ได้ทดสอบในฐานะสัญญาณ",
+   "check": "แท่งที่ยังไม่ปิดเพิ่งสร้างระดับนี้หรือไม่"
+  },
+  {
+   "section": "Fibonacci",
+   "en": "Fib 100% (protected low) [price] or Fib 100% (protected high) [price]",
+   "label": "Fib 100% (protected low) [price] หรือ Fib 100% (protected high) [price]",
+   "where": "ชาร์ตราคา",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "ราคาเดียวกับ Protected level ซึ่งเป็นจุดยึดของขา ทั้งขาจะย้ายไปยึดจุดใหม่หลัง BOS หรือ CHoCH ทุกครั้ง",
+   "setup": "",
+   "notMean": "ไม่ใช่ระดับแยกต่างหาก แต่ซ้ำกับเส้น Protected เป็นธรรมเนียมตายตัวที่ยังไม่ได้ทดสอบในฐานะสัญญาณ",
+   "check": "จุดยึดย้ายครั้งล่าสุดเมื่อไร"
+  },
+  {
+   "section": "Fibonacci",
+   "en": "Fib 23.6%, Fib 38.2%, Fib 50%, Fib 78.6% [price] (grey dotted lines)",
+   "label": "Fib 23.6%, Fib 38.2%, Fib 50%, Fib 78.6% [price] (เส้นจุดสีเทา)",
+   "where": "ชาร์ตราคา",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "ระดับ retracement ของขาเดียวกัน วัดย้อนจาก 0%: ลงจากจุดสูงในโครงสร้าง Bullish และขึ้นจากจุดต่ำในโครงสร้าง Bearish วาดใหม่บนแท่งล่าสุดเท่านั้น",
+   "setup": "การวางกรอบด้วย retracement นักวิเคราะห์ทางเทคนิคมักดูว่า pullback หยุดอยู่ระหว่าง 38.2% ถึง 61.8% หรือไม่ และรอให้โครงสร้างสอดคล้องก่อนจะอ่านอะไร",
+   "notMean": "เป็นธรรมเนียม Fibonacci ตายตัวที่ยังไม่ได้ทดสอบในฐานะสัญญาณ ไม่ใช่แนวรับหรือแนวต้านที่เครื่องมือหาเจอ",
+   "check": "มีระดับใดตรงกับ swing ที่ทำเครื่องหมายไว้เองหรือไม่"
+  },
+  {
+   "section": "Fibonacci",
+   "en": "Fib 61.8% (golden ratio) [price] (solid gold line)",
+   "label": "Fib 61.8% (golden ratio) [price] (เส้นทึบสีทอง)",
+   "where": "ชาร์ตราคา",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "ระดับ retracement 61.8% ของขาเดียวกัน วาดหนากว่าและเป็นสีทอง",
+   "setup": "นักวิเคราะห์ทางเทคนิคจำนวนมากมอง retracement 61.8% เป็นปลายลึกของ pullback ปกติ และรอให้โครงสร้างสอดคล้องก่อนจะอ่านอะไร",
+   "notMean": "เป็นธรรมเนียมตายตัวที่ยังไม่ได้ทดสอบในฐานะสัญญาณ ไม่ใช่จุดกลับตัว",
+   "check": "Protected level อยู่ห่างจากเส้นนี้มากหรือใกล้"
+  },
+  {
+   "section": "พื้นที่ Bottom-out",
+   "en": "Bottom-out Stable (light blue box)",
+   "label": "Bottom-out Stable (กล่องสีฟ้าอ่อน)",
+   "where": "ชาร์ตราคา, เฉพาะโครงสร้าง Bearish",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "ช่วง 23.6–38.2% ของขาลง วัดขึ้นจากจุดต่ำ บนขาเดียวกับ Fibonacci กล่องเริ่มจากแท่งของจุดต่ำไปถึงขอบขวา แสดงเฉพาะในโครงสร้าง Bearish",
+   "setup": "",
+   "notMean": "ไม่ใช่การบอกว่าถึงจุดต่ำสุดแล้ว เป็นธรรมเนียม Fibonacci ตายตัวที่ยังไม่ได้ทดสอบในฐานะสัญญาณ โครงสร้างจะเปลี่ยนที่ Protected High เท่านั้น",
+   "check": "ราคาปิดอยู่ตรงไหนเมื่อเทียบกับกล่อง"
+  },
+  {
+   "section": "พื้นที่ Bottom-out",
+   "en": "Bottom-out Stable ✓",
+   "label": "Bottom-out Stable ✓",
+   "where": "ชาร์ตราคา, เฉพาะโครงสร้าง Bearish",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "ราคาปิดล่าสุด รวมแท่งที่ยังไม่ปิด อยู่เหนือขอบบนของพื้นที่ Stable (38.2% ของขา) เครื่องหมาย ✓ จึงขึ้นและหายได้จนกว่าแท่งจะปิด",
+   "setup": "การวางกรอบด้วย retracement นักวิเคราะห์ทางเทคนิคมักถือว่าการฟื้นตัวบางส่วนของขาลงเป็นเพียงคำอธิบาย และรอ CHoCH ที่ Protected High ก่อนจะอ่านว่ามีการเปลี่ยนแปลง",
+   "notMean": "ไม่ใช่สัญญาณและไม่ใช่การเปลี่ยนโครงสร้าง เป็นธรรมเนียมตายตัวที่ยังไม่ได้ทดสอบในฐานะสัญญาณ",
+   "check": "แท่งปิดแล้วหรือยัง และ Protected High อยู่ตรงไหน"
+  },
+  {
+   "section": "พื้นที่ Bottom-out",
+   "en": "Bottom-out Confirm (green box)",
+   "label": "Bottom-out Confirm (กล่องสีเขียว)",
+   "where": "ชาร์ตราคา, เฉพาะโครงสร้าง Bearish",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "ช่วง 38.2–50% ของขาลงเดียวกัน อยู่ถัดขึ้นไปจากพื้นที่ Stable เริ่มจากแท่งของจุดต่ำไปถึงขอบขวา แสดงเฉพาะในโครงสร้าง Bearish",
+   "setup": "",
+   "notMean": "แม้ชื่อจะเป็น Confirm แต่ไม่ใช่การยืนยันจุดต่ำสุด เป็นธรรมเนียม Fibonacci ตายตัวที่ยังไม่ได้ทดสอบในฐานะสัญญาณ",
+   "check": "กล่องนี้ห่างจาก Protected High แค่ไหน"
+  },
+  {
+   "section": "พื้นที่ Bottom-out",
+   "en": "Bottom-out Confirm ✓",
+   "label": "Bottom-out Confirm ✓",
+   "where": "ชาร์ตราคา, เฉพาะโครงสร้าง Bearish",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "ราคาปิดล่าสุด รวมแท่งที่ยังไม่ปิด อยู่เหนือขอบบนของพื้นที่ Confirm (50% ของขา) เครื่องหมาย ✓ จึงขึ้นและหายได้จนกว่าแท่งจะปิด",
+   "setup": "การวางกรอบด้วย retracement นักวิเคราะห์ทางเทคนิคมักถือว่าการฟื้นตัวครึ่งหนึ่งของขาลงเป็นเพียงคำอธิบาย และรอ CHoCH ที่ Protected High ก่อนจะอ่านว่ามีการเปลี่ยนแปลง",
+   "notMean": "ไม่ใช่สัญญาณและไม่ใช่การเปลี่ยนโครงสร้าง โครงสร้างยังเป็น Bearish อยู่ เป็นธรรมเนียมตายตัวที่ยังไม่ได้ทดสอบในฐานะสัญญาณ",
+   "check": "แท่งปิดแล้วหรือยัง และ Protected High อยู่ตรงไหน"
+  },
+  {
+   "section": "โซนและกล่อง",
+   "en": "Liquidity (thin purple zone)",
+   "label": "Liquidity (โซนสีม่วงบาง)",
+   "where": "ชาร์ตราคา, ถัดจาก swing high หรือ swing low",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "โซนลึก 0.25 × ATR อยู่เหนือ pivot high หรือใต้ pivot low (ข้างละ 5 แท่งใน Swing style) วาดจากแท่งของ pivot เมื่อยืนยันแล้วและยืดไปทางขวา เก็บโซนที่ยังไม่ถูก sweep ไว้ข้างละ 3 โซนล่าสุด",
+   "setup": "การวางกรอบด้วย liquidity นักวิเคราะห์ทางเทคนิคมักดูพฤติกรรมราคาที่ swing เดิม: ปิดทะลุไป หรือไส้เทียนทะลุแล้วปิดกลับ",
+   "notMean": "ไม่ได้พิสูจน์ว่ามีคำสั่งรออยู่ตรงนั้น แค่ทำเครื่องหมายจุดสุดของ swing เดิม",
+   "check": "ราคาไปถึงโซนนี้แล้วหรือยัง"
+  },
+  {
+   "section": "โซนและกล่อง",
+   "en": "Liquidity ×2 (darker purple zone)",
+   "label": "Liquidity ×2 (โซนสีม่วงเข้มกว่า)",
+   "where": "ชาร์ตราคา, ถัดจาก swing high หรือ swing low",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "pivot ใหม่ที่อยู่ห่างจากโซนเดิมไม่เกิน 0.1 × ATR จะรวมเข้าโซนนั้น โซนใช้ราคาที่สุดขั้วกว่าและนับจำนวน pivot (×2, ×3 …) สีเข้มกว่า",
+   "setup": "นักวิเคราะห์ทางเทคนิคมักจดว่า swing เกิดซ้ำที่ราคาใกล้กัน และดูว่าราคาปิดทะลุระดับหรือเกิด sweep",
+   "notMean": "ไม่ใช่ระดับที่แข็งแรงกว่าจากการทดสอบใด ๆ แค่นับ pivot ที่ราคาใกล้กัน",
+   "check": "ราคากลับตัวตรงนี้มาแล้วกี่ครั้ง"
+  },
+  {
+   "section": "โซนและกล่อง",
+   "en": "◆ (purple diamond)",
+   "label": "◆ (เพชรสีม่วง)",
+   "where": "ชาร์ตราคา, ที่จุดสูงหรือจุดต่ำของแท่ง",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "บนแท่งที่ปิดแล้ว ไส้เทียนเลยราคา swing ของ liquidity zone ไป แต่ราคาปิดกลับเข้ามา: sweep โซนนั้นจะถูกลบ ถ้าราคาปิดเลยไปเลยโซนก็ถูกลบเช่นกันแต่ไม่มี ◆ เก็บไว้ 30 จุดล่าสุด",
+   "setup": "การวางกรอบแบบ sweep แล้วกลับเข้ามา นักวิเคราะห์ทางเทคนิคมักรอแท่งถัดไปยืนยันการปฏิเสธราคา และกำหนดขอบเขตความเสี่ยงไว้เลยไส้เทียนออกไป หรือเป็นจำนวนเท่าของ ATR",
+   "notMean": "ไม่ใช่สัญญาณกลับตัว เป็นแค่ไส้เทียน 1 เส้นกับราคาปิด 1 ครั้ง",
+   "check": "แท่งถัดไปปิดไปในทางเดียวกันหรือไม่"
+  },
+  {
+   "section": "โซนและกล่อง",
+   "en": "Compress (grey dashed box)",
+   "label": "Compress (กล่องเส้นประสีเทา)",
+   "where": "ชาร์ตราคา",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "วาดขณะที่ ATR rank อยู่ในกลุ่มต่ำสุด 10% ของช่วง look-back (คงอยู่จนกว่าจะสูงกว่า 15%) และขยายตามจุดสูงและจุดต่ำของแต่ละแท่ง เก็บไว้ 2 กล่องล่าสุด",
+   "setup": "ความผันผวนหดตัว นักวิเคราะห์ทางเทคนิคมักทำเครื่องหมายขอบกล่อง และรอราคาปิดออกนอกกล่องพร้อมการเคลื่อนไหวที่สะอาด",
+   "notMean": "ไม่ได้บอกทิศทาง",
+   "check": "กล่องนี้อยู่มาแล้วกี่แท่ง"
+  },
+  {
+   "section": "โซนและกล่อง",
+   "en": "Breakout [price] (green dashed) and Breakdown [price] (orange-red dashed)",
+   "label": "Breakout [price] (เส้นประสีเขียว) และ Breakdown [price] (เส้นประสีส้มแดง)",
+   "where": "ชาร์ตราคา",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "ขอบบนและขอบล่างของกล่อง compress ล่าสุดขณะที่กล่องยังมีผล: ยังบีบตัวอยู่ หรืออยู่ในช่วง breakout window หลังจากนั้น (10 แท่งใน Swing style) ราคาปิดเลยเส้นใดเส้นหนึ่งจะจบกล่อง ส่วน Breakout Up หรือ Breakdown ต้องมี momentum เร็วไปทางนั้น ER 0.30 ขึ้นไป และกล่องยาว 3 แท่งขึ้นไปด้วย",
+   "setup": "นักวิเคราะห์ทางเทคนิคมักรอราคาปิดเลยเส้นแทนการดูแค่ไส้เทียน และกำหนดขอบเขตความเสี่ยงไว้อีกฝั่งของกล่อง หรือเป็นจำนวนเท่าของ ATR",
+   "notMean": "ไม่ได้ทำนายว่าฝั่งไหนจะแตก",
+   "check": "เส้นใดอยู่ใกล้ราคาปิดมากกว่า"
+  },
+  {
+   "section": "โซนและกล่อง",
+   "en": "Pullback zone (amber box)",
+   "label": "Pullback zone (กล่องสีเหลืองอำพัน)",
+   "where": "ชาร์ตราคา",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "แสดงขณะที่ state machine ยังจำ trend ซึ่งตั้งโดย Up, Down, Breakout Up หรือ Breakdown แบบ ATR, Mid: ห่างจากจุดสุดของ trend 0.5 ถึง 1.5 ATR โดยใช้ ATR ณ แท่งของจุดสุด แบบ Fibonacci: 38.2–61.8% ของขา pivot ล่าสุด กล่องเริ่มที่แท่งของจุดสุด",
+   "setup": "โซนของ pullback หรือ bounce นักวิเคราะห์ทางเทคนิคมักรอราคาปิดกลับไปในทิศของ trend ภายในโซน และกำหนดขอบเขตความเสี่ยงไว้เลย Floor หรือ Ceiling ออกไป",
+   "notMean": "ไม่ใช่แนวรับหรือแนวต้านที่เครื่องมือหาเจอ เป็นระยะตายตัวจากจุดสุด",
+   "check": "จุดสุดของ trend ยังขยับอยู่หรือไม่"
+  },
+  {
+   "section": "โซนและกล่อง",
+   "en": "Pullback Floor [price] or Pullback Ceiling [price] (amber line)",
+   "label": "Pullback Floor [price] หรือ Pullback Ceiling [price] (เส้นสีเหลืองอำพัน)",
+   "where": "ชาร์ตราคา",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "ห่างจากจุดสุดของ trend 2.0 ATR เมื่อใช้ Mid (78.6% เมื่อใช้ Fibonacci) ราคาปิดเลยเส้นนี้ ราคาปิดเลย pivot ฝั่งตรงข้ามล่าสุด หรือ state Volatile จะล้างความจำ trend และโซนกับเส้นจะหายไป",
+   "setup": "นักวิเคราะห์ทางเทคนิคมักกำหนดขอบเขตความเสี่ยงไว้เลยเส้นนี้หรือ Protected level ออกไป",
+   "notMean": "ไม่ใช่ Protected level ทั้งสองมาจากคนละกลไก",
+   "check": "เส้นนี้อยู่เหนือหรือใต้ Protected level"
+  },
+  {
+   "section": "โซนและกล่อง",
+   "en": "Confluence (deeper amber box)",
+   "label": "Confluence (กล่องสีเหลืองอำพันเข้มกว่า)",
+   "where": "ชาร์ตราคา",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "ปิดไว้เป็นค่าเริ่มต้น แสดงส่วนที่ Pullback zone แบบ ATR และแบบ Fibonacci ซ้อนกัน เมื่อซ้อนกันจริงและมีขา Fibonacci",
+   "setup": "",
+   "notMean": "ไม่ใช่โซนที่แข็งแรงกว่าจากการทดสอบใด ๆ แค่แสดงส่วนที่ซ้อนกัน",
+   "check": "ส่วนที่ซ้อนกันกว้างแค่ไหนเมื่อเทียบกับ ATR"
+  },
+  {
+   "section": "โซนและกล่อง",
+   "en": "Swing High [price], Swing Low [price] and Mid [price]",
+   "label": "Swing High [price], Swing Low [price] และ Mid [price]",
+   "where": "ชาร์ตราคา, state กลุ่ม WAIT และ Sideways",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "จุดสูงสุดและต่ำสุดของ swing look-back (20 แท่งใน Swing style ไม่นับแท่งปัจจุบัน) เป็นเส้นประสีเทา ส่วน Mid อยู่กึ่งกลางเป็นเส้นจุดสีเทา แสดงเฉพาะใน WAIT, Sideways Up และ Sideways Down",
+   "setup": "การวางกรอบราคา นักวิเคราะห์ทางเทคนิคมักอ่านกรอบราคาจากขอบ และรอราคาปิดออกนอกกรอบก่อนจะอ่านเป็น trend",
+   "notMean": "ไม่ใช่ swing จาก zigzag เป็นแค่จุดสูงและต่ำในช่วงย้อนหลัง",
+   "check": "ราคาอยู่ใกล้ขอบบนหรือขอบล่างของช่วงนี้มากกว่า"
+  },
+  {
+   "section": "โซนและกล่อง",
+   "en": "Ext 1.272, Ext 1.618, Ext 2, Ext 2.618 (teal dotted lines)",
+   "label": "Ext 1.272, Ext 1.618, Ext 2, Ext 2.618 (เส้นจุดสีเขียวอมฟ้า)",
+   "where": "ชาร์ตราคา",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "ปิดไว้เป็นค่าเริ่มต้น extension แบบ 3 จุดจาก pivot ล่าสุด: ฝั่งขึ้นต้องมีจุดต่ำ จุดสูง แล้วจุดต่ำที่ยกตัวขึ้น แต่ละระดับคือจุดต่ำที่ยกตัวขึ้นนั้นบวก (จุดสูง − จุดต่ำแรก) × อัตราส่วน ฝั่งลงกลับด้านกัน Auto ตามฝั่งของ state และไม่วาดใน WAIT หรือ Compressed",
+   "setup": "",
+   "notMean": "เป็นเรขาคณิตอ้างอิงเท่านั้น เป็นธรรมเนียมตายตัวที่ยังไม่ได้ทดสอบในฐานะสัญญาณ และไม่ใช่จุดที่คาดว่าราคาจะไปถึง",
+   "check": "เส้นเหล่านี้วาดจาก pivot 3 จุดใด"
+  },
+  {
+   "section": "แท่งเทียน",
+   "en": "Green, orange-red or grey candles (Color candles by = Structure)",
+   "label": "แท่งเทียนสีเขียว สีส้มแดง หรือสีเทา (Color candles by = Structure)",
+   "where": "ชาร์ตราคา, แท่งเทียน",
+   "reading": "Uptrend หรือ Downtrend ตามโครงสร้าง",
+   "measures": "ปิดไว้เป็นค่าเริ่มต้น สีเขียวตั้งแต่ break ที่ทำให้โครงสร้างเป็น Bullish จนถึง CHoCH ฝั่งลง สีส้มแดงในทางกลับกัน และสีเทาก่อน break ครั้งแรก กำหนดบนแท่งที่ปิดแล้ว แท่งที่ยังไม่ปิดจึงใช้สีของแท่งที่ปิดล่าสุด",
+   "setup": "",
+   "notMean": "ไม่ใช่จังหวะเข้า เป็นแค่สีของโครงสร้าง",
+   "check": "สีเปลี่ยนครั้งล่าสุดเมื่อไร และที่ CHoCH ใด"
+  },
+  {
+   "section": "แท่งเทียน",
+   "en": "TREND, READY and WAIT colours (Color candles by = State)",
+   "label": "สี TREND, READY และ WAIT (Color candles by = State)",
+   "where": "ชาร์ตราคา, แท่งเทียน",
+   "reading": "ตามกลุ่มของ state",
+   "measures": "ปิดไว้เป็นค่าเริ่มต้น สีเขียวหรือสีส้มแดงใน TREND ตามฝั่ง สีน้ำเงินใน READY สีส้มใน WAIT และใช้สีของชาร์ตระหว่าง warming up กำหนดบนแท่งที่ปิดแล้ว",
+   "setup": "",
+   "notMean": "ไม่ใช่จังหวะเข้า เป็นแค่สีของกลุ่ม state",
+   "check": "สีแท่งเทียนตรงกับหัวตาราง dashboard หรือไม่"
+  },
+  {
+   "section": "Alert",
+   "en": "Group → TREND, Group → READY, Group → WAIT",
+   "label": "Group → TREND, Group → READY, Group → WAIT",
+   "where": "alert",
+   "reading": "กลุ่มเปลี่ยน, ได้ทุกฝั่ง",
+   "measures": "มี 3 เงื่อนไข แต่ละตัวแจ้งเตือนบนแท่งที่ปิดแล้วซึ่งกลุ่มเปลี่ยนเป็นกลุ่มตามชื่อ แต่ไม่แจ้งสำหรับ state แรกหลัง warm-up ข้อความ: Auto Structure: TREND (หรือ READY, WAIT) on [ticker] [interval] ไม่ได้ระบุฝั่ง",
+   "setup": "",
+   "notMean": "ไม่ใช่สัญญาณ แค่รายงานว่ากลุ่มเปลี่ยน",
+   "check": "ตอนนี้ dashboard แสดง state ใด"
+  },
+  {
+   "section": "Alert",
+   "en": "Breakout Up",
+   "label": "Breakout Up",
+   "where": "alert",
+   "reading": "Uptrend, ออกจากกล่อง compress",
+   "measures": "แจ้งเตือนบนแท่งที่ปิดแล้วซึ่ง state เปลี่ยนเป็น 破 Breakout Up ข้อความ: Auto Structure: Breakout Up on [ticker] [interval]",
+   "setup": "ความผันผวนขยายตัวหลังช่วงบีบตัว นักวิเคราะห์ทางเทคนิคมักรอให้ราคากลับมาทดสอบเส้น Breakout ก่อนจะอ่านว่าการเคลื่อนไหวเกิดขึ้นจริง",
+   "notMean": "ไม่ใช่คำสั่ง แค่รายงานว่า state เปลี่ยน",
+   "check": "แท่งปิดอยู่ตรงไหนเมื่อเทียบกับกล่อง"
+  },
+  {
+   "section": "Alert",
+   "en": "Breakdown",
+   "label": "Breakdown",
+   "where": "alert",
+   "reading": "Downtrend, ออกจากกล่อง compress",
+   "measures": "แจ้งเตือนบนแท่งที่ปิดแล้วซึ่ง state เปลี่ยนเป็น 破 Breakdown ข้อความ: Auto Structure: Breakdown on [ticker] [interval]",
+   "setup": "ความผันผวนขยายตัวหลังช่วงบีบตัว นักวิเคราะห์ทางเทคนิคมักรอให้ราคากลับขึ้นมาทดสอบเส้น Breakdown จากด้านล่าง ก่อนจะอ่านว่าการเคลื่อนไหวเกิดขึ้นจริง",
+   "notMean": "ไม่ใช่คำสั่ง แค่รายงานว่า state เปลี่ยน",
+   "check": "แท่งปิดอยู่ตรงไหนเมื่อเทียบกับกล่อง"
+  },
+  {
+   "section": "Alert",
+   "en": "BOS",
+   "label": "BOS",
+   "where": "alert",
+   "reading": "Uptrend หรือ Downtrend ตามโครงสร้าง, ไปต่อ",
+   "measures": "แจ้งเตือนบนแท่งที่ปิดแล้วของ BOS ทุกครั้ง ทั้งสองฝั่ง แม้ปิดเส้น BOS / CHoCH ไว้ ข้อความ: Auto Structure: BOS on [ticker] [interval] ไม่ได้ระบุฝั่ง",
+   "setup": "trend ที่ไปต่อตามโครงสร้าง นักวิเคราะห์ทางเทคนิคมักดูฝั่งจากแถว Structure และรอ pullback ก่อนจะอ่านต่อ",
+   "notMean": "ไม่ได้บอกทิศทาง ต้องอ่านฝั่งจากชาร์ตเอง",
+   "check": "ตอนนี้แถว Structure แสดงฝั่งใด"
+  },
+  {
+   "section": "Alert",
+   "en": "CHoCH",
+   "label": "CHoCH",
+   "where": "alert",
+   "reading": "โครงสร้างเปลี่ยนข้าง, ได้ทั้งสองฝั่ง",
+   "measures": "แจ้งเตือนบนแท่งที่ปิดแล้วของ CHoCH ทุกครั้ง แม้ปิดเส้น BOS / CHoCH ไว้ ข้อความ: Auto Structure: CHoCH on [ticker] [interval] ไม่ได้ระบุฝั่ง",
+   "setup": "อาจเป็นการเปลี่ยน trend นักวิเคราะห์ทางเทคนิคมักรอ BOS ในทิศใหม่ก่อนจะอ่านเป็น trend ใหม่",
+   "notMean": "ยังไม่ใช่ trend ใหม่ที่ยืนยันแล้ว เป็นแค่ราคาปิด 1 ครั้งที่เลย Protected level",
+   "check": "ตอนนี้แถว Structure แสดงฝั่งใด"
+  },
+  {
+   "section": "Alert",
+   "en": "Liquidity sweep",
+   "label": "Liquidity sweep",
+   "where": "alert",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "แจ้งเตือนบนแท่งที่ปิดแล้วที่เกิด sweep ◆ ทั้งด้านบนและด้านล่าง ต้องเปิด Liquidity zones ไว้ เพราะถ้าปิดจะไม่มีโซนเลย ข้อความ: Auto Structure: liquidity sweep on [ticker] [interval]",
+   "setup": "การวางกรอบแบบ sweep แล้วกลับเข้ามา นักวิเคราะห์ทางเทคนิคมักรอแท่งถัดไปยืนยันการปฏิเสธราคาก่อนจะอ่านอะไร",
+   "notMean": "ไม่ใช่สัญญาณกลับตัว และไม่ได้ระบุฝั่ง",
+   "check": "sweep เกิดเหนือจุดสูงหรือใต้จุดต่ำ"
+  },
+  {
+   "section": "Alert",
+   "en": "Any alert() function call (JSON messages)",
+   "label": "Any alert() function call (JSON messages)",
+   "where": "alert",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "alert เดียวสำหรับ event แบบ JSON ครั้งเดียวต่อการปิดแท่ง: group, breakout_up หรือ breakdown, pullback_start, pullback_floor_crossed, flip_crossed (pivot ฝั่งตรงข้ามล่าสุดของ trend ในความจำ), bos หรือ choch พร้อม direction, sweep_high หรือ sweep_low",
+   "setup": "",
+   "notMean": "ไม่ใช่ช่องทางส่งสัญญาณ แต่ละข้อความรายงาน event เดียวบนแท่งที่ปิดแล้ว",
+   "check": "ข้อความนี้ระบุ event ใด"
+  }
+ ]
+}

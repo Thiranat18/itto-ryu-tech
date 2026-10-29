@@ -229,6 +229,15 @@ a.tile-fill:hover{background:var(--kinari-2)}
 .sw-magK{width:18px;border-top:2px dashed #FFB74D}
 .sw-magB{width:18px;border-top:2px dashed #BA68C8}
 .sw-marks{width:0;height:0;border:0 solid transparent;border-width:0 6px 10px;border-bottom-color:#26A69A}
+.legend :is(.sw-boS,.sw-boC,.sw-liq,.sw-pb){margin-top:7px}
+.sw-brk{width:18px;border-top:2px dashed #009E73}
+.sw-prot{width:18px;border-top:2px dashed #9C27B0}
+.sw-fib{width:18px;border-top:2px dotted #9E9E9E}
+.sw-gold{width:18px;border-top:2px solid #FFD700}
+.sw-boS{width:18px;height:12px;background:#56B4E926;border:1px solid #56B4E999;border-radius:1px}
+.sw-boC{width:18px;height:12px;background:#009E7326;border:1px solid #009E7399;border-radius:1px}
+.sw-liq{width:18px;height:12px;background:#8E44AD26;border:1px solid #8E44AD99;border-radius:1px}
+.sw-pb{width:18px;height:12px;background:#F2A90026;border:1px solid #F2A90080;border-radius:1px}
 .guide{padding:32px 36px}
 .guide h2{font-family:var(--serif);font-weight:500;font-size:28px;margin-top:12px}
 .guide h2:first-child{margin-top:0}

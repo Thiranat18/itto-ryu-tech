@@ -23,7 +23,8 @@
     "categories": {
       "Trend": "Trend",
       "Planning": "วางแผน",
-      "Research": "ข้อมูลวิจัย"
+      "Research": "ข้อมูลวิจัย",
+      "Structure": "โครงสร้างราคา"
     },
     "access": {
       "Open-source": "Open-source",
