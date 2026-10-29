@@ -84,7 +84,7 @@ p{text-wrap:pretty}
   .rail{position:relative;height:auto;justify-content:flex-start;gap:56px}
 }
 
-.grid{flex:1 1 0;min-width:0;max-width:1400px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap);padding:40px;align-content:start}
+.grid{flex:1 1 0;min-width:0;max-width:1600px;margin-inline:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap);padding:40px;align-content:start}
 /* main sits in the grid without a box, so its tiles and the footer tile share one grid. */
 .grid-main{display:contents}
 
@@ -580,7 +580,7 @@ a.tile-fill:hover{background:var(--kinari-2)}
      line at y = 306 of 440 in the drawing, the height of the pruned branch, measured from the top of the tiles.
      The hero stays in flow (min-heights place its lines), so larger text grows the tile instead of overlapping. */
   .ch-open{position:relative;min-height:100vh;padding:40px 0;
-    --tw:calc((min(100vw - var(--rail), 1400px) - 96px) / 2);
+    --tw:calc((min(100vw - var(--rail), 1600px) - 96px) / 2);
     --bh:min(545px, 60.5vh, var(--tw));
     --cut:calc(var(--bh) * .6239);
     /* Two lines of h1 must fit between the intro and the cut, and between the cut and the lede. */
