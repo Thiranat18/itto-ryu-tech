@@ -16,8 +16,11 @@ const copy = t(lang).skill;
 const edu = t(lang).tool.edu;
 const companion = indicatorsIn(lang).find((i) => i.slug === s.companion);
 const released = formatDate(lang, s.released);
-const g = s.presetGuide;
-const routeTag = [s.routes.recommended, '', '', s.routes.advanced];
+// Sections a skill may not have: the preset guide and modes table (Ichimoku Itto Read) and the PDF guide.
+const g = 'presetGuide' in s ? s.presetGuide : undefined;
+const modes = 'modes' in s ? s.modes : undefined;
+const guide = s.guide;
+const routeTag = s.routes.rows.map((_, i) => (i === 0 ? s.routes.recommended : i === s.routes.rows.length - 1 ? s.routes.advanced : ''));
 ---
 
 <Layout title={s.name} description={s.summary} bodyClass="p-ai-lab">
@@ -43,11 +46,15 @@ const routeTag = [s.routes.recommended, '', '', s.routes.advanced];
     <p class="ink-label">{copy.asideLabel}</p>
     <a class="btn btn-light" href={s.zip.href} download data-event="skill_download" data-skill={s.slug}>{copy.download}</a>
     <p class="listed">{fill(copy.zipMeta, { v: s.version, size: s.zip.sizeKB, licence: s.licence })}</p>
-    <p>
-      <a class="text-link" href={s.guide.href} target="_blank" rel="noopener" data-event="skill_guide" data-skill={s.slug}
-        >{copy.guide}</a
-      >
-    </p>
+    {
+      guide && (
+        <p>
+          <a class="text-link" href={guide.href} target="_blank" rel="noopener" data-event="skill_guide" data-skill={s.slug}>
+            {copy.guide}
+          </a>
+        </p>
+      )
+    }
     <hr />
     <div class="stack-s">
       <h2>{copy.requirements}</h2>
@@ -107,6 +114,7 @@ const routeTag = [s.routes.recommended, '', '', s.routes.advanced];
     <p class="guide-note">{s.update}</p>
   </section>
 
+  {g && (
   <section class="tile tile-fill span-4 guide preset-guide" id="preset" aria-labelledby="preset-title">
     <p class="manual-eyebrow"><span class="kanji-mark k-cut" lang="ja" aria-hidden="true">先</span>{copy.presetEyebrow}</p>
     <h2 id="preset-title">{copy.presetTitle}</h2>
@@ -165,8 +173,8 @@ const routeTag = [s.routes.recommended, '', '', s.routes.advanced];
         <h3>{copy.matchTitle}</h3>
         <p>{g.chartTf}</p>
         <p>{g.tfRows}</p>
-        <p>{s.liveBar}</p>
-        <p>{s.otherInputs}</p>
+        <p>{'liveBar' in s && s.liveBar}</p>
+        <p>{'otherInputs' in s && s.otherInputs}</p>
       </div>
       <div>
         <h3>{g.saveTitle}</h3>
@@ -188,6 +196,7 @@ const routeTag = [s.routes.recommended, '', '', s.routes.advanced];
       <a class="text-link" href={localize(lang, '/tools/ichimoku-itto#manual')}>{g.manualLink}</a>
     </p>
   </section>
+  )}
 
   <section class="tile tile-line span-4 guide" aria-labelledby="use">
     <span class="kanji-mark k-wait" lang="ja" aria-hidden="true">使い方</span>
@@ -220,17 +229,18 @@ const routeTag = [s.routes.recommended, '', '', s.routes.advanced];
     </div>
   </section>
 
+  {modes && (
   <section class="tile tile-line span-4 guide" aria-labelledby="modes">
     <span class="kanji-mark k-wait" lang="ja" aria-hidden="true">速 · 全</span>
     <h2 id="modes">{copy.modesTitle}</h2>
     <div class="table-scroll" tabindex="0" role="region" aria-labelledby="modes">
       <table class="settings sk-table">
         <thead>
-          <tr>{s.modes.cols.map((c) => <th scope="col">{c}</th>)}</tr>
+          <tr>{modes.cols.map((c) => <th scope="col">{c}</th>)}</tr>
         </thead>
         <tbody>
           {
-            s.modes.rows.map(([name, ...cells]) => (
+            modes.rows.map(([name, ...cells]) => (
               <tr>
                 <th scope="row">{name}</th>
                 {cells.map((c) => <td>{c}</td>)}
@@ -240,8 +250,9 @@ const routeTag = [s.routes.recommended, '', '', s.routes.advanced];
         </tbody>
       </table>
     </div>
-    <p class="guide-note">{s.modes.note}</p>
+    <p class="guide-note">{modes.note}</p>
   </section>
+  )}
 
   <section class="tile tile-line span-4 guide" aria-labelledby="routes">
     <span class="kanji-mark k-wait" lang="ja" aria-hidden="true">道</span>
@@ -289,28 +300,42 @@ const routeTag = [s.routes.recommended, '', '', s.routes.advanced];
     <p class="guide-note">{s.report.note}</p>
   </section>
 
-  <section class="tile tile-fill span-4 guide manual" aria-labelledby="guide-title">
-    <a class="manual-cover" href={s.guide.href} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
-      <img src={s.guide.cover} width="707" height="1000" loading="lazy" decoding="async" alt="" />
-    </a>
-    <div class="manual-body">
-      <p class="manual-eyebrow"><span class="kanji-mark k-wait" lang="ja" aria-hidden="true">巻</span>{copy.guideEyebrow}</p>
-      <h2 id="guide-title">{s.name} · User Guide</h2>
-      <p>{s.guideSummary}</p>
-      <h3 id="config">{copy.configTitle}</h3>
-      <p>{s.configText}</p>
-      <pre class="code code-block" lang="en"><code>{s.config}</code></pre>
-      <div class="manual-act">
-        <a class="btn btn-primary" href={s.guide.href} target="_blank" rel="noopener" data-event="skill_guide" data-skill={s.slug}
-          >{copy.guideRead}</a
-        >
-        <a class="btn btn-ghost" href={s.guide.href} download data-event="skill_guide_download" data-skill={s.slug}
-          >{copy.guideDownload}</a
-        >
-      </div>
-      <p class="guide-note">{fill(copy.guideMeta, { pages: s.guide.pages, size: s.guide.sizeKB })}</p>
-    </div>
-  </section>
+  {
+    guide ? (
+      <section class="tile tile-fill span-4 guide manual" aria-labelledby="guide-title">
+        <a class="manual-cover" href={guide.href} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <img src={guide.cover} width="707" height="1000" loading="lazy" decoding="async" alt="" />
+        </a>
+        <div class="manual-body">
+          <p class="manual-eyebrow">
+            <span class="kanji-mark k-wait" lang="ja" aria-hidden="true">巻</span>
+            {copy.guideEyebrow}
+          </p>
+          <h2 id="guide-title">{s.name} · User Guide</h2>
+          <p>{'guideSummary' in s && s.guideSummary}</p>
+          <h3 id="config">{copy.configTitle}</h3>
+          <p>{s.configText}</p>
+          <pre class="code code-block" lang="en"><code>{s.config}</code></pre>
+          <div class="manual-act">
+            <a class="btn btn-primary" href={guide.href} target="_blank" rel="noopener" data-event="skill_guide" data-skill={s.slug}>
+              {copy.guideRead}
+            </a>
+            <a class="btn btn-ghost" href={guide.href} download data-event="skill_guide_download" data-skill={s.slug}>
+              {copy.guideDownload}
+            </a>
+          </div>
+          <p class="guide-note">{fill(copy.guideMeta, { pages: guide.pages, size: guide.sizeKB })}</p>
+        </div>
+      </section>
+    ) : (
+      <section class="tile tile-fill span-4 guide" aria-labelledby="config">
+        <span class="kanji-mark k-wait" lang="ja" aria-hidden="true">設定</span>
+        <h2 id="config">{copy.configTitle}</h2>
+        <p>{s.configText}</p>
+        <pre class="code code-block" lang="en"><code>{s.config}</code></pre>
+      </section>
+    )
+  }
 
   <section class="span-4 qa-sec" aria-labelledby="trouble">
     <h2 id="trouble">{copy.troubleTitle}</h2>

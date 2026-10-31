@@ -1,0 +1,102 @@
+{
+  "name": "Auto Structure Read",
+  "kind": "Claude Skill",
+  "summary": "Type a symbol. Claude rebuilds the Auto Market Structure & Liquidity readings on 1H, 4H, 1D and 1W: Dow structure with BOS and CHoCH, the Protected level, the Fibonacci leg, the Bottom-out areas, liquidity sweeps and the v5 volume layers, then explains the structure by principle in a chat summary and an HTML report with a structure map.",
+  "stateOnly": "It describes state only. No buy or sell calls, entries, stops or targets. You make every decision.",
+  "language": "English edition: the skill writes its reports in English.",
+  "features": [
+    { "title": "Structure on four timeframes", "text": "Uptrend or Downtrend per timeframe with BOS and CHoCH, the Protected level and its distance in ATR, and how the timeframes line up." },
+    { "title": "Structure map", "text": "The last 120 closed bars of the chart timeframe with swings, the Protected level, liquidity zones, Bottom-out areas and the volume layers on one chart." },
+    { "title": "Position in the leg", "text": "Where the close sits in the current leg: the share recovered, the Bottom-out Stable and Confirm areas, and what a close above each one means." },
+    { "title": "Liquidity and sweeps", "text": "Equal highs and lows, the zones price is drawn to, and the sweeps that already happened." },
+    { "title": "Volume layers (v5)", "text": "Order blocks with the volume traded inside them, the leg volume profile with POC and 70% value area, and Smart POC levels, when the bars carry volume." },
+    { "title": "What changes the structure", "text": "Prices where a close turns the structure (CHoCH), continues it (BOS) or completes a Bottom-out. They describe state, not trade levels." }
+  ],
+  "requirements": [
+    "Claude on any plan with Skills (web, desktop or mobile), or Claude Code",
+    "Code execution turned on in Claude",
+    "One price-data route: the TradingView connector or CSV files"
+  ],
+  "noNeed": "No API keys and no Python packages. The scripts use the Python standard library only and download nothing while they run.",
+  "installApp": {
+    "title": "Claude (web / desktop)",
+    "steps": [
+      "Download autostruct-read-en.zip from this page. Keep it zipped.",
+      "In Claude, open Settings → Capabilities and turn on Code execution and file creation (newer layouts: Create and edit files).",
+      "Go to Customize → Skills, click + → Create skill → Upload a skill, and choose the zip.",
+      "Make sure the skill is switched on. For the easiest data route, also add the TradingView connector."
+    ],
+    "note": "Team or Enterprise: an owner must allow Skills and Code execution first."
+  },
+  "installCode": {
+    "title": "Claude Code",
+    "steps": [
+      "Unzip autostruct-read-en.zip.",
+      "Copy the folder so the file sits at the path below.",
+      "Start Claude Code and type a command, for example autostruct-read-en XAUUSD."
+    ],
+    "path": "~/.claude/skills/autostruct-read-en/SKILL.md"
+  },
+  "update": "To update: remove the old skill, then upload the new zip (or replace the folder in Claude Code).",
+  "firstRun": [
+    "Type autostruct-read-en and a symbol. Add the exchange when the name is ambiguous, for example OANDA:XAUUSD.",
+    "The report opens with a QUICK MODE box that shows the settings used: swing size 2.0 × ATR(14) and Style Auto. Check that they match your Auto Structure inputs.",
+    "If they differ, say so (for example swing 2.5, or Style Swing) and the skill runs again."
+  ],
+  "defaults": "Defaults: chart timeframe 1D, 300 bars per timeframe, swing size 2.0 × ATR(14), Style Auto. Every reading uses the last closed bar, like the indicator; a forming bar is shown as a Live line, not a reading.",
+  "syntax": "autostruct-read-en <SYMBOL> [chart TF] [swing K] [style]",
+  "commands": [
+    { "cmd": "autostruct-read-en BTCUSD", "what": "Chart TF 1D, swing 2.0 × ATR, Style Auto" },
+    { "cmd": "autostruct-read-en OANDA:XAUUSD 4H", "what": "Summary, map and change levels from the 4H structure" },
+    { "cmd": "autostruct-read-en NYSE:BB 1D swing 2.5", "what": "Swing size 2.5 × ATR, to match a chart that uses it" },
+    { "cmd": "autostruct-read-en TFEX:S501! 1H", "what": "Chart TF 1H; the table still shows 1H, 4H, 1D and 1W" }
+  ],
+  "plainWords": "Plain words work too: \"on 4H\", \"my swing size is 2.5\", \"Style Swing\".",
+  "routes": {
+    "cols": ["Route", "You need", "You get"],
+    "rows": [
+      ["TradingView connector", "The connector added in Claude", "Everything, with volume, and no need to open TradingView"],
+      ["CSV", "Chart exports for 1H, 4H, 1D and 1W", "Everything, from your files (keep the volume column for the volume layers)"],
+      ["Chart read", "A TradingView desktop MCP that reads Pine tables", "The real Structure row plus a parity check"]
+    ],
+    "recommended": "recommended",
+    "advanced": "advanced",
+    "note": "When it reads a chart, the skill only reads. It never changes your symbol, timeframe, layout, inputs, scripts, alerts or drawings."
+  },
+  "sample": {
+    "title": "A sample report"
+  },
+  "report": {
+    "cols": ["Section", "What it tells you"],
+    "rows": [
+      ["Settings box and header", "Quick mode, swing size, Style, chart timeframe, the last price and the time of the newest bar. A ⚠ appears when the data is more than 4 days old."],
+      ["Structure snapshot", "One tile per timeframe: Uptrend or Downtrend, the distance to the Protected level in ATR, and whether the timeframes agree."],
+      ["Summary", "The chart timeframe in four lines: structure since the last CHoCH, the leg and how much of it price has recovered, the Bottom-out areas, and the higher timeframe."],
+      ["Structure map", "The last 120 closed bars with swings, the Protected level, liquidity zones, Bottom-out areas, order blocks, the leg POC and Smart POC levels."],
+      ["Structure by timeframe", "Since CHoCH, BOS count, the last four swings (HH, HL, LH, LL), leg position and the last closed bar of each timeframe."],
+      ["Recent events", "BOS, CHoCH and sweeps across all timeframes, newest first."],
+      ["What changes the structure", "Per timeframe: the close that makes a CHoCH, the close that makes the next BOS, and the nearest liquidity. State, not trade levels."],
+      ["Position in the down leg · Bottom-out", "For every timeframe in a Downtrend: below Stable, inside Stable, inside Confirm or above Confirm ✓, with a candlestick chart."],
+      ["Volume layers", "Order blocks with their volume rank, the leg profile POC and value area, Smart POC levels, and the test evidence behind them."],
+      ["Both sides", "What supports the current structure and what would change it, equal in weight, then a learning note."]
+    ],
+    "note": "Volume layers are reference levels that describe where the leg traded, not turning points. The report quotes the test behind them (S50 1H, 2023–26): the first test of a Smart POC held for two sessions 49% of the time against 32% for random levels; order blocks held about as often as random zones; no POC acted as a magnet. Print the page to PDF from your browser if you need a file."
+  },
+  "config": "chart_tf: 1D                     # timeframe the summary, map and change levels use\ndashboard_tfs: [1H, 4H, 1D, 1W]  # structure table rows\nbars: 300                        # per timeframe (quick mode)\nswing_k: 2.0                     # indicator input \"Swing size (× ATR)\"\nstyle: Auto                      # Auto | Scalp | Swing | Position\nsymbol_defaults:                 # skip the exchange question\n  XAUUSD: OANDA:XAUUSD\n  BTCUSD: BITSTAMP:BTCUSD",
+  "configText": "config.yaml in the skill folder holds your defaults. Edit it before zipping, or simply say the setting in your request.",
+  "trouble": [
+    { "q": "The skill does not start", "a": "Check it is switched on in Customize → Skills and that code execution is on, then start a new chat." },
+    { "q": "\"No data route available\"", "a": "Add the TradingView connector, or attach CSV exports for 1H, 4H, 1D and 1W." },
+    { "q": "Levels differ from my chart", "a": "Check the symbol and exchange, the swing size and Style, and whether the bar is still forming. The skill reads closed bars only." },
+    { "q": "No Volume layers section", "a": "The bars had no volume column. With the connector, volume comes with the bars; with CSV, keep the volume column in the export." },
+    { "q": "A ⚠ data warning", "a": "The newest bar is more than 4 days old. Run again so the skill fetches fresh bars." },
+    { "q": "Upload error", "a": "Upload the zip as downloaded, and do not rename the folder inside it." }
+  ],
+  "faq": [
+    { "q": "Does it give buy or sell signals?", "a": "No. It reads structure by principle. A built-in check blocks advice words before anything is shown, and every report ends with a disclaimer." },
+    { "q": "Do I need the indicator on my chart?", "a": "No. The skill computes the structure itself from price data. Add Auto Market Structure & Liquidity on TradingView to see it and compare." },
+    { "q": "Is the TREND / READY / WAIT dashboard included?", "a": "Not in this quick-mode version. The report covers structure, liquidity, Bottom-out and the volume layers; the 12-state dashboard stays on the chart." },
+    { "q": "Which markets work?", "a": "Anything with OHLCV data: forex, metals, crypto, stocks, indices and futures." },
+    { "q": "Is my data sent anywhere?", "a": "The scripts run inside Claude's code environment and make no network calls. Price data comes only from the route you use." }
+  ]
+}

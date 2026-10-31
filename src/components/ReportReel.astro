@@ -17,7 +17,7 @@ const assets = [...new Set(slides.map((s) => s.asset))];
 // Before the script runs, the frame keeps the tallest slide's shape.
 const ratio = Math.max(...slides.map((s) => s.height / s.width));
 const meta = (s: ReelSlide) =>
-  `${s.asset} · 1D · ${s.preset} · ${fill(copy.reelAsof, { d: formatDate(lang, s.asof) })}`;
+  `${s.asset} · ${s.tf} · ${s.preset} · ${fill(copy.reelAsof, { d: formatDate(lang, s.asof) })}`;
 ---
 
 <div class="reel" role="group" aria-roledescription="carousel" aria-label={copy.reelLabel} data-reel data-command-target={commandTarget}>

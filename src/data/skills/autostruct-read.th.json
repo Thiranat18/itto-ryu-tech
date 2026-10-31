@@ -1,0 +1,102 @@
+{
+  "name": "Auto Structure Read",
+  "kind": "Claude Skill",
+  "summary": "พิมพ์ชื่อสินทรัพย์ แล้ว Claude จะคำนวณค่าของ Auto Market Structure & Liquidity บน 1H, 4H, 1D และ 1W ขึ้นมาใหม่: โครงสร้างแบบ Dow พร้อม BOS และ CHoCH, Protected level, ขา Fibonacci, พื้นที่ Bottom-out, การกวาด liquidity และชั้น volume ของ v5 จากนั้นอธิบายโครงสร้างตามหลักการเป็นสรุปในแชตและรายงาน HTML พร้อมแผนที่โครงสร้าง",
+  "stateOnly": "บอกเฉพาะสถานะเท่านั้น ไม่มีคำแนะนำซื้อขาย จุดเข้า จุดตัดขาดทุน หรือเป้าหมาย คุณเป็นผู้ตัดสินใจทุกอย่างเอง",
+  "language": "ฉบับภาษาอังกฤษ: skill เขียนรายงานเป็นภาษาอังกฤษ",
+  "features": [
+    { "title": "โครงสร้างบนสี่ timeframe", "text": "Uptrend หรือ Downtrend ของแต่ละ timeframe พร้อม BOS และ CHoCH, Protected level กับระยะห่างเป็น ATR และการเรียงตัวของ timeframe" },
+    { "title": "แผนที่โครงสร้าง", "text": "120 แท่งปิดล่าสุดของ timeframe หลัก พร้อม swing, Protected level, โซน liquidity, พื้นที่ Bottom-out และชั้น volume ในภาพเดียว" },
+    { "title": "ตำแหน่งในขา", "text": "ราคาปิดอยู่ตรงไหนของขาปัจจุบัน: สัดส่วนที่ฟื้นแล้ว พื้นที่ Bottom-out Stable และ Confirm และการปิดเหนือแต่ละพื้นที่หมายถึงอะไร" },
+    { "title": "Liquidity และ sweep", "text": "ยอดเท่ากันและฐานเท่ากัน โซนที่ราคามักถูกดึงเข้าหา และการกวาดที่เกิดขึ้นแล้ว" },
+    { "title": "ชั้น volume (v5)", "text": "Order block พร้อม volume ที่ซื้อขายในกล่อง, volume profile ของขาพร้อม POC และ value area 70% และระดับ Smart POC เมื่อข้อมูลแท่งมี volume" },
+    { "title": "อะไรเปลี่ยนโครงสร้าง", "text": "ราคาที่การปิดจะพลิกโครงสร้าง (CHoCH), ต่อโครงสร้าง (BOS) หรือครบ Bottom-out เป็นการบอกสถานะ ไม่ใช่ระดับสำหรับเทรด" }
+  ],
+  "requirements": [
+    "Claude แพ็กเกจใดก็ได้ที่รองรับ Skills (เว็บ เดสก์ท็อป หรือมือถือ) หรือ Claude Code",
+    "เปิด Code execution ใน Claude",
+    "แหล่งข้อมูลราคาหนึ่งทาง: TradingView connector หรือไฟล์ CSV"
+  ],
+  "noNeed": "ไม่ต้องใช้ API key และไม่ต้องติดตั้งแพ็กเกจ Python สคริปต์ใช้แค่ Python standard library และไม่ดาวน์โหลดอะไรระหว่างทำงาน",
+  "installApp": {
+    "title": "Claude (เว็บ / เดสก์ท็อป)",
+    "steps": [
+      "ดาวน์โหลด autostruct-read-en.zip จากหน้านี้ ไม่ต้องแตกไฟล์",
+      "ใน Claude เปิด Settings → Capabilities แล้วเปิด Code execution and file creation (หน้าตาใหม่ใช้ชื่อ Create and edit files)",
+      "ไปที่ Customize → Skills กด + → Create skill → Upload a skill แล้วเลือกไฟล์ zip",
+      "ตรวจว่าเปิดใช้ skill แล้ว เพื่อดึงข้อมูลได้ง่ายที่สุด ให้เพิ่ม TradingView connector ด้วย"
+    ],
+    "note": "แพ็กเกจ Team หรือ Enterprise: เจ้าของ organization ต้องอนุญาต Skills และ Code execution ก่อน"
+  },
+  "installCode": {
+    "title": "Claude Code",
+    "steps": [
+      "แตกไฟล์ autostruct-read-en.zip",
+      "คัดลอกโฟลเดอร์ให้ไฟล์อยู่ที่ path ด้านล่าง",
+      "เปิด Claude Code แล้วพิมพ์คำสั่ง เช่น autostruct-read-en XAUUSD"
+    ],
+    "path": "~/.claude/skills/autostruct-read-en/SKILL.md"
+  },
+  "update": "อัปเดตเวอร์ชัน: ลบ skill เดิมออก แล้วอัปโหลด zip ใหม่ (หรือแทนที่โฟลเดอร์ใน Claude Code)",
+  "firstRun": [
+    "พิมพ์ autostruct-read-en ตามด้วยชื่อสินทรัพย์ ถ้าชื่อกำกวมให้ใส่ตลาดด้วย เช่น OANDA:XAUUSD",
+    "รายงานเปิดด้วยกล่อง QUICK MODE ที่บอกค่าที่ใช้: swing size 2.0 × ATR(14) และ Style Auto ตรวจว่าตรงกับค่าใน Auto Structure ของคุณ",
+    "ถ้าไม่ตรง บอกค่าไป (เช่น swing 2.5 หรือ Style Swing) แล้ว skill จะรันใหม่"
+  ],
+  "defaults": "ค่าเริ่มต้น: timeframe หลัก 1D, 300 แท่งต่อ timeframe, swing size 2.0 × ATR(14), Style Auto ทุกค่าอ่านจากแท่งปิดล่าสุดเหมือน indicator แท่งที่ยังไม่ปิดแสดงเป็นบรรทัด Live ไม่นับเป็นค่าอ่าน",
+  "syntax": "autostruct-read-en <SYMBOL> [chart TF] [swing K] [style]",
+  "commands": [
+    { "cmd": "autostruct-read-en BTCUSD", "what": "Timeframe หลัก 1D, swing 2.0 × ATR, Style Auto" },
+    { "cmd": "autostruct-read-en OANDA:XAUUSD 4H", "what": "สรุป แผนที่ และระดับเปลี่ยนสถานะจากโครงสร้าง 4H" },
+    { "cmd": "autostruct-read-en NYSE:BB 1D swing 2.5", "what": "Swing size 2.5 × ATR ให้ตรงกับชาร์ตที่ใช้ค่านี้" },
+    { "cmd": "autostruct-read-en TFEX:S501! 1H", "what": "Timeframe หลัก 1H ตารางยังแสดง 1H, 4H, 1D และ 1W" }
+  ],
+  "plainWords": "พิมพ์เป็นคำพูดธรรมดาก็ได้ เช่น \"on 4H\", \"my swing size is 2.5\", \"Style Swing\"",
+  "routes": {
+    "cols": ["ช่องทาง", "ต้องมี", "ได้อะไร"],
+    "rows": [
+      ["TradingView connector", "เพิ่ม connector ใน Claude แล้ว", "ครบทุกอย่างพร้อม volume โดยไม่ต้องเปิด TradingView"],
+      ["CSV", "ไฟล์ export ของ 1H, 4H, 1D และ 1W", "ครบทุกอย่างจากไฟล์ของคุณ (เก็บคอลัมน์ volume ไว้สำหรับชั้น volume)"],
+      ["อ่านจากชาร์ต", "TradingView desktop MCP ที่อ่านตาราง Pine ได้", "แถว Structure จริงจากชาร์ต พร้อมตรวจความตรงกัน"]
+    ],
+    "recommended": "แนะนำ",
+    "advanced": "ขั้นสูง",
+    "note": "เมื่ออ่านจากชาร์ต skill จะอ่านอย่างเดียว ไม่เปลี่ยนสินทรัพย์ timeframe layout ค่า input สคริปต์ alert หรือเส้นที่วาดไว้"
+  },
+  "sample": {
+    "title": "ตัวอย่างรายงาน"
+  },
+  "report": {
+    "cols": ["ส่วน", "บอกอะไร"],
+    "rows": [
+      ["กล่องค่าที่ใช้และส่วนหัว", "Quick mode, swing size, Style, timeframe หลัก, ราคาล่าสุดและเวลาของแท่งใหม่สุด มี ⚠ เมื่อข้อมูลเก่ากว่า 4 วัน"],
+      ["Structure snapshot", "หนึ่งช่องต่อ timeframe: Uptrend หรือ Downtrend ระยะถึง Protected level เป็น ATR และ timeframe สอดคล้องกันหรือไม่"],
+      ["Summary", "Timeframe หลักในสี่บรรทัด: โครงสร้างตั้งแต่ CHoCH ล่าสุด ขาและสัดส่วนที่ราคาฟื้นแล้ว พื้นที่ Bottom-out และ timeframe ที่ใหญ่กว่า"],
+      ["Structure map", "120 แท่งปิดล่าสุดพร้อม swing, Protected level, โซน liquidity, พื้นที่ Bottom-out, order block, POC ของขาและระดับ Smart POC"],
+      ["Structure by timeframe", "ตั้งแต่ CHoCH, จำนวน BOS, swing สี่ตัวล่าสุด (HH, HL, LH, LL), ตำแหน่งในขา และแท่งปิดล่าสุดของแต่ละ timeframe"],
+      ["Recent events", "BOS, CHoCH และ sweep ของทุก timeframe เรียงจากใหม่ไปเก่า"],
+      ["What changes the structure", "ต่อ timeframe: ราคาปิดที่ทำ CHoCH, ราคาปิดที่ทำ BOS ถัดไป และ liquidity ที่ใกล้ที่สุด เป็นสถานะ ไม่ใช่ระดับสำหรับเทรด"],
+      ["Position in the down leg · Bottom-out", "ทุก timeframe ที่เป็น Downtrend: ต่ำกว่า Stable, ใน Stable, ใน Confirm หรือเหนือ Confirm ✓ พร้อมกราฟแท่งเทียน"],
+      ["Volume layers", "Order block พร้อมอันดับ volume, POC และ value area ของขา, ระดับ Smart POC และหลักฐานการทดสอบ"],
+      ["Both sides", "อะไรสนับสนุนโครงสร้างปัจจุบัน และอะไรจะเปลี่ยนมัน น้ำหนักเท่ากัน ตามด้วยบันทึกการเรียนรู้"]
+    ],
+    "note": "ชั้น volume เป็นระดับอ้างอิงที่บอกว่าขานี้ซื้อขายกันตรงไหน ไม่ใช่จุดกลับตัว รายงานอ้างผลทดสอบไว้ (S50 1H ปี 2023–26): การทดสอบ Smart POC ครั้งแรกยืนได้สองช่วงซื้อขาย 49% เทียบกับระดับสุ่ม 32%; order block ยืนได้พอ ๆ กับโซนสุ่ม; ไม่มี POC ใดทำตัวเป็นแม่เหล็ก ถ้าต้องการไฟล์ สั่งพิมพ์หน้าเป็น PDF จากเบราว์เซอร์ได้"
+  },
+  "config": "chart_tf: 1D                     # timeframe the summary, map and change levels use\ndashboard_tfs: [1H, 4H, 1D, 1W]  # structure table rows\nbars: 300                        # per timeframe (quick mode)\nswing_k: 2.0                     # indicator input \"Swing size (× ATR)\"\nstyle: Auto                      # Auto | Scalp | Swing | Position\nsymbol_defaults:                 # skip the exchange question\n  XAUUSD: OANDA:XAUUSD\n  BTCUSD: BITSTAMP:BTCUSD",
+  "configText": "ไฟล์ config.yaml ในโฟลเดอร์ skill เก็บค่าเริ่มต้นของคุณ แก้ก่อน zip หรือบอกค่าในคำขอก็ได้",
+  "trouble": [
+    { "q": "Skill ไม่ทำงาน", "a": "ตรวจว่าเปิดใช้ใน Customize → Skills และเปิด code execution แล้ว จากนั้นเริ่มแชตใหม่" },
+    { "q": "\"No data route available\"", "a": "เพิ่ม TradingView connector หรือแนบไฟล์ CSV ของ 1H, 4H, 1D และ 1W" },
+    { "q": "ระดับไม่ตรงกับชาร์ต", "a": "ตรวจสินทรัพย์และตลาด, swing size และ Style, และแท่งยังไม่ปิดหรือไม่ skill อ่านเฉพาะแท่งปิดเท่านั้น" },
+    { "q": "ไม่มีส่วน Volume layers", "a": "ข้อมูลแท่งไม่มีคอลัมน์ volume ถ้าใช้ connector จะมี volume มาพร้อมแท่ง ถ้าใช้ CSV ให้เก็บคอลัมน์ volume ไว้ตอน export" },
+    { "q": "มี ⚠ เตือนเรื่องข้อมูล", "a": "แท่งใหม่สุดเก่ากว่า 4 วัน รันใหม่ให้ skill ดึงข้อมูลสด" },
+    { "q": "อัปโหลดไม่ผ่าน", "a": "อัปโหลด zip ตามที่ดาวน์โหลดมา และอย่าเปลี่ยนชื่อโฟลเดอร์ข้างใน" }
+  ],
+  "faq": [
+    { "q": "ให้สัญญาณซื้อขายไหม", "a": "ไม่ skill อ่านโครงสร้างตามหลักการ มีตัวตรวจในตัวที่บล็อกคำแนะนำก่อนแสดงผล และทุกรายงานจบด้วยข้อความปฏิเสธความรับผิด" },
+    { "q": "ต้องมี indicator บนชาร์ตไหม", "a": "ไม่ skill คำนวณโครงสร้างเองจากข้อมูลราคา เพิ่ม Auto Market Structure & Liquidity บน TradingView เพื่อดูและเทียบกันได้" },
+    { "q": "มีแดชบอร์ด TREND / READY / WAIT ไหม", "a": "ยังไม่มีในเวอร์ชัน quick mode นี้ รายงานครอบคลุมโครงสร้าง liquidity, Bottom-out และชั้น volume ส่วนแดชบอร์ด 12 สถานะยังอยู่บนชาร์ต" },
+    { "q": "ใช้กับตลาดไหนได้บ้าง", "a": "ทุกอย่างที่มีข้อมูล OHLCV: forex โลหะ คริปโต หุ้น ดัชนี และฟิวเจอร์ส" },
+    { "q": "ข้อมูลถูกส่งไปไหนหรือไม่", "a": "สคริปต์ทำงานในสภาพแวดล้อมรันโค้ดของ Claude และไม่เรียกเครือข่ายเลย ข้อมูลราคามาจากช่องทางที่คุณใช้เท่านั้น" }
+  ]
+}
