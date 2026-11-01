@@ -92,7 +92,7 @@
   "trouble": [
     { "q": "The skill does not start", "a": "Check it is switched on in Customize → Skills and that code execution is on, then start a new chat." },
     { "q": "\"No data route available\"", "a": "Add the TradingView connector, or attach CSV exports for 1H, 4H, 1D and 1W." },
-    { "q": "Levels differ from my chart", "a": "Check the symbol and exchange, the swing size and Style, and whether the bar is still forming. The skill reads closed bars only." },
+    { "q": "Levels differ from my chart", "a": "Check the symbol and exchange, the swing size and Style, and whether the bar is still forming. The skill reads closed bars only: after the session close the day's bar counts as closed, and once the week's trading is over the week's bar does too." },
     { "q": "No Volume layers section", "a": "The bars had no volume column. With the connector, volume comes with the bars; with CSV, keep the volume column in the export." },
     { "q": "Full mode shows \"1M n/a\" in the 1W HTF row", "a": "The monthly history was too short for the higher-timeframe row of 1W. The rest of the dashboard is unaffected." },
     { "q": "A ⚠ data warning", "a": "The newest bar is more than 4 days old. Run again so the skill fetches fresh bars." },
