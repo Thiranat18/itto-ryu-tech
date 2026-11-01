@@ -72,11 +72,11 @@ const SKILLS = [
   {
     slug: 'autostruct-read',
     command: 'autostruct-read-en',
-    version: '0.3',
+    version: '0.5',
     released: '2026-11-01',
     licence: 'MPL-2.0',
     companion: 'auto-market-structure-liquidity',
-    zip: { href: '/ai-lab/autostruct-read-en.zip', sizeKB: 37 },
+    zip: { href: '/ai-lab/autostruct-read-en.zip', sizeKB: 55 },
     /** No PDF guide yet: the page itself is the manual. */
     guide: undefined as Guide | undefined,
     reel: [

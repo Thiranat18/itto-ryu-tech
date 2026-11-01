@@ -1,16 +1,18 @@
 {
   "name": "Auto Structure Read",
   "kind": "Claude Skill",
-  "summary": "Type a symbol. Claude rebuilds the Auto Market Structure & Liquidity readings on 1H, 4H, 1D and 1W: Dow structure with BOS and CHoCH, the Protected level, the Fibonacci leg, the Bottom-out areas (recovery depth of a down leg), liquidity sweeps and the v5 volume layers, then explains the structure by principle in a chat summary and an HTML report with a structure map.",
+  "summary": "Type a symbol. Claude rebuilds the Auto Market Structure & Liquidity readings on 1H, 4H, 1D and 1W: Dow structure with BOS and CHoCH, the Protected level, the Fibonacci leg, the Bottom-out areas (recovery depth of a down leg), liquidity sweeps and the v5 volume layers, then explains the structure by principle in a chat summary and an HTML report with a structure map. v0.4 adds how the timeframes nest, the distance to every state-change level and the age and size of the current leg. Full mode (v0.5) also rebuilds the indicator's 12-state dashboard.",
   "stateOnly": "It describes state only. No buy or sell calls, entries, stops or targets. You make every decision.",
   "language": "English edition: the skill writes its reports in English.",
   "features": [
-    { "title": "Structure on four timeframes", "text": "Uptrend or Downtrend per timeframe with BOS and CHoCH, the Protected level and its distance in ATR, and how the timeframes line up." },
+    { "title": "Structure on four timeframes", "text": "Uptrend or Downtrend per timeframe with BOS and CHoCH, the Protected level and its distance in ATR, and how the timeframes line up, with the chart timeframe nested in the next higher leg." },
     { "title": "Structure map", "text": "The last 120 closed bars of the chart timeframe with swings, the Protected level, liquidity zones, Bottom-out areas and the volume layers on one chart." },
     { "title": "Position in the leg", "text": "Where the close sits in the current leg: the share recovered, the Bottom-out Stable and Confirm areas (depth marks, not Fibonacci support), and what a close above each one means." },
     { "title": "Liquidity and sweeps", "text": "Equal highs and lows, the zones price is drawn to, and the sweeps that already happened." },
     { "title": "Volume layers (v5)", "text": "Order blocks with the volume traded inside them, the leg volume profile with POC and 70% value area, and Smart POC levels, when the bars carry volume." },
-    { "title": "What changes the structure", "text": "Prices where a close turns the structure (CHoCH), continues it (BOS) or completes a Bottom-out. They describe state, not trade levels." }
+    { "title": "What changes the structure", "text": "Prices where a close turns the structure (CHoCH), continues it (BOS) or completes a Bottom-out. They describe state, not trade levels." },
+    { "title": "Leg age and size", "text": "How many bars the current leg has run and how tall it is, set against the symbol's own completed swing legs." },
+    { "title": "Dashboard · 12 states (full mode)", "text": "Add full to the command and the report rebuilds the indicator's 待 WAIT / 構 READY / 流 TREND dashboard per timeframe: the state, its age, the Reason, the HTF row, the levels and a 120-bar state strip. The states are names for what price has been doing on closed bars, never a signal." }
   ],
   "requirements": [
     "Claude on any plan with Skills (web, desktop or mobile), or Claude Code",
@@ -40,18 +42,20 @@
   "update": "To update: remove the old skill, then upload the new zip (or replace the folder in Claude Code).",
   "firstRun": [
     "Type autostruct-read-en and a symbol. Add the exchange when the name is ambiguous, for example OANDA:XAUUSD.",
-    "The report opens with a QUICK MODE box that shows the settings used: swing size 2.0 × ATR(14) and Style Auto. Check that they match your Auto Structure inputs.",
+    "The report opens with a QUICK MODE or FULL MODE badge that shows the settings used: swing size 2.0 × ATR(14) and Style Auto. Check that they match your Auto Structure inputs.",
     "If they differ, say so (for example swing 2.5, or Style Swing) and the skill runs again."
   ],
-  "defaults": "Defaults: chart timeframe 1D, 300 bars per timeframe, swing size 2.0 × ATR(14), Style Auto. Every reading uses the last closed bar, like the indicator; a forming bar is shown as a Live line, not a reading.",
-  "syntax": "autostruct-read-en <SYMBOL> [chart TF] [swing K] [style]",
+  "defaults": "Defaults: quick mode, chart timeframe 1D, 300 bars per timeframe, swing size 2.0 × ATR(14), Style Auto. Full mode fetches about a year of bars (1H 2000 · 4H 800 · 1D 600 · 1W 300), so it takes longer, and uses the indicator's dashboard defaults: Market Classic, Pullback ATR / Mid, ER 0.30, holds 3 / 3, smoothing 3. Every reading uses the last closed bar, like the indicator; a forming bar is shown as a Live line, not a reading.",
+  "syntax": "autostruct-read-en <SYMBOL> [chart TF] [swing K] [style] [quick|full]",
   "commands": [
     { "cmd": "autostruct-read-en BTCUSD", "what": "Chart TF 1D, swing 2.0 × ATR, Style Auto" },
     { "cmd": "autostruct-read-en OANDA:XAUUSD 4H", "what": "Summary, map and change levels from the 4H structure" },
     { "cmd": "autostruct-read-en NYSE:BB 1D swing 2.5", "what": "Swing size 2.5 × ATR, to match a chart that uses it" },
-    { "cmd": "autostruct-read-en TFEX:S501! 1H", "what": "Chart TF 1H; the table still shows 1H, 4H, 1D and 1W" }
+    { "cmd": "autostruct-read-en TFEX:S501! 1H", "what": "Chart TF 1H; the table still shows 1H, 4H, 1D and 1W" },
+    { "cmd": "autostruct-read-en S50 full", "what": "Full mode: everything above plus the 12-state dashboard per timeframe" },
+    { "cmd": "autostruct-read-en BTCUSD full market Crypto", "what": "Full mode with the Crypto market window (Classic is the default; FX & Gold also available)" }
   ],
-  "plainWords": "Plain words work too: \"on 4H\", \"my swing size is 2.5\", \"Style Swing\".",
+  "plainWords": "Plain words work too: \"on 4H\", \"my swing size is 2.5\", \"Style Swing\", and \"full\", \"dashboard\", \"states\" or \"แบบเต็ม\" for full mode.",
   "routes": {
     "cols": ["Route", "You need", "You get"],
     "rows": [
@@ -69,33 +73,35 @@
   "report": {
     "cols": ["Section", "What it tells you"],
     "rows": [
-      ["Settings box and header", "Quick mode, swing size, Style, chart timeframe, the last price and the time of the newest bar. A ⚠ appears when the data is more than 4 days old."],
-      ["Structure snapshot", "One tile per timeframe: Uptrend or Downtrend, the distance to the Protected level in ATR, and whether the timeframes agree."],
+      ["Settings badge and header", "QUICK MODE or FULL MODE, swing size, Style, chart timeframe, the last price and the time of the newest bar. A ⚠ appears when the data is more than 4 days old."],
+      ["Structure snapshot", "One tile per timeframe: Uptrend or Downtrend, the distance to the Protected level in ATR, and an alignment sentence: how many timeframes read like the higher one and where the chart timeframe sits in the next higher leg."],
       ["Summary", "The chart timeframe in four lines: structure since the last CHoCH, the leg and how much of it price has recovered, the Bottom-out areas, and the higher timeframe."],
+      ["Dashboard · 12 states (full mode)", "Per timeframe: State, State age, Reason, Next 10 bars (the usual 10-bar span in ATR), HTF, Move, Structure, Levels and Preset, with a strip of the last 120 closed bars coloured by state. The states name what price has been doing; they are not signals."],
       ["Structure map", "The last 120 closed bars with swings, the Protected level, liquidity zones, Bottom-out areas, order blocks, the leg POC and Smart POC levels."],
-      ["Structure by timeframe", "Since CHoCH, BOS count, the last four swings (HH, HL, LH, LL), leg position and the last closed bar of each timeframe."],
+      ["Structure by timeframe", "Since CHoCH, BOS count, the last four swings (HH, HL, LH, LL), leg position, leg age · leg size against the symbol's own swing legs, and the last closed bar of each timeframe."],
       ["Recent events", "BOS, CHoCH and sweeps across all timeframes, newest first."],
-      ["What changes the structure", "Per timeframe: the close that makes a CHoCH, the close that makes the next BOS, and the nearest liquidity. State, not trade levels."],
+      ["What changes the structure", "Per timeframe: the nearest change line first, then the close that makes a CHoCH and the close that makes the next BOS, each with its distance in ATR and in the 1D ATR (ATR_D), and the nearest liquidity. State, not trade levels."],
       ["Position in the down leg · Bottom-out", "For every timeframe in a Downtrend: below Stable, inside Stable, inside Confirm or above Confirm ✓, with a candlestick chart."],
-      ["Volume layers", "Order blocks with their volume rank, the leg profile POC and value area, Smart POC levels, and the test evidence behind them."],
+      ["Volume layers", "One chart per timeframe: the leg volume profile (24 rows) with POC and 70% value area, order blocks with their volume rank and Smart POC levels, plus the test evidence behind them."],
       ["Both sides", "What supports the current structure and what would change it, equal in weight, then a learning note."]
     ],
     "note": "Volume layers are reference levels that describe where the leg traded, not turning points. The report quotes the test behind them (S50 1H, 2023–26): the first test of a Smart POC held for two sessions 49% of the time against 32% for random levels; order blocks held about as often as random zones; no POC acted as a magnet. Print the page to PDF from your browser if you need a file."
   },
-  "config": "chart_tf: 1D                     # timeframe the summary, map and change levels use\ndashboard_tfs: [1H, 4H, 1D, 1W]  # structure table rows\nbars: 300                        # per timeframe (quick mode)\nswing_k: 2.0                     # indicator input \"Swing size (× ATR)\"\nstyle: Auto                      # Auto | Scalp | Swing | Position\nsymbol_defaults:                 # skip the exchange question\n  XAUUSD: OANDA:XAUUSD\n  BTCUSD: BITSTAMP:BTCUSD",
+  "config": "chart_tf: 1D                     # timeframe the summary, map and change levels use\ndashboard_tfs: [1H, 4H, 1D, 1W]  # structure table rows\nbars: 300                        # per timeframe (quick mode)\nswing_k: 2.0                     # indicator input \"Swing size (× ATR)\"\nstyle: Auto                      # Auto | Scalp | Swing | Position\nsymbol_defaults:                 # skip the exchange question\n  XAUUSD: OANDA:XAUUSD\n  BTCUSD: BITSTAMP:BTCUSD\n  S50: TFEX:S501!\nmode: quick                      # quick | full\nmarket: Classic                  # Classic | Crypto | FX & Gold",
   "configText": "config.yaml in the skill folder holds your defaults. Edit it before zipping, or simply say the setting in your request.",
   "trouble": [
     { "q": "The skill does not start", "a": "Check it is switched on in Customize → Skills and that code execution is on, then start a new chat." },
     { "q": "\"No data route available\"", "a": "Add the TradingView connector, or attach CSV exports for 1H, 4H, 1D and 1W." },
     { "q": "Levels differ from my chart", "a": "Check the symbol and exchange, the swing size and Style, and whether the bar is still forming. The skill reads closed bars only." },
     { "q": "No Volume layers section", "a": "The bars had no volume column. With the connector, volume comes with the bars; with CSV, keep the volume column in the export." },
+    { "q": "Full mode shows \"1M n/a\" in the 1W HTF row", "a": "The monthly history was too short for the higher-timeframe row of 1W. The rest of the dashboard is unaffected." },
     { "q": "A ⚠ data warning", "a": "The newest bar is more than 4 days old. Run again so the skill fetches fresh bars." },
     { "q": "Upload error", "a": "Upload the zip as downloaded, and do not rename the folder inside it." }
   ],
   "faq": [
     { "q": "Does it give buy or sell signals?", "a": "No. It reads structure by principle. A built-in check blocks advice words before anything is shown, and every report ends with a disclaimer." },
     { "q": "Do I need the indicator on my chart?", "a": "No. The skill computes the structure itself from price data. Add Auto Market Structure & Liquidity on TradingView to see it and compare." },
-    { "q": "Is the TREND / READY / WAIT dashboard included?", "a": "Not in this quick-mode version. The report covers structure, liquidity, Bottom-out and the volume layers; the 12-state dashboard stays on the chart." },
+    { "q": "Is the TREND / READY / WAIT dashboard included?", "a": "Yes, in full mode: add full to the command (for example autostruct-read-en S50 full). Quick mode, the default, leaves the 12-state dashboard on the chart. With the optional chart read, full mode also compares the state cell with your chart." },
     { "q": "Which markets work?", "a": "Anything with OHLCV data: forex, metals, crypto, stocks, indices and futures." },
     { "q": "Is my data sent anywhere?", "a": "The scripts run inside Claude's code environment and make no network calls. Price data comes only from the route you use." }
   ]
