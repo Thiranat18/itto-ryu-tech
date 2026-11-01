@@ -85,7 +85,7 @@
       ["Volume layers", "One chart per timeframe: the leg volume profile (24 rows) with POC and 70% value area, order blocks with their volume rank and Smart POC levels, plus the test evidence behind them."],
       ["Both sides", "What supports the current structure and what would change it, equal in weight, then a learning note."]
     ],
-    "note": "Volume layers are reference levels that describe where the leg traded, not turning points. The report quotes the test behind them (S50 1H, 2023–26): the first test of a Smart POC held for two sessions 49% of the time against 32% for random levels; order blocks held about as often as random zones; no POC acted as a magnet. Print the page to PDF from your browser if you need a file."
+    "note": "Volume layers are reference levels that describe where the leg traded, not turning points. Print the page to PDF from your browser if you need a file."
   },
   "config": "chart_tf: 1D                     # timeframe the summary, map and change levels use\ndashboard_tfs: [1H, 4H, 1D, 1W]  # structure table rows\nbars: 300                        # per timeframe (quick mode)\nswing_k: 2.0                     # indicator input \"Swing size (× ATR)\"\nstyle: Auto                      # Auto | Scalp | Swing | Position\nsymbol_defaults:                 # skip the exchange question\n  XAUUSD: OANDA:XAUUSD\n  BTCUSD: BITSTAMP:BTCUSD\n  S50: TFEX:S501!\nmode: quick                      # quick | full\nmarket: Classic                  # Classic | Crypto | FX & Gold",
   "configText": "config.yaml in the skill folder holds your defaults. Edit it before zipping, or simply say the setting in your request.",

@@ -85,7 +85,7 @@
       ["Volume layers", "หนึ่งกราฟต่อ timeframe: volume profile ของขา (24 แถว) พร้อม POC และ value area 70%, order block พร้อมอันดับ volume และระดับ Smart POC พร้อมหลักฐานการทดสอบ"],
       ["Both sides", "อะไรสนับสนุนโครงสร้างปัจจุบัน และอะไรจะเปลี่ยนมัน น้ำหนักเท่ากัน ตามด้วยบันทึกการเรียนรู้"]
     ],
-    "note": "ชั้น volume เป็นระดับอ้างอิงที่บอกว่าขานี้ซื้อขายกันตรงไหน ไม่ใช่จุดกลับตัว รายงานอ้างผลทดสอบไว้ (S50 1H ปี 2023–26): การทดสอบ Smart POC ครั้งแรกยืนได้สองช่วงซื้อขาย 49% เทียบกับระดับสุ่ม 32%; order block ยืนได้พอ ๆ กับโซนสุ่ม; ไม่มี POC ใดทำตัวเป็นแม่เหล็ก ถ้าต้องการไฟล์ สั่งพิมพ์หน้าเป็น PDF จากเบราว์เซอร์ได้"
+    "note": "ชั้น volume เป็นระดับอ้างอิงที่บอกว่าขานี้ซื้อขายกันตรงไหน ไม่ใช่จุดกลับตัว ถ้าต้องการไฟล์ สั่งพิมพ์หน้าเป็น PDF จากเบราว์เซอร์ได้"
   },
   "config": "chart_tf: 1D                     # timeframe the summary, map and change levels use\ndashboard_tfs: [1H, 4H, 1D, 1W]  # structure table rows\nbars: 300                        # per timeframe (quick mode)\nswing_k: 2.0                     # indicator input \"Swing size (× ATR)\"\nstyle: Auto                      # Auto | Scalp | Swing | Position\nsymbol_defaults:                 # skip the exchange question\n  XAUUSD: OANDA:XAUUSD\n  BTCUSD: BITSTAMP:BTCUSD\n  S50: TFEX:S501!\nmode: quick                      # quick | full\nmarket: Classic                  # Classic | Crypto | FX & Gold",
   "configText": "ไฟล์ config.yaml ในโฟลเดอร์ skill เก็บค่าเริ่มต้นของคุณ แก้ก่อน zip หรือบอกค่าในคำขอก็ได้",
