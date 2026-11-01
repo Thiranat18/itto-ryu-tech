@@ -1,13 +1,13 @@
 {
   "name": "Auto Structure Read",
   "kind": "Claude Skill",
-  "summary": "พิมพ์ชื่อสินทรัพย์ แล้ว Claude จะคำนวณค่าของ Auto Market Structure & Liquidity บน 1H, 4H, 1D และ 1W ขึ้นมาใหม่: โครงสร้างแบบ Dow พร้อม BOS และ CHoCH, Protected level, ขา Fibonacci, พื้นที่ Bottom-out, การกวาด liquidity และชั้น volume ของ v5 จากนั้นอธิบายโครงสร้างตามหลักการเป็นสรุปในแชตและรายงาน HTML พร้อมแผนที่โครงสร้าง",
+  "summary": "พิมพ์ชื่อสินทรัพย์ แล้ว Claude จะคำนวณค่าของ Auto Market Structure & Liquidity บน 1H, 4H, 1D และ 1W ขึ้นมาใหม่: โครงสร้างแบบ Dow พร้อม BOS และ CHoCH, Protected level, ขา Fibonacci, พื้นที่ Bottom-out (ความลึกของการฟื้นในขาลง), การกวาด liquidity และชั้น volume ของ v5 จากนั้นอธิบายโครงสร้างตามหลักการเป็นสรุปในแชตและรายงาน HTML พร้อมแผนที่โครงสร้าง",
   "stateOnly": "บอกเฉพาะสถานะเท่านั้น ไม่มีคำแนะนำซื้อขาย จุดเข้า จุดตัดขาดทุน หรือเป้าหมาย คุณเป็นผู้ตัดสินใจทุกอย่างเอง",
   "language": "ฉบับภาษาอังกฤษ: skill เขียนรายงานเป็นภาษาอังกฤษ",
   "features": [
     { "title": "โครงสร้างบนสี่ timeframe", "text": "Uptrend หรือ Downtrend ของแต่ละ timeframe พร้อม BOS และ CHoCH, Protected level กับระยะห่างเป็น ATR และการเรียงตัวของ timeframe" },
     { "title": "แผนที่โครงสร้าง", "text": "120 แท่งปิดล่าสุดของ timeframe หลัก พร้อม swing, Protected level, โซน liquidity, พื้นที่ Bottom-out และชั้น volume ในภาพเดียว" },
-    { "title": "ตำแหน่งในขา", "text": "ราคาปิดอยู่ตรงไหนของขาปัจจุบัน: สัดส่วนที่ฟื้นแล้ว พื้นที่ Bottom-out Stable และ Confirm และการปิดเหนือแต่ละพื้นที่หมายถึงอะไร" },
+    { "title": "ตำแหน่งในขา", "text": "ราคาปิดอยู่ตรงไหนของขาปัจจุบัน: สัดส่วนที่ฟื้นแล้ว พื้นที่ Bottom-out Stable และ Confirm (บอกความลึกของการฟื้น ไม่ใช่แนวรับ Fibonacci) และการปิดเหนือแต่ละพื้นที่หมายถึงอะไร" },
     { "title": "Liquidity และ sweep", "text": "ยอดเท่ากันและฐานเท่ากัน โซนที่ราคามักถูกดึงเข้าหา และการกวาดที่เกิดขึ้นแล้ว" },
     { "title": "ชั้น volume (v5)", "text": "Order block พร้อม volume ที่ซื้อขายในกล่อง, volume profile ของขาพร้อม POC และ value area 70% และระดับ Smart POC เมื่อข้อมูลแท่งมี volume" },
     { "title": "อะไรเปลี่ยนโครงสร้าง", "text": "ราคาที่การปิดจะพลิกโครงสร้าง (CHoCH), ต่อโครงสร้าง (BOS) หรือครบ Bottom-out เป็นการบอกสถานะ ไม่ใช่ระดับสำหรับเทรด" }

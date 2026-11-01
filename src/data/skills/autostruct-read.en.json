@@ -1,13 +1,13 @@
 {
   "name": "Auto Structure Read",
   "kind": "Claude Skill",
-  "summary": "Type a symbol. Claude rebuilds the Auto Market Structure & Liquidity readings on 1H, 4H, 1D and 1W: Dow structure with BOS and CHoCH, the Protected level, the Fibonacci leg, the Bottom-out areas, liquidity sweeps and the v5 volume layers, then explains the structure by principle in a chat summary and an HTML report with a structure map.",
+  "summary": "Type a symbol. Claude rebuilds the Auto Market Structure & Liquidity readings on 1H, 4H, 1D and 1W: Dow structure with BOS and CHoCH, the Protected level, the Fibonacci leg, the Bottom-out areas (recovery depth of a down leg), liquidity sweeps and the v5 volume layers, then explains the structure by principle in a chat summary and an HTML report with a structure map.",
   "stateOnly": "It describes state only. No buy or sell calls, entries, stops or targets. You make every decision.",
   "language": "English edition: the skill writes its reports in English.",
   "features": [
     { "title": "Structure on four timeframes", "text": "Uptrend or Downtrend per timeframe with BOS and CHoCH, the Protected level and its distance in ATR, and how the timeframes line up." },
     { "title": "Structure map", "text": "The last 120 closed bars of the chart timeframe with swings, the Protected level, liquidity zones, Bottom-out areas and the volume layers on one chart." },
-    { "title": "Position in the leg", "text": "Where the close sits in the current leg: the share recovered, the Bottom-out Stable and Confirm areas, and what a close above each one means." },
+    { "title": "Position in the leg", "text": "Where the close sits in the current leg: the share recovered, the Bottom-out Stable and Confirm areas (depth marks, not Fibonacci support), and what a close above each one means." },
     { "title": "Liquidity and sweeps", "text": "Equal highs and lows, the zones price is drawn to, and the sweeps that already happened." },
     { "title": "Volume layers (v5)", "text": "Order blocks with the volume traded inside them, the leg volume profile with POC and 70% value area, and Smart POC levels, when the bars carry volume." },
     { "title": "What changes the structure", "text": "Prices where a close turns the structure (CHoCH), continues it (BOS) or completes a Bottom-out. They describe state, not trade levels." }

@@ -21,17 +21,20 @@ const ITTO_SECTIONS: Section[] = [
 ];
 const ASTR_SECTIONS: Section[] = [
   { key: 'snap', name: 'Structure snapshot', jp: '一覧' },
+  { key: 'bottom', name: 'Bottom-out', jp: '底' },
   { key: 'map', name: 'Structure map', jp: '構造' },
+  { key: 'changes', name: 'CHoCH · BOS', jp: '転換' },
   { key: 'sides', name: 'Both sides', jp: '陽 · 陰' },
 ];
-/** `file` is the middle part of /ai-lab/report-<file>-<section>.webp; `heights` follow the sections' order. */
-function reelFor(sections: Section[], asset: string, command: string, preset: string, asof: string, file: string, heights: number[], tf = '1D') {
+/** `file` is the middle part of /ai-lab/report-<file>-<section>.webp; `heights` follow the sections' order.
+ *  `tfBy` gives a section its own timeframe when its image shows one other than `tf`. */
+function reelFor(sections: Section[], asset: string, command: string, preset: string, asof: string, file: string, heights: number[], tf = '1D', tfBy: Record<string, string> = {}) {
   return sections.map((sec, i) => ({
     asset,
     command,
     preset,
     asof,
-    tf,
+    tf: tfBy[sec.key] ?? tf,
     section: sec.name,
     jp: sec.jp,
     src: `/ai-lab/report-${file}-${sec.key}.webp`,
@@ -69,16 +72,16 @@ const SKILLS = [
   {
     slug: 'autostruct-read',
     command: 'autostruct-read-en',
-    version: '0.2',
-    released: '2026-10-31',
+    version: '0.3',
+    released: '2026-11-01',
     licence: 'MPL-2.0',
     companion: 'auto-market-structure-liquidity',
-    zip: { href: '/ai-lab/autostruct-read-en.zip', sizeKB: 38 },
+    zip: { href: '/ai-lab/autostruct-read-en.zip', sizeKB: 37 },
     /** No PDF guide yet: the page itself is the manual. */
     guide: undefined as Guide | undefined,
     reel: [
-      ...reelFor(ASTR_SECTIONS, 'OANDA:XAUUSD', 'autostruct-read-en OANDA:XAUUSD', 'Swing 2.0 × ATR', '2026-10-31', 'astr-xau', [226, 673, 244]),
-      ...reelFor(ASTR_SECTIONS, 'BITSTAMP:BTCUSD', 'autostruct-read-en BITSTAMP:BTCUSD', 'Swing 2.0 × ATR', '2026-10-31', 'astr-btc', [226, 673, 244]),
+      ...reelFor(ASTR_SECTIONS, 'OANDA:XAUUSD', 'autostruct-read-en OANDA:XAUUSD', 'Swing 2.0 × ATR', '2026-10-31', 'astr-xau', [226, 738, 673, 651, 244]),
+      ...reelFor(ASTR_SECTIONS, 'BITSTAMP:BTCUSD', 'autostruct-read-en BITSTAMP:BTCUSD', 'Swing 2.0 × ATR', '2026-10-31', 'astr-btc', [226, 738, 673, 651, 244], '1D', { bottom: '4H' }),
     ],
     content: { en: astrReadEn, th: astrReadTh } as Record<Lang, IttoContent | AstrContent>,
   },
