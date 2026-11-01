@@ -76,7 +76,7 @@
       ["Settings badge and header", "QUICK MODE or FULL MODE, swing size, Style, chart timeframe, the last price and the time of the newest bar. A ⚠ appears when the data is more than 4 days old."],
       ["Structure snapshot", "One tile per timeframe: Uptrend or Downtrend, the distance to the Protected level in ATR, and an alignment sentence: how many timeframes read like the higher one and where the chart timeframe sits in the next higher leg."],
       ["Summary", "The chart timeframe in four lines: structure since the last CHoCH, the leg and how much of it price has recovered, the Bottom-out areas, and the higher timeframe."],
-      ["Dashboard · 12 states (full mode)", "Per timeframe: State, State age, Reason, Next 10 bars (the usual 10-bar span in ATR), HTF, Move, Structure, Levels and Preset, with a strip of the last 120 closed bars coloured by state. The states name what price has been doing; they are not signals."],
+      ["Dashboard · 12 states (full mode)", "Per timeframe: State, State age, Reason, HTF, Move, Structure, Levels and Preset, with a strip of the last 120 closed bars coloured by state. The states name what price has been doing; they are not signals."],
       ["Structure map", "The last 120 closed bars with swings, the Protected level, liquidity zones, Bottom-out areas, order blocks, the leg POC and Smart POC levels."],
       ["Structure by timeframe", "Since CHoCH, BOS count, the last four swings (HH, HL, LH, LL), leg position, leg age · leg size against the symbol's own swing legs, and the last closed bar of each timeframe."],
       ["Recent events", "BOS, CHoCH and sweeps across all timeframes, newest first."],

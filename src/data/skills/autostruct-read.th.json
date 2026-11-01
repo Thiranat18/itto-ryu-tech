@@ -76,7 +76,7 @@
       ["ป้ายค่าที่ใช้และส่วนหัว", "QUICK MODE หรือ FULL MODE, swing size, Style, timeframe หลัก, ราคาล่าสุดและเวลาของแท่งใหม่สุด มี ⚠ เมื่อข้อมูลเก่ากว่า 4 วัน"],
       ["Structure snapshot", "หนึ่งช่องต่อ timeframe: Uptrend หรือ Downtrend ระยะถึง Protected level เป็น ATR และประโยคการเรียงตัว: กี่ timeframe อ่านเหมือน timeframe ที่ใหญ่กว่า และ timeframe หลักอยู่ตรงไหนในขาของ timeframe ที่ใหญ่กว่าถัดไป"],
       ["Summary", "Timeframe หลักในสี่บรรทัด: โครงสร้างตั้งแต่ CHoCH ล่าสุด ขาและสัดส่วนที่ราคาฟื้นแล้ว พื้นที่ Bottom-out และ timeframe ที่ใหญ่กว่า"],
-      ["Dashboard · 12 states (โหมดเต็ม)", "ต่อ timeframe: State, State age, Reason, Next 10 bars (ช่วงกว้างตามปกติของ 10 แท่งเป็น ATR), HTF, Move, Structure, Levels และ Preset พร้อมแถบ 120 แท่งปิดล่าสุดที่ลงสีตามสถานะ ชื่อสถานะบอกว่าราคาทำอะไรมา ไม่ใช่สัญญาณ"],
+      ["Dashboard · 12 states (โหมดเต็ม)", "ต่อ timeframe: State, State age, Reason, HTF, Move, Structure, Levels และ Preset พร้อมแถบ 120 แท่งปิดล่าสุดที่ลงสีตามสถานะ ชื่อสถานะบอกว่าราคาทำอะไรมา ไม่ใช่สัญญาณ"],
       ["Structure map", "120 แท่งปิดล่าสุดพร้อม swing, Protected level, โซน liquidity, พื้นที่ Bottom-out, order block, POC ของขาและระดับ Smart POC"],
       ["Structure by timeframe", "ตั้งแต่ CHoCH, จำนวน BOS, swing สี่ตัวล่าสุด (HH, HL, LH, LL), ตำแหน่งในขา, อายุของขา · ขนาดของขา เทียบกับขา swing ของสินทรัพย์นั้นเอง และแท่งปิดล่าสุดของแต่ละ timeframe"],
       ["Recent events", "BOS, CHoCH และ sweep ของทุก timeframe เรียงจากใหม่ไปเก่า"],
