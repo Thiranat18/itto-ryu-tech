@@ -160,9 +160,9 @@ export const indicators: Indicator[] = [
     category: 'Structure',
     summary: 'Structure, the level that would change it, and how far the leg has retraced.',
     howItWorks:
-      'Swings are confirmed once price reverses a set multiple of ATR(14), 2.0 by default, so swing highs and lows always alternate. A close beyond the last swing marks a BOS, and the swing on the other side becomes the Protected level. A close beyond the Protected level marks a CHoCH and turns the structure. A Fibonacci retracement is drawn on the same leg, from the Protected level (100%) to the extreme since it (0%), with 61.8% in gold. In a Bearish structure two Bottom-out areas are shaded: Stable at 23.6–38.2% and Confirm at 38.2–50%. Liquidity zones sit just beyond recent unswept pivot highs and lows. A dashboard reads the market state as TREND, READY or WAIT from momentum, path efficiency and volatility, each ranked against about one year of the same market.',
+      'Swings are confirmed once price reverses a set multiple of ATR(14), 2.0 by default, so swing highs and lows always alternate. A close beyond the last swing marks a BOS, and the swing on the other side becomes the Protected level. A close beyond the Protected level marks a CHoCH and turns the structure. A Fibonacci retracement is drawn on the same leg, from the Protected level (100%) to the extreme since it (0%), with 61.8% in gold. In a Bearish structure two Bottom-out areas are shaded on that leg as recovery-depth marks, measured up from the low: Stable at 23.6–38.2% and Confirm at 38.2–50% of the leg. They are depth marks, not Fibonacci support. Liquidity zones sit just beyond recent unswept pivot highs and lows. A dashboard reads the market state as TREND, READY or WAIT from momentum, path efficiency and volatility, each ranked against about one year of the same market.',
     howToUse:
-      'Set Market first: Classic, Crypto, FX & Gold or Custom trading days per year. Leave Style on Auto unless slower or faster states are wanted, and check the Preset row. Read the Structure row together with the Protected level: while closes stay on its side, the structure is unchanged. On a down leg, the Fibonacci and Bottom-out areas describe how much of the leg has been retraced. States, BOS, CHoCH, sweeps and alerts are set on closed bars; the Fibonacci 0% level and the ✓ marks follow the live bar until it closes.',
+      'Set Market first: Classic, Crypto, FX & Gold or Custom trading days per year. Leave Style on Auto unless slower or faster states are wanted, and check the Preset row. Read the Structure row together with the Protected level: while closes stay on its side, the structure is unchanged. On a down leg, the Bottom-out areas describe how much of the leg has been recovered from its low; they are depth marks, not Fibonacci support. States, BOS, CHoCH, sweeps and alerts are set on closed bars; the Fibonacci 0% level and the ✓ marks follow the live bar until it closes.',
     access: 'Open-source',
     url: 'https://www.tradingview.com/script/jkU2PlM7-Auto-Market-Structure-Liquidity-by-Itto-Ryu/',
     image: '/indicators/jkU2PlM7.jpg',
@@ -181,7 +181,7 @@ export const indicators: Indicator[] = [
         'Set Market first: it sets the one-year look-back behind every rank.',
         'Leave Style on Auto unless slower or faster states are wanted; the Preset row shows what is in use.',
         'Structure changes only at the Protected level, on a close. A wick beyond it is a sweep, not a break.',
-        'Fibonacci and Bottom-out areas share the structure leg: 100% is the Protected level, 0% the extreme since it.',
+        'Fibonacci lines and Bottom-out areas share the structure leg: 100% is the Protected level, 0% the extreme since it. The Bottom-out areas are recovery-depth marks, not Fibonacci support.',
         'Everything describes the chart now. Read it on closed bars; it forecasts no direction.',
       ],
       presetsLabel: 'Market presets',
@@ -197,12 +197,12 @@ export const indicators: Indicator[] = [
       { name: 'Style', value: 'Auto — follows chart TF', effect: 'Speed of states and swings: Scalp ≤ 15m, Swing 30m–4H, Position D+' },
       { name: 'Swing size (× ATR)', value: '2', effect: 'Reversal in ATR(14) that confirms a swing; larger = fewer swings' },
       { name: 'Fibonacci retracement', value: 'On', effect: 'Leg from the Protected level to the extreme since it, 61.8% in gold' },
-      { name: 'Bottom-out areas', value: 'On', effect: 'Stable 23.6–38.2% and Confirm 38.2–50%, Bearish structure only' },
+      { name: 'Bottom-out areas', value: 'On', effect: 'Recovery depth of a down leg, measured up from its low: Stable 23.6–38.2%, Confirm 38.2–50%; Bearish structure only' },
       { name: 'Color candles by', value: 'Off', effect: 'Off keeps your chart colours; Structure or State colour the candles' },
     ],
     notDo: [
       'It does not give signals or place orders. TREND, READY, WAIT, BOS, CHoCH and the ✓ marks describe the chart, not what to do.',
-      'It does not forecast. Bottom-out areas and the golden ratio are fixed Fibonacci conventions on the current leg, not tested signals. The Next 10 bars row gives a range width, not a direction.',
+      'It does not forecast. The Bottom-out areas are depth marks on the current down leg, not Fibonacci support, and neither they nor the golden ratio are tested signals. The Next 10 bars row gives a range width, not a direction.',
       'It does not suit Heikin Ashi, Renko or other non-standard charts. Swings, breaks and sweeps assume standard candles.',
     ],
     questions: [
@@ -212,7 +212,7 @@ export const indicators: Indicator[] = [
       },
       {
         q: 'When do the Bottom-out areas get a ✓?',
-        a: 'Only in a Bearish structure, on the same leg as the Fibonacci. Stable gets a ✓ when the last close is above 38.2% of the leg, Confirm when it is above 50%. The last bar may still be forming, so the ✓ can change until it closes. The structure itself turns only at the Protected High.',
+        a: 'Only in a Bearish structure, on the structure leg from the Protected High to its low. Stable gets a ✓ when the last close is above 38.2% of the leg, Confirm when it is above 50%. The marks say how much of the leg has been recovered, not that a bottom is in. The last bar may still be forming, so the ✓ can change until it closes. The structure itself turns only at the Protected High.',
       },
       {
         q: 'Which Market preset fits which chart?',

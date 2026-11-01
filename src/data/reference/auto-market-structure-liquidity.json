@@ -111,7 +111,7 @@
    "name": "Bottom-out areas",
    "value": "On",
    "range": "",
-   "effect": "Stable (23.6–38.2%) and Confirm (38.2–50%) boxes on the same leg, in a Bearish structure only"
+   "effect": "Recovery-depth marks on the structure leg, measured up from its low: Stable (23.6–38.2%) and Confirm (38.2–50%) boxes, Bearish structure only; not Fibonacci support"
   },
   {
    "group": "③ Levels on chart",
@@ -735,9 +735,9 @@
    "label": "Bottom-out Stable (light blue box)",
    "where": "price chart, Bearish structure only",
    "reading": "Not a trend reading",
-   "measures": "23.6–38.2% of the down leg, measured up from its low, on the same leg as the Fibonacci. The box runs from the low's bar to the right edge. Shown only in a Bearish structure.",
+   "measures": "23.6–38.2% of the down leg recovered, measured up from its low, on the structure leg from the Protected High. The box runs from the low's bar to the right edge. Shown only in a Bearish structure.",
    "setup": "",
-   "notMean": "Not a bottom call. A fixed Fibonacci convention, untested as a signal; the structure changes only at the Protected High.",
+   "notMean": "Not a bottom call and not Fibonacci support: a recovery-depth mark, untested as a signal; the structure changes only at the Protected High.",
    "check": "Where is the close relative to the box?"
   },
   {
@@ -747,7 +747,7 @@
    "reading": "Not a trend reading",
    "measures": "The last close, forming bar included, is above the top of the Stable area (38.2% of the leg). The ✓ can come and go until the bar closes.",
    "setup": "Retracement framing. Technicians often treat a partial recovery of a down leg as a description only, and wait for a CHoCH at the Protected High before reading a change.",
-   "notMean": "Not a signal and not a structure change. A fixed convention, untested as a signal.",
+   "notMean": "Not a signal and not a structure change. A recovery-depth mark, untested as a signal.",
    "check": "Has the bar closed, and where is the Protected High?"
   },
   {
@@ -757,7 +757,7 @@
    "reading": "Not a trend reading",
    "measures": "38.2–50% of the same down leg, directly above the Stable area, from the low's bar to the right edge. Shown only in a Bearish structure.",
    "setup": "",
-   "notMean": "Not a confirmed bottom despite the name. A fixed Fibonacci convention, untested as a signal.",
+   "notMean": "Not a confirmed bottom despite the name, and not Fibonacci support: a recovery-depth mark, untested as a signal.",
    "check": "How far is the box from the Protected High?"
   },
   {
@@ -767,7 +767,7 @@
    "reading": "Not a trend reading",
    "measures": "The last close, forming bar included, is above the top of the Confirm area (50% of the leg). The ✓ can come and go until the bar closes.",
    "setup": "Retracement framing. Technicians often treat a half recovery of a down leg as a description only, and wait for a CHoCH at the Protected High before reading a change.",
-   "notMean": "Not a signal and not a structure change; the structure is still Bearish. A fixed convention, untested as a signal.",
+   "notMean": "Not a signal and not a structure change; the structure is still Bearish. A recovery-depth mark, untested as a signal.",
    "check": "Has the bar closed, and where is the Protected High?"
   },
   {
