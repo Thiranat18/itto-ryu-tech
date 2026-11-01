@@ -72,7 +72,7 @@ const SKILLS = [
   {
     slug: 'autostruct-read',
     command: 'autostruct-read-en',
-    version: '0.5',
+    version: '0.5.1',
     released: '2026-11-01',
     licence: 'MPL-2.0',
     companion: 'auto-market-structure-liquidity',
