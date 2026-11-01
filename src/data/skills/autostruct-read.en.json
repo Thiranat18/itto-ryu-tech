@@ -82,7 +82,7 @@
       ["Recent events", "BOS, CHoCH and sweeps across all timeframes, newest first."],
       ["What changes the structure", "Per timeframe: the nearest change line first, then the close that makes a CHoCH and the close that makes the next BOS, each with its distance in ATR and in the 1D ATR (ATR_D), and the nearest liquidity. State, not trade levels."],
       ["Position in the down leg · Bottom-out", "For every timeframe in a Downtrend: below Stable, inside Stable, inside Confirm or above Confirm ✓, with a candlestick chart."],
-      ["Volume layers", "One chart per timeframe: the leg volume profile (24 rows) with POC and 70% value area, order blocks with their volume rank and Smart POC levels, plus the test evidence behind them."],
+      ["Volume layers", "One chart per timeframe: the leg volume profile (24 rows) with POC and 70% value area, order blocks with their volume rank and Smart POC levels."],
       ["Both sides", "What supports the current structure and what would change it, equal in weight, then a learning note."]
     ],
     "note": "Volume layers are reference levels that describe where the leg traded, not turning points. Print the page to PDF from your browser if you need a file."

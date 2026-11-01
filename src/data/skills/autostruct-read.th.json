@@ -82,7 +82,7 @@
       ["Recent events", "BOS, CHoCH และ sweep ของทุก timeframe เรียงจากใหม่ไปเก่า"],
       ["What changes the structure", "ต่อ timeframe: เส้นเปลี่ยนสถานะที่ใกล้ที่สุดก่อน แล้วราคาปิดที่ทำ CHoCH และราคาปิดที่ทำ BOS ถัดไป พร้อมระยะเป็น ATR และเป็น ATR ของ 1D (ATR_D) และ liquidity ที่ใกล้ที่สุด เป็นสถานะ ไม่ใช่ระดับสำหรับเทรด"],
       ["Position in the down leg · Bottom-out", "ทุก timeframe ที่เป็น Downtrend: ต่ำกว่า Stable, ใน Stable, ใน Confirm หรือเหนือ Confirm ✓ พร้อมกราฟแท่งเทียน"],
-      ["Volume layers", "หนึ่งกราฟต่อ timeframe: volume profile ของขา (24 แถว) พร้อม POC และ value area 70%, order block พร้อมอันดับ volume และระดับ Smart POC พร้อมหลักฐานการทดสอบ"],
+      ["Volume layers", "หนึ่งกราฟต่อ timeframe: volume profile ของขา (24 แถว) พร้อม POC และ value area 70%, order block พร้อมอันดับ volume และระดับ Smart POC"],
       ["Both sides", "อะไรสนับสนุนโครงสร้างปัจจุบัน และอะไรจะเปลี่ยนมัน น้ำหนักเท่ากัน ตามด้วยบันทึกการเรียนรู้"]
     ],
     "note": "ชั้น volume เป็นระดับอ้างอิงที่บอกว่าขานี้ซื้อขายกันตรงไหน ไม่ใช่จุดกลับตัว ถ้าต้องการไฟล์ สั่งพิมพ์หน้าเป็น PDF จากเบราว์เซอร์ได้"
