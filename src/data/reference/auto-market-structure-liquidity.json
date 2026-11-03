@@ -1,5 +1,5 @@
 {
- "version": "1.0",
+ "version": "2.0",
  "settings": [
   {
    "group": "① Start here — Market & Style",
@@ -49,6 +49,90 @@
    "value": "On",
    "range": "",
    "effect": "Purple zones beyond the last three unswept pivot highs and lows, with ◆ sweep marks; also needed for sweep alerts"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Order blocks + volume",
+   "value": "On",
+   "range": "",
+   "effect": "The last opposite-colour candle before a BOS or CHoCH move, from its high to its low, with the volume traded inside it; removed on a close through it"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Hide low-volume order blocks",
+   "value": "On",
+   "range": "",
+   "effect": "Hides blocks whose volume is in the lowest third of the last 30 blocks"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Order blocks per side",
+   "value": "4",
+   "range": "1 to 8",
+   "effect": "Live blocks kept on each side (Demand / Supply); the oldest is removed first"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Leg volume profile",
+   "value": "On",
+   "range": "",
+   "effect": "Volume at price from the Protected level to the last bar, drawn as rows right of price, with POC; each bar's volume is spread over its high–low range"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Profile anchor (bars back, 0 = auto)",
+   "value": "0",
+   "range": "0 to 1999",
+   "effect": "0 starts at the Protected level of the current leg (the latest swing when there is no trend); any other number starts that many bars back"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Profile rows",
+   "value": "24",
+   "range": "8 to 50",
+   "effect": "Number of price rows in the profile"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Width",
+   "value": "24",
+   "range": "10 to 80",
+   "effect": "How far the longest row reaches to the right, in bars"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Profile transparency",
+   "value": "82",
+   "range": "50 to 95",
+   "effect": "Higher = lighter rows; the POC and value-area rows are drawn stronger"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Smart POC levels",
+   "value": "On",
+   "range": "",
+   "effect": "POC of each finished swing leg, kept only when the leg's volume is at least the 20-leg average; a close through the level removes it"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Smart POC min volume (× 20-leg average)",
+   "value": "1",
+   "range": "0.5 to 3, step 0.1",
+   "effect": "Legs below this multiple of the recent average do not create a level"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Smart POC levels kept",
+   "value": "6",
+   "range": "1 to 12",
+   "effect": "Levels kept; the oldest is removed first"
+  },
+  {
+   "group": "③ Levels on chart",
+   "name": "Value area 70%",
+   "value": "On",
+   "range": "",
+   "effect": "Dotted lines at the top and bottom of the rows that hold 70% of the leg's volume around the POC"
   },
   {
    "group": "③ Levels on chart",
@@ -144,9 +228,9 @@
   {
    "group": "④ Dashboard",
    "name": "Expected range row",
-   "value": "On",
+   "value": "Off",
    "range": "",
-   "effect": "Shows the Next 10 bars row: a span of 2.07 to 5.71 × ATR(14), width only"
+   "effect": "Shows the Next 10 bars row: a typical high-to-low width for the next 10 bars, from ATR(14); width only, off by default"
   },
   {
    "group": "④ Dashboard",
@@ -224,6 +308,34 @@
    "value": "#FFD700",
    "range": "",
    "effect": "Fib 61.8% line"
+  },
+  {
+   "group": "⑤ Colors",
+   "name": "Demand block",
+   "value": "#7FB3D5",
+   "range": "",
+   "effect": "Demand order blocks (after an upward BOS or CHoCH)"
+  },
+  {
+   "group": "⑤ Colors",
+   "name": "Supply block",
+   "value": "#E6A29C",
+   "range": "",
+   "effect": "Supply order blocks (after a downward BOS or CHoCH)"
+  },
+  {
+   "group": "⑤ Colors",
+   "name": "Volume profile",
+   "value": "#9BB0C1",
+   "range": "",
+   "effect": "Leg volume profile rows and value-area lines"
+  },
+  {
+   "group": "⑤ Colors",
+   "name": "POC",
+   "value": "#E67E22",
+   "range": "",
+   "effect": "POC row and line of the leg profile, and Smart POC levels"
   },
   {
    "group": "⑥ Advanced (Style = Custom)",
@@ -362,7 +474,7 @@
  "states": [
   {
    "section": "Dashboard header",
-   "label": "流 TREND",
+   "label": "TREND",
    "where": "dashboard table, state row, left cell",
    "reading": "Uptrend or downtrend",
    "measures": "The group of the state beside it: Up, Down, Breakout Up, Breakdown, Sideways Up or Sideways Down. Header and state row turn green (up) or orange-red (down). Set on closed bars; the forming bar shows the last closed state.",
@@ -372,7 +484,7 @@
   },
   {
    "section": "Dashboard header",
-   "label": "昇 Up",
+   "label": "Up",
    "where": "dashboard table, state row, right cell",
    "reading": "Uptrend",
    "measures": "Clean path and strong momentum: smoothed Efficiency Ratio 0.30 or more and slow-momentum rank 66% or more over the look-back (on until ER drops below 0.25 or rank below 60%), with slow momentum at or above zero. Closed bars only.",
@@ -382,7 +494,7 @@
   },
   {
    "section": "Dashboard header",
-   "label": "降 Down",
+   "label": "Down",
    "where": "dashboard table, state row, right cell",
    "reading": "Downtrend",
    "measures": "Clean path and strong momentum: smoothed Efficiency Ratio 0.30 or more and slow-momentum rank 66% or more over the look-back (on until ER drops below 0.25 or rank below 60%), with slow momentum below zero. Closed bars only.",
@@ -392,7 +504,7 @@
   },
   {
    "section": "Dashboard header",
-   "label": "破 Breakout Up",
+   "label": "Breakout Up",
    "where": "dashboard table, state row, right cell",
    "reading": "Uptrend, leaving a compress box",
    "measures": "A closed bar ended above the top of a compress box of 3 bars or more, while the box was live (10 bars after it ends in Swing style), with fast momentum up and ER 0.30 or more. Kept 3 bars in Swing style and skips the hold rules.",
@@ -402,7 +514,7 @@
   },
   {
    "section": "Dashboard header",
-   "label": "破 Breakdown",
+   "label": "Breakdown",
    "where": "dashboard table, state row, right cell",
    "reading": "Downtrend, leaving a compress box",
    "measures": "A closed bar ended below the bottom of a compress box of 3 bars or more, while the box was live (10 bars after it ends in Swing style), with fast momentum down and ER 0.30 or more. Kept 3 bars in Swing style and skips the hold rules.",
@@ -412,7 +524,7 @@
   },
   {
    "section": "Dashboard header",
-   "label": "横 Sideways Up",
+   "label": "Sideways Up",
    "where": "dashboard table, state row, right cell",
    "reading": "Leaning up",
    "measures": "Trend conditions are off, but momentum rank is 33% or more (off below 28%) and the path is not choppy. The side comes from the state machine's trend memory, or from slow momentum when there is none. Swing High / Low lines show.",
@@ -422,7 +534,7 @@
   },
   {
    "section": "Dashboard header",
-   "label": "横 Sideways Down",
+   "label": "Sideways Down",
    "where": "dashboard table, state row, right cell",
    "reading": "Leaning down",
    "measures": "Trend conditions are off, but momentum rank is 33% or more (off below 28%) and the path is not choppy. The side comes from the state machine's trend memory, or from slow momentum when there is none. Swing High / Low lines show.",
@@ -432,7 +544,7 @@
   },
   {
    "section": "Dashboard header",
-   "label": "構 READY",
+   "label": "READY",
    "where": "dashboard table, state row, left cell",
    "reading": "Mixed, a pause inside or before a move",
    "measures": "The group of Pullback Up, Pullback Down and Compressed. Blue header and state row. A group change needs 3 bars in the new group, unless Volatile or Breakout takes over. Closed bars only.",
@@ -442,7 +554,7 @@
   },
   {
    "section": "Dashboard header",
-   "label": "押 Pullback Up",
+   "label": "Pullback Up",
    "where": "dashboard table, state row, right cell",
    "reading": "Uptrend, in a pullback",
    "measures": "The state machine still holds an up trend from Up or Breakout Up, fast momentum is below zero (or the state was already on), and the close sits between the Pullback Floor and the top of the Pullback zone: 0.5 to 2.0 ATR below the trend high with Mid ATR.",
@@ -452,7 +564,7 @@
   },
   {
    "section": "Dashboard header",
-   "label": "押 Pullback Down",
+   "label": "Pullback Down",
    "where": "dashboard table, state row, right cell",
    "reading": "Downtrend, in a bounce",
    "measures": "The state machine still holds a down trend from Down or Breakdown, fast momentum is above zero (or the state was already on), and the close sits between the Pullback Ceiling and the bottom of the Pullback zone: 0.5 to 2.0 ATR above the trend low with Mid ATR.",
@@ -462,7 +574,7 @@
   },
   {
    "section": "Dashboard header",
-   "label": "静 Compressed",
+   "label": "Compressed",
    "where": "dashboard table, state row, right cell",
    "reading": "Sideways or chop, compressed",
    "measures": "Volatility rank (ATR over the look-back) is in its lowest 10%, on until it rises above 15%, and trend conditions are off. A grey Compress box is drawn while volatility stays compressed.",
@@ -472,7 +584,7 @@
   },
   {
    "section": "Dashboard header",
-   "label": "待 WAIT",
+   "label": "WAIT",
    "where": "dashboard table, state row, left cell",
    "reading": "Sideways or chop",
    "measures": "The group of Chop, Volatile and Neutral. Orange header and state row; Swing High, Swing Low and Mid lines show. A group change needs 3 bars in the new group, unless Volatile or Breakout takes over.",
@@ -482,7 +594,7 @@
   },
   {
    "section": "Dashboard header",
-   "label": "揉 Chop",
+   "label": "Chop",
    "where": "dashboard table, state row, right cell",
    "reading": "Sideways or chop",
    "measures": "No clean path: smoothed ER below 0.25 (on until it reaches 0.30) and trend conditions off. Switching between Chop and Neutral needs 3 bars.",
@@ -492,17 +604,17 @@
   },
   {
    "section": "Dashboard header",
-   "label": "乱 Volatile",
+   "label": "Volatile",
    "where": "dashboard table, state row, right cell",
    "reading": "Mixed, very volatile",
    "measures": "Volatility rank 90% or more (on until below 85%) with no clean path (ER below 0.25). Skips the hold rules and clears the state machine's trend memory.",
    "setup": "A disorderly market. Technicians often widen any ATR-based risk frame, or stand aside until volatility settles.",
    "notMean": "Not a direction, and not a sign that a move is ending.",
-   "check": "How wide is the band in the Next 10 bars row?"
+   "check": "How high is the Vol rank in the Reason row?"
   },
   {
    "section": "Dashboard header",
-   "label": "中 Neutral",
+   "label": "Neutral",
    "where": "dashboard table, state row, right cell",
    "reading": "Mixed",
    "measures": "None of the other states applies, for example momentum too weak for Sideways while the path is not choppy. Often early in a turn. Switching between Neutral and Chop needs 3 bars.",
@@ -615,7 +727,7 @@
    "label": "Next 10 bars: range ≈ [a] – [b]",
    "where": "dashboard table, Next 10 bars row",
    "reading": "Not a trend reading",
-   "measures": "A range band from ATR(14) of the last closed bar: 2.07 × and 5.71 × ATR(14), as price distances, for the high-to-low span of the next 10 bars. It gives width, not direction.",
+   "measures": "Off by default. A range band from ATR(14) of the last closed bar, as price distances, for the high-to-low span of the next 10 bars. It gives width, not direction.",
    "setup": "Volatility sizing. Technicians often compare a risk frame or a range's height with this band to judge whether it is normal for the market.",
    "notMean": "Not price levels and not a direction; two widths only.",
    "check": "Is my own risk frame small or large next to this band?"
@@ -871,6 +983,56 @@
    "check": "Which three pivots is it drawn from?"
   },
   {
+   "section": "Volume layers",
+   "label": "Demand · vol [low / mid / high] [volume] (blue box)",
+   "where": "price chart, below price",
+   "reading": "Not a trend reading",
+   "measures": "The last down candle before an upward BOS or CHoCH move, from its high to its low. The label shows the volume traded inside the block while the move formed, ranked low, mid or high against the last 30 blocks. Removed on a close below it. Low-volume blocks are hidden by default.",
+   "setup": "Order-block framing. Technicians often note where a move that broke structure started, and how price behaves when it returns there.",
+   "notMean": "Not a turning point; it marks where the move started.",
+   "check": "Is the block's volume low, mid or high?"
+  },
+  {
+   "section": "Volume layers",
+   "label": "Supply · vol [low / mid / high] [volume] (red box)",
+   "where": "price chart, above price",
+   "reading": "Not a trend reading",
+   "measures": "The last up candle before a downward BOS or CHoCH move, from its high to its low, with the volume traded inside it ranked against the last 30 blocks. Removed on a close above it.",
+   "setup": "Order-block framing. Technicians often note where a move that broke structure started, and how price behaves when it returns there.",
+   "notMean": "Not a turning point; it marks where the move started.",
+   "check": "Has price come back to the block since it was drawn?"
+  },
+  {
+   "section": "Volume layers",
+   "label": "Leg volume profile (grey rows right of price)",
+   "where": "price chart, right of the last bar",
+   "reading": "Not a trend reading",
+   "measures": "Volume at price from the Protected level to the last bar, in 24 rows. Each bar's volume is spread over its high–low range, so it is an estimate from chart bars, not tick data. Rebuilt on the latest bar, forming bar included.",
+   "setup": "Volume-at-price framing. Technicians often look at where a leg traded most and where it traded least.",
+   "notMean": "Not support or resistance; it shows where the leg traded.",
+   "check": "Is the last close inside or outside the value area?"
+  },
+  {
+   "section": "Volume layers",
+   "label": "POC [price] · [share]% · [volume] (orange line)",
+   "where": "price chart, right of the last bar",
+   "reading": "Not a trend reading",
+   "measures": "The profile row with the most volume, with its share of the leg's volume and the leg's total volume. Dotted lines mark the 70% value area around it.",
+   "setup": "",
+   "notMean": "Not a magnet and not a level price must return to.",
+   "check": "How far is the last close from the POC, in ATR?"
+  },
+  {
+   "section": "Volume layers",
+   "label": "POC [price] · vol ×[n] (Smart POC, orange line)",
+   "where": "price chart, from the end of a finished leg",
+   "reading": "Not a trend reading",
+   "measures": "The POC of a finished swing leg whose volume was at least the average of the last 20 legs; vol ×[n] is that leg's volume against the average. Removed on a close through it. The last 6 are kept.",
+   "setup": "Reference-level framing. Technicians often note prices where a high-volume leg traded most, and how price behaves on its first return.",
+   "notMean": "Not a turning point or a target; a reference level only.",
+   "check": "Has price returned to this level since the leg ended?"
+  },
+  {
    "section": "Candles",
    "label": "Green, orange-red or grey candles (Color candles by = Structure)",
    "where": "price chart, candles",
@@ -905,7 +1067,7 @@
    "label": "Breakout Up",
    "where": "alert",
    "reading": "Uptrend, leaving a compress box",
-   "measures": "Fires on the closed bar where the state becomes 破 Breakout Up. Message: Auto Structure: Breakout Up on [ticker] [interval].",
+   "measures": "Fires on the closed bar where the state becomes Breakout Up. Message: Auto Structure: Breakout Up on [ticker] [interval].",
    "setup": "Volatility expansion after compression. Technicians often wait for a retest of the Breakout line before reading the move as established.",
    "notMean": "Not an instruction; it reports a state change.",
    "check": "Where did the bar close relative to the box?"
@@ -915,7 +1077,7 @@
    "label": "Breakdown",
    "where": "alert",
    "reading": "Downtrend, leaving a compress box",
-   "measures": "Fires on the closed bar where the state becomes 破 Breakdown. Message: Auto Structure: Breakdown on [ticker] [interval].",
+   "measures": "Fires on the closed bar where the state becomes Breakdown. Message: Auto Structure: Breakdown on [ticker] [interval].",
    "setup": "Volatility expansion after compression. Technicians often wait for a retest of the Breakdown line from below before reading the move as established.",
    "notMean": "Not an instruction; it reports a state change.",
    "check": "Where did the bar close relative to the box?"
@@ -952,10 +1114,40 @@
   },
   {
    "section": "Alerts",
+   "label": "Order block touched",
+   "where": "alert",
+   "reading": "Not a trend reading",
+   "measures": "Fires on the closed bar where price first reaches a live order block. Message: Auto Structure: price reached an order block on [ticker] [interval].",
+   "setup": "",
+   "notMean": "Not a reaction signal; it reports a touch only.",
+   "check": "Is it a Demand or a Supply block?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Bottom-out Stable ✓",
+   "where": "alert",
+   "reading": "Not a trend reading",
+   "measures": "Fires on the first closed bar above the Stable area of the current down leg (38.2% recovered); fires even when the areas are hidden. Message: Auto Structure: Bottom-out Stable ✓ on [ticker] [interval].",
+   "setup": "",
+   "notMean": "Not a bottom; it reports recovery depth.",
+   "check": "Where is the Protected High?"
+  },
+  {
+   "section": "Alerts",
+   "label": "Bottom-out Confirm ✓",
+   "where": "alert",
+   "reading": "Not a trend reading",
+   "measures": "Fires on the first closed bar above the Confirm area of the current down leg (50% recovered); fires even when the areas are hidden. Message: Auto Structure: Bottom-out Confirm ✓ on [ticker] [interval].",
+   "setup": "",
+   "notMean": "Not a confirmed bottom; the structure turns only at the Protected High.",
+   "check": "How far is the Protected High, in ATR?"
+  },
+  {
+   "section": "Alerts",
    "label": "Any alert() function call (JSON messages)",
    "where": "alert",
    "reading": "Not a trend reading",
-   "measures": "One alert for JSON events, once per bar close: group, breakout_up or breakdown, pullback_start, pullback_floor_crossed, flip_crossed (last opposite pivot of the trend memory), bos or choch with direction, sweep_high or sweep_low.",
+   "measures": "One alert for JSON events, once per bar close: group, breakout_up or breakdown, pullback_start, pullback_floor_crossed, flip_crossed (last opposite pivot of the trend memory), bos or choch with direction, sweep_high or sweep_low, order_block_touch, bottom_out_stable or bottom_out_confirm.",
    "setup": "",
    "notMean": "Not a signal feed; each message reports one event on a closed bar.",
    "check": "Which event does this message name?"

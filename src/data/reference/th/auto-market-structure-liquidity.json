@@ -36,6 +36,66 @@
    "effect": "โซนสีม่วงถัดจาก pivot high และ pivot low 3 ตัวล่าสุดที่ยังไม่ถูก sweep พร้อมเครื่องหมาย ◆ และต้องเปิดไว้ alert sweep จึงทำงาน"
   },
   {
+   "name": "Order blocks + volume",
+   "range": "",
+   "effect": "แท่งเทียนสีตรงข้ามแท่งสุดท้ายก่อนการเคลื่อนที่ที่ทำ BOS หรือ CHoCH วาดจาก high ถึง low พร้อมปริมาณซื้อขายภายในกล่อง และหายไปเมื่อราคาปิดทะลุ"
+  },
+  {
+   "name": "Hide low-volume order blocks",
+   "range": "",
+   "effect": "ซ่อนกล่องที่ปริมาณซื้อขายอยู่ในกลุ่มหนึ่งในสามต่ำสุดของ 30 กล่องล่าสุด"
+  },
+  {
+   "name": "Order blocks per side",
+   "range": "1 ถึง 8",
+   "effect": "จำนวนกล่องที่เก็บไว้แต่ละฝั่ง (Demand / Supply) กล่องที่เก่าที่สุดจะถูกลบก่อน"
+  },
+  {
+   "name": "Leg volume profile",
+   "range": "",
+   "effect": "ปริมาณซื้อขายตามระดับราคาจาก Protected level ถึงแท่งล่าสุด วาดเป็นแถวทางขวาของราคาพร้อม POC โดยกระจายปริมาณของแต่ละแท่งไปตามช่วง high–low ของแท่งนั้น"
+  },
+  {
+   "name": "Profile anchor (bars back, 0 = auto)",
+   "range": "0 ถึง 1999",
+   "effect": "0 คือเริ่มที่ Protected level ของขาปัจจุบัน (ใช้ swing ล่าสุดเมื่อไม่มีเทรนด์) ค่าอื่นคือเริ่มย้อนหลังตามจำนวนแท่งนั้น"
+  },
+  {
+   "name": "Profile rows",
+   "range": "8 ถึง 50",
+   "effect": "จำนวนแถวระดับราคาใน profile"
+  },
+  {
+   "name": "Width",
+   "range": "10 ถึง 80",
+   "effect": "ความยาวของแถวที่ยาวที่สุดไปทางขวา นับเป็นแท่ง"
+  },
+  {
+   "name": "Profile transparency",
+   "range": "50 ถึง 95",
+   "effect": "ค่ายิ่งมากแถวยิ่งจาง แถว POC และแถวใน value area จะเข้มกว่า"
+  },
+  {
+   "name": "Smart POC levels",
+   "range": "",
+   "effect": "POC ของแต่ละขา swing ที่จบแล้ว เก็บไว้เฉพาะขาที่ปริมาณซื้อขายไม่ต่ำกว่าค่าเฉลี่ย 20 ขา และหายไปเมื่อราคาปิดทะลุระดับ"
+  },
+  {
+   "name": "Smart POC min volume (× 20-leg average)",
+   "range": "0.5 ถึง 3 ทีละ 0.1",
+   "effect": "ขาที่ปริมาณซื้อขายต่ำกว่าค่าเท่านี้ของค่าเฉลี่ยจะไม่สร้างระดับ"
+  },
+  {
+   "name": "Smart POC levels kept",
+   "range": "1 ถึง 12",
+   "effect": "จำนวนระดับที่เก็บไว้ ระดับเก่าที่สุดจะถูกลบก่อน"
+  },
+  {
+   "name": "Value area 70%",
+   "range": "",
+   "effect": "เส้นจุดที่ขอบบนและขอบล่างของแถวที่รวมปริมาณซื้อขาย 70% ของขารอบ POC"
+  },
+  {
    "name": "Compress box",
    "range": "",
    "effect": "กล่องเส้นประสีเทาขณะที่ ATR rank อยู่ในกลุ่มต่ำสุด 10% เก็บไว้ 2 กล่องล่าสุด"
@@ -103,7 +163,7 @@
   {
    "name": "Expected range row",
    "range": "",
-   "effect": "แสดงแถว Next 10 bars: ช่วงกว้าง 2.07 ถึง 5.71 × ATR(14) บอกเฉพาะความกว้าง"
+   "effect": "แสดงแถว Next 10 bars: ความกว้างโดยทั่วไปจาก high ถึง low ของ 10 แท่งถัดไป คำนวณจาก ATR(14) บอกเฉพาะความกว้าง ปิดไว้เป็นค่าเริ่มต้น"
   },
   {
    "name": "Preset row",
@@ -159,6 +219,26 @@
    "name": "Golden ratio",
    "range": "",
    "effect": "เส้น Fib 61.8%"
+  },
+  {
+   "name": "Demand block",
+   "range": "",
+   "effect": "กล่อง Demand (หลัง BOS หรือ CHoCH ขาขึ้น)"
+  },
+  {
+   "name": "Supply block",
+   "range": "",
+   "effect": "กล่อง Supply (หลัง BOS หรือ CHoCH ขาลง)"
+  },
+  {
+   "name": "Volume profile",
+   "range": "",
+   "effect": "แถวของ leg volume profile และเส้น value area"
+  },
+  {
+   "name": "POC",
+   "range": "",
+   "effect": "แถวและเส้น POC ของ leg profile และระดับ Smart POC"
   },
   {
    "name": "Momentum short (bars)",
@@ -259,8 +339,8 @@
  "states": [
   {
    "section": "หัวตาราง dashboard",
-   "en": "流 TREND",
-   "label": "流 TREND",
+   "en": "TREND",
+   "label": "TREND",
    "where": "ตาราง dashboard, แถวสถานะ, ช่องซ้าย",
    "reading": "Uptrend หรือ Downtrend",
    "measures": "กลุ่มของ state ที่อยู่ข้าง ๆ: Up, Down, Breakout Up, Breakdown, Sideways Up หรือ Sideways Down หัวตารางและแถวสถานะเป็นสีเขียว (ขึ้น) หรือสีส้มแดง (ลง) กำหนดบนแท่งที่ปิดแล้ว แท่งที่ยังไม่ปิดจึงแสดงสถานะของแท่งที่ปิดล่าสุด",
@@ -270,8 +350,8 @@
   },
   {
    "section": "หัวตาราง dashboard",
-   "en": "昇 Up",
-   "label": "昇 Up",
+   "en": "Up",
+   "label": "Up",
    "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
    "reading": "Uptrend",
    "measures": "เส้นทางสะอาดและ momentum แรง: Efficiency Ratio ที่เกลี่ยแล้ว 0.30 ขึ้นไป และ rank ของ momentum ช้า 66% ขึ้นไปในช่วง look-back (คงอยู่จนกว่า ER ต่ำกว่า 0.25 หรือ rank ต่ำกว่า 60%) โดย momentum ช้าอยู่ที่ศูนย์หรือสูงกว่า ใช้เฉพาะแท่งที่ปิดแล้ว",
@@ -281,8 +361,8 @@
   },
   {
    "section": "หัวตาราง dashboard",
-   "en": "降 Down",
-   "label": "降 Down",
+   "en": "Down",
+   "label": "Down",
    "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
    "reading": "Downtrend",
    "measures": "เส้นทางสะอาดและ momentum แรง: Efficiency Ratio ที่เกลี่ยแล้ว 0.30 ขึ้นไป และ rank ของ momentum ช้า 66% ขึ้นไปในช่วง look-back (คงอยู่จนกว่า ER ต่ำกว่า 0.25 หรือ rank ต่ำกว่า 60%) โดย momentum ช้าต่ำกว่าศูนย์ ใช้เฉพาะแท่งที่ปิดแล้ว",
@@ -292,8 +372,8 @@
   },
   {
    "section": "หัวตาราง dashboard",
-   "en": "破 Breakout Up",
-   "label": "破 Breakout Up",
+   "en": "Breakout Up",
+   "label": "Breakout Up",
    "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
    "reading": "Uptrend, ออกจากกล่อง compress",
    "measures": "แท่งที่ปิดแล้วปิดเหนือขอบบนของกล่อง compress ที่ยาว 3 แท่งขึ้นไป ขณะที่กล่องยังมีผล (อีก 10 แท่งหลังกล่องจบใน Swing style) โดย momentum เร็วชี้ขึ้นและ ER 0.30 ขึ้นไป คงอยู่ 3 แท่งใน Swing style และข้ามกฎการคงสถานะ",
@@ -303,8 +383,8 @@
   },
   {
    "section": "หัวตาราง dashboard",
-   "en": "破 Breakdown",
-   "label": "破 Breakdown",
+   "en": "Breakdown",
+   "label": "Breakdown",
    "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
    "reading": "Downtrend, ออกจากกล่อง compress",
    "measures": "แท่งที่ปิดแล้วปิดใต้ขอบล่างของกล่อง compress ที่ยาว 3 แท่งขึ้นไป ขณะที่กล่องยังมีผล (อีก 10 แท่งหลังกล่องจบใน Swing style) โดย momentum เร็วชี้ลงและ ER 0.30 ขึ้นไป คงอยู่ 3 แท่งใน Swing style และข้ามกฎการคงสถานะ",
@@ -314,8 +394,8 @@
   },
   {
    "section": "หัวตาราง dashboard",
-   "en": "横 Sideways Up",
-   "label": "横 Sideways Up",
+   "en": "Sideways Up",
+   "label": "Sideways Up",
    "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
    "reading": "เอียงขึ้น",
    "measures": "เงื่อนไข trend ไม่ผ่าน แต่ rank ของ momentum อยู่ที่ 33% ขึ้นไป (ปิดเมื่อต่ำกว่า 28%) และเส้นทางไม่ chop ฝั่งมาจาก trend ที่ state machine จำไว้ หรือจาก momentum ช้าถ้าไม่มี trend ในความจำ เส้น Swing High / Low แสดงขึ้น",
@@ -325,8 +405,8 @@
   },
   {
    "section": "หัวตาราง dashboard",
-   "en": "横 Sideways Down",
-   "label": "横 Sideways Down",
+   "en": "Sideways Down",
+   "label": "Sideways Down",
    "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
    "reading": "เอียงลง",
    "measures": "เงื่อนไข trend ไม่ผ่าน แต่ rank ของ momentum อยู่ที่ 33% ขึ้นไป (ปิดเมื่อต่ำกว่า 28%) และเส้นทางไม่ chop ฝั่งมาจาก trend ที่ state machine จำไว้ หรือจาก momentum ช้าถ้าไม่มี trend ในความจำ เส้น Swing High / Low แสดงขึ้น",
@@ -336,8 +416,8 @@
   },
   {
    "section": "หัวตาราง dashboard",
-   "en": "構 READY",
-   "label": "構 READY",
+   "en": "READY",
+   "label": "READY",
    "where": "ตาราง dashboard, แถวสถานะ, ช่องซ้าย",
    "reading": "ไม่ชัดทาง, ช่วงพักระหว่างหรือก่อนการเคลื่อนไหว",
    "measures": "กลุ่มของ Pullback Up, Pullback Down และ Compressed หัวตารางและแถวสถานะเป็นสีน้ำเงิน การเปลี่ยนกลุ่มต้องอยู่ในกลุ่มใหม่ 3 แท่ง เว้นแต่ Volatile หรือ Breakout เข้ามาแทน ใช้เฉพาะแท่งที่ปิดแล้ว",
@@ -347,8 +427,8 @@
   },
   {
    "section": "หัวตาราง dashboard",
-   "en": "押 Pullback Up",
-   "label": "押 Pullback Up",
+   "en": "Pullback Up",
+   "label": "Pullback Up",
    "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
    "reading": "Uptrend, อยู่ในช่วง pullback",
    "measures": "state machine ยังจำ trend ขาขึ้นจาก Up หรือ Breakout Up, momentum เร็วต่ำกว่าศูนย์ (หรือ state นี้เปิดอยู่แล้ว) และราคาปิดอยู่ระหว่าง Pullback Floor กับขอบบนของ Pullback zone: ต่ำกว่าจุดสูงสุดของ trend 0.5 ถึง 2.0 ATR เมื่อใช้ ATR แบบ Mid",
@@ -358,8 +438,8 @@
   },
   {
    "section": "หัวตาราง dashboard",
-   "en": "押 Pullback Down",
-   "label": "押 Pullback Down",
+   "en": "Pullback Down",
+   "label": "Pullback Down",
    "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
    "reading": "Downtrend, อยู่ในช่วง bounce",
    "measures": "state machine ยังจำ trend ขาลงจาก Down หรือ Breakdown, momentum เร็วสูงกว่าศูนย์ (หรือ state นี้เปิดอยู่แล้ว) และราคาปิดอยู่ระหว่าง Pullback Ceiling กับขอบล่างของ Pullback zone: สูงกว่าจุดต่ำสุดของ trend 0.5 ถึง 2.0 ATR เมื่อใช้ ATR แบบ Mid",
@@ -369,8 +449,8 @@
   },
   {
    "section": "หัวตาราง dashboard",
-   "en": "静 Compressed",
-   "label": "静 Compressed",
+   "en": "Compressed",
+   "label": "Compressed",
    "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
    "reading": "Sideways หรือ chop, ความผันผวนบีบตัว",
    "measures": "volatility rank (ATR ในช่วง look-back) อยู่ในกลุ่มต่ำสุด 10% และคงอยู่จนกว่าจะสูงกว่า 15% โดยเงื่อนไข trend ไม่ผ่าน ระหว่างที่ความผันผวนยังบีบตัวจะมีกล่อง Compress สีเทา",
@@ -380,8 +460,8 @@
   },
   {
    "section": "หัวตาราง dashboard",
-   "en": "待 WAIT",
-   "label": "待 WAIT",
+   "en": "WAIT",
+   "label": "WAIT",
    "where": "ตาราง dashboard, แถวสถานะ, ช่องซ้าย",
    "reading": "Sideways หรือ chop",
    "measures": "กลุ่มของ Chop, Volatile และ Neutral หัวตารางและแถวสถานะเป็นสีส้ม มีเส้น Swing High, Swing Low และ Mid การเปลี่ยนกลุ่มต้องอยู่ในกลุ่มใหม่ 3 แท่ง เว้นแต่ Volatile หรือ Breakout เข้ามาแทน",
@@ -391,8 +471,8 @@
   },
   {
    "section": "หัวตาราง dashboard",
-   "en": "揉 Chop",
-   "label": "揉 Chop",
+   "en": "Chop",
+   "label": "Chop",
    "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
    "reading": "Sideways หรือ chop",
    "measures": "เส้นทางไม่สะอาด: ER ที่เกลี่ยแล้วต่ำกว่า 0.25 (คงอยู่จนกว่าจะถึง 0.30) และเงื่อนไข trend ไม่ผ่าน การสลับระหว่าง Chop กับ Neutral ต้องใช้ 3 แท่ง",
@@ -402,19 +482,19 @@
   },
   {
    "section": "หัวตาราง dashboard",
-   "en": "乱 Volatile",
-   "label": "乱 Volatile",
+   "en": "Volatile",
+   "label": "Volatile",
    "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
    "reading": "ไม่ชัดทาง, ผันผวนสูงมาก",
    "measures": "volatility rank 90% ขึ้นไป (คงอยู่จนกว่าจะต่ำกว่า 85%) และเส้นทางไม่สะอาด (ER ต่ำกว่า 0.25) ข้ามกฎการคงสถานะ และล้างความจำ trend ของ state machine",
    "setup": "ตลาดที่ไร้ระเบียบ นักวิเคราะห์ทางเทคนิคมักขยายกรอบความเสี่ยงที่อิง ATR หรือรอดูจนความผันผวนสงบลง",
    "notMean": "ไม่ได้บอกทิศทาง และไม่ใช่สัญญาณว่าการเคลื่อนไหวกำลังจบ",
-   "check": "แถบในแถว Next 10 bars กว้างแค่ไหน"
+   "check": "Vol rank ในแถว Reason สูงแค่ไหน"
   },
   {
    "section": "หัวตาราง dashboard",
-   "en": "中 Neutral",
-   "label": "中 Neutral",
+   "en": "Neutral",
+   "label": "Neutral",
    "where": "ตาราง dashboard, แถวสถานะ, ช่องขวา",
    "reading": "ไม่ชัดทาง",
    "measures": "ไม่เข้า state อื่นเลย เช่น momentum อ่อนเกินกว่าจะเป็น Sideways แต่เส้นทางก็ไม่ chop มักเกิดช่วงต้นของการเปลี่ยนทิศ การสลับระหว่าง Neutral กับ Chop ต้องใช้ 3 แท่ง",
@@ -538,7 +618,7 @@
    "label": "Next 10 bars: range ≈ [a] – [b]",
    "where": "ตาราง dashboard, แถว Next 10 bars",
    "reading": "ไม่ใช่ค่าบอกเทรนด์",
-   "measures": "แถบช่วงกว้างจาก ATR(14) ของแท่งที่ปิดล่าสุด: 2.07 × และ 5.71 × ATR(14) แสดงเป็นระยะราคา สำหรับระยะจากจุดสูงสุดถึงจุดต่ำสุดของ 10 แท่งถัดไป บอกความกว้าง ไม่ได้บอกทิศทาง",
+   "measures": "ปิดไว้เป็นค่าเริ่มต้น แถบช่วงกว้างจาก ATR(14) ของแท่งที่ปิดล่าสุด แสดงเป็นระยะราคา สำหรับระยะจากจุดสูงสุดถึงจุดต่ำสุดของ 10 แท่งถัดไป บอกความกว้าง ไม่ได้บอกทิศทาง",
    "setup": "การประเมินขนาดความผันผวน นักวิเคราะห์ทางเทคนิคมักเทียบกรอบความเสี่ยงหรือความสูงของกรอบราคากับแถบนี้ เพื่อดูว่าปกติสำหรับตลาดนั้นหรือไม่",
    "notMean": "ไม่ใช่ระดับราคาและไม่ใช่ทิศทาง เป็นแค่ความกว้าง 2 ค่า",
    "check": "กรอบความเสี่ยงของตัวเองเล็กหรือใหญ่เมื่อเทียบกับแถบนี้"
@@ -819,6 +899,61 @@
    "check": "เส้นเหล่านี้วาดจาก pivot 3 จุดใด"
   },
   {
+   "section": "ชั้น volume",
+   "en": "Demand · vol [low / mid / high] [volume] (blue box)",
+   "label": "Demand · vol [low / mid / high] [volume] (กล่องสีฟ้า)",
+   "where": "ชาร์ตราคา, ใต้ราคา",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "แท่งลงแท่งสุดท้ายก่อนการเคลื่อนที่ที่ทำ BOS หรือ CHoCH ขาขึ้น วาดจาก high ถึง low ป้ายแสดงปริมาณซื้อขายภายในกล่องระหว่างที่การเคลื่อนที่เกิดขึ้น จัดเป็น low, mid หรือ high เทียบกับ 30 กล่องล่าสุด หายไปเมื่อราคาปิดต่ำกว่ากล่อง กล่อง low ถูกซ่อนเป็นค่าเริ่มต้น",
+   "setup": "การวางกรอบด้วย order block นักวิเคราะห์ทางเทคนิคมักจดว่าการเคลื่อนที่ที่ทำลายโครงสร้างเริ่มจากตรงไหน และราคามีพฤติกรรมอย่างไรเมื่อกลับมาที่นั่น",
+   "notMean": "ไม่ใช่จุดกลับตัว แค่บอกว่าการเคลื่อนที่เริ่มจากตรงไหน",
+   "check": "ปริมาณซื้อขายของกล่องเป็น low, mid หรือ high"
+  },
+  {
+   "section": "ชั้น volume",
+   "en": "Supply · vol [low / mid / high] [volume] (red box)",
+   "label": "Supply · vol [low / mid / high] [volume] (กล่องสีแดง)",
+   "where": "ชาร์ตราคา, เหนือราคา",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "แท่งขึ้นแท่งสุดท้ายก่อนการเคลื่อนที่ที่ทำ BOS หรือ CHoCH ขาลง วาดจาก high ถึง low พร้อมปริมาณซื้อขายภายในกล่องที่จัดอันดับเทียบกับ 30 กล่องล่าสุด หายไปเมื่อราคาปิดเหนือกล่อง",
+   "setup": "การวางกรอบด้วย order block นักวิเคราะห์ทางเทคนิคมักจดว่าการเคลื่อนที่ที่ทำลายโครงสร้างเริ่มจากตรงไหน และราคามีพฤติกรรมอย่างไรเมื่อกลับมาที่นั่น",
+   "notMean": "ไม่ใช่จุดกลับตัว แค่บอกว่าการเคลื่อนที่เริ่มจากตรงไหน",
+   "check": "ราคากลับมาที่กล่องนี้แล้วหรือยังหลังจากวาด"
+  },
+  {
+   "section": "ชั้น volume",
+   "en": "Leg volume profile (grey rows right of price)",
+   "label": "Leg volume profile (แถวสีเทาทางขวาของราคา)",
+   "where": "ชาร์ตราคา, ทางขวาของแท่งล่าสุด",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "ปริมาณซื้อขายตามระดับราคาจาก Protected level ถึงแท่งล่าสุด แบ่งเป็น 24 แถว กระจายปริมาณของแต่ละแท่งไปตามช่วง high–low จึงเป็นค่าประมาณจากแท่งบนชาร์ต ไม่ใช่ข้อมูล tick คำนวณใหม่บนแท่งล่าสุดรวมแท่งที่ยังไม่ปิด",
+   "setup": "การวางกรอบด้วยปริมาณซื้อขายตามราคา นักวิเคราะห์ทางเทคนิคมักดูว่าขานั้นมีการซื้อขายมากที่สุดและน้อยที่สุดที่ระดับไหน",
+   "notMean": "ไม่ใช่แนวรับหรือแนวต้าน แค่บอกว่าขานั้นซื้อขายกันที่ระดับไหน",
+   "check": "ราคาปิดล่าสุดอยู่ในหรือนอก value area"
+  },
+  {
+   "section": "ชั้น volume",
+   "en": "POC [price] · [share]% · [volume] (orange line)",
+   "label": "POC [price] · [share]% · [volume] (เส้นสีส้ม)",
+   "where": "ชาร์ตราคา, ทางขวาของแท่งล่าสุด",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "แถวใน profile ที่มีปริมาณซื้อขายมากที่สุด พร้อมสัดส่วนต่อปริมาณทั้งขาและปริมาณรวมของขา เส้นจุดแสดง value area 70% รอบ POC",
+   "setup": "",
+   "notMean": "ไม่ใช่แม่เหล็ก และไม่ใช่ระดับที่ราคาต้องกลับมา",
+   "check": "ราคาปิดล่าสุดห่างจาก POC กี่ ATR"
+  },
+  {
+   "section": "ชั้น volume",
+   "en": "POC [price] · vol ×[n] (Smart POC, orange line)",
+   "label": "POC [price] · vol ×[n] (Smart POC, เส้นสีส้ม)",
+   "where": "ชาร์ตราคา, จากปลายขาที่จบแล้ว",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "POC ของขา swing ที่จบแล้วซึ่งมีปริมาณซื้อขายไม่ต่ำกว่าค่าเฉลี่ย 20 ขาล่าสุด vol ×[n] คือปริมาณของขานั้นเทียบกับค่าเฉลี่ย หายไปเมื่อราคาปิดทะลุ เก็บไว้ 6 ระดับล่าสุด",
+   "setup": "การวางกรอบด้วยระดับอ้างอิง นักวิเคราะห์ทางเทคนิคมักจดระดับราคาที่ขาที่มีปริมาณซื้อขายสูงซื้อขายกันมากที่สุด และพฤติกรรมราคาเมื่อกลับมาครั้งแรก",
+   "notMean": "ไม่ใช่จุดกลับตัวหรือเป้าหมาย เป็นเพียงระดับอ้างอิง",
+   "check": "ราคากลับมาที่ระดับนี้แล้วหรือยังหลังขาจบ"
+  },
+  {
    "section": "แท่งเทียน",
    "en": "Green, orange-red or grey candles (Color candles by = Structure)",
    "label": "แท่งเทียนสีเขียว สีส้มแดง หรือสีเทา (Color candles by = Structure)",
@@ -857,7 +992,7 @@
    "label": "Breakout Up",
    "where": "alert",
    "reading": "Uptrend, ออกจากกล่อง compress",
-   "measures": "แจ้งเตือนบนแท่งที่ปิดแล้วซึ่ง state เปลี่ยนเป็น 破 Breakout Up ข้อความ: Auto Structure: Breakout Up on [ticker] [interval]",
+   "measures": "แจ้งเตือนบนแท่งที่ปิดแล้วซึ่ง state เปลี่ยนเป็น Breakout Up ข้อความ: Auto Structure: Breakout Up on [ticker] [interval]",
    "setup": "ความผันผวนขยายตัวหลังช่วงบีบตัว นักวิเคราะห์ทางเทคนิคมักรอให้ราคากลับมาทดสอบเส้น Breakout ก่อนจะอ่านว่าการเคลื่อนไหวเกิดขึ้นจริง",
    "notMean": "ไม่ใช่คำสั่ง แค่รายงานว่า state เปลี่ยน",
    "check": "แท่งปิดอยู่ตรงไหนเมื่อเทียบกับกล่อง"
@@ -868,7 +1003,7 @@
    "label": "Breakdown",
    "where": "alert",
    "reading": "Downtrend, ออกจากกล่อง compress",
-   "measures": "แจ้งเตือนบนแท่งที่ปิดแล้วซึ่ง state เปลี่ยนเป็น 破 Breakdown ข้อความ: Auto Structure: Breakdown on [ticker] [interval]",
+   "measures": "แจ้งเตือนบนแท่งที่ปิดแล้วซึ่ง state เปลี่ยนเป็น Breakdown ข้อความ: Auto Structure: Breakdown on [ticker] [interval]",
    "setup": "ความผันผวนขยายตัวหลังช่วงบีบตัว นักวิเคราะห์ทางเทคนิคมักรอให้ราคากลับขึ้นมาทดสอบเส้น Breakdown จากด้านล่าง ก่อนจะอ่านว่าการเคลื่อนไหวเกิดขึ้นจริง",
    "notMean": "ไม่ใช่คำสั่ง แค่รายงานว่า state เปลี่ยน",
    "check": "แท่งปิดอยู่ตรงไหนเมื่อเทียบกับกล่อง"
@@ -908,11 +1043,44 @@
   },
   {
    "section": "Alert",
+   "en": "Order block touched",
+   "label": "Order block touched",
+   "where": "alert",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "แจ้งเตือนบนแท่งที่ปิดแล้วที่ราคาแตะ order block ที่ยังอยู่เป็นครั้งแรก ข้อความ: Auto Structure: price reached an order block on [ticker] [interval]",
+   "setup": "",
+   "notMean": "ไม่ใช่สัญญาณว่าราคาจะตอบสนอง แค่รายงานว่าแตะ",
+   "check": "เป็นกล่อง Demand หรือ Supply"
+  },
+  {
+   "section": "Alert",
+   "en": "Bottom-out Stable ✓",
+   "label": "Bottom-out Stable ✓",
+   "where": "alert",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "แจ้งเตือนบนแท่งที่ปิดแล้วแท่งแรกที่อยู่เหนือพื้นที่ Stable ของขาลงปัจจุบัน (ฟื้นมาแล้ว 38.2%) ทำงานแม้ซ่อนพื้นที่ไว้ ข้อความ: Auto Structure: Bottom-out Stable ✓ on [ticker] [interval]",
+   "setup": "",
+   "notMean": "ไม่ใช่จุดต่ำสุด แค่รายงานความลึกของการฟื้น",
+   "check": "Protected High อยู่ที่ไหน"
+  },
+  {
+   "section": "Alert",
+   "en": "Bottom-out Confirm ✓",
+   "label": "Bottom-out Confirm ✓",
+   "where": "alert",
+   "reading": "ไม่ใช่ค่าบอกเทรนด์",
+   "measures": "แจ้งเตือนบนแท่งที่ปิดแล้วแท่งแรกที่อยู่เหนือพื้นที่ Confirm ของขาลงปัจจุบัน (ฟื้นมาแล้ว 50%) ทำงานแม้ซ่อนพื้นที่ไว้ ข้อความ: Auto Structure: Bottom-out Confirm ✓ on [ticker] [interval]",
+   "setup": "",
+   "notMean": "ไม่ใช่การยืนยันจุดต่ำสุด โครงสร้างจะเปลี่ยนทิศที่ Protected High เท่านั้น",
+   "check": "Protected High ห่างกี่ ATR"
+  },
+  {
+   "section": "Alert",
    "en": "Any alert() function call (JSON messages)",
    "label": "Any alert() function call (JSON messages)",
    "where": "alert",
    "reading": "ไม่ใช่ค่าบอกเทรนด์",
-   "measures": "alert เดียวสำหรับ event แบบ JSON ครั้งเดียวต่อการปิดแท่ง: group, breakout_up หรือ breakdown, pullback_start, pullback_floor_crossed, flip_crossed (pivot ฝั่งตรงข้ามล่าสุดของ trend ในความจำ), bos หรือ choch พร้อม direction, sweep_high หรือ sweep_low",
+   "measures": "alert เดียวสำหรับ event แบบ JSON ครั้งเดียวต่อการปิดแท่ง: group, breakout_up หรือ breakdown, pullback_start, pullback_floor_crossed, flip_crossed (pivot ฝั่งตรงข้ามล่าสุดของ trend ในความจำ), bos หรือ choch พร้อม direction, sweep_high หรือ sweep_low, order_block_touch, bottom_out_stable หรือ bottom_out_confirm",
    "setup": "",
    "notMean": "ไม่ใช่ช่องทางส่งสัญญาณ แต่ละข้อความรายงาน event เดียวบนแท่งที่ปิดแล้ว",
    "check": "ข้อความนี้ระบุ event ใด"

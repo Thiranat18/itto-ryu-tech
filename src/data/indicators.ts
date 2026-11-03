@@ -38,7 +38,11 @@ export type Indicator = {
       | 'boS'
       | 'boC'
       | 'liq'
-      | 'pb';
+      | 'pb'
+      | 'obD'
+      | 'obS'
+      | 'vp'
+      | 'poc';
     label: string;
   }[];
   /** Date the guide was last checked against the published script (YYYY-MM-DD). */
@@ -158,17 +162,17 @@ export const indicators: Indicator[] = [
     name: 'Auto Market Structure & Liquidity',
     tvTitle: 'Auto Market Structure & Liquidity by [Itto-Ryu]',
     category: 'Structure',
-    summary: 'Structure, the level that would change it, and how far the leg has retraced.',
+    summary: 'Structure, the level that would change it, how far the leg has retraced, and where it traded.',
     howItWorks:
-      'Swings are confirmed once price reverses a set multiple of ATR(14), 2.0 by default, so swing highs and lows always alternate. A close beyond the last swing marks a BOS, and the swing on the other side becomes the Protected level. A close beyond the Protected level marks a CHoCH and turns the structure. A Fibonacci retracement is drawn on the same leg, from the Protected level (100%) to the extreme since it (0%), with 61.8% in gold. In a Bearish structure two Bottom-out areas are shaded on that leg as recovery-depth marks, measured up from the low: Stable at 23.6–38.2% and Confirm at 38.2–50% of the leg. They are depth marks, not Fibonacci support. Liquidity zones sit just beyond recent unswept pivot highs and lows. A dashboard reads the market state as TREND, READY or WAIT from momentum, path efficiency and volatility, each ranked against about one year of the same market.',
+      'Swings are confirmed once price reverses a set multiple of ATR(14), 2.0 by default, so swing highs and lows always alternate. A close beyond the last swing marks a BOS, and the swing on the other side becomes the Protected level. A close beyond the Protected level marks a CHoCH and turns the structure. A Fibonacci retracement is drawn on the same leg, from the Protected level (100%) to the extreme since it (0%), with 61.8% in gold. In a Bearish structure two Bottom-out areas are shaded on that leg as recovery-depth marks, measured up from the low: Stable at 23.6–38.2% and Confirm at 38.2–50% of the leg. They are depth marks, not Fibonacci support. Liquidity zones sit just beyond recent unswept pivot highs and lows. When the symbol has volume, three volume layers follow the same structure: order blocks mark the last opposite candle before each BOS or CHoCH move, with the volume traded inside it; the leg volume profile shows volume at price from the Protected level to the last bar, with its POC and 70% value area; and Smart POC levels keep the POC of each finished swing leg whose volume was at least the recent average. A dashboard reads the market state as TREND, READY or WAIT from momentum, path efficiency and volatility, each ranked against about one year of the same market.',
     howToUse:
-      'Set Market first: Classic, Crypto, FX & Gold or Custom trading days per year. Leave Style on Auto unless slower or faster states are wanted, and check the Preset row. Read the Structure row together with the Protected level: while closes stay on its side, the structure is unchanged. On a down leg, the Bottom-out areas describe how much of the leg has been recovered from its low; they are depth marks, not Fibonacci support. States, BOS, CHoCH, sweeps and alerts are set on closed bars; the Fibonacci 0% level and the ✓ marks follow the live bar until it closes.',
+      'Set Market first: Classic, Crypto, FX & Gold or Custom trading days per year. Leave Style on Auto unless slower or faster states are wanted, and check the Preset row. Read the Structure row together with the Protected level: while closes stay on its side, the structure is unchanged. On a down leg, the Bottom-out areas describe how much of the leg has been recovered from its low; they are depth marks, not Fibonacci support. The volume layers show where the leg traded most; they are reference levels, not turning points. States, BOS, CHoCH, sweeps and alerts are set on closed bars; the Fibonacci 0% level and the ✓ marks follow the live bar until it closes.',
     access: 'Open-source',
     url: 'https://www.tradingview.com/script/jkU2PlM7-Auto-Market-Structure-Liquidity-by-Itto-Ryu/',
     image: '/indicators/jkU2PlM7.jpg',
     imageWidth: 1200,
     imageHeight: 648,
-    tended: '2026-10-30',
+    tended: '2026-11-03',
     manual: {
       title: 'Setup & Reading Guide',
       summary:
@@ -198,11 +202,14 @@ export const indicators: Indicator[] = [
       { name: 'Swing size (× ATR)', value: '2', effect: 'Reversal in ATR(14) that confirms a swing; larger = fewer swings' },
       { name: 'Fibonacci retracement', value: 'On', effect: 'Leg from the Protected level to the extreme since it, 61.8% in gold' },
       { name: 'Bottom-out areas', value: 'On', effect: 'Recovery depth of a down leg, measured up from its low: Stable 23.6–38.2%, Confirm 38.2–50%; Bearish structure only' },
+      { name: 'Order blocks + volume', value: 'On', effect: 'Last opposite candle before a BOS or CHoCH move, with the volume traded in it; low-volume blocks hidden' },
+      { name: 'Leg volume profile', value: 'On', effect: 'Volume at price from the Protected level to the last bar, with POC and 70% value area' },
+      { name: 'Smart POC levels', value: 'On', effect: 'POC of each finished swing leg with at least the 20-leg average volume' },
       { name: 'Color candles by', value: 'Off', effect: 'Off keeps your chart colours; Structure or State colour the candles' },
     ],
     notDo: [
       'It does not give signals or place orders. TREND, READY, WAIT, BOS, CHoCH and the ✓ marks describe the chart, not what to do.',
-      'It does not forecast. The Bottom-out areas are depth marks on the current down leg, not Fibonacci support, and neither they nor the golden ratio are tested signals. The Next 10 bars row gives a range width, not a direction.',
+      'It does not forecast. The Bottom-out areas are depth marks on the current down leg, not Fibonacci support, and neither they nor the golden ratio are tested signals. Order blocks, the POC and Smart POC levels show where price traded, not where it will turn.',
       'It does not suit Heikin Ashi, Renko or other non-standard charts. Swings, breaks and sweeps assume standard candles.',
     ],
     questions: [
@@ -228,6 +235,10 @@ export const indicators: Indicator[] = [
       { swatch: 'boC', label: 'Bottom-out Confirm, 38.2–50% of a down leg' },
       { swatch: 'liq', label: 'Liquidity zones beyond recent pivots, ◆ marks a sweep' },
       { swatch: 'pb', label: 'Pullback zone with its Floor or Ceiling' },
+      { swatch: 'obD', label: 'Demand order block with its volume, low / mid / high' },
+      { swatch: 'obS', label: 'Supply order block with its volume, low / mid / high' },
+      { swatch: 'vp', label: 'Leg volume profile, rows right of price, value area dotted' },
+      { swatch: 'poc', label: 'POC of the leg, and Smart POC levels of finished legs' },
     ],
   },
   {
