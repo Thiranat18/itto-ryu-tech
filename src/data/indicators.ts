@@ -168,7 +168,7 @@ export const indicators: Indicator[] = [
     howToUse:
       'Set Market first: Classic, Crypto, FX & Gold or Custom trading days per year. Leave Style on Auto unless slower or faster states are wanted, and check the Preset row. Read the Structure row together with the Protected level: while closes stay on its side, the structure is unchanged. On a down leg, the Bottom-out areas describe how much of the leg has been recovered from its low; they are depth marks, not Fibonacci support. The volume layers show where the leg traded most; they are reference levels, not turning points. States, BOS, CHoCH, sweeps and alerts are set on closed bars; the Fibonacci 0% level and the ✓ marks follow the live bar until it closes.',
     access: 'Open-source',
-    url: 'https://www.tradingview.com/script/jkU2PlM7-Auto-Market-Structure-Liquidity-by-Itto-Ryu/',
+    url: 'https://www.tradingview.com/script/K7rjO3XU-Auto-Market-Structure-Liquidity-by-Itto-Ryu/',
     image: '/indicators/jkU2PlM7.jpg',
     imageWidth: 1200,
     imageHeight: 648,
